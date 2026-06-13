@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { learningTopics } from "@/config/learning";
-import { BookOpen, Code2, Network, Dices, ArrowRight } from "lucide-react";
+import { learningTopics, getAllTopicFiles } from "@/config/learning";
+import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers } from "lucide-react";
 
 const iconMap: Record<string, typeof BookOpen> = {
   Python: Code2,
@@ -26,6 +26,8 @@ export default function StudyHubPage() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {learningTopics.map((topic) => {
           const Icon = iconMap[topic.icon ?? ""] || BookOpen;
+          const totalFiles = getAllTopicFiles(topic).length;
+          const hasGroups = topic.groups.length > 0;
           return (
             <Link
               key={topic.slug}
@@ -43,7 +45,16 @@ export default function StudyHubPage() {
                 {topic.description}
               </p>
               <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
-                <span>{topic.files.length} files</span>
+                <span className="flex items-center gap-1">
+                  <FileText className="size-3" />
+                  {totalFiles} {totalFiles === 1 ? "file" : "files"}
+                </span>
+                {hasGroups && (
+                  <span className="flex items-center gap-1">
+                    <Layers className="size-3" />
+                    {topic.groups.length} {topic.groups.length === 1 ? "section" : "sections"}
+                  </span>
+                )}
               </div>
             </Link>
           );

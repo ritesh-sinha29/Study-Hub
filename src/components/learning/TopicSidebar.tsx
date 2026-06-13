@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import {
   Sidebar,
@@ -13,7 +13,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { ChevronLeft, ChevronDown, ChevronRight, FileText, HelpCircle } from "lucide-react";
+import { ChevronLeft, ChevronDown, ChevronRight, FileText, Folder, HelpCircle } from "lucide-react";
 import { type TopicItem, type TopicFile, type TopicGroup } from "@/config/learning";
 
 function FileItem({
@@ -63,27 +63,36 @@ function GroupSection({
   group,
   topicSlug,
   pathname,
-  defaultOpen,
 }: {
   group: TopicGroup;
   topicSlug: string;
   pathname: string;
-  defaultOpen: boolean;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
+  const isActive = group.files.some(
+    (f) => pathname === `/dashboard/learning/${topicSlug}/${f.slug}`
+  );
+  const [open, setOpen] = useState(isActive);
+
+  // Auto-open when any file in this group becomes the active route
+  useEffect(() => {
+    if (isActive) setOpen(true);
+  }, [isActive]);
 
   return (
-    <div className="mb-1">
-      {/* Group header */}
+    <div className="mb-1 mt-3 first:mt-0">
+      {/* Group header — visually distinct from file items */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[12px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
+        className="flex w-full items-center gap-1.5 px-2 py-1 rounded-md transition-colors group/header text-neutral-200 hover:text-neutral-200"
       >
-        <span className="truncate flex-1 text-left">{group.title.replace(/^\d+\.\s*/, "")}</span>
+        <Folder className="size-3 shrink-0 opacity-60" />
+        <span className="truncate flex-1 text-left text-[10.5px] font-semibold uppercase tracking-widest">
+          {group.title.replace(/^\d+\.\s*/, "")}
+        </span>
         {open ? (
-          <ChevronDown className="size-3.5 shrink-0 opacity-50" />
+          <ChevronDown className="size-3 shrink-0 opacity-40" />
         ) : (
-          <ChevronRight className="size-3.5 shrink-0 opacity-50" />
+          <ChevronRight className="size-3 shrink-0 opacity-40" />
         )}
       </button>
 
@@ -92,13 +101,13 @@ function GroupSection({
         <SidebarMenu className="ml-3 border-l border-border/40 pl-2 mt-0.5">
           {group.files.map((file) => {
             const href = `/dashboard/learning/${topicSlug}/${file.slug}`;
-            const isActive = pathname === href;
+            const active = pathname === href;
             return (
               <FileItem
                 key={file.slug}
                 file={file}
                 topicSlug={topicSlug}
-                isActive={isActive}
+                isActive={active}
               />
             );
           })}
@@ -177,7 +186,6 @@ export function TopicSidebar({ topic }: { topic: TopicItem }) {
                 group={group}
                 topicSlug={topic.slug}
                 pathname={pathname}
-                defaultOpen={isGroupActive(group)}
               />
             ))}
           </>

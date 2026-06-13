@@ -127,7 +127,7 @@ export default function DashboardLayout({
     <div
       ref={providerRef}
       style={{ "--sidebar-width": `${sidebarWidth}px` } as React.CSSProperties}
-      className="flex h-svh w-full overflow-hidden"
+      className="flex h-svh w-full"
     >
     <SidebarProvider style={{ "--sidebar-width": "inherit" } as React.CSSProperties}>
       {/* Swap sidebar based on route */}
