@@ -91,9 +91,10 @@ function extractTitle(filePath, slug) {
         
         if (clean.length > 2) {
           let title = clean;
-          title = title.replace(/^FASTAPI STUDY GUIDE:\s*/i, '');
-          title = title.replace(/^PYTHON STUDY GUIDE:\s*/i, '');
-          title = title.replace(/^\d+[\.\s_]*/, '');
+          // Strip any course/series heading prefix like "FASTAPI STUDY GUIDE: 01." or "FASTAPI YT SERIES: 02."
+          title = title.replace(/^(?:[\w]+\s+)+(?:guide|study|series|course|tutorial)[:\s]*(?:\d+[\w]*[\.\s\-]*)*/i, '');
+          // Strip any remaining leading number like "01. " or "01 - "
+          title = title.replace(/^\d+[a-zA-Z]*[\.\s\-]+/, '');
           
           let formattedTitle = title.split(/\s+/)
             .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())

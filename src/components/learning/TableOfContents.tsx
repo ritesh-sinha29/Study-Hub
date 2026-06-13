@@ -37,7 +37,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <nav className="sticky top-24 w-56 shrink-0 hidden xl:block">
-      <div className="pl-4 border-l border-border/40">
+      <div className="pl-4 border-l border-border">
         <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">
           On this page
         </p>

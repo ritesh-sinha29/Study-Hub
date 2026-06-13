@@ -132,7 +132,7 @@ export default async function TopicFilePage({ params }: PageProps) {
       </div>
 
       {/* Table of Contents sidebar */}
-      <aside className="hidden xl:block w-64 shrink-0 border-l border-border/20 px-6 py-8">
+      <aside className="hidden xl:block w-64 shrink-0 border-l border-border px-6 py-8">
         <TableOfContents headings={headings} />
       </aside>
 

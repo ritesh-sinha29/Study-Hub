@@ -12,6 +12,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   BookOpen,
@@ -37,27 +38,23 @@ const footerItems = [
 export function AppSidebar() {
   return (
     <Sidebar collapsible="icon" variant="sidebar">
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
-              <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-                S
-              </div>
-              <div className="flex flex-col justify-center gap-0.5 leading-none">
-                <span className="font-semibold text-sm">Study Hub</span>
-                <span className="text-xs text-muted-foreground">
-                  Study Platform
-                </span>
-              </div>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarHeader className="h-16 flex flex-row items-center justify-between p-2 border-b border-border">
+        <div className="flex items-center gap-2 flex-1 min-w-0 group-data-[collapsible=icon]:hidden">
+          <SidebarMenu className="flex-1 min-w-0">
+            <SidebarMenuItem>
+              <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
+                <div className="flex flex-col justify-center gap-0.5 leading-none">
+                  <span className="font-semibold text-sm">Study Hub</span>
+                  <span className="text-xs text-muted-foreground">
+                    Study Platform
+                  </span>
+                </div>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </div>
+        <SidebarTrigger className="h-8 w-8 shrink-0 hover:bg-muted group-data-[collapsible=icon]:mx-auto" />
       </SidebarHeader>
-
-      <div className="px-3 my-2">
-        <div className="h-px bg-border/40" />
-      </div>
 
       <SidebarContent>
         <SidebarGroup>
@@ -68,7 +65,7 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton tooltip={item.title} render={<Link href={item.href} />}>
                     <item.icon className="size-4" />
-                    <span>{item.title}</span>
+                    <span className="group-data-[collapsible=icon]:hidden">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -77,16 +74,16 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-3 border-t border-border/40">
+      <SidebarFooter className="p-3 group-data-[collapsible=icon]:p-2 border-t border-border">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
               size="default"
               render={<Link href="/dashboard/help" />}
-              className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border/60 hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all"
+              className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:mx-auto"
             >
               <HelpCircle className="size-4 shrink-0" />
-              <span>Help & Support</span>
+              <span className="group-data-[collapsible=icon]:hidden">Help & Support</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

@@ -215,75 +215,113 @@ export const learningTopics: TopicItem[] = [
     "slug": "fastapi",
     "description": "FastAPI fundamentals and project structure",
     "icon": "FastAPI",
-    "files": [
+    "files": [],
+    "groups": [
       {
-        "title": "Introduction & Setup",
-        "slug": "introduction-and-setup",
+        "title": "01. Fundamentals",
+        "slug": "fundamentals",
         "number": "01",
-        "filename": "01_introduction_and_setup.py"
+        "files": [
+          {
+            "title": "Introduction & Setup",
+            "slug": "introduction-and-setup",
+            "number": "01",
+            "filename": "01-fundamentals/01_introduction_and_setup.py"
+          },
+          {
+            "title": "Path Parameters",
+            "slug": "path-parameters",
+            "number": "02",
+            "filename": "01-fundamentals/02_path_parameters.py"
+          },
+          {
+            "title": "Query Parameters",
+            "slug": "query-parameters",
+            "number": "03",
+            "filename": "01-fundamentals/03_query_parameters.py"
+          },
+          {
+            "title": "Request Body & Pydantic",
+            "slug": "request-body-pydantic",
+            "number": "04",
+            "filename": "01-fundamentals/04_request_body_pydantic.py"
+          },
+          {
+            "title": "Response Models & Status Codes",
+            "slug": "response-models-and-status",
+            "number": "05",
+            "filename": "01-fundamentals/05_response_models_and_status.py"
+          },
+          {
+            "title": "Error Handling",
+            "slug": "error-handling",
+            "number": "06",
+            "filename": "01-fundamentals/06_error_handling.py"
+          },
+          {
+            "title": "Dependency Injection (di)",
+            "slug": "dependency-injection",
+            "number": "07",
+            "filename": "01-fundamentals/07_dependency_injection.py"
+          },
+          {
+            "title": "Database Crud (sqlite & Orm)",
+            "slug": "database-crud-sqlite",
+            "number": "08",
+            "filename": "01-fundamentals/08_database_crud_sqlite.py"
+          },
+          {
+            "title": "Middleware & Cors",
+            "slug": "middleware-cors",
+            "number": "09",
+            "filename": "01-fundamentals/09_middleware_cors.py"
+          },
+          {
+            "title": "Security & Jwt (json Web Tokens)",
+            "slug": "security-jwt",
+            "number": "10",
+            "filename": "01-fundamentals/10_security_jwt.py"
+          },
+          {
+            "title": "File Uploads & Background Tasks",
+            "slug": "background-tasks-and-files",
+            "number": "11",
+            "filename": "01-fundamentals/11_background_tasks_and_files.py"
+          }
+        ]
       },
       {
-        "title": "Path Parameters",
-        "slug": "path-parameters",
+        "title": "02. From Yt",
+        "slug": "from-yt",
         "number": "02",
-        "filename": "02_path_parameters.py"
-      },
-      {
-        "title": "Query Parameters",
-        "slug": "query-parameters",
-        "number": "03",
-        "filename": "03_query_parameters.py"
-      },
-      {
-        "title": "Request Body & Pydantic",
-        "slug": "request-body-pydantic",
-        "number": "04",
-        "filename": "04_request_body_pydantic.py"
-      },
-      {
-        "title": "Response Models & Status Codes",
-        "slug": "response-models-and-status",
-        "number": "05",
-        "filename": "05_response_models_and_status.py"
-      },
-      {
-        "title": "Error Handling",
-        "slug": "error-handling",
-        "number": "06",
-        "filename": "06_error_handling.py"
-      },
-      {
-        "title": "Dependency Injection (di)",
-        "slug": "dependency-injection",
-        "number": "07",
-        "filename": "07_dependency_injection.py"
-      },
-      {
-        "title": "Database Crud (sqlite & Orm)",
-        "slug": "database-crud-sqlite",
-        "number": "08",
-        "filename": "08_database_crud_sqlite.py"
-      },
-      {
-        "title": "Middleware & Cors",
-        "slug": "middleware-cors",
-        "number": "09",
-        "filename": "09_middleware_cors.py"
-      },
-      {
-        "title": "Security & Jwt (json Web Tokens)",
-        "slug": "security-jwt",
-        "number": "10",
-        "filename": "10_security_jwt.py"
-      },
-      {
-        "title": "File Uploads & Background Tasks",
-        "slug": "background-tasks-and-files",
-        "number": "11",
-        "filename": "11_background_tasks_and_files.py"
+        "files": [
+          {
+            "title": "Get Api Basic Routes",
+            "slug": "getapi",
+            "number": "01",
+            "filename": "02-from_yt/01-getapi.py"
+          },
+          {
+            "title": "Dynamic Routes",
+            "slug": "dynamic-routes",
+            "number": "02",
+            "filename": "02-from_yt/02-dynamic-routes.py"
+          },
+          {
+            "title": "Request Body",
+            "slug": "request-body",
+            "number": "03",
+            "filename": "02-from_yt/03-request-body.py"
+          },
+          {
+            "title": "Pydantic Models (nested Models)",
+            "slug": "pydantic-model",
+            "number": "04",
+            "filename": "02-from_yt/04-pydantic-model.py"
+          }
+        ]
       }
-    ],
-    "groups": []
+    ]
   },
   {
     "title": "LangGraph",
