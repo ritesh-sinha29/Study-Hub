@@ -153,7 +153,14 @@ print(get_user(99))
 #     parameter will share and mutate the EXACT same list.
 #
 # Q2. What do *args and **kwargs do in a function definition?
-# A:  See the comparison table below:
+# A:  `*args` allows a function to accept any number of positional arguments,
+#     which are collected into a tuple. `**kwargs` allows the function to
+#     accept any number of keyword (named) arguments, which are collected into
+#     a dictionary. Use `*args` when creating wrappers or functions that
+#     process a list of elements, and `**kwargs` when handling named
+#     configuration options or passing dynamic parameters to underlying API
+#     functions. See the comparison table below:
+#     
 #     | Parameter | Captures | Received As | Example Call |
 #     | :--- | :--- | :--- | :--- |
 #     | `*args` | Positional arguments | Tuple | `func(1, 2, 3)` |

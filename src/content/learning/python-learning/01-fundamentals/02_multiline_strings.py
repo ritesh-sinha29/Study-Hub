@@ -48,10 +48,20 @@ print(b)
 #
 # Q1. What is the difference between a multiline string and a docstring in
 #     Python?
-# A:  A multiline string is just a string spanning multiple lines (defined
-#     using triple quotes). A docstring is a specific type of multiline string
-#     placed at the very start of a module, class, or function. It is stored
-#     in the object's __doc__ attribute and used for documentation.
+# A:  A multiline string is simply any string that spans multiple lines,
+#     typically enclosed in triple quotes (`'''` or `"""`). A docstring is a
+#     special type of multiline string placed immediately at the beginning of
+#     a module, class, method, or function. While a standard multiline string
+#     is just data (and is ignored by the interpreter if not assigned), Python
+#     parses docstrings and attaches them to the object's `__doc__` attribute,
+#     making them accessible via `help()` and automatic documentation
+#     generators. See the comparison table below:
+#     
+#     | Feature | Multiline String | Docstring |
+#     | :--- | :--- | :--- |
+#     | **Definition** | Standard string spanning lines | String at start of module/class/function |
+#     | **Storage** | Evaluated or assigned to var | Saved in `__doc__` attribute |
+#     | **Primary Use**| Text templates, long SQL queries | Code documentation & auto-doc generation |
 #
 # Q2. What are Raw Strings (r'...'), and when should you use them?
 # A:  Raw strings ignore escape characters like \n or \t, treating backslashes

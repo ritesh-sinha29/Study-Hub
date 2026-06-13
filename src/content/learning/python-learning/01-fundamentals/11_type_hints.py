@@ -157,7 +157,13 @@ print(create_user("Ritesh", 20, "ritesh@example.com"))
 #     checkers to validate types.
 #
 # Q2. What is the difference between Union and Optional type hints?
-# A:  See the comparison table below:
+# A:  `Union[A, B]` indicates that a variable or parameter can accept types of
+#     either `A` or `B`. `Optional[A]` is actually a shorthand wrapper for
+#     `Union[A, None]`, meaning the parameter can either be of type `A` or it
+#     can be `None`. Use `Union` when a variable can hold distinct data types
+#     (e.g. string or list), and `Optional` when a parameter is optional and
+#     defaults to `None`. See the comparison table below:
+#     
 #     | Type Hint | Allowed Types | Modern Equivalent (3.10+) |
 #     | :--- | :--- | :--- |
 #     | `Union[int, str]` | Can be either `int` OR `str` | `int \| str` |

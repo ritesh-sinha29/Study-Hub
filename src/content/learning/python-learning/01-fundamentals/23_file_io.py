@@ -142,7 +142,14 @@ if os.path.exists("server.log"):
 #     file descriptors/resource leaks.
 #
 # Q2. What are the differences between 'w', 'a', and 'x' file opening modes?
-# A:  See the comparison table below:
+# A:  `'w'` mode opens a file for writing, completely overwriting the existing
+#     content or creating the file if it does not exist. `'a'` mode opens a
+#     file for writing, but appends all new text to the end of the file
+#     without deleting existing data. `'x'` mode (exclusive creation) opens a
+#     file for writing, but throws a `FileExistsError` if the file already
+#     exists, ensuring you never accidentally overwrite existing data. See the
+#     comparison table below:
+#     
 #     | Mode | Action | If File Exists | If File Doesn't Exist |
 #     | :--- | :--- | :--- | :--- |
 #     | `'w'` | Write | Overwrites contents | Creates new file |
@@ -150,11 +157,16 @@ if os.path.exists("server.log"):
 #     | `'x'` | Exclusive Write| Raises `FileExistsError` | Creates new file |
 #
 # Q3. What is the difference between read(), readline(), and readlines()?
-# A:  See the comparison table below:
+# A:  `read()` reads the entire file into a single string, which is simple but
+#     can consume massive memory for large files. `readline()` reads a single
+#     line from the file at a time, making it highly memory-efficient.
+#     `readlines()` reads all lines from the file and returns them as a list
+#     of strings. For large files, it is best to iterate directly over the
+#     file object (`for line in file:`), which uses `readline()` internally to
+#     keep memory usage extremely low. See the comparison table below:
+#     
 #     | Method | Returns | Reads | Memory Usage |
 #     | :--- | :--- | :--- | :--- |
 #     | `read()` | String | Entire file content | High (loads whole file) |
 #     | `readline()` | String | One line at a time | Low (one line in memory) |
 #     | `readlines()` | List of strings | All lines as a list | High (loads whole list) |
-#     #
-#     *Tip: Iterate directly over the file object (e.g. `for line in f:`) for the best memory efficiency.*

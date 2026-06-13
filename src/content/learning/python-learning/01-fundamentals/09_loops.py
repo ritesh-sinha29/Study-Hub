@@ -141,7 +141,14 @@ for user in users:
 #     is useful for search loops.
 #
 # Q2. What is the difference between break and continue statements?
-# A:  See the comparison table below:
+# A:  The `break` statement exits the entire loop immediately, ignoring any
+#     remaining iterations. It is used to stop processing when a search target
+#     is found or an error limit is hit. The `continue` statement skips only
+#     the remaining code in the *current* loop iteration and jumps straight to
+#     the next iteration's condition check. Use `break` to terminate early,
+#     and `continue` to bypass invalid or skipped items within a loop. See the
+#     comparison table below:
+#     
 #     | Statement | Loop Behavior | Next Line Executed |
 #     | :--- | :--- | :--- |
 #     | `break` | Terminates loop immediately | First line outside the loop |

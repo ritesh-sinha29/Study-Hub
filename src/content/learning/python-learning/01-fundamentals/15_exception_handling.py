@@ -168,7 +168,15 @@ print(get_user(99))  # Not found → returns error response
 #
 # Q1. What is the difference between the else block and the finally block in
 #     exception handling?
-# A:  See the comparison table below:
+# A:  The `else` block runs only when the code inside the `try` block executes
+#     successfully without raising any exceptions. This separates standard
+#     follow-up code from code that might raise exceptions. The `finally`
+#     block runs absolutely every time the block exits, regardless of whether
+#     an exception occurred, was caught, or if the function returned early.
+#     Use `else` for operations depending on successful execution, and
+#     `finally` to release system resources (like closing files or database
+#     connections). See the comparison table below:
+#     
 #     | Block | When it Executes | Primary Use Case |
 #     | :--- | :--- | :--- |
 #     | `else` | ONLY if no exceptions were raised | Logic that depends on try success |

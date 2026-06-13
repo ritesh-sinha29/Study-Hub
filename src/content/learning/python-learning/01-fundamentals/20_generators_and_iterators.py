@@ -153,7 +153,14 @@ print("Key idea: yield sends data chunk by chunk to the client.")
 # ==========================================
 #
 # Q1. What is the difference between an iterable and an iterator?
-# A:  See the comparison table below:
+# A:  An iterable is any object that can return its elements one by one,
+#     typically implementing `__iter__` (like lists, tuples, and strings). An
+#     iterator is a stateful cursor that keeps track of the current position
+#     during iteration, implementing both `__iter__` and `__next__`. Calling
+#     `iter()` on an iterable returns an iterator. Iterables can be iterated
+#     over multiple times, whereas iterators are consumed after a single
+#     traversal. See the comparison table below:
+#     
 #     | Feature | Iterable | Iterator |
 #     | :--- | :--- | :--- |
 #     | **Definition** | Holds raw sequence | Stateful cursor performing iteration |
@@ -161,7 +168,15 @@ print("Key idea: yield sends data chunk by chunk to the client.")
 #     | **Behavior** | Can be reset / re-read | Consumed after single traversal |
 #
 # Q2. How does the yield keyword work compared to return?
-# A:  See the comparison table below:
+# A:  `return` terminates the function's execution permanently, returning the
+#     specified value and destroying its local namespace and stack frame.
+#     `yield` temporarily pauses the function's execution, returns the yielded
+#     value to the consumer, and saves the entire state of the function
+#     (variables, instruction cursor) so that it can resume right where it
+#     left off on the next call. Use `return` for standard functions, and
+#     `yield` to create memory-efficient generators. See the comparison table
+#     below:
+#     
 #     | Keyword | Function Execution | State Preservation |
 #     | :--- | :--- | :--- |
 #     | `return` | Terminates function permanently | Discards local frame |

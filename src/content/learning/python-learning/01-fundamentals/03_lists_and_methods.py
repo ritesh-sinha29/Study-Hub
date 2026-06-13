@@ -65,7 +65,13 @@ print("After sort:", numbers_list)
 # ==========================================
 #
 # Q1. What is the difference between append() and extend() on a Python list?
-# A:  Both methods add items to a list. See the comparison table below:
+# A:  `append()` adds the passed object as a single item to the end of the
+#     list, regardless of whether it is a number, string, or another list.
+#     `extend()` takes an iterable (like a list, tuple, or set), iterates over
+#     its elements, and appends each element individually. Use `append()` when
+#     adding a single object, and `extend()` when merging lists or adding
+#     multiple items from an iterable. See the comparison table below:
+#     
 #     | Method | Parameter Type | Action |
 #     | :--- | :--- | :--- |
 #     | `append()` | Any object (single item) | Adds argument as 1 new element |
@@ -79,7 +85,15 @@ print("After sort:", numbers_list)
 #     is O(n) because elements must be shifted.
 #
 # Q3. What is the difference between list.sort() and sorted()?
-# A:  See the comparison table below:
+# A:  `list.sort()` sorts the list in-place, modifying the original list
+#     directly and returning `None`. This is more memory-efficient as it does
+#     not copy elements. `sorted()` is a built-in function that creates and
+#     returns a new sorted list, leaving the original iterable unchanged. Use
+#     `list.sort()` when you want to modify the list in place to save memory,
+#     and `sorted()` when you need to preserve the original order or sort
+#     other iterables like tuples or dictionaries. See the comparison table
+#     below:
+#     
 #     | Operation | Modification | Return Value | Iterable Type |
 #     | :--- | :--- | :--- | :--- |
 #     | `list.sort()` | Modifies in-place | Returns `None` | Lists only |

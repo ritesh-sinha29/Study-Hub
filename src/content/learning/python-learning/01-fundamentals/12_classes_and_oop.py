@@ -177,14 +177,31 @@ print("New user data:", new_user.to_dict())
 # ==========================================
 #
 # Q1. What is the difference between class variables and instance variables?
-# A:  See the comparison table below:
+# A:  Class variables are defined directly in the class body and are shared by
+#     all instances of that class. If one instance modifies a class variable's
+#     mutable value, the change affects all other instances. Instance
+#     variables are defined inside class methods (usually `__init__`) prefixed
+#     with `self.`, making them unique to each object. Use class variables for
+#     shared configuration or constants, and instance variables for
+#     object-specific data (like names or IDs). See the comparison table
+#     below:
+#     
 #     | Variable Type | Where Defined | Scope | Shared? |
 #     | :--- | :--- | :--- | :--- |
 #     | **Class Variable** | Direct in class body | Shared across instances | Yes |
 #     | **Instance Variable** | Inside method (using `self`) | Unique to each object | No |
 #
 # Q2. What is the difference between @classmethod and @staticmethod?
-# A:  See the comparison table below:
+# A:  `@classmethod` takes the class itself (`cls`) as its first parameter and
+#     can access and modify class-level state. It is commonly used to write
+#     factory methods that create class instances from different formats.
+#     `@staticmethod` behaves like a normal function defined inside a class;
+#     it receives no implicit first argument (neither `self` nor `cls`) and
+#     cannot access class or instance attributes. Use `@classmethod` for
+#     factory patterns, and `@staticmethod` for self-contained helper
+#     utilities related to the class namespace. See the comparison table
+#     below:
+#     
 #     | Decorator | First Argument | Can Access Class/Inst? | Primary Use Case |
 #     | :--- | :--- | :--- | :--- |
 #     | `@classmethod` | `cls` (class itself) | Class only (via `cls`) | Factory methods |

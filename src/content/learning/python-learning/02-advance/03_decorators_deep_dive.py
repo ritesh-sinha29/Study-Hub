@@ -158,7 +158,16 @@ say_hi()
 #     constructor logic without subclassing.
 #
 # Q2. How do stateful decorators work? How do you maintain state across calls?
-# A:  See the comparison table below:
+# A:  Stateful decorators track information (like call counts or caches)
+#     across multiple invocations. With function-based decorators, state is
+#     maintained inside the wrapper's closure using a local variable and the
+#     `nonlocal` keyword to mutate it. With class-based decorators, state is
+#     stored directly as an instance attribute (e.g. `self.count`) of the
+#     decorator class, and execution is triggered by implementing the
+#     `__call__` method. Function decorators are simpler, while class
+#     decorators are cleaner for managing complex state and structures. See
+#     the comparison table below:
+#     
 #     | Decorator Type | State Storage | Call Trigger |
 #     | :--- | :--- | :--- |
 #     | **Function Decorator**| Closures (nonlocal variables) | Via enclosing scope |

@@ -112,8 +112,14 @@ print("a1 after removing 500:", a1)
 #     immutable types). Lists or dictionaries cannot be added to sets.
 #
 # Q3. What is the difference between set.remove() and set.discard()?
-# A:  Both methods delete an element from the set. See the comparison table
-#     below:
+# A:  `remove()` will search for the element and delete it, but raises a
+#     `KeyError` if the element is not present. This is best when the missing
+#     item indicates an unexpected application error. `discard()` removes the
+#     element if it exists, but fails silently without raising an error if it
+#     is missing. Use `discard()` when you want to ensure an element is gone
+#     but don't care if it was never there in the first place. See the
+#     comparison table below:
+#     
 #     | Method | If Element Exists | If Element Not Found |
 #     | :--- | :--- | :--- |
 #     | `remove()` | Deletes element from set | Raises `KeyError` |

@@ -135,9 +135,15 @@ print()
 # ==========================================
 #
 # Q1. What is the difference between match-case and if-elif-else in Python?
-# A:  if-elif-else only checks boolean conditions. match-case (introduced in
-#     Python 3.10) is a structural pattern matching tool. See the comparison
-#     table below:
+# A:  `if-elif-else` checks boolean expressions sequentially, which is simple
+#     and fast for basic conditions. `match-case` (introduced in Python 3.10)
+#     provides structural pattern matching. It does not just check values, but
+#     also parses the shape, type, and structure of data, and binds matched
+#     sub-components to local variables automatically. Use `if-elif-else` for
+#     simple range/logical checks, and `match-case` for complex data shapes
+#     (like JSON API routing, state machines, or parsing ASTs). See the
+#     comparison table below:
+#     
 #     | Feature | match-case | if-elif-else |
 #     | :--- | :--- | :--- |
 #     | **Match Type** | Structure, shape, attributes | Boolean conditions only |

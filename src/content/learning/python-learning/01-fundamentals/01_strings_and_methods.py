@@ -100,7 +100,14 @@ print("Slicing name[0:4]:", name[0:4]) # Prints "Rite"
 #     paths, and database connections).
 #
 # Q2. What is the difference between find() and index() string methods?
-# A:  Both methods search for a substring. See the comparison table below:
+# A:  Both methods search for a substring. `find()` is best when you are
+#     checking for optional substrings or want to avoid exceptions in your
+#     code. It returns `-1` if the substring is missing, making it safe for
+#     simple flow control. On the other hand, `index()` is preferred when the
+#     substring is strictly expected to exist, and a missing substring is an
+#     exceptional error condition that should be caught and handled with a
+#     `try-except` block. See the comparison table below:
+#     
 #     | Method | If Substring Found | If Substring Not Found |
 #     | :--- | :--- | :--- |
 #     | `find()` | Returns start index | Returns `-1` (safe) |

@@ -61,7 +61,14 @@ print("# Python does not allow changing tuple values after they are created.")
 # ==========================================
 #
 # Q1. Why are tuples faster and more memory-efficient than lists in Python?
-# A:  See the comparison table below:
+# A:  Tuples are immutable, meaning their size and contents are fixed at
+#     creation. Python can allocate exactly the required memory block for a
+#     tuple, reducing overhead. Lists are mutable and require dynamic
+#     over-allocation (extra buffer space) to support efficient `append()`
+#     operations, making them consume more memory. Tuples are best for fixed,
+#     read-only data, while lists are necessary when elements need to be
+#     added, removed, or modified. See the comparison table below:
+#     
 #     | Feature | Tuple | List |
 #     | :--- | :--- | :--- |
 #     | **Mutability** | Immutable (fixed) | Mutable (modifiable) |

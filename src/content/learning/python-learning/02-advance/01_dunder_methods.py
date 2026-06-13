@@ -217,7 +217,14 @@ print()
 #     into Python's built-in syntax (e.g. operator overloading, iteration).
 #
 # Q2. What is the difference between __str__ and __repr__?
-# A:  See the comparison table below:
+# A:  `__str__` is designed to return a user-friendly, readable string
+#     representation of the object (informal). `__repr__` (representation) is
+#     designed to return an unambiguous, precise string representation that
+#     ideally looks like the Python code used to recreate the object (formal).
+#     When logging or debugging, developers use `__repr__` because it provides
+#     precise type details, while `__str__` is displayed in user-facing
+#     templates or prints. See the comparison table below:
+#     
 #     | Method | Intended Audience | Output Style | Called By |
 #     | :--- | :--- | :--- | :--- |
 #     | `__str__` | End-users | Readable / informal | `print()`, `str()` |

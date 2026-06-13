@@ -171,7 +171,15 @@ print("FastAPI-style response:", create_user(request))
 #
 # Q1. What is the difference between a dataclass and a standard Python
 #     dictionary?
-# A:  See the comparison table below:
+# A:  A dictionary is a generic, dynamic key-value store that can change shape
+#     on the fly, accessed using bracket notation (`dict['key']`). A dataclass
+#     is a custom class decorated with `@dataclass` that provides a
+#     structured, typed schema accessed via dot notation (`obj.key`).
+#     Dataclasses support type validation, autocompletion in IDEs, and
+#     object-oriented features like custom methods and inheritance, making
+#     them much better for defining fixed domain models. See the comparison
+#     table below:
+#     
 #     | Feature | Dataclass | Dictionary |
 #     | :--- | :--- | :--- |
 #     | **Access** | Dot notation (obj.x) | Key lookup (obj['x']) |
@@ -179,7 +187,15 @@ print("FastAPI-style response:", create_user(request))
 #     | **Overhead** | Lightweight class | Plain hash map |
 #
 # Q2. What is TypedDict and when should you use it over a dataclass?
-# A:  See the comparison table below:
+# A:  `TypedDict` is a static type checker configuration that tells type
+#     checkers (like mypy) what keys a standard Python dictionary should
+#     contain, but compiles down to a plain, generic dictionary at runtime. A
+#     `dataclass` creates a full custom class and instance with runtime
+#     checks, constructor generation, and helper methods. Use `TypedDict` when
+#     working with external APIs or existing dictionary structures, and
+#     `dataclass` when you need object-oriented methods and runtime
+#     initialization safety. See the comparison table below:
+#     
 #     | Feature | TypedDict | Dataclass |
 #     | :--- | :--- | :--- |
 #     | **Runtime Type** | Plain `dict` | Custom Class Instance |

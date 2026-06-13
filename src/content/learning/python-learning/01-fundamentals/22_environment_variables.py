@@ -170,7 +170,15 @@ print("  5. For production, use your hosting platform's secret manager (e.g., Ra
 #     allows easy container configuration (Docker/Kuber).
 #
 # Q2. What is the difference between os.environ.get() and os.environ[]?
-# A:  See the comparison table below:
+# A:  Using bracket notation `os.environ[key]` is faster but raises a
+#     `KeyError` if the specified environment variable is missing, immediately
+#     halting execution. This is best for mandatory configuration fields (like
+#     database URLs or keys) that the app cannot function without.
+#     `os.environ.get(key, default)` returns `None` or a custom fallback value
+#     if the variable is missing. Use `get()` for optional configuration
+#     settings (like debug mode toggles or optional cache timings). See the
+#     comparison table below:
+#     
 #     | Access Method | If Variable Exists | If Variable Is Missing |
 #     | :--- | :--- | :--- |
 #     | `os.environ[key]` | Returns string value | Raises `KeyError` |

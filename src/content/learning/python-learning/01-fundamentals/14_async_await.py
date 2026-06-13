@@ -162,7 +162,15 @@ print(asyncio.run(fastapi_style_route(1)))
 #
 # Q3. What is the difference between awaiting tasks sequentially vs using
 #     asyncio.gather()?
-# A:  See the comparison table below:
+# A:  Awaiting tasks sequentially blocks execution at each line, executing the
+#     next task only after the current one completes. This wastes potential
+#     concurrency. `asyncio.gather()` starts all tasks concurrently in the
+#     event loop, allowing them to run in parallel during I/O wait times.
+#     Sequential execution is best when tasks depend on the outputs of
+#     previous ones, while `asyncio.gather()` is best for independent parallel
+#     I/O requests (like scraping multiple pages or fetching database records
+#     concurrently). See the comparison table below:
+#     
 #     | Execution Style | Execution Flow | Time Taken |
 #     | :--- | :--- | :--- |
 #     | **Sequential** | One by one (blocking) | Sum of all tasks (`t1 + t2`) |

@@ -146,7 +146,14 @@ print("Safe API response (no passwords):", safe_users)
 #
 # Q2. What is the difference between a list comprehension and a generator
 #     expression?
-# A:  See the comparison table below:
+# A:  A list comprehension evaluates eagerly, immediately building and storing
+#     the entire list of elements in memory. A generator expression evaluates
+#     lazily, returning an iterator object that generates items one-at-a-time
+#     on-demand. Use list comprehensions for small datasets where you need
+#     list features (like indexing, slicing, or multiple iterations), and
+#     generator expressions for large or infinite datasets to keep memory
+#     usage extremely low. See the comparison table below:
+#     
 #     | Feature | List Comprehension | Generator Expression |
 #     | :--- | :--- | :--- |
 #     | **Syntax** | Square brackets `[...]` | Parentheses `(...)` |

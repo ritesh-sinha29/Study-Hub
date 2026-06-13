@@ -146,8 +146,14 @@ print("FastAPI response (as JSON string):", json.dumps(response, indent=2))
 # ==========================================
 #
 # Q1. What is the difference between json.dumps() and json.dump()?
-# A:  Both methods serialize Python objects to JSON. See the comparison table
-#     below:
+# A:  `json.dumps()` (dump string) serializes a Python object into a
+#     JSON-formatted string and returns it in memory. It is best when you need
+#     to send JSON data over network APIs or modify it in code. `json.dump()`
+#     serializes a Python object and writes it directly to an open file stream
+#     on disk. Use `json.dumps()` for in-memory operations and API
+#     integrations, and `json.dump()` for saving configuration or state files
+#     directly to disk. See the comparison table below:
+#     
 #     | Function | Output Destination | Return Type |
 #     | :--- | :--- | :--- |
 #     | `json.dumps()` | Memory (in code) | JSON string |
@@ -161,7 +167,15 @@ print("FastAPI response (as JSON string):", json.dumps(response, indent=2))
 #     (e.g., using object.__dict__), or 3) using libraries like pydantic.
 #
 # Q3. What is the difference between a Python dictionary and a JSON object?
-# A:  See the comparison table below:
+# A:  A Python dictionary is a live, in-memory hash map data structure that
+#     can contain arbitrary objects as values and any hashable object as keys.
+#     A JSON object is a text representation of structured data used for
+#     serialization and communication between languages. JSON keys must always
+#     be double-quoted strings, and JSON only supports a limited set of
+#     primitive data types (like numbers, strings, booleans, and null). Use
+#     Python dictionaries for active computation, and JSON for API payloads or
+#     storage formats. See the comparison table below:
+#     
 #     | Feature | Python dict | JSON Object |
 #     | :--- | :--- | :--- |
 #     | **Type** | Memory data structure | Text serialization format |

@@ -146,7 +146,14 @@ print("Dictionary after clear():", person)
 #     next available bucket. Lookups remain O(1) on average.
 #
 # Q3. How does the get() method differ from using bracket notation dict[key]?
-# A:  See the comparison table below:
+# A:  Using bracket notation `dict[key]` is faster but raises a `KeyError` if
+#     the key does not exist. It is best used when you are certain the key is
+#     present or want to treat its absence as an error. `dict.get(key,
+#     default)` is safer because it returns a default value (like `None` or a
+#     custom string/number) if the key is missing. Use `get()` to safely
+#     handle optional keys without throwing exceptions. See the comparison
+#     table below:
+#     
 #     | Access Method | If Key Exists | If Key Is Missing |
 #     | :--- | :--- | :--- |
 #     | `dict[key]` | Returns the value | Raises `KeyError` |
