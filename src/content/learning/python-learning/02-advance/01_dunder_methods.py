@@ -192,3 +192,43 @@ combined_bag = bag1 + bag2
 print("Combined Bag:", combined_bag)
 print("Total items in Combined Bag:", len(combined_bag))
 print()
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Matrix Math Overloading: Customizing operations like matrix addition (+)
+#    by overriding __add__.
+#
+# 2. Custom Collection APIs: Implementing custom list/dictionary classes with
+#    length (__len__) and item lookup (__getitem__).
+#
+# 3. Object Debugging Logs: Providing clean string representations (__str__
+#    and __repr__) for logging entities.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What are dunder (magic) methods in Python?
+# A:  Dunder (Double Underscore) methods are special predefined methods in
+#     Python that start and end with double underscores (like __init__,
+#     __str__). They allow you to define custom behaviors that hook directly
+#     into Python's built-in syntax (e.g. operator overloading, iteration).
+#
+# Q2. What is the difference between __str__ and __repr__?
+# A:  See the comparison table below:
+#
+#     +-------------+-----------------------+-----------------------+-----------------+
+#     | Method      | Intended Audience     | Output Style          | Called By       |
+#     +-------------+-----------------------+-----------------------+-----------------+
+#     | __str__     | End-users             | Readable / informal   | print(), str()  |
+#     | __repr__    | Developers            | Precise / unambiguous | repr(), dev logs|
+#     +-------------+-----------------------+-----------------------+-----------------+
+#
+# Q3. How does Python implement operator overloading (e.g., adding two custom
+#     objects)?
+# A:  When Python evaluates a + b, it looks for the __add__ dunder method on
+#     the left operand (a.__add__(b)). If a doesn't implement it, it tries
+#     __radd__ on b. Implementing these methods inside your class enables
+#     custom operator overloading.

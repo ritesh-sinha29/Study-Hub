@@ -144,3 +144,43 @@ print("  2. ALWAYS add .env to your .gitignore file")
 print("  3. Create a .env.example file (without real values) for teammates")
 print("  4. Use os.environ.get('KEY', 'default') to avoid crashes if key is missing")
 print("  5. For production, use your hosting platform's secret manager (e.g., Railway, Render)")
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Database Credentials Security: Injecting passwords (DB_PASSWORD)
+#    dynamically in staging/prod without exposing them in git.
+#
+# 2. Feature Flags toggles: Activating beta features by setting
+#    ENVIRONMENT_FEATURE_FLAG = "true".
+#
+# 3. Environment Profiling: Configuring API hosts based on env (Local vs Dev
+#    vs Prod).
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. Why are environment variables preferred over hardcoded values for
+#     configuration?
+# A:  Hardcoding secrets (like API keys or database passwords) in source code
+#     leads to security vulnerabilities. Storing them in env vars separates
+#     config from code, prevents credential leakage in version control, and
+#     allows easy container configuration (Docker/Kuber).
+#
+# Q2. What is the difference between os.environ.get() and os.environ[]?
+# A:  See the comparison table below:
+#
+#     +------------------+-----------------------+----------------------------------+
+#     | Access Method    | If Variable Exists    | If Variable Is Missing           |
+#     +------------------+-----------------------+----------------------------------+
+#     | os.environ[key]  | Returns string value  | Raises KeyError                  |
+#     | os.environ.get() | Returns string value  | Returns None or custom default   |
+#     +------------------+-----------------------+----------------------------------+
+#
+# Q3. What does the python-dotenv library do?
+# A:  python-dotenv loads environment variables from a local `.env` file into
+#     the application's environment. This makes local development easy by
+#     simulating production environment variables without having to set them
+#     manually in the OS shell.

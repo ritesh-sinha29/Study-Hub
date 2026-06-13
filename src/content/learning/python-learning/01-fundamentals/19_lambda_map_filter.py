@@ -132,3 +132,38 @@ state2 = {"last_message": "An error occurred in the tool"}
 
 print("State 1 result:", should_retry(state1))  # end
 print("State 2 result:", should_retry(state2))  # retry
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Sorting Key Selectors: Passing a temporary lambda function to sort a list
+#    of dictionaries by nested keys.
+#
+# 2. GUI Callbacks: Writing simple one-liner handler callbacks in desktop or
+#    web applications.
+#
+# 3. Data Pipeline Transformers: Applying map/filter transformations to list
+#    collections.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What are the limitations of lambda functions in Python?
+# A:  Lambda functions must consist of a single expression; they cannot
+#     contain statements (like 'assert', 'pass', or loops) or assignment
+#     expressions. They are designed for simple anonymous logic. If logic
+#     exceeds one expression, use a standard function (def).
+#
+# Q2. How do map() and filter() compare to list comprehensions?
+# A:  Comprehensions are generally considered more readable and pythonic by
+#     the community. Additionally, comprehensions avoid the overhead of
+#     function calls inside map/filter. However, map/filter return iterators,
+#     meaning they compute values lazily, which can be memory-efficient.
+#
+# Q3. What does the functools.reduce() function do?
+# A:  reduce(function, iterable) applies a function of two arguments
+#     cumulatively to the items of an iterable, from left to right, to reduce
+#     the iterable to a single cumulative value (e.g. summing all numbers,
+#     finding factorial).

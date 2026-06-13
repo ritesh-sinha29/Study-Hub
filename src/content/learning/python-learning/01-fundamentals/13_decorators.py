@@ -128,3 +128,39 @@ def get_users():
 print("GET / ->", home())
 print("GET /users ->", get_users())
 print("\nAll registered routes:", list(routes.keys()))
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Authentication Middleware: Restricting endpoint execution to
+#    authenticated users using @require_auth.
+#
+# 2. Function Execution Timer: Logging performance metrics and load times for
+#    DB operations.
+#
+# 3. API Rate Limiter: Tracking user requests and restricting them if they
+#    exceed limits.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What a closure in Python, and how is it related to decorators?
+# A:  A closure is a nested function that retains access to variables from its
+#     enclosing outer function's scope even after the outer function has
+#     finished executing. Decorators rely on closures to store reference to
+#     the original function they wrap.
+#
+# Q2. Why should you use functools.wraps when writing a custom decorator?
+# A:  Decorators replace the original function with a wrapper function. This
+#     replaces its metadata (like name and docstrings) with the wrapper's.
+#     @wraps copies the original function's name, docstring, and annotations
+#     back onto the wrapper, preserving introspection.
+#
+# Q3. How do you pass custom arguments to a decorator itself (e.g.
+#     @repeat(num=3))?
+# A:  To pass arguments, you must write a decorator factory (a 3-level nested
+#     function structure). The top level accepts the decorator arguments, the
+#     middle level accepts the function to be decorated, and the bottom level
+#     (wrapper) handles execution.

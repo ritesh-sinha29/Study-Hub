@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { TopicSidebar } from "@/components/learning/TopicSidebar";
 import { getTopicBySlug } from "@/config/learning";
@@ -144,7 +144,8 @@ export default function DashboardLayout({
       </div>
 
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center border-b border-border bg-background/80 backdrop-blur-md px-4 sticky top-0 z-50">
+        <header className="flex h-16 shrink-0 items-center border-b border-border bg-background/80 backdrop-blur-md px-4 sticky top-0 z-50 gap-2">
+          <SidebarTrigger className="-ml-1" />
           <div className="flex items-center gap-3 ml-auto">
             <div className="relative hidden sm:flex items-center">
               <Search className="absolute left-2.5 size-4 text-muted-foreground" />

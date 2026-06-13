@@ -133,3 +133,40 @@ print("from typing import Optional, List           ← For type hints")
 print("import os                                   ← For reading environment variables")
 print("import json                                 ← For handling JSON data")
 print("import asyncio                              ← For async/await support")
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Utility Libraries: Organizing codebase into separate helper modules
+#    (e.g., string_helpers.py, db.py).
+#
+# 2. Project Packaging: Structuring codebase inside nested folders for modular
+#    importing.
+#
+# 3. Third-Party SDKs: Importing pre-built code packages (like requests,
+#    numpy) to extend functionality.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What is the Python search path (sys.path), and how does Python resolve
+#     imports?
+# A:  sys.path is a list of directories Python searches when resolving
+#     imports. It resolves in order: 1) the directory of the executing script,
+#     2) directories in the PYTHONPATH env var, and 3) the system-wide
+#     site-packages (where pip packages are installed).
+#
+# Q2. What are circular imports, and how can they be fixed?
+# A:  Circular imports occur when module A imports module B, and module B
+#     imports module A, creating a loop. Fixes include: 1) refactoring common
+#     code into a third module, 2) importing inside functions (local imports)
+#     instead of at the top of the file, or 3) importing modules instead of
+#     symbols.
+#
+# Q3. What is the role of __init__.py in Python modules?
+# A:  In older Python versions, __init__.py was required to mark a directory
+#     as a package. In modern Python, it is optional (Namespace Packages), but
+#     still useful to run package-level initialization, define package
+#     metadata (__version__), and control public exports via __all__.
