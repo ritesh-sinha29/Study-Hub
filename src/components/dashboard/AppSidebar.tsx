@@ -23,7 +23,7 @@ const navItems = [
   {
     title: "Courses",
     icon: BookOpen,
-    href: "/dashboard/learning",
+    href: "/dashboard",
   },
 ];
 

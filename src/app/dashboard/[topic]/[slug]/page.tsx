@@ -76,14 +76,14 @@ export default async function TopicFilePage({ params }: PageProps) {
           {/* Breadcrumbs */}
           <nav className="mb-8 flex items-center gap-1.5 text-sm text-muted-foreground">
             <Link
-              href="/dashboard/learning"
+              href="/dashboard"
               className="hover:text-foreground transition-colors"
             >
               Courses
             </Link>
             <ChevronRight className="size-3.5" />
             <Link
-              href={`/dashboard/learning/${topic.slug}`}
+              href={`/dashboard/${topic.slug}`}
               className="hover:text-foreground transition-colors"
             >
               {topic.title}
@@ -101,7 +101,7 @@ export default async function TopicFilePage({ params }: PageProps) {
           <div className="mt-12 flex items-center justify-between border-t border-border/20 pt-6">
             {prev ? (
               <Link
-                href={`/dashboard/learning/${topic.slug}/${prev.slug}`}
+                href={`/dashboard/${topic.slug}/${prev.slug}`}
                 className="group flex flex-col gap-1"
               >
                 <span className="text-xs text-muted-foreground">Previous</span>
@@ -115,7 +115,7 @@ export default async function TopicFilePage({ params }: PageProps) {
             )}
             {next ? (
               <Link
-                href={`/dashboard/learning/${topic.slug}/${next.slug}`}
+                href={`/dashboard/${topic.slug}/${next.slug}`}
                 className="group flex flex-col gap-1 text-right"
               >
                 <span className="text-xs text-muted-foreground">Next</span>

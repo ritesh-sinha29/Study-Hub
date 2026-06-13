@@ -54,7 +54,7 @@ export default async function TopicPage({
       {/* CTA */}
       {firstFile ? (
         <Link
-          href={`/dashboard/learning/${topic.slug}/${firstFile.slug}`}
+          href={`/dashboard/${topic.slug}/${firstFile.slug}`}
           className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
         >
           Start Learning
@@ -67,7 +67,7 @@ export default async function TopicPage({
       )}
 
       <Link
-        href="/dashboard/learning"
+        href="/dashboard"
         className="mt-4 text-xs text-muted-foreground hover:text-foreground transition-colors"
       >
         ← Back to all topics

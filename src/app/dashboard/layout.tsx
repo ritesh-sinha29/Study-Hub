@@ -13,7 +13,7 @@ import { useTheme } from "next-themes";
 
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
-const DEFAULT_WIDTH = 280;
+const DEFAULT_WIDTH = 220;
 const STORAGE_KEY = "sidebar-width";
 
 function ThemeToggle() {
@@ -117,8 +117,8 @@ export default function DashboardLayout({
     };
   }, []); // ← empty deps: registers once, never re-registers
 
-  // Detect if we're on a learning topic page like /dashboard/learning/python-learning/...
-  const match = pathname.match(/^\/dashboard\/learning\/([^/]+)/);
+  // Detect if we're on a learning topic page like /dashboard/python-learning/...
+  const match = pathname.match(/^\/dashboard\/([^/]+)/);
   const topicSlug = match?.[1];
   const topic = topicSlug ? getTopicBySlug(topicSlug) : undefined;
 
