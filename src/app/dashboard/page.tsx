@@ -15,7 +15,7 @@ export default function StudyHubPage() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          My Study Hub 📚
+          Study Hub 📚
         </h1>
         <p className="mt-2 text-muted-foreground max-w-xl">
           Browse your revision notes organized by topic. Click a topic to dive into the content.
