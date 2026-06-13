@@ -1,30 +1,29 @@
 # Dunder Methods
 
+## PYTHON DUNDER METHODS & MAGIC (DEEPER PYTHON)
+
+## WHAT ARE DUNDER METHODS?
+
+"Dunder" stands for Double Underscore (__) methods.
+They are also called "Magic Methods".
+You recognize them because they start and end with two underscores: e.g., __init__, __str__.
+
+These are special methods that Python calls under the hood when you perform certain actions.
+For example, when you run `len(my_list)`, Python actually calls `my_list.__len__()`.
+When you write `a + b`, Python calls `a.__add__(b)`.
+
+## WHY USE THEM?
+
+They allow your custom classes to behave exactly like Python's built-in types (lists, integers, strings).
+This makes your code cleaner, more readable, and highly professional.
+
+## 1. REPRESENTATION: __str__ vs __repr__
+
+When you print an object, Python needs to know how to display it.
+- __str__: Used for a user-friendly, readable text representation (what a user sees).
+- __repr__: Used for an unambiguous, developer-friendly representation (used for debugging).
+
 ```python
-# ==========================================================
-# PYTHON DUNDER METHODS & MAGIC (DEEPER PYTHON)
-# ==========================================================
-
-# --- WHAT ARE DUNDER METHODS? ---
-# "Dunder" stands for Double Underscore (__) methods.
-# They are also called "Magic Methods".
-# You recognize them because they start and end with two underscores: e.g., __init__, __str__.
-#
-# These are special methods that Python calls under the hood when you perform certain actions.
-# For example, when you run `len(my_list)`, Python actually calls `my_list.__len__()`.
-# When you write `a + b`, Python calls `a.__add__(b)`.
-
-# --- WHY USE THEM? ---
-# They allow your custom classes to behave exactly like Python's built-in types (lists, integers, strings).
-# This makes your code cleaner, more readable, and highly professional.
-
-# ==========================================================
-# 1. REPRESENTATION: __str__ vs __repr__
-# ==========================================================
-# When you print an object, Python needs to know how to display it.
-# - __str__: Used for a user-friendly, readable text representation (what a user sees).
-# - __repr__: Used for an unambiguous, developer-friendly representation (used for debugging).
-
 class Book:
     def __init__(self, title: str, author: str, pages: int):
         self.title = title
@@ -42,21 +41,27 @@ class Book:
 
 print("--- 1. REPRESENTATION ---")
 book = Book("Harry Potter", "J.K. Rowling", 323)
+```
 
-# Calls __str__
+Calls __str__
+
+```python
 print("Using str():", str(book))
 print("Printing object directly:", book)
+```
 
-# Calls __repr__
+Calls __repr__
+
+```python
 print("Using repr():", repr(book))
 print()
+```
 
+## 2. OPERATOR OVERLOADING: __add__ & __eq__
 
-# ==========================================================
-# 2. OPERATOR OVERLOADING: __add__ & __eq__
-# ==========================================================
-# You can define what symbols like '+' or '==' do when used with your custom objects.
+You can define what symbols like '+' or '==' do when used with your custom objects.
 
+```python
 class Point:
     def __init__(self, x: int, y: int):
         self.x = x
@@ -82,22 +87,28 @@ class Point:
 print("--- 2. OPERATOR OVERLOADING ---")
 p1 = Point(2, 4)
 p2 = Point(1, 3)
+```
 
-# Python runs: p1.__add__(p2)
+Python runs: p1.__add__(p2)
+
+```python
 p3 = p1 + p2
 print(f"{p1} + {p2} = {p3}")
+```
 
-# Python runs: p1.__eq__(p2)
+Python runs: p1.__eq__(p2)
+
+```python
 print("Are p1 and p2 equal?", p1 == p2)
 print("Is p1 equal to Point(2, 4)?", p1 == Point(2, 4))
 print()
+```
 
+## 3. CONTAINER METHODS: __len__ & __getitem__
 
-# ==========================================================
-# 3. CONTAINER METHODS: __len__ & __getitem__
-# ==========================================================
-# You can make your object behave like a list or dictionary.
+You can make your object behave like a list or dictionary.
 
+```python
 class Team:
     def __init__(self, name: str, members: list[str]):
         self.name = name
@@ -114,21 +125,27 @@ class Team:
 
 print("--- 3. CONTAINER METHODS ---")
 avengers = Team("Avengers", ["Iron Man", "Captain America", "Thor", "Hulk"])
+```
 
-# Python runs: avengers.__len__()
+Python runs: avengers.__len__()
+
+```python
 print(f"Number of members in {avengers.name}:", len(avengers))
+```
 
-# Python runs: avengers.__getitem__(0)
+Python runs: avengers.__getitem__(0)
+
+```python
 print("First member:", avengers[0])
 print("Last member:", avengers[-1])
 print()
+```
 
+## 4. CALLABLE OBJECTS: __call__
 
-# ==========================================================
-# 4. CALLABLE OBJECTS: __call__
-# ==========================================================
-# You can make an instance of a class behave like a function that can be called!
+You can make an instance of a class behave like a function that can be called!
 
+```python
 class Greeter:
     def __init__(self, greeting_word: str):
         self.greeting_word = greeting_word
@@ -141,23 +158,26 @@ class Greeter:
 print("--- 4. CALLABLE OBJECTS ---")
 welcome = Greeter("Hello")
 casual_greet = Greeter("Hey")
+```
 
-# We call the OBJECTS as if they were functions!
-# Python runs: welcome.__call__("Alice")
+We call the OBJECTS as if they were functions!
+Python runs: welcome.__call__("Alice")
+
+```python
 print(welcome("Alice"))
 print(casual_greet("Bob"))
 print()
+```
 
+## QUICK CHALLENGE FOR YOU:
 
-# ==========================================================
-# QUICK CHALLENGE FOR YOU:
-# ==========================================================
-# Try creating a class `ShoppingBag` that has:
-# - An `items` list.
-# - A `__len__` method to return the count of items in the bag.
-# - A `__str__` method to print a neat string: "Bag has items: [item1, item2...]"
-# - An `__add__` method to merge two bags together!
+Try creating a class `ShoppingBag` that has:
+- An `items` list.
+- A `__len__` method to return the count of items in the bag.
+- A `__str__` method to print a neat string: "Bag has items: [item1, item2...]"
+- An `__add__` method to merge two bags together!
 
+```python
 class ShoppingBag:
     def __init__(self, items: list[str] = None):
         # Initialize with a list, or an empty list if None is passed
@@ -182,17 +202,27 @@ class ShoppingBag:
 print("--- CHALLENGE: SHOPPING BAG ---")
 bag1 = ShoppingBag(["Apple", "Banana"])
 bag2 = ShoppingBag(["Milk", "Bread", "Eggs"])
+```
 
-# Calls __str__ under the hood
+Calls __str__ under the hood
+
+```python
 print("Bag 1:", bag1)
 print("Bag 2:", bag2)
+```
 
-# Calls __len__ under the hood
+Calls __len__ under the hood
+
+```python
 print("Number of items in Bag 1:", len(bag1))
+```
 
-# Calls __add__ under the hood
+Calls __add__ under the hood
+
+```python
 combined_bag = bag1 + bag2
 print("Combined Bag:", combined_bag)
 print("Total items in Combined Bag:", len(combined_bag))
 print()
 ```
+

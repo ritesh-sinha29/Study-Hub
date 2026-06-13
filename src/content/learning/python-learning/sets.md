@@ -1,85 +1,115 @@
 # Sets
 
+## PYTHON SETS AND METHODS (FOR BEGINNERS)
+
+## REAL-WORLD USE CASES
+
+Use a Set when you want to ensure there are no duplicate items, 
+or when you need to perform math-like operations (like finding common values).
+Examples:
+  * Unique Visitors: Storing IP addresses of users visiting a website.
+  * Mutual Friends: Finding the intersection (common friends) between two profiles.
+  * Deduplication: Removing duplicate items from a list of registered emails.
+
+A Set is an unordered collection of UNIQUE elements.
+Rule 1: We use curly braces `{}` to create a set.
+Rule 2: Sets do not allow duplicate items. Any duplicates are automatically removed!
+Rule 3: Sets are unordered (they don't keep track of the insertion order).
+
+Let's create two sets of numbers:
+
 ```python
-# ==========================================
-# PYTHON SETS AND METHODS (FOR BEGINNERS)
-# ==========================================
-
-# --- REAL-WORLD USE CASES ---
-# Use a Set when you want to ensure there are no duplicate items, 
-# or when you need to perform math-like operations (like finding common values).
-# Examples:
-#   * Unique Visitors: Storing IP addresses of users visiting a website.
-#   * Mutual Friends: Finding the intersection (common friends) between two profiles.
-#   * Deduplication: Removing duplicate items from a list of registered emails.
-
-# A Set is an unordered collection of UNIQUE elements.
-# Rule 1: We use curly braces `{}` to create a set.
-# Rule 2: Sets do not allow duplicate items. Any duplicates are automatically removed!
-# Rule 3: Sets are unordered (they don't keep track of the insertion order).
-
-# Let's create two sets of numbers:
 a1 = {3, 5, 6, 7, 7, 88, 8, 9, 9, 9, 10, 111, 111}
 a2 = {22, 55, 77, 44, 97, 8383, 77, 333, 555, 666, 99, 323}
 
 print("--- 1. Original Sets ---")
-# Notice how duplicate numbers (like 7, 9, 111, 77) are removed automatically:
+```
+
+Notice how duplicate numbers (like 7, 9, 111, 77) are removed automatically:
+
+```python
 print("Set a1:", a1)
 print("Set a2:", a2)
 print()
+```
 
-# --- Common Set Operations ---
+## Common Set Operations
 
-# 1. Union: Merges both sets to show all unique items from both (does not change original sets)
+1. Union: Merges both sets to show all unique items from both (does not change original sets)
+
+```python
 print("--- 2. Union ---")
 all_items = a1.union(a2)
 print("Combined unique items:", all_items)
 print()
+```
 
-# 2. Intersection: Finds items that are present in BOTH sets
+2. Intersection: Finds items that are present in BOTH sets
+
+```python
 print("--- 3. Intersection ---")
 common_items = a1.intersection(a2)
 print("Items present in both a1 and a2:", common_items) # Should be empty set() since they have no common numbers
 print()
+```
 
-# 3. Difference: Finds items that are in a1 but NOT in a2
+3. Difference: Finds items that are in a1 but NOT in a2
+
+```python
 print("--- 4. Difference ---")
 diff_items = a1.difference(a2)
 print("Items in a1 but not in a2:", diff_items)
 print()
+```
 
-# 4. Symmetric Difference: Finds items in either set, but NOT in both
+4. Symmetric Difference: Finds items in either set, but NOT in both
+
+```python
 print("--- 5. Symmetric Difference ---")
 sym_diff = a1.symmetric_difference(a2)
 print("Items unique to each set:", sym_diff)
 print()
+```
 
-# --- Checking Set Relationships ---
+## Checking Set Relationships
 
-# 5. Isdisjoint: Returns True if two sets have NO elements in common
+5. Isdisjoint: Returns True if two sets have NO elements in common
+
+```python
 print("--- 6. Disjoint Sets Check ---")
 print("Do a1 and a2 have no elements in common?", a1.isdisjoint(a2))
 print()
+```
 
-# 6. Issubset: Returns True if all elements of a set are inside another set
-# 7. Issuperset: Returns True if a set contains all elements of another set
+6. Issubset: Returns True if all elements of a set are inside another set
+7. Issuperset: Returns True if a set contains all elements of another set
+
+```python
 small_set = {3, 5}
 print("--- 7. Subset and Superset Checks ---")
 print("Is {3, 5} a subset of a1?", small_set.issubset(a1))
 print("Is a1 a superset of {3, 5}?", a1.issuperset(small_set))
 print()
+```
 
-# --- Modifying Sets ---
+## Modifying Sets
 
-# 8. Add: Adds a single element to a set
+8. Add: Adds a single element to a set
+
+```python
 print("--- 8. Adding Elements ---")
 a1.add(500)
 print("a1 after adding 500:", a1)
 print()
+```
 
-# 9. Remove: Removes a specific element. (Will raise a KeyError if element is not found)
+9. Remove: Removes a specific element. (Will raise a KeyError if element is not found)
+
+```python
 print("--- 9. Removing Elements ---")
 a1.remove(500)
 print("a1 after removing 500:", a1)
+```
 
-# Note: Calling a1.remove(a1) would fail because a1 is a set, not a number inside the set.```
+Note: Calling a1.remove(a1) would fail because a1 is a set, not a number inside the set.```
+

@@ -1,22 +1,22 @@
-# If-Else Conditions
+# If Else Conditions
+
+## PYTHON IF / ELIF / ELSE (FOR BEGINNERS)
+
+## REAL-WORLD USE CASES
+
+Use if/else when your program needs to make a DECISION based on a condition.
+Examples:
+  * Login System: If password is correct -> allow access, else -> deny.
+  * FastAPI: If request data is valid -> process it, else -> return an error.
+  * LangGraph: If agent output meets condition -> go to next node, else -> retry.
+
+## HOW IT WORKS
+
+Python checks if a condition is True or False.
+If True  -> runs the `if` block
+If False -> checks `elif`, or falls to `else`
 
 ```python
-# ==========================================
-# PYTHON IF / ELIF / ELSE (FOR BEGINNERS)
-# ==========================================
-
-# --- REAL-WORLD USE CASES ---
-# Use if/else when your program needs to make a DECISION based on a condition.
-# Examples:
-#   * Login System: If password is correct -> allow access, else -> deny.
-#   * FastAPI: If request data is valid -> process it, else -> return an error.
-#   * LangGraph: If agent output meets condition -> go to next node, else -> retry.
-
-# --- HOW IT WORKS ---
-# Python checks if a condition is True or False.
-# If True  -> runs the `if` block
-# If False -> checks `elif`, or falls to `else`
-
 print("==========================================")
 print("BASIC IF / ELSE")
 print("==========================================")
@@ -31,12 +31,13 @@ else:
     print("You are a minor. You cannot vote yet.")
 
 print()
+```
 
-# ==========================================
-# ELIF (ELSE IF) — MULTIPLE CONDITIONS
-# ==========================================
-# Use `elif` when you have MORE than 2 possible outcomes.
+## ELIF (ELSE IF) — MULTIPLE CONDITIONS
 
+Use `elif` when you have MORE than 2 possible outcomes.
+
+```python
 print("==========================================")
 print("IF / ELIF / ELSE")
 print("==========================================")
@@ -55,17 +56,18 @@ else:
     print("Grade: F (Failed)")
 
 print()
+```
 
-# ==========================================
-# COMPARISON OPERATORS (used in conditions)
-# ==========================================
-# >   Greater than         e.g., 5 > 3  → True
-# <   Less than            e.g., 3 < 5  → True
-# >=  Greater or equal     e.g., 5 >= 5 → True
-# <=  Less or equal        e.g., 3 <= 5 → True
-# ==  Equal to             e.g., 5 == 5 → True  (Note: == not =)
-# !=  Not equal to         e.g., 5 != 3 → True
+## COMPARISON OPERATORS (used in conditions)
 
+>   Greater than         e.g., 5 > 3  → True
+<   Less than            e.g., 3 < 5  → True
+>=  Greater or equal     e.g., 5 >= 5 → True
+<=  Less or equal        e.g., 3 <= 5 → True
+==  Equal to             e.g., 5 == 5 → True  (Note: == not =)
+!=  Not equal to         e.g., 5 != 3 → True
+
+```python
 print("==========================================")
 print("COMPARISON OPERATORS")
 print("==========================================")
@@ -78,30 +80,37 @@ print("x < y  :", x < y)
 print("x == y :", x == y)
 print("x != y :", x != y)
 print()
+```
 
-# ==========================================
-# LOGICAL OPERATORS — AND / OR / NOT
-# ==========================================
-# `and` → Both conditions must be True
-# `or`  → At least ONE condition must be True
-# `not` → Reverses the result (True becomes False)
+## LOGICAL OPERATORS — AND / OR / NOT
 
+`and` → Both conditions must be True
+`or`  → At least ONE condition must be True
+`not` → Reverses the result (True becomes False)
+
+```python
 print("==========================================")
 print("LOGICAL OPERATORS: and / or / not")
 print("==========================================")
 
 username = "ritesh"
 password = "1234"
+```
 
-# Both must match for login to succeed
+Both must match for login to succeed
+
+```python
 if username == "ritesh" and password == "1234":
     print("Login successful! Welcome,", username)
 else:
     print("Login failed! Wrong username or password.")
 
 print()
+```
 
-# Using `or`
+Using `or`
+
+```python
 is_weekend = False
 is_holiday = True
 
@@ -111,19 +120,23 @@ else:
     print("It's a working day. Back to coding!")
 
 print()
+```
 
-# Using `not`
+Using `not`
+
+```python
 is_logged_in = False
 if not is_logged_in:
     print("Please log in first.")
 
 print()
+```
 
-# ==========================================
-# FASTAPI USE CASE EXAMPLE
-# ==========================================
-# In FastAPI, you check conditions to validate incoming request data.
+## FASTAPI USE CASE EXAMPLE
 
+In FastAPI, you check conditions to validate incoming request data.
+
+```python
 print("==========================================")
 print("FASTAPI-STYLE USE CASE: Validate a Request")
 print("==========================================")
@@ -144,3 +157,4 @@ print(validate_age(-5))
 print(validate_age(200))
 print(validate_age("abc"))
 ```
+

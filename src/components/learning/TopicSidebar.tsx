@@ -68,13 +68,19 @@ export function TopicSidebar({ topic }: { topic: TopicItem }) {
                     isActive={isActive}
                     tooltip={file.title}
                     render={<Link href={href} />}
+                    className={cn(
+                      "h-8 text-[13px] px-3 font-normal transition-all py-1.5 rounded-md cursor-pointer",
+                      isActive
+                        ? "bg-primary/10 text-primary font-medium hover:bg-primary/10 hover:text-primary"
+                        : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                    )}
                   >
-                    <FileText className="size-4" />
                     <span>{file.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               );
             })
+
           )}
         </SidebarMenu>
       </SidebarContent>

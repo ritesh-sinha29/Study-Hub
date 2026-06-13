@@ -862,3 +862,106 @@
 .animate-marquee-down:hover {
   animation-play-state: paused;
 }
+
+/* Custom Syntax Highlighting (Monochrome Vercel Theme) */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--muted-foreground);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.token.punctuation {
+  color: oklch(0.6 0 0);
+}
+.dark .token.punctuation {
+  color: oklch(0.5 0 0);
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: oklch(0.35 0 0);
+  font-weight: 500;
+}
+.dark .token.property,
+.dark .token.tag,
+.dark .token.boolean,
+.dark .token.number,
+.dark .token.constant,
+.dark .token.symbol,
+.dark .token.deleted {
+  color: oklch(0.75 0 0);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: oklch(0.25 0 0);
+  font-weight: 500;
+}
+.dark .token.selector,
+.dark .token.attr-name,
+.dark .token.string,
+.dark .token.char,
+.dark .token.builtin,
+.dark .token.inserted {
+  color: oklch(0.8 0 0);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: oklch(0.4 0 0);
+}
+.dark .token.operator,
+.dark .token.entity,
+.dark .token.url {
+  color: oklch(0.65 0 0);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: oklch(0 0 0);
+  font-weight: 700;
+}
+.dark .token.atrule,
+.dark .token.attr-value,
+.dark .token.keyword {
+  color: oklch(1 0 0);
+  font-weight: 700;
+}
+
+.token.function,
+.token.class-name {
+  color: oklch(0.15 0 0);
+  font-weight: 600;
+}
+.dark .token.function,
+.dark .token.class-name {
+  color: oklch(0.9 0 0);
+  font-weight: 600;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: oklch(0.3 0 0);
+}
+.dark .token.regex,
+.dark .token.important,
+.dark .token.variable {
+  color: oklch(0.7 0 0);
+}

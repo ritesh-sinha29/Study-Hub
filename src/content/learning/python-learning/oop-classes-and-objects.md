@@ -1,26 +1,29 @@
-# OOP - Classes & Objects
+# Oop Classes And Objects
+
+## PYTHON CLASSES & OOP (FOR BEGINNERS)
+
+## WHAT IS A CLASS?
+
+A class is like a BLUEPRINT or TEMPLATE for creating objects.
+Example: A "Car" blueprint defines: color, brand, speed.
+         From that blueprint, you can create many actual cars.
+
+## REAL-WORLD USE CASES
+
+* FastAPI + Pydantic: You define a `class User` as a model,
+  and FastAPI uses it to validate request and response data.
+* LangGraph: State objects that hold data as an agent runs are classes.
+* Everywhere: Grouping related data and behavior together.
 
 ```python
-# ==========================================
-# PYTHON CLASSES & OOP (FOR BEGINNERS)
-# ==========================================
-
-# --- WHAT IS A CLASS? ---
-# A class is like a BLUEPRINT or TEMPLATE for creating objects.
-# Example: A "Car" blueprint defines: color, brand, speed.
-#          From that blueprint, you can create many actual cars.
-
-# --- REAL-WORLD USE CASES ---
-# * FastAPI + Pydantic: You define a `class User` as a model,
-#   and FastAPI uses it to validate request and response data.
-# * LangGraph: State objects that hold data as an agent runs are classes.
-# * Everywhere: Grouping related data and behavior together.
-
 print("==========================================")
 print("1. CREATING A CLASS AND ITS OBJECTS")
 print("==========================================")
+```
 
-# Step 1: Define the blueprint (Class)
+Step 1: Define the blueprint (Class)
+
+```python
 class Dog:
     # __init__ is the constructor. It runs automatically when we create an object.
     # self represents the specific object we are creating.
@@ -30,22 +33,27 @@ class Dog:
 
     def bark(self):
         print(f"{self.name} says: Woof!")
+```
 
+Step 2: Create the actual Objects (also called Instances)
+Syntax: object_name = ClassName(arguments)
+When we call Dog("Bruno", "Labrador"), Python automatically calls __init__ behind the scenes.
 
-# Step 2: Create the actual Objects (also called Instances)
-# Syntax: object_name = ClassName(arguments)
-# When we call Dog("Bruno", "Labrador"), Python automatically calls __init__ behind the scenes.
-
+```python
 dog1 = Dog("Bruno", "Labrador")  # Created object 1 (dog1)
 dog2 = Dog("Max", "Pug")         # Created object 2 (dog2)
+```
 
-# Step 3: Access attributes and methods of the objects
+Step 3: Access attributes and methods of the objects
+
+```python
 print("Dog 1 name:", dog1.name)
 print("Dog 2 breed:", dog2.breed)
 dog1.bark()
 dog2.bark()
+```
 
-# ==========================================
+```python
 print("2. CLASS WITH MULTIPLE METHODS")
 print("==========================================")
 
@@ -75,39 +83,53 @@ account.withdraw(1000)
 account.withdraw(10000)  # Should show "Not enough money!"
 
 print()
+```
 
-# ==========================================
+```python
 print("3. INHERITANCE — One class inherits from another")
 print("==========================================")
+```
 
-# Think of it like a Parent and Child:
-# 1. The Parent has some skills/possessions.
-# 2. The Child inherits them automatically (gets them for free!).
-# 3. The Child can also add their own skills, or "override" the Parent's skills.
+Think of it like a Parent and Child:
+1. The Parent has some skills/possessions.
+2. The Child inherits them automatically (gets them for free!).
+3. The Child can also add their own skills, or "override" the Parent's skills.
 
-# --- 3A. Simple Inheritance ---
+## 3A. Simple Inheritance
+
+```python
 class Parent:
     def __init__(self, surname):
         self.surname = surname
 
     def drive(self):
         print("Driving the family car.")
+```
 
-# Child inherits from Parent by putting Parent in parentheses: Child(Parent)
+Child inherits from Parent by putting Parent in parentheses: Child(Parent)
+
+```python
 class Child(Parent):
     def play_games(self):
         print("Playing video games.")
+```
 
-# Let's test the Child:
+Let's test the Child:
+
+```python
 kid = Child("Sinha")
 print("--- 3A. Basic Inheritance ---")
 print(f"Child's surname is: {kid.surname}")  # Inherited surname attribute!
 kid.drive()                                   # Inherited drive method!
 kid.play_games()                              # Child's own method!
 print()
+```
 
-# --- 3B. Method Overriding ---
-# When the Child changes a skill they inherited from the Parent:
+## 3B. Method Overriding
+
+When the Child changes a skill they inherited from the Parent:
+
+```python
 class ChildWhoCooks(Parent):
     # Overriding the drive method to do it differently
     def drive(self):
@@ -117,9 +139,13 @@ cook_kid = ChildWhoCooks("Sinha")
 print("--- 3B. Method Overriding ---")
 cook_kid.drive()  # Uses the overridden version, not the parent's version
 print()
+```
 
-# --- 3C. Using super() ---
-# When the Child wants to do something but also call the Parent's version first:
+## 3C. Using super()
+
+When the Child wants to do something but also call the Parent's version first:
+
+```python
 class SmartChild(Parent):
     def __init__(self, surname, school):
         # Call the parent's __init__ to handle the surname
@@ -137,17 +163,20 @@ print("--- 3C. Using super() ---")
 print(f"Smart kid's school is: {smart_kid.school}")
 smart_kid.drive()
 print()
+```
 
-# ==========================================
+```python
 print("4. FASTAPI USE CASE — Pydantic Model (class)")
 print("==========================================")
+```
 
-# In FastAPI, you define what data your API expects using a class.
-# This is called a Pydantic model. It looks exactly like a normal class.
+In FastAPI, you define what data your API expects using a class.
+This is called a Pydantic model. It looks exactly like a normal class.
 
-# (In real FastAPI: from pydantic import BaseModel)
-# Here we simulate it without installing FastAPI:
+(In real FastAPI: from pydantic import BaseModel)
+Here we simulate it without installing FastAPI:
 
+```python
 class UserRequest:
     # This class represents the data a user sends when registering
     def __init__(self, name: str, age: int, email: str):
@@ -162,3 +191,4 @@ class UserRequest:
 new_user = UserRequest("Ritesh", 20, "ritesh@example.com")
 print("New user data:", new_user.to_dict())
 ```
+

@@ -5,7 +5,6 @@ import path from "path";
 import {
   ChevronRight,
   ChevronLeft,
-  ChevronUp,
 } from "lucide-react";
 import { getTopicBySlug, type TopicFile } from "@/config/learning";
 import { MarkdownRenderer } from "@/components/learning/MarkdownRenderer";
@@ -128,14 +127,7 @@ export default async function TopicFilePage({ params }: PageProps) {
         <TableOfContents headings={headings} />
       </aside>
 
-      {/* Back to top button - visible on mobile/tablet when ToC is hidden */}
-      <Link
-        href="#"
-        className="fixed bottom-6 right-6 z-40 flex size-10 items-center justify-center rounded-full border bg-background shadow-md opacity-0 pointer-events-none transition-opacity xl:hidden [@media(hover:hover)]:hover:opacity-100"
-        aria-label="Back to top"
-      >
-        <ChevronUp className="size-5 text-muted-foreground" />
-      </Link>
+
     </div>
   );
 }

@@ -38,20 +38,20 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <nav className="sticky top-24 w-56 shrink-0 hidden xl:block">
       <div className="pl-4 border-l border-border/40">
-        <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/60">
           On this page
         </p>
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           {headings.map((heading) => (
-            <li key={heading.id}>
+            <li key={heading.id} className="relative">
               <a
                 href={`#${heading.id}`}
                 className={cn(
-                  "block text-sm transition-colors hover:text-foreground",
-                  heading.level === 3 ? "pl-4" : "",
+                  "block text-[13px] py-1 border-l-2 transition-all hover:text-foreground duration-200 -ml-[17px]",
                   activeId === heading.id
-                    ? "text-foreground font-medium"
-                    : "text-muted-foreground"
+                    ? "border-primary text-foreground font-medium"
+                    : "border-transparent text-muted-foreground/80",
+                  heading.level === 3 ? "pl-8" : "pl-4"
                 )}
               >
                 {heading.text}
@@ -62,4 +62,5 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       </div>
     </nav>
   );
+
 }

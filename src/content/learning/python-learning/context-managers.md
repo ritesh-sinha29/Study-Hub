@@ -1,33 +1,33 @@
 # Context Managers
 
+## PYTHON CONTEXT MANAGERS & THE 'WITH' STATEMENT (DEEPER PYTHON)
+
+## WHAT IS A CONTEXT MANAGER?
+
+A context manager is a tool that allows you to allocate and release resources
+exactly when you want to.
+
+The most common use case is the `with` statement.
+You have probably seen it when opening files:
+
+with open("test.txt", "w") as file:
+      file.write("Hello")
+
+Why use `with`? Because it AUTOMATICALLY closes the file for you, 
+even if an error/crash occurs inside the block! This prevents resource leaks.
+
 ```python
-# ==========================================================
-# PYTHON CONTEXT MANAGERS & THE 'WITH' STATEMENT (DEEPER PYTHON)
-# ==========================================================
-
-# --- WHAT IS A CONTEXT MANAGER? ---
-# A context manager is a tool that allows you to allocate and release resources
-# exactly when you want to.
-#
-# The most common use case is the `with` statement.
-# You have probably seen it when opening files:
-#
-#   with open("test.txt", "w") as file:
-#       file.write("Hello")
-#
-# Why use `with`? Because it AUTOMATICALLY closes the file for you, 
-# even if an error/crash occurs inside the block! This prevents resource leaks.
-
 import time
 from contextlib import contextmanager
+```
 
-# ==========================================================
-# 1. THE CLASS-BASED APPROACH (Using __enter__ and __exit__)
-# ==========================================================
-# To make a class act as a context manager, it must implement two dunder methods:
-# - __enter__: What to do when entering the `with` block (setup).
-# - __exit__: What to do when exiting the `with` block (cleanup).
+## 1. THE CLASS-BASED APPROACH (Using __enter__ and __exit__)
 
+To make a class act as a context manager, it must implement two dunder methods:
+- __enter__: What to do when entering the `with` block (setup).
+- __exit__: What to do when exiting the `with` block (cleanup).
+
+```python
 class Timer:
     def __init__(self, description: str):
         self.description = description
@@ -44,27 +44,31 @@ class Timer:
         duration = self.end_time - self.start_time
         print(f"[Timer] Finished: {self.description} took {duration:.4f} seconds")
         print("-" * 40)
-        
+
         # Returning False (or None) allows any exception inside the block to propagate.
         # Returning True suppresses the exception.
         return False
 
 
 print("--- 1. CLASS-BASED CONTEXT MANAGER ---")
-# Using our custom Timer context manager
+```
+
+Using our custom Timer context manager
+
+```python
 with Timer("Calculating sum of numbers"):
     total = 0
     for i in range(1, 10_000_000):
         total += i
     print(f"Calculation complete. Sum = {total}")
+```
 
+## 2. HANDLING ERRORS IN __exit__
 
-# ==========================================================
-# 2. HANDLING ERRORS IN __exit__
-# ==========================================================
-# A key power of context managers is that the cleanup (__exit__) is guaranteed
-# to run, even if the code inside crashes!
+A key power of context managers is that the cleanup (__exit__) is guaranteed
+to run, even if the code inside crashes!
 
+```python
 class DatabaseConnection:
     def __init__(self, db_name: str):
         self.db_name = db_name
@@ -90,14 +94,14 @@ with DatabaseConnection("UserDB") as db:
 
 print("Program continues running normally because __exit__ suppressed the error! [OK]")
 print("-" * 40)
+```
 
+## 3. THE GENERATOR-BASED APPROACH (Using @contextmanager)
 
-# ==========================================================
-# 3. THE GENERATOR-BASED APPROACH (Using @contextmanager)
-# ==========================================================
-# Writing a class can be wordy. Python provides a helper decorator: `@contextmanager`
-# inside the `contextlib` module. It uses a `yield` statement.
+Writing a class can be wordy. Python provides a helper decorator: `@contextmanager`
+inside the `contextlib` module. It uses a `yield` statement.
 
+```python
 @contextmanager
 def simple_file_manager(filename: str, mode: str):
     print(f"[File] Opening {filename}...")
@@ -112,14 +116,22 @@ def simple_file_manager(filename: str, mode: str):
 
 
 print("\n--- 3. GENERATOR-BASED CONTEXT MANAGER ---")
-# Let's use it to write a temp file
+```
+
+Let's use it to write a temp file
+
+```python
 with simple_file_manager("temp_file.txt", "w") as f:
     f.write("Writing some temporary data.")
     print("[File] Data written successfully.")
+```
 
-# Clean up: delete the file
+Clean up: delete the file
+
+```python
 import os
 if os.path.exists("temp_file.txt"):
     os.remove("temp_file.txt")
     print("[File] Temp file removed from disk.")
 ```
+

@@ -1,43 +1,49 @@
 # Exception Handling
 
+## PYTHON EXCEPTION HANDLING (FOR BEGINNERS)
+
+## WHAT IS EXCEPTION HANDLING?
+
+An exception is an ERROR that happens while the program is running.
+Without handling it, your entire program CRASHES.
+With try/except, you can CATCH the error and handle it gracefully.
+
+## SIMPLE ANALOGY
+
+It's like a safety net under a trapeze artist.
+If they fall (error happens), the net catches them (except block runs),
+and the show can continue instead of everything stopping.
+
+## REAL-WORLD USE CASES
+
+* FastAPI: Return a proper error message (400, 404, 500) instead of crashing
+* LangGraph: If an AI agent fails, catch the error and retry or go to fallback
+* File reading: If a file doesn't exist, show a nice message instead of crashing
+
 ```python
-# ==========================================
-# PYTHON EXCEPTION HANDLING (FOR BEGINNERS)
-# ==========================================
-
-# --- WHAT IS EXCEPTION HANDLING? ---
-# An exception is an ERROR that happens while the program is running.
-# Without handling it, your entire program CRASHES.
-# With try/except, you can CATCH the error and handle it gracefully.
-
-# --- SIMPLE ANALOGY ---
-# It's like a safety net under a trapeze artist.
-# If they fall (error happens), the net catches them (except block runs),
-# and the show can continue instead of everything stopping.
-
-# --- REAL-WORLD USE CASES ---
-# * FastAPI: Return a proper error message (400, 404, 500) instead of crashing
-# * LangGraph: If an AI agent fails, catch the error and retry or go to fallback
-# * File reading: If a file doesn't exist, show a nice message instead of crashing
-
 print("==========================================")
 print("1. WHAT HAPPENS WITHOUT EXCEPTION HANDLING")
 print("==========================================")
+```
 
-# This would CRASH the program if uncommented:
-# print(10 / 0)  # ZeroDivisionError: division by zero
-# print(int("hello"))  # ValueError: invalid literal for int()
+This would CRASH the program if uncommented:
+print(10 / 0)  # ZeroDivisionError: division by zero
+print(int("hello"))  # ValueError: invalid literal for int()
 
+```python
 print("(Examples commented out to avoid crashing the script)")
 print()
+```
 
-# ==========================================
+```python
 print("2. BASIC TRY / EXCEPT")
 print("==========================================")
+```
 
-# try:   → Run this code (the risky part)
-# except → If an error happens, run THIS instead (the safe part)
+try:   → Run this code (the risky part)
+except → If an error happens, run THIS instead (the safe part)
 
+```python
 try:
     divisor = int("0")    # int("0") → Pylance can't predict this is 0, so no warning
     result = 10 / divisor # This still causes ZeroDivisionError at runtime
@@ -48,8 +54,9 @@ except ZeroDivisionError:
 
 print("Program continues normally after the error.")
 print()
+```
 
-# ==========================================
+```python
 print("3. CATCHING DIFFERENT ERRORS")
 print("==========================================")
 
@@ -68,8 +75,9 @@ print(safe_convert("hello"))  # ValueError → custom message
 print(safe_convert("0"))      # ZeroDivisionError → custom message
 
 print()
+```
 
-# ==========================================
+```python
 print("4. ELSE — Runs only if NO error happened")
 print("==========================================")
 
@@ -82,13 +90,16 @@ else:
     print("Conversion successful! Number is:", number)
 
 print()
+```
 
-# ==========================================
+```python
 print("5. FINALLY — Runs NO MATTER WHAT (error or not)")
 print("==========================================")
+```
 
-# Use `finally` for cleanup code (like closing a file or database connection)
+Use `finally` for cleanup code (like closing a file or database connection)
 
+```python
 try:
     file_content = open("somefile.txt", "r")
 except FileNotFoundError:
@@ -98,13 +109,16 @@ finally:
     print("Cleanup done. Moving on.")
 
 print()
+```
 
-# ==========================================
+```python
 print("6. RAISING YOUR OWN ERRORS")
 print("==========================================")
+```
 
-# You can create and throw your own errors using `raise`
+You can create and throw your own errors using `raise`
 
+```python
 def check_age(age: int):
     if age < 0:
         raise ValueError("Age cannot be negative!")
@@ -119,24 +133,34 @@ except ValueError as e:
     print("Caught an error:", e)
 
 print()
+```
 
-# ==========================================
+```python
 print("7. FASTAPI USE CASE — HTTPException")
 print("==========================================")
+```
 
-# In FastAPI, you raise an HTTPException to send error responses to the user.
-# Real FastAPI code:
-#
-#   from fastapi import HTTPException
-#
-#   @app.get("/users/{user_id}")
-#   def get_user(user_id: int):
-#       user = find_user(user_id)
-#       if user is None:
-#           raise HTTPException(status_code=404, detail="User not found")
-#       return user
+In FastAPI, you raise an HTTPException to send error responses to the user.
+Real FastAPI code:
 
-# Simulation without FastAPI:
+```python
+from fastapi import HTTPException
+
+  @app.get("/users/{user_id}")
+  def get_user(user_id: int):
+```
+
+user = find_user(user_id)
+      if user is None:
+          raise HTTPException(status_code=404, detail="User not found")
+
+```python
+return user
+```
+
+Simulation without FastAPI:
+
+```python
 def simulate_http_exception(status_code, detail):
     raise Exception(f"HTTP {status_code}: {detail}")
 
@@ -152,3 +176,4 @@ def get_user(user_id: int):
 print(get_user(1))   # Found → returns user data
 print(get_user(99))  # Not found → returns error response
 ```
+

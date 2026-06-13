@@ -1,43 +1,51 @@
 # Decorators
 
+## PYTHON DECORATORS (FOR BEGINNERS)
+
+## WHAT IS A DECORATOR?
+
+A decorator is a special function that WRAPS another function 
+and adds extra behavior WITHOUT changing the original function's code.
+You apply a decorator using the `@` symbol on top of a function.
+
+## REAL-WORLD USE CASES
+
+* FastAPI: @app.get("/users") tells FastAPI "this function handles GET /users"
+* Logging: Automatically log every time a function is called
+* Timing: Measure how long a function takes to run
+* Authentication: Check if a user is logged in before running a function
+
 ```python
-# ==========================================
-# PYTHON DECORATORS (FOR BEGINNERS)
-# ==========================================
-
-# --- WHAT IS A DECORATOR? ---
-# A decorator is a special function that WRAPS another function 
-# and adds extra behavior WITHOUT changing the original function's code.
-# You apply a decorator using the `@` symbol on top of a function.
-
-# --- REAL-WORLD USE CASES ---
-# * FastAPI: @app.get("/users") tells FastAPI "this function handles GET /users"
-# * Logging: Automatically log every time a function is called
-# * Timing: Measure how long a function takes to run
-# * Authentication: Check if a user is logged in before running a function
-
 print("==========================================")
 print("1. THE PROBLEM DECORATORS SOLVE")
 print("==========================================")
+```
 
-# Say we have two functions and we want to add a greeting before each:
+Say we have two functions and we want to add a greeting before each:
 
+```python
 def say_hello():
     print("Hello!")
 
 def say_bye():
     print("Bye!")
+```
 
-# If we want to add "--- Starting ---" before both,
-# instead of editing each function, we use a decorator!
+If we want to add "--- Starting ---" before both,
+instead of editing each function, we use a decorator!
 
+```python
 print()
+```
 
-# ==========================================
+```python
 print("2. CREATING A BASIC DECORATOR")
 print("==========================================")
+```
 
-# Step 1: Create the decorator function
+Step 1: Create the decorator function
+
+```python
 def my_decorator(func):
     # `func` is the function being decorated (wrapped)
     def wrapper():
@@ -45,18 +53,25 @@ def my_decorator(func):
         func()   # Call the original function
         print("--- After the function runs ---")
     return wrapper
+```
 
-# Step 2: Apply the decorator using @
+Step 2: Apply the decorator using @
+
+```python
 @my_decorator
 def greet():
     print("Hello, Ritesh!")
+```
 
-# Now when you call greet(), it ALSO runs the code in wrapper()
+Now when you call greet(), it ALSO runs the code in wrapper()
+
+```python
 greet()
 
 print()
+```
 
-# ==========================================
+```python
 print("3. DECORATOR WITH PARAMETERS")
 print("==========================================")
 
@@ -82,34 +97,40 @@ print()
 greet_user("Ritesh")
 
 print()
+```
 
-# ==========================================
+```python
 print("4. FASTAPI USE CASE — Route Decorators")
 print("==========================================")
+```
 
-# In FastAPI, decorators tell the framework which URL triggers which function.
-# This is the MOST important use of decorators you will see daily.
+In FastAPI, decorators tell the framework which URL triggers which function.
+This is the MOST important use of decorators you will see daily.
 
-# Real FastAPI code looks like this:
-# 
-#   from fastapi import FastAPI
-#   app = FastAPI()
-#
-#   @app.get("/")              <-- This is a decorator!
-#   def read_home():
-#       return {"message": "Welcome to my API"}
-#
-#   @app.get("/users")         <-- This is another decorator!
-#   def get_all_users():
-#       return [{"id": 1, "name": "Ritesh"}]
-#
-#   @app.post("/users")        <-- Decorator for POST requests
-#   def create_user(user: UserModel):
-#       return user
+Real FastAPI code looks like this:
 
-# Here is a SIMULATION without FastAPI installed:
+```python
+from fastapi import FastAPI
+  app = FastAPI()
 
-# Fake "app" to demonstrate how @app.get() works
+  @app.get("/")              <-- This is a decorator!
+  def read_home():
+      return {"message": "Welcome to my API"}
+
+  @app.get("/users")         <-- This is another decorator!
+  def get_all_users():
+      return [{"id": 1, "name": "Ritesh"}]
+
+  @app.post("/users")        <-- Decorator for POST requests
+  def create_user(user: UserModel):
+      return user
+```
+
+Here is a SIMULATION without FastAPI installed:
+
+Fake "app" to demonstrate how @app.get() works
+
+```python
 routes = {}
 
 def get(path):
@@ -126,9 +147,13 @@ def home():
 @get("/users")
 def get_users():
     return [{"id": 1, "name": "Ritesh"}, {"id": 2, "name": "Rox"}]
+```
 
-# Simulate what FastAPI does when it receives a request for "/"
+Simulate what FastAPI does when it receives a request for "/"
+
+```python
 print("GET / ->", home())
 print("GET /users ->", get_users())
 print("\nAll registered routes:", list(routes.keys()))
 ```
+

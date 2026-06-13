@@ -10,7 +10,20 @@ import {
   TriangleAlert,
   CircleAlert,
 } from "lucide-react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { slugify } from "@/lib/extract-headings";
+import { cn } from "@/lib/utils";
+import Prism from "prismjs";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-bash";
 
 interface MarkdownRendererProps {
   content: string;
@@ -23,32 +36,32 @@ function getCalloutInfo(type: CalloutType) {
     case "NOTE":
       return {
         icon: Info,
-        className: "border-blue-500/30 bg-blue-500/5",
-        iconClassName: "text-blue-500",
+        className: "border-blue-500/20 bg-blue-500/[0.03] text-blue-900/80 dark:text-blue-200/80",
+        iconClassName: "text-blue-500 dark:text-blue-400",
       };
     case "TIP":
       return {
         icon: Lightbulb,
-        className: "border-emerald-500/30 bg-emerald-500/5",
-        iconClassName: "text-emerald-500",
+        className: "border-emerald-500/20 bg-emerald-500/[0.03] text-emerald-900/80 dark:text-emerald-200/80",
+        iconClassName: "text-emerald-500 dark:text-emerald-400",
       };
     case "IMPORTANT":
       return {
         icon: Info,
-        className: "border-purple-500/30 bg-purple-500/5",
-        iconClassName: "text-purple-500",
+        className: "border-purple-500/20 bg-purple-500/[0.03] text-purple-900/80 dark:text-purple-200/80",
+        iconClassName: "text-purple-500 dark:text-purple-400",
       };
     case "WARNING":
       return {
         icon: TriangleAlert,
-        className: "border-amber-500/30 bg-amber-500/5",
-        iconClassName: "text-amber-500",
+        className: "border-amber-500/20 bg-amber-500/[0.03] text-amber-900/80 dark:text-amber-200/80",
+        iconClassName: "text-amber-500 dark:text-amber-400",
       };
     case "CAUTION":
       return {
         icon: CircleAlert,
-        className: "border-red-500/30 bg-red-500/5",
-        iconClassName: "text-red-500",
+        className: "border-red-500/20 bg-red-500/[0.03] text-red-900/80 dark:text-red-200/80",
+        iconClassName: "text-red-500 dark:text-red-400",
       };
   }
 }
@@ -61,7 +74,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         return (
           <h1
             id={id}
-            className="scroll-m-20 text-3xl font-bold tracking-tight mb-2 mt-2"
+            className="scroll-m-20 text-3xl font-extrabold tracking-tight mb-4 mt-6 text-foreground"
             {...props}
           >
             {children}
@@ -73,15 +86,15 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         return (
           <h2
             id={id}
-            className="scroll-m-20 text-xl font-semibold tracking-tight mb-3 mt-10 first:mt-0 border-b border-border/20 pb-2"
+            className="scroll-m-20 text-2xl font-bold tracking-tight mb-4 mt-10 first:mt-0 border-b border-border/30 pb-2 text-foreground"
             {...props}
           >
             <a
               href={`#${id}`}
-              className="group inline-flex items-center gap-2 no-underline hover:text-foreground"
+              className="group inline-flex items-center gap-2 no-underline hover:text-foreground transition-colors"
             >
               {children}
-              <span className="text-muted-foreground/30 opacity-0 transition-opacity group-hover:opacity-100 text-base font-normal">
+              <span className="text-muted-foreground/30 opacity-0 transition-opacity group-hover:opacity-100 text-lg font-normal">
                 #
               </span>
             </a>
@@ -93,12 +106,12 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         return (
           <h3
             id={id}
-            className="scroll-m-20 text-lg font-semibold tracking-tight mb-2 mt-8"
+            className="scroll-m-20 text-lg font-semibold tracking-tight mb-3 mt-8 text-foreground"
             {...props}
           >
             <a
               href={`#${id}`}
-              className="group inline-flex items-center gap-2 no-underline hover:text-foreground"
+              className="group inline-flex items-center gap-2 no-underline hover:text-foreground transition-colors"
             >
               {children}
               <span className="text-muted-foreground/30 opacity-0 transition-opacity group-hover:opacity-100 text-sm font-normal">
@@ -110,61 +123,78 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
       },
       p: ({ children, ...props }: React.ComponentPropsWithoutRef<"p">) => (
         <p
-          className="leading-7 text-muted-foreground [&:not(:first-child)]:mt-5"
+          className="leading-7 text-[15px] text-muted-foreground my-4"
           {...props}
         >
           {children}
         </p>
       ),
       ul: ({ children, ...props }: React.ComponentPropsWithoutRef<"ul">) => (
-        <ul className="my-5 ml-6 list-disc [&>li]:mt-2" {...props}>
+        <ul className="my-4 ml-6 list-disc [&>li]:mt-1.5" {...props}>
           {children}
         </ul>
       ),
       ol: ({ children, ...props }: React.ComponentPropsWithoutRef<"ol">) => (
-        <ol className="my-5 ml-6 list-decimal [&>li]:mt-2" {...props}>
+        <ol className="my-4 ml-6 list-decimal [&>li]:mt-1.5" {...props}>
           {children}
         </ol>
       ),
       li: ({ children, ...props }: React.ComponentPropsWithoutRef<"li">) => (
-        <li className="text-muted-foreground" {...props}>
+        <li className="text-muted-foreground text-[15px]" {...props}>
           {children}
         </li>
       ),
       code: ({
         children,
         className,
+        node,
         ...props
-      }: React.ComponentPropsWithoutRef<"code">) => {
+      }: React.ComponentPropsWithoutRef<"code"> & { node?: any }) => {
         const isInline = !className;
         if (isInline) {
           return (
             <code
-              className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-medium"
+              className="relative rounded bg-muted/50 px-[0.4rem] py-[0.2rem] font-mono text-[0.85em] font-semibold text-foreground border border-border/10"
               {...props}
             >
               {children}
             </code>
           );
         }
+
+        const match = /language-(\w+)/.exec(className || "");
+        const lang = match ? match[1] : "";
+        const codeText = String(children).replace(/\n$/, "");
+        
+        let highlightedHtml = "";
+        try {
+          if (lang && Prism.languages[lang]) {
+            highlightedHtml = Prism.highlight(codeText, Prism.languages[lang], lang);
+          } else {
+            highlightedHtml = Prism.highlight(codeText, Prism.languages.markup, "markup");
+          }
+        } catch (e) {
+          highlightedHtml = codeText;
+        }
+
         return (
-          <code className={className} {...props}>
-            {children}
-          </code>
+          <code
+            className={cn(className, "block font-mono text-[13px] leading-relaxed")}
+            dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+            {...props}
+          />
         );
       },
       pre: ({
         children,
         ...props
       }: React.ComponentPropsWithoutRef<"pre">) => {
-        // Extract code text for copy button
         let codeText = "";
         if (children && typeof children === "object" && "props" in (children as object)) {
           const childProps = (children as { props?: { children?: unknown } }).props;
           codeText = String(childProps?.children ?? "");
         }
 
-        // Extract language for filename label
         let language = "";
         if (children && typeof children === "object" && "props" in (children as object)) {
           const childProps = (children as { props?: { className?: string } }).props;
@@ -173,21 +203,23 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         }
 
         return (
-          <div className="relative group my-6">
-            {language && (
-              <div className="flex items-center justify-between rounded-t-lg border border-b-0 border-border/40 bg-muted/30 px-4 py-1.5">
-                <span className="text-xs font-medium text-muted-foreground/70">
+          <div className="relative group my-6 rounded-lg border border-border/60 dark:border-border/40 bg-neutral-50 dark:bg-[#09090b] overflow-hidden">
+            {language ? (
+              <div className="flex items-center justify-between border-b border-border/60 dark:border-border/40 bg-muted/30 dark:bg-muted/10 px-4 py-2">
+                <span className="text-[10px] uppercase tracking-wider font-mono font-bold text-muted-foreground/60">
                   {language}
                 </span>
+                <CopyButton text={codeText} inline />
               </div>
+            ) : (
+              <CopyButton text={codeText} />
             )}
             <pre
-              className={`overflow-x-auto rounded-lg border bg-[#0a0a0f] dark:bg-[#0a0a0f] text-[#e4e4e7] p-4 text-sm font-mono leading-relaxed [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit ${language ? "rounded-t-none" : ""}`}
+              className="overflow-x-auto p-4 text-[13px] font-mono leading-relaxed bg-transparent text-foreground/90 dark:text-[#e4e4e7] [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit"
               {...props}
             >
               {children}
             </pre>
-            <CopyButton text={codeText} />
           </div>
         );
       },
@@ -195,7 +227,6 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         children,
         ...props
       }: React.ComponentPropsWithoutRef<"blockquote">) => {
-        // Check for GitHub-style callouts: > [!NOTE] / > [!TIP] / > [!WARNING] / > [!CAUTION]
         const firstChild = Array.isArray(children) ? children[0] : children;
         const text = firstChild && typeof firstChild === "object" && "props" in firstChild
           ? String((firstChild as { props?: { children?: unknown } }).props?.children ?? "")
@@ -203,18 +234,17 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         const calloutMatch = text.match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*([\s\S]*)/);
         if (calloutMatch) {
           const type = calloutMatch[1] as CalloutType;
-          const rest = calloutMatch[2].trim();
+          const rest = calloutMatch[2] ? calloutMatch[2].trim() : "";
           const info = getCalloutInfo(type);
           const Icon = info.icon;
-          // Remove the first child (callout header) and keep the rest
           const restChildren = Array.isArray(children) ? children.slice(1) : [];
           return (
             <div
-              className={`my-6 flex gap-3 rounded-lg border px-4 py-3 ${info.className}`}
+              className={cn("my-5 flex gap-3.5 rounded-lg border px-4 py-3 text-sm leading-6", info.className)}
             >
-              <Icon className={`mt-0.5 size-5 shrink-0 ${info.iconClassName}`} />
-              <div className="text-sm leading-7 text-muted-foreground [&>p]:mt-0">
-                {rest && <p className="mt-0">{rest}</p>}
+              <Icon className={cn("mt-0.5 size-4.5 shrink-0", info.iconClassName)} />
+              <div className="flex-1 [&>p]:mt-0 text-[14px]">
+                {rest && <p className="mt-0 font-medium">{rest}</p>}
                 {restChildren}
               </div>
             </div>
@@ -233,7 +263,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         children,
         ...props
       }: React.ComponentPropsWithoutRef<"table">) => (
-        <div className="my-6 overflow-x-auto rounded-lg border">
+        <div className="my-6 overflow-x-auto rounded-lg border border-border/40">
           <table className="w-full text-sm" {...props}>
             {children}
           </table>
@@ -244,7 +274,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         ...props
       }: React.ComponentPropsWithoutRef<"th">) => (
         <th
-          className="border-b border-border bg-muted/50 px-4 py-2.5 text-left font-medium"
+          className="border-b border-border/40 bg-muted/40 px-4 py-2.5 text-left font-semibold text-foreground"
           {...props}
         >
           {children}
@@ -255,7 +285,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         ...props
       }: React.ComponentPropsWithoutRef<"td">) => (
         <td
-          className="border-b border-border px-4 py-2.5 text-muted-foreground"
+          className="border-b border-border/20 px-4 py-2.5 text-muted-foreground"
           {...props}
         >
           {children}
@@ -269,7 +299,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         ...props
       }: React.ComponentPropsWithoutRef<"a">) => (
         <a
-          className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+          className="text-primary font-medium underline underline-offset-4 hover:text-primary/80 transition-colors"
           target="_blank"
           rel="noopener noreferrer"
           {...props}
@@ -281,11 +311,66 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     []
   );
 
+  const { mainContent, questions } = useMemo(() => {
+    const qaRegex = /<Questions>([\s\S]*?)<\/Questions>/;
+    const match = content.match(qaRegex);
+    let mainContent = content;
+    let questions: Array<{ id: string; title: string; content: string }> = [];
+
+    if (match) {
+      mainContent = content.replace(qaRegex, "");
+      const qaSection = match[1];
+      const questionRegex = /<Question\s+id="([^"]+)"\s+title="([^"]+)">([\s\S]*?)<\/Question>/g;
+      let qMatch;
+      while ((qMatch = questionRegex.exec(qaSection)) !== null) {
+        questions.push({
+          id: qMatch[1],
+          title: qMatch[2],
+          content: qMatch[3].trim(),
+        });
+      }
+    }
+
+    return { mainContent, questions };
+  }, [content]);
+
   return (
     <article className="min-w-0">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
-        {content}
+        {mainContent}
       </ReactMarkdown>
+
+      {questions.length > 0 && (
+        <div className="mt-16 border-t border-border/40 pt-10">
+          <h2 className="text-2xl font-bold tracking-tight mb-6 text-foreground">
+            Interview Q&As
+          </h2>
+          <Accordion className="w-full space-y-3">
+            {questions.map((q) => (
+              <AccordionItem
+                key={q.id}
+                value={q.id}
+                className="border border-border/60 dark:border-border/40 rounded-lg overflow-hidden bg-card/30 dark:bg-[#09090b]/30 hover:bg-neutral-50/50 dark:hover:bg-[#09090b]/50 transition-colors duration-200"
+              >
+                <AccordionTrigger className="px-5 py-4 text-[15px] font-semibold text-foreground/90 hover:text-foreground no-underline">
+                  <span className="flex items-center gap-3">
+                    <span className="text-xs font-mono px-2 py-0.5 bg-muted text-muted-foreground rounded border border-border/20">
+                      {q.id}
+                    </span>
+                    {q.title}
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="px-5 pb-4 pt-1 text-[14.5px] leading-relaxed text-muted-foreground border-t border-border/20 dark:border-border/10 bg-neutral-50/[0.15] dark:bg-[#09090b]/10">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+                    {q.content}
+                  </ReactMarkdown>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      )}
     </article>
   );
 }
+

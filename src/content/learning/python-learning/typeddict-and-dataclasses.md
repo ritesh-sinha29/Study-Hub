@@ -1,36 +1,44 @@
-# TypedDict & Dataclasses
+# Typeddict And Dataclasses
+
+## TYPEDDICT & DATACLASSES (FOR BEGINNERS)
+
+## WHY ARE THESE IMPORTANT?
+
+Both TypedDict and dataclasses are ways to create STRUCTURED data containers.
+They tell Python (and your editor) exactly what fields exist and their types.
+
+LangGraph uses TypedDict to define the STATE of your AI agent.
+FastAPI uses dataclasses and Pydantic models for request/response shapes.
 
 ```python
-# ==========================================
-# TYPEDDICT & DATACLASSES (FOR BEGINNERS)
-# ==========================================
-
-# --- WHY ARE THESE IMPORTANT? ---
-# Both TypedDict and dataclasses are ways to create STRUCTURED data containers.
-# They tell Python (and your editor) exactly what fields exist and their types.
-
-# LangGraph uses TypedDict to define the STATE of your AI agent.
-# FastAPI uses dataclasses and Pydantic models for request/response shapes.
-
 print("==========================================")
 print("PART 1: TypedDict")
 print("==========================================")
+```
 
-# --- WHAT IS TypedDict? ---
-# TypedDict is a dictionary where each key has a FIXED type.
-# It's like a regular dict, but with type labels for each field.
-# LangGraph's state is ALWAYS defined as a TypedDict.
+## WHAT IS TypedDict?
 
+TypedDict is a dictionary where each key has a FIXED type.
+It's like a regular dict, but with type labels for each field.
+LangGraph's state is ALWAYS defined as a TypedDict.
+
+```python
 from typing import TypedDict, List, Optional
+```
 
-# Define the shape of your data:
+Define the shape of your data:
+
+```python
 class UserInfo(TypedDict):
     name: str           # `name` must be a string
     age: int            # `age` must be an integer
     email: str          # `email` must be a string
     is_active: bool     # `is_active` must be True or False
+```
 
-# Create an instance (it's basically a dictionary):
+Create an instance (it's basically a dictionary):
+
+```python
 user: UserInfo = {
     "name": "Ritesh",
     "age": 20,
@@ -43,22 +51,29 @@ print("Access name:", user["name"])
 print("Access age:", user["age"])
 
 print()
+```
 
-# ==========================================
+```python
 print("LANGGRAPH USE CASE — Agent State as TypedDict")
 print("==========================================")
+```
 
-# In LangGraph, you define your AI agent's state as a TypedDict.
-# Every node (function) in the graph reads and updates this state.
+In LangGraph, you define your AI agent's state as a TypedDict.
+Every node (function) in the graph reads and updates this state.
 
-# Example: A simple chatbot agent state
+Example: A simple chatbot agent state
+
+```python
 class AgentState(TypedDict):
     messages: List[str]          # List of chat messages
     current_step: str            # Which step the agent is on
     is_complete: bool            # Has the agent finished?
     error: Optional[str]         # Any error message (or None)
+```
 
-# Create initial state:
+Create initial state:
+
+```python
 initial_state: AgentState = {
     "messages": ["Hello! I need help with Python."],
     "current_step": "greeting",
@@ -67,8 +82,11 @@ initial_state: AgentState = {
 }
 
 print("Initial Agent State:", initial_state)
+```
 
-# Simulate an agent updating the state:
+Simulate an agent updating the state:
+
+```python
 initial_state["messages"].append("Sure! What do you want to learn?")
 initial_state["current_step"] = "awaiting_topic"
 print("Updated State:", initial_state)
@@ -78,21 +96,31 @@ print()
 print("==========================================")
 print("PART 2: Dataclasses")
 print("==========================================")
+```
 
-# --- WHAT IS A DATACLASS? ---
-# A dataclass is a SHORTCUT for creating a class that mainly holds data.
-# Without it, you have to write __init__, etc. manually.
-# With @dataclass, Python writes all that for you automatically!
+## WHAT IS A DATACLASS?
 
+A dataclass is a SHORTCUT for creating a class that mainly holds data.
+Without it, you have to write __init__, etc. manually.
+With @dataclass, Python writes all that for you automatically!
+
+```python
 from dataclasses import dataclass, field
+```
 
-# Without @dataclass you would write:
-# class Point:
-#     def __init__(self, x, y):
-#         self.x = x
-#         self.y = y
+Without @dataclass you would write:
 
-# With @dataclass (much shorter!):
+```python
+class Point:
+    def __init__(self, x, y):
+```
+
+self.x = x
+        self.y = y
+
+With @dataclass (much shorter!):
+
+```python
 @dataclass
 class Point:
     x: float    # x coordinate
@@ -106,8 +134,11 @@ print("Point 2:", p2)
 print("X of p1:", p1.x)
 
 print()
+```
 
-# Dataclass with default values:
+Dataclass with default values:
+
+```python
 @dataclass
 class Product:
     name: str
@@ -121,28 +152,37 @@ print("Name:", p.name)
 print("In stock:", p.in_stock)
 
 print()
+```
 
-# ==========================================
+```python
 print("FASTAPI USE CASE — Pydantic BaseModel (like a dataclass)")
 print("==========================================")
+```
 
-# Pydantic's BaseModel is like a dataclass but with automatic validation.
-# It's the MOST important class in FastAPI.
+Pydantic's BaseModel is like a dataclass but with automatic validation.
+It's the MOST important class in FastAPI.
 
-# Real FastAPI code (requires: pip install pydantic):
-#
-#   from pydantic import BaseModel
-#
-#   class UserCreateRequest(BaseModel):
-#       name: str
-#       age: int
-#       email: str
-#
-#   @app.post("/users")
-#   def create_user(user: UserCreateRequest):  # FastAPI auto-validates!
-#       return {"message": f"User {user.name} created!"}
+Real FastAPI code (requires: pip install pydantic):
 
-# Here we simulate it without Pydantic:
+```python
+from pydantic import BaseModel
+
+  class UserCreateRequest(BaseModel):
+```
+
+name: str
+      age: int
+      email: str
+
+```python
+@app.post("/users")
+  def create_user(user: UserCreateRequest):  # FastAPI auto-validates!
+      return {"message": f"User {user.name} created!"}
+```
+
+Here we simulate it without Pydantic:
+
+```python
 @dataclass
 class UserCreateRequest:
     name: str
@@ -155,3 +195,4 @@ def create_user(user: UserCreateRequest) -> dict:
 request = UserCreateRequest("Ritesh", 20, "ritesh@example.com")
 print("FastAPI-style response:", create_user(request))
 ```
+

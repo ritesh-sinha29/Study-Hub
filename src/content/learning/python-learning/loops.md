@@ -1,26 +1,28 @@
 # Loops
 
+## PYTHON LOOPS (FOR BEGINNERS)
+
+## WHAT IS A LOOP?
+
+A loop means: "Do this same thing many times automatically."
+Instead of writing print("hello") 100 times, a loop does it for you.
+
+## REAL-WORLD USE CASES
+
+* Sending an email to 1000 users (loop through the list of emails)
+* FastAPI: Loop through a list of items returned from a database
+* LangGraph: Loop through each step of an AI agent workflow
+
 ```python
-# ==========================================
-# PYTHON LOOPS (FOR BEGINNERS)
-# ==========================================
-
-# --- WHAT IS A LOOP? ---
-# A loop means: "Do this same thing many times automatically."
-# Instead of writing print("hello") 100 times, a loop does it for you.
-
-# --- REAL-WORLD USE CASES ---
-# * Sending an email to 1000 users (loop through the list of emails)
-# * FastAPI: Loop through a list of items returned from a database
-# * LangGraph: Loop through each step of an AI agent workflow
-
 print("==========================================")
 print("1. FOR LOOP — Loop through a list")
 print("==========================================")
+```
 
-# A FOR loop goes through each item in a collection, one by one.
-# Think of it as: "For each item in the list, do something."
+A FOR loop goes through each item in a collection, one by one.
+Think of it as: "For each item in the list, do something."
 
+```python
 fruits = ["apple", "banana", "mango"]
 
 for fruit in fruits:
@@ -28,32 +30,41 @@ for fruit in fruits:
     print("I like", fruit)
 
 print()
+```
 
-# ==========================================
+```python
 print("2. FOR LOOP with range() — Repeat N times")
 print("==========================================")
+```
 
-# range(5) gives numbers 0, 1, 2, 3, 4
-# Use this when you want to repeat something a fixed number of times.
+range(5) gives numbers 0, 1, 2, 3, 4
+Use this when you want to repeat something a fixed number of times.
 
+```python
 for i in range(5):
     print("This is line number", i)
 
 print()
+```
 
-# range(start, stop) — starts from `start`, ends BEFORE `stop`
+range(start, stop) — starts from `start`, ends BEFORE `stop`
+
+```python
 for i in range(1, 6):
     print("Count:", i)
 
 print()
+```
 
-# ==========================================
+```python
 print("3. WHILE LOOP — Keep looping until condition is False")
 print("==========================================")
+```
 
-# A WHILE loop keeps running AS LONG AS a condition is True.
-# Think of it as: "While I still have money, keep shopping."
+A WHILE loop keeps running AS LONG AS a condition is True.
+Think of it as: "While I still have money, keep shopping."
 
+```python
 money = 100
 
 while money > 0:
@@ -63,13 +74,16 @@ while money > 0:
 print("Out of money!")
 
 print()
+```
 
-# ==========================================
+```python
 print("4. BREAK — Stop the loop early")
 print("==========================================")
+```
 
-# `break` immediately exits the loop, even if there are items left.
+`break` immediately exits the loop, even if there are items left.
 
+```python
 for i in range(10):
     if i == 5:
         print("Found 5! Stopping the loop.")
@@ -77,13 +91,16 @@ for i in range(10):
     print("Number:", i)
 
 print()
+```
 
-# ==========================================
+```python
 print("5. CONTINUE — Skip current item and go to next")
 print("==========================================")
+```
 
-# `continue` skips the rest of the current loop step and moves to the next one.
+`continue` skips the rest of the current loop step and moves to the next one.
 
+```python
 for i in range(6):
     if i == 3:
         print("Skipping 3!")
@@ -91,25 +108,32 @@ for i in range(6):
     print("Number:", i)
 
 print()
+```
 
-# ==========================================
+```python
 print("6. LOOP through a Dictionary")
 print("==========================================")
+```
 
-# Very commonly used in FastAPI when processing JSON data (which looks like a dict)
+Very commonly used in FastAPI when processing JSON data (which looks like a dict)
 
+```python
 person = {"name": "Ritesh", "age": 20, "city": "Delhi"}
 
 for key, value in person.items():
     print(key, "->", value)
 
 print()
+```
 
-# ==========================================
+```python
 print("7. FASTAPI USE CASE — Loop through a list of users")
 print("==========================================")
+```
 
-# Imagine FastAPI fetches this list from a database and loops to respond:
+Imagine FastAPI fetches this list from a database and loops to respond:
+
+```python
 users = [
     {"id": 1, "name": "Ritesh"},
     {"id": 2, "name": "Rox"},
@@ -120,3 +144,4 @@ print("All registered users:")
 for user in users:
     print(f"  User ID: {user['id']} | Name: {user['name']}")
 ```
+
