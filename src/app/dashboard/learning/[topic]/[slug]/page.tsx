@@ -6,10 +6,11 @@ import {
   ChevronRight,
   ChevronLeft,
 } from "lucide-react";
-import { getTopicBySlug, type TopicFile } from "@/config/learning";
+import { getTopicBySlug, learningTopics, type TopicFile } from "@/config/learning";
 import { MarkdownRenderer } from "@/components/learning/MarkdownRenderer";
 import { TableOfContents } from "@/components/learning/TableOfContents";
 import { extractHeadings } from "@/lib/extract-headings";
+import { parsePythonToMarkdown } from "@/lib/parse-python";
 
 interface PageProps {
   params: Promise<{ topic: string; slug: string }>;
@@ -39,8 +40,8 @@ export default async function TopicFilePage({ params }: PageProps) {
     notFound();
   }
 
-  // Read the markdown content from the file system
-  const contentPath = path.join(
+  // Read the content from the file system (checks .md, fallbacks to .py)
+  let contentPath = path.join(
     process.cwd(),
     "src",
     "content",
@@ -48,12 +49,31 @@ export default async function TopicFilePage({ params }: PageProps) {
     topicSlug,
     `${fileSlug}.md`
   );
+  let isPython = false;
+
+  if (!fs.existsSync(contentPath)) {
+    const pyPath = path.join(
+      process.cwd(),
+      "src",
+      "content",
+      "learning",
+      topicSlug,
+      `${fileSlug}.py`
+    );
+    if (fs.existsSync(pyPath)) {
+      contentPath = pyPath;
+      isPython = true;
+    }
+  }
 
   let content = "";
   try {
     content = fs.readFileSync(contentPath, "utf-8");
+    if (isPython) {
+      content = parsePythonToMarkdown(content, file.title);
+    }
   } catch {
-    content = `# ${file.title}\n\n*Content coming soon. Add your notes in \`src/content/learning/${topicSlug}/${fileSlug}.md\`.*`;
+    content = `# ${file.title}\n\n*Content coming soon. Add your notes in \`src/content/learning/${topicSlug}/${fileSlug}.py\`.*`;
   }
 
   const headings = extractHeadings(content);
@@ -130,4 +150,17 @@ export default async function TopicFilePage({ params }: PageProps) {
 
     </div>
   );
+}
+
+export async function generateStaticParams() {
+  const params: Array<{ topic: string; slug: string }> = [];
+  for (const topic of learningTopics) {
+    for (const file of topic.files) {
+      params.push({
+        topic: topic.slug,
+        slug: file.slug,
+      });
+    }
+  }
+  return params;
 }

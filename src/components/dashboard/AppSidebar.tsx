@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BookOpen,
-  Settings,
   HelpCircle,
 } from "lucide-react";
 
@@ -28,11 +27,6 @@ const navItems = [
 ];
 
 const footerItems = [
-  {
-    title: "Settings",
-    icon: Settings,
-    href: "/dashboard/settings",
-  },
   {
     title: "Help & Support",
     icon: HelpCircle,

@@ -1,15 +1,49 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { TopicSidebar } from "@/components/learning/TopicSidebar";
 import { getTopicBySlug } from "@/config/learning";
-import Link from "next/link";
-import { Bell, Search } from "lucide-react";
+import { Search, Moon, Sun } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button variant="ghost" size="icon-sm" disabled>
+        <Moon className="size-4" />
+      </Button>
+    );
+  }
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon-sm"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      className="relative"
+      aria-label="Toggle theme"
+    >
+      {theme === "dark" ? (
+        <Sun className="size-4" />
+      ) : (
+        <Moon className="size-4" />
+      )}
+    </Button>
+  );
+}
 
 export default function DashboardLayout({
   children,
@@ -42,20 +76,7 @@ export default function DashboardLayout({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon-sm" className="relative">
-              <Bell className="size-4" />
-              <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-primary" />
-            </Button>
-            <Separator orientation="vertical" className="h-6" />
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <div className="flex size-7 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                U
-              </div>
-              <span className="hidden sm:inline">User</span>
-            </Link>
+            <ThemeToggle />
           </div>
         </header>
         <div className="flex flex-1 flex-col">
