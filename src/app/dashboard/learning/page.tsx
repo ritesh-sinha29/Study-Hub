@@ -49,29 +49,6 @@ export default function StudyHubPage() {
           );
         })}
       </div>
-
-      {/* Empty state for adding new topics */}
-      <div className="rounded-xl border-2 border-dashed p-8 flex flex-col items-center justify-center text-center">
-        <div className="flex size-12 items-center justify-center rounded-full bg-muted">
-          <svg
-            className="size-6 text-muted-foreground"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        </div>
-        <h3 className="mt-4 text-lg font-semibold">Add a new topic</h3>
-        <p className="mt-2 text-sm text-muted-foreground max-w-sm">
-          Create a new learning folder for any subject you are studying and  start adding notes for future revision.
-        </p>
-      </div>
     </div>
   );
 }

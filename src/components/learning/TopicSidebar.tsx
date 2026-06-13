@@ -42,16 +42,16 @@ function FileItem({
         {file.number ? (
           <span
             className={cn(
-              "flex size-5 shrink-0 items-center justify-center rounded text-[10px] font-bold font-mono transition-colors",
+              "w-6 shrink-0 text-[11px] font-mono font-semibold transition-colors",
               isActive
-                ? "bg-primary/15 text-primary"
-                : "bg-muted text-muted-foreground"
+                ? "text-primary"
+                : "text-muted-foreground/60"
             )}
           >
             {file.number}
           </span>
         ) : (
-          <span className="size-5 shrink-0" />
+          <span className="w-6 shrink-0" />
         )}
         <span className="truncate">{file.title}</span>
       </SidebarMenuButton>
@@ -79,11 +79,6 @@ function GroupSection({
         onClick={() => setOpen((o) => !o)}
         className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-[12px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
       >
-        {group.number ? (
-          <span className="flex size-5 shrink-0 items-center justify-center rounded bg-muted text-[10px] font-bold font-mono text-muted-foreground">
-            {group.number}
-          </span>
-        ) : null}
         <span className="truncate flex-1 text-left">{group.title.replace(/^\d+\.\s*/, "")}</span>
         {open ? (
           <ChevronDown className="size-3.5 shrink-0 opacity-50" />
