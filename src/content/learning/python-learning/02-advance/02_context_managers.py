@@ -119,39 +119,3 @@ import os
 if os.path.exists("temp_file.txt"):
     os.remove("temp_file.txt")
     print("[File] Temp file removed from disk.")
-
-# ==========================================
-# REAL-LIFE USE CASES
-# ==========================================
-#
-# 1. DB Connection Lifecycles: Guaranteeing a connection is returned to the
-#    pool once a query finishes.
-#
-# 2. Thread Synchronization locks: Acquiring and automatically releasing locks
-#    to prevent thread conflicts.
-#
-# 3. Temporary Files cleanup: Creating temporary scratch files and
-#    automatically deleting them on block completion.
-
-# ==========================================
-# MNC INTERVIEW QUESTIONS & ANSWERS
-# ==========================================
-#
-# Q1. What dunder methods must a class implement to become a context manager?
-# A:  A class must implement: 1) `__enter__(self)`: runs when entering the
-#     'with' block, returning the resource. 2) `__exit__(self, exc_type,
-#     exc_val, exc_tb)`: runs when exiting the block. It receives exception
-#     details (if any) and returns True to suppress them, or False to
-#     propagate them.
-#
-# Q2. How does the contextlib.contextmanager decorator work?
-# A:  @contextmanager allows writing a context manager using a generator
-#     function instead of a class. The code before the 'yield' statement acts
-#     as __enter__, the yielded value is returned as the block resource, and
-#     code after 'yield' acts as __exit__ (wrapped in try-finally).
-#
-# Q3. What happens if an exception is raised inside a context manager?
-# A:  The exception is passed to the __exit__ method's parameters. If __exit__
-#     returns True, the exception is swallowed and execution continues. If it
-#     returns False (or None), the exception is propagated up the stack to be
-#     handled elsewhere.

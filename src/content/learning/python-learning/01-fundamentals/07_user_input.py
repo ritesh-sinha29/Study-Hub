@@ -29,38 +29,3 @@ a = input("Enter a number to add 6 to it: ")
 # Convert `a` from text to an integer number, then add 6:
 result = int(a) + 6
 print("Your number + 6 is:", result)
-
-# ==========================================
-# REAL-LIFE USE CASES
-# ==========================================
-#
-# 1. CLI Installation Prompts: Confirming configuration options or directory
-#    paths during setup scripts.
-#
-# 2. Interactive Troubleshooting Logs: Asking developers to enter system IDs
-#    to retrieve logs dynamically.
-#
-# 3. Interactive Shell Commands: Building a simple command interface for admin
-#    scripts.
-
-# ==========================================
-# MNC INTERVIEW QUESTIONS & ANSWERS
-# ==========================================
-#
-# Q1. What data type does the input() function always return in Python 3?
-# A:  The input() function always returns a string (str), regardless of what
-#     the user types. If you need numerical values, you must explicitly cast
-#     them using int() or float() (e.g. age = int(input('Enter age: '))).
-#
-# Q2. How should you handle potential errors when casting user input to a
-#     number?
-# A:  Always wrap the type casting in a try-except block catching ValueError.
-#     If a user enters non-numeric text (like 'hello') when an integer is
-#     expected, casting raises a ValueError. Handling it prevents the script
-#     from crashing.
-#
-# Q3. Why is using eval() on user input extremely dangerous?
-# A:  eval() interprets and executes the user input string as active Python
-#     code. If malicious input is passed, it can run arbitrary system
-#     commands, delete directories, or steal credentials (Remote Code
-#     Execution vulnerability). Never use eval() on untrusted input.
