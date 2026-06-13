@@ -12,6 +12,7 @@ export interface TopicItem {
 export interface TopicFile {
   title: string;
   slug: string;
+  filename: string;
   description?: string;
 }
 
@@ -23,100 +24,124 @@ export const learningTopics: TopicItem[] = [
     "icon": "Python",
     "files": [
       {
-        "title": "Python Strings And Methods (for Beginners)",
-        "slug": "strings-and-methods"
+        "title": "01. Strings And Methods",
+        "slug": "strings-and-methods",
+        "filename": "01_strings_and_methods.py"
       },
       {
-        "title": "More On Strings: Multiline Strings (for Beginners)",
-        "slug": "multiline-strings"
+        "title": "02. More On Strings: Multiline Strings",
+        "slug": "multiline-strings",
+        "filename": "02_multiline_strings.py"
       },
       {
-        "title": "Python User Input (for Beginners)",
-        "slug": "user-input"
+        "title": "03. Lists And Methods",
+        "slug": "lists-and-methods",
+        "filename": "03_lists_and_methods.py"
       },
       {
-        "title": "Python Loops (for Beginners)",
-        "slug": "loops"
+        "title": "04. Tuples And Methods",
+        "slug": "tuples-and-methods",
+        "filename": "04_tuples_and_methods.py"
       },
       {
-        "title": "Python Type Hints (for Beginners)",
-        "slug": "type-hints"
+        "title": "05. Sets And Methods",
+        "slug": "sets-and-methods",
+        "filename": "05_sets_and_methods.py"
       },
       {
-        "title": "Python Decorators (for Beginners)",
-        "slug": "decorators"
+        "title": "06. Dictionaries",
+        "slug": "dictionaries-and-methods",
+        "filename": "06_dictionaries_and_methods.py"
       },
       {
-        "title": "Python Async / Await (for Beginners)",
-        "slug": "async-await"
+        "title": "07. User Input",
+        "slug": "user-input",
+        "filename": "07_user_input.py"
       },
       {
-        "title": "Python Exception Handling (for Beginners)",
-        "slug": "exception-handling"
+        "title": "08. If / Elif / Else",
+        "slug": "if-else",
+        "filename": "08_if_else.py"
       },
       {
-        "title": "Python Modules & Imports (for Beginners)",
-        "slug": "modules-and-imports"
+        "title": "08b. Matchcase / Switchcase",
+        "slug": "08b-match-case",
+        "filename": "08b_match_case.py"
       },
       {
-        "title": "Python Json Handling (for Beginners)",
-        "slug": "json-handling"
+        "title": "09. Loops",
+        "slug": "loops",
+        "filename": "09_loops.py"
       },
       {
-        "title": "Python List Comprehensions (for Beginners)",
-        "slug": "list-comprehensions"
+        "title": "10. Functions",
+        "slug": "functions",
+        "filename": "10_functions.py"
       },
       {
-        "title": "Python Lambda, Map, Filter (for Beginners)",
-        "slug": "lambda-map-filter"
+        "title": "11. Type Hints",
+        "slug": "type-hints",
+        "filename": "11_type_hints.py"
       },
       {
-        "title": "Python Generators & Iterators (for Beginners)",
-        "slug": "generators-and-iterators"
+        "title": "12. Classes & Oop",
+        "slug": "classes-and-oop",
+        "filename": "12_classes_and_oop.py"
       },
       {
-        "title": "Typeddict & Dataclasses (for Beginners)",
-        "slug": "typeddict-and-dataclasses"
+        "title": "13. Decorators",
+        "slug": "decorators",
+        "filename": "13_decorators.py"
       },
       {
-        "title": "Environment Variables (for Beginners)",
-        "slug": "environment-variables"
+        "title": "14. Async / Await",
+        "slug": "async-await",
+        "filename": "14_async_await.py"
       },
       {
-        "title": "Python File Input / Output (file I/o) (for Beginners)",
-        "slug": "file-io"
+        "title": "15. Exception Handling",
+        "slug": "exception-handling",
+        "filename": "15_exception_handling.py"
       },
       {
-        "title": "Python Lists And Methods (for Beginners)",
-        "slug": "lists-and-methods"
+        "title": "16. Modules & Imports",
+        "slug": "modules-and-imports",
+        "filename": "16_modules_and_imports.py"
       },
       {
-        "title": "Python Tuples And Methods (for Beginners)",
-        "slug": "tuples-and-methods"
+        "title": "17. Json Handling",
+        "slug": "json-handling",
+        "filename": "17_json_handling.py"
       },
       {
-        "title": "Python Sets And Methods (for Beginners)",
-        "slug": "sets-and-methods"
+        "title": "18. List Comprehensions",
+        "slug": "list-comprehensions",
+        "filename": "18_list_comprehensions.py"
       },
       {
-        "title": "Python Dictionaries (learning Guide)",
-        "slug": "dictionaries-and-methods"
+        "title": "19. Lambda, Map, Filter",
+        "slug": "lambda-map-filter",
+        "filename": "19_lambda_map_filter.py"
       },
       {
-        "title": "Python If / Elif / Else (for Beginners)",
-        "slug": "if-else"
+        "title": "20. Generators & Iterators",
+        "slug": "generators-and-iterators",
+        "filename": "20_generators_and_iterators.py"
       },
       {
-        "title": "Python Matchcase / Switchcase (for Beginners)",
-        "slug": "08b-match-case"
+        "title": "21. Typeddict & Dataclasses",
+        "slug": "typeddict-and-dataclasses",
+        "filename": "21_typeddict_and_dataclasses.py"
       },
       {
-        "title": "Python Functions (for Beginners)",
-        "slug": "functions"
+        "title": "22. Environment Variables",
+        "slug": "environment-variables",
+        "filename": "22_environment_variables.py"
       },
       {
-        "title": "Python Classes & Oop (for Beginners)",
-        "slug": "classes-and-oop"
+        "title": "23. File Input / Output",
+        "slug": "file-io",
+        "filename": "23_file_io.py"
       }
     ]
   },
@@ -128,47 +153,58 @@ export const learningTopics: TopicItem[] = [
     "files": [
       {
         "title": "01. Introduction & Setup",
-        "slug": "introduction-and-setup"
+        "slug": "introduction-and-setup",
+        "filename": "01_introduction_and_setup.py"
       },
       {
         "title": "02. Path Parameters",
-        "slug": "path-parameters"
+        "slug": "path-parameters",
+        "filename": "02_path_parameters.py"
       },
       {
         "title": "03. Query Parameters",
-        "slug": "query-parameters"
+        "slug": "query-parameters",
+        "filename": "03_query_parameters.py"
       },
       {
         "title": "04. Request Body & Pydantic",
-        "slug": "request-body-pydantic"
+        "slug": "request-body-pydantic",
+        "filename": "04_request_body_pydantic.py"
       },
       {
         "title": "05. Response Models & Status Codes",
-        "slug": "response-models-and-status"
+        "slug": "response-models-and-status",
+        "filename": "05_response_models_and_status.py"
       },
       {
         "title": "06. Error Handling",
-        "slug": "error-handling"
+        "slug": "error-handling",
+        "filename": "06_error_handling.py"
       },
       {
         "title": "07. Dependency Injection (di)",
-        "slug": "dependency-injection"
+        "slug": "dependency-injection",
+        "filename": "07_dependency_injection.py"
       },
       {
         "title": "08. Database Crud (sqlite & Orm)",
-        "slug": "database-crud-sqlite"
+        "slug": "database-crud-sqlite",
+        "filename": "08_database_crud_sqlite.py"
       },
       {
         "title": "09. Middleware & Cors",
-        "slug": "middleware-cors"
+        "slug": "middleware-cors",
+        "filename": "09_middleware_cors.py"
       },
       {
         "title": "10. Security & Jwt (json Web Tokens)",
-        "slug": "security-jwt"
+        "slug": "security-jwt",
+        "filename": "10_security_jwt.py"
       },
       {
         "title": "11. File Uploads & Background Tasks",
-        "slug": "background-tasks-and-files"
+        "slug": "background-tasks-and-files",
+        "filename": "11_background_tasks_and_files.py"
       }
     ]
   },
@@ -184,6 +220,20 @@ export const learningTopics: TopicItem[] = [
     "slug": "dsa-in-cpp",
     "description": "Data structures and algorithms in C++",
     "icon": "DSA",
+    "files": []
+  },
+  {
+    "title": "Langchain",
+    "slug": "langchain",
+    "description": "Revision notes and guides for Langchain",
+    "icon": "BookOpen",
+    "files": []
+  },
+  {
+    "title": "Rag",
+    "slug": "rag",
+    "description": "Revision notes and guides for Rag",
+    "icon": "BookOpen",
     "files": []
   }
 ];

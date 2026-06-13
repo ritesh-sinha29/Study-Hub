@@ -95,9 +95,18 @@ function extractTitle(filePath, slug) {
           title = title.replace(/^PYTHON STUDY GUIDE:\s*/i, '');
           title = title.replace(/^\d+[\.\s_]*/, '');
           
-          return title.split(/\s+/)
+          let formattedTitle = title.split(/\s+/)
             .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
             .join(' ');
+            
+          formattedTitle = formattedTitle
+            .replace(/^Python\s+/i, '')
+            .replace(/\s*\(for\s+beginners\)/i, '')
+            .replace(/\s*\(learning\s+guide\)/i, '')
+            .replace(/\s*\(file\s+i\/o\)/i, '')
+            .trim();
+            
+          return formattedTitle;
         }
       } else if (line.startsWith('```')) {
         continue;
@@ -127,8 +136,34 @@ function generateConfig() {
   console.log('Scanning content directory...');
   const topics = [];
 
-  for (const staticTopic of STATIC_TOPICS) {
-    const topicDir = path.join(CONTENT_DIR, staticTopic.slug);
+  // Dynamically discover all course folders in the learning content directory
+  let folders = [];
+  if (fs.existsSync(CONTENT_DIR)) {
+    folders = fs.readdirSync(CONTENT_DIR).filter(item => {
+      const fullPath = path.join(CONTENT_DIR, item);
+      return fs.statSync(fullPath).isDirectory();
+    });
+  }
+
+  // Combine predefined static topics and any newly created subdirectories
+  const allTopicSlugs = Array.from(new Set([
+    ...STATIC_TOPICS.map(t => t.slug),
+    ...folders
+  ]));
+
+  for (const topicSlug of allTopicSlugs) {
+    const staticTopic = STATIC_TOPICS.find(t => t.slug === topicSlug);
+    const topicDir = path.join(CONTENT_DIR, topicSlug);
+    
+    const topicMeta = staticTopic || {
+      title: topicSlug.split('-')
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' '),
+      slug: topicSlug,
+      description: `Revision notes and guides for ${topicSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}`,
+      icon: "BookOpen"
+    };
+
     const files = [];
 
     if (fs.existsSync(topicDir)) {
@@ -178,7 +213,7 @@ function generateConfig() {
     const cleanFiles = files.map(({ title, slug, filename }) => ({ title, slug, filename }));
 
     topics.push({
-      ...staticTopic,
+      ...topicMeta,
       files: cleanFiles
     });
   }
@@ -197,6 +232,7 @@ export interface TopicItem {
 export interface TopicFile {
   title: string;
   slug: string;
+  filename: string;
   description?: string;
 }
 

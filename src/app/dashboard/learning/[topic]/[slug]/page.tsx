@@ -40,31 +40,16 @@ export default async function TopicFilePage({ params }: PageProps) {
     notFound();
   }
 
-  // Read the content from the file system (checks .md, fallbacks to .py)
-  let contentPath = path.join(
+  // Read the content from the file system using the filename in config
+  const contentPath = path.join(
     process.cwd(),
     "src",
     "content",
     "learning",
     topicSlug,
-    `${fileSlug}.md`
+    file.filename
   );
-  let isPython = false;
-
-  if (!fs.existsSync(contentPath)) {
-    const pyPath = path.join(
-      process.cwd(),
-      "src",
-      "content",
-      "learning",
-      topicSlug,
-      `${fileSlug}.py`
-    );
-    if (fs.existsSync(pyPath)) {
-      contentPath = pyPath;
-      isPython = true;
-    }
-  }
+  const isPython = file.filename.endsWith(".py");
 
   let content = "";
   try {
@@ -73,7 +58,7 @@ export default async function TopicFilePage({ params }: PageProps) {
       content = parsePythonToMarkdown(content, file.title);
     }
   } catch {
-    content = `# ${file.title}\n\n*Content coming soon. Add your notes in \`src/content/learning/${topicSlug}/${fileSlug}.py\`.*`;
+    content = `# ${file.title}\n\n*Content coming soon. Add your notes in \`src/content/learning/${topicSlug}/${file.filename}\`.*`;
   }
 
   const headings = extractHeadings(content);
