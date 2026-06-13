@@ -1,0 +1,122 @@
+# ==========================================
+# PYTHON LIST COMPREHENSIONS (FOR BEGINNERS)
+# ==========================================
+
+# --- WHAT IS A LIST COMPREHENSION? ---
+# A list comprehension is a SHORT and CLEAN way to create a new list
+# from an existing list (or any collection), often in just ONE line.
+
+# --- SIMPLE ANALOGY ---
+# Normal way: Take each apple from the basket, check if it's red, put it in a new basket.
+# Comprehension: [apple for apple in basket if apple is red]  ← Same thing, one line!
+
+# --- REAL-WORLD USE CASES ---
+# * FastAPI: Filter or transform a list of database results quickly
+# * LangGraph: Process a list of AI messages or tool outputs
+# * Everywhere: Whenever you loop over a list to create a new one
+
+print("==========================================")
+print("1. NORMAL LOOP vs LIST COMPREHENSION")
+print("==========================================")
+
+numbers = [1, 2, 3, 4, 5]
+
+# Normal for loop way (4 lines):
+squares_normal = []
+for n in numbers:
+    squares_normal.append(n * n)
+print("Normal loop squares:", squares_normal)
+
+# List comprehension way (1 line — same result!):
+# Syntax: [expression  for  item  in  collection]
+squares_short = [n * n for n in numbers]
+print("Comprehension squares:", squares_short)
+
+print()
+
+# ==========================================
+print("2. LIST COMPREHENSION WITH IF CONDITION")
+print("==========================================")
+
+# You can filter items using `if` at the end
+# Syntax: [expression  for  item  in  collection  if  condition]
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Get only even numbers:
+even_numbers = [n for n in numbers if n % 2 == 0]
+print("Even numbers:", even_numbers)
+
+# Get only numbers greater than 5:
+big_numbers = [n for n in numbers if n > 5]
+print("Numbers > 5:", big_numbers)
+
+print()
+
+# ==========================================
+print("3. TRANSFORMING DATA IN A LIST")
+print("==========================================")
+
+# Convert all names to uppercase:
+names = ["ritesh", "rox", "shubham"]
+upper_names = [name.upper() for name in names]
+print("Uppercase names:", upper_names)
+
+# Add "Hello, " before each name:
+greetings = [f"Hello, {name.title()}!" for name in names]
+print("Greetings:", greetings)
+
+print()
+
+# ==========================================
+print("4. LIST COMPREHENSION FROM A DICT LIST")
+print("==========================================")
+
+# This is VERY common in FastAPI when processing database results
+
+users = [
+    {"id": 1, "name": "Ritesh", "is_active": True},
+    {"id": 2, "name": "Rox",    "is_active": False},
+    {"id": 3, "name": "Sam",    "is_active": True},
+]
+
+# Get only active users' names:
+active_names = [user["name"] for user in users if user["is_active"]]
+print("Active users:", active_names)
+
+# Get all user IDs:
+all_ids = [user["id"] for user in users]
+print("All IDs:", all_ids)
+
+print()
+
+# ==========================================
+print("5. DICT COMPREHENSION (same idea, but for dicts)")
+print("==========================================")
+
+# You can also create dictionaries the same way!
+# Syntax: {key: value  for  item  in  collection}
+
+# Create a dict mapping name → length of name
+names = ["Ritesh", "Rox", "Shubham"]
+name_lengths = {name: len(name) for name in names}
+print("Name lengths:", name_lengths)
+
+print()
+
+# ==========================================
+print("6. FASTAPI USE CASE — Transform DB results")
+print("==========================================")
+
+# In FastAPI, when you fetch users from a database, you often want
+# to extract only certain fields before sending the response.
+
+db_users = [
+    {"id": 1, "name": "Ritesh", "password": "secret123", "age": 20},
+    {"id": 2, "name": "Rox",    "password": "abc456",    "age": 22},
+]
+
+# Never send passwords in the API response!
+# Use list comprehension to extract only safe fields:
+safe_users = [{"id": u["id"], "name": u["name"], "age": u["age"]} for u in db_users]
+print("Safe API response (no passwords):", safe_users)

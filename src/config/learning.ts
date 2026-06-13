@@ -23,116 +23,100 @@ export const learningTopics: TopicItem[] = [
     "icon": "Python",
     "files": [
       {
-        "title": "Day 1 First Program",
-        "slug": "day-1-first-program"
-      },
-      {
-        "title": "Strings And Methods",
+        "title": "Python Strings And Methods (for Beginners)",
         "slug": "strings-and-methods"
       },
       {
-        "title": "Multiline Strings",
+        "title": "More On Strings: Multiline Strings (for Beginners)",
         "slug": "multiline-strings"
       },
       {
-        "title": "Lists And List Methods",
-        "slug": "lists-and-list-methods"
-      },
-      {
-        "title": "Tuples",
-        "slug": "tuples"
-      },
-      {
-        "title": "Sets",
-        "slug": "sets"
-      },
-      {
-        "title": "Dictionaries",
-        "slug": "dictionaries"
-      },
-      {
-        "title": "User Input",
+        "title": "Python User Input (for Beginners)",
         "slug": "user-input"
       },
       {
-        "title": "If Else Conditions",
-        "slug": "if-else-conditions"
-      },
-      {
-        "title": "Match Case",
-        "slug": "match-case"
-      },
-      {
-        "title": "Loops",
+        "title": "Python Loops (for Beginners)",
         "slug": "loops"
       },
       {
-        "title": "Functions And Arguments",
-        "slug": "functions-and-arguments"
-      },
-      {
-        "title": "Type Hints",
+        "title": "Python Type Hints (for Beginners)",
         "slug": "type-hints"
       },
       {
-        "title": "Oop Classes And Objects",
-        "slug": "oop-classes-and-objects"
-      },
-      {
-        "title": "Decorators",
+        "title": "Python Decorators (for Beginners)",
         "slug": "decorators"
       },
       {
-        "title": "Async Await",
+        "title": "Python Async / Await (for Beginners)",
         "slug": "async-await"
       },
       {
-        "title": "Exception Handling",
+        "title": "Python Exception Handling (for Beginners)",
         "slug": "exception-handling"
       },
       {
-        "title": "Modules And Imports",
+        "title": "Python Modules & Imports (for Beginners)",
         "slug": "modules-and-imports"
       },
       {
-        "title": "Json Handling",
+        "title": "Python Json Handling (for Beginners)",
         "slug": "json-handling"
       },
       {
-        "title": "List Comprehensions",
+        "title": "Python List Comprehensions (for Beginners)",
         "slug": "list-comprehensions"
       },
       {
-        "title": "Lambda Map Filter",
+        "title": "Python Lambda, Map, Filter (for Beginners)",
         "slug": "lambda-map-filter"
       },
       {
-        "title": "Generators And Iterators",
+        "title": "Python Generators & Iterators (for Beginners)",
         "slug": "generators-and-iterators"
       },
       {
-        "title": "Typeddict And Dataclasses",
+        "title": "Typeddict & Dataclasses (for Beginners)",
         "slug": "typeddict-and-dataclasses"
       },
       {
-        "title": "Environment Variables",
+        "title": "Environment Variables (for Beginners)",
         "slug": "environment-variables"
       },
       {
-        "title": "File Io",
+        "title": "Python File Input / Output (file I/o) (for Beginners)",
         "slug": "file-io"
       },
       {
-        "title": "Dunder Methods",
-        "slug": "dunder-methods"
+        "title": "Python Lists And Methods (for Beginners)",
+        "slug": "lists-and-methods"
       },
       {
-        "title": "Context Managers",
-        "slug": "context-managers"
+        "title": "Python Tuples And Methods (for Beginners)",
+        "slug": "tuples-and-methods"
       },
       {
-        "title": "Decorators Deep Dive",
-        "slug": "decorators-deep-dive"
+        "title": "Python Sets And Methods (for Beginners)",
+        "slug": "sets-and-methods"
+      },
+      {
+        "title": "Python Dictionaries (learning Guide)",
+        "slug": "dictionaries-and-methods"
+      },
+      {
+        "title": "Python If / Elif / Else (for Beginners)",
+        "slug": "if-else"
+      },
+      {
+        "title": "Python Matchcase / Switchcase (for Beginners)",
+        "slug": "08b-match-case"
+      },
+      {
+        "title": "Python Functions (for Beginners)",
+        "slug": "functions"
+      },
+      {
+        "title": "Python Classes & Oop (for Beginners)",
+        "slug": "classes-and-oop"
       }
     ]
   },
@@ -143,52 +127,48 @@ export const learningTopics: TopicItem[] = [
     "icon": "FastAPI",
     "files": [
       {
-        "title": "Introduction And Setup",
+        "title": "01. Introduction & Setup",
         "slug": "introduction-and-setup"
       },
       {
-        "title": "Path Parameters",
+        "title": "02. Path Parameters",
         "slug": "path-parameters"
       },
       {
-        "title": "Query Parameters",
+        "title": "03. Query Parameters",
         "slug": "query-parameters"
       },
       {
-        "title": "Request Body Pydantic",
+        "title": "04. Request Body & Pydantic",
         "slug": "request-body-pydantic"
       },
       {
-        "title": "Response Models And Status",
+        "title": "05. Response Models & Status Codes",
         "slug": "response-models-and-status"
       },
       {
-        "title": "Error Handling",
+        "title": "06. Error Handling",
         "slug": "error-handling"
       },
       {
-        "title": "Dependency Injection",
+        "title": "07. Dependency Injection (di)",
         "slug": "dependency-injection"
       },
       {
-        "title": "Database Crud Sqlite",
+        "title": "08. Database Crud (sqlite & Orm)",
         "slug": "database-crud-sqlite"
       },
       {
-        "title": "Middleware Cors",
+        "title": "09. Middleware & Cors",
         "slug": "middleware-cors"
       },
       {
-        "title": "Security Jwt",
+        "title": "10. Security & Jwt (json Web Tokens)",
         "slug": "security-jwt"
       },
       {
-        "title": "Background Tasks And Files",
+        "title": "11. File Uploads & Background Tasks",
         "slug": "background-tasks-and-files"
-      },
-      {
-        "title": "Fastapi Overview",
-        "slug": "fastapi-overview"
       }
     ]
   },
