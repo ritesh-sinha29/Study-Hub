@@ -83,7 +83,7 @@ function GroupSection({
       {/* Group header — visually distinct from file items */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-1.5 px-2 py-1 rounded-md transition-colors group/header text-neutral-200 hover:text-neutral-200"
+        className="flex w-full items-center gap-1.5 px-2 py-1 rounded-md transition-colors group/header text-neutral-800 dark:text-neutral-200"
       >
         <Folder className="size-3 shrink-0 opacity-60" />
         <span className="truncate flex-1 text-left text-[10.5px] font-semibold uppercase tracking-widest">
