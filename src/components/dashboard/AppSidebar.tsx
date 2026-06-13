@@ -12,33 +12,18 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarSeparator,
 } from "@/components/ui/sidebar";
 import {
-  LayoutDashboard,
   BookOpen,
   Settings,
   HelpCircle,
-  GraduationCap,
-  BarChart3,
-  Users,
 } from "lucide-react";
 
 const navItems = [
   {
-    title: "Dashboard",
-    icon: LayoutDashboard,
-    href: "/dashboard",
-  },
-  {
-    title: "My Learning",
+    title: "Courses",
     icon: BookOpen,
     href: "/dashboard/learning",
-  },
-  {
-    title: "Pricing",
-    icon: BarChart3,
-    href: "/dashboard/pricing",
   },
 ];
 
@@ -92,7 +77,6 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
       </SidebarContent>
 
       <SidebarFooter>
