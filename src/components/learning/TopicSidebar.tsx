@@ -10,8 +10,9 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
-import { ChevronLeft, FileText } from "lucide-react";
+import { ChevronLeft, FileText, HelpCircle } from "lucide-react";
 import { type TopicItem } from "@/config/learning";
 
 export function TopicSidebar({ topic }: { topic: TopicItem }) {
@@ -29,7 +30,7 @@ export function TopicSidebar({ topic }: { topic: TopicItem }) {
               <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
                 L
               </div>
-              <div className="flex flex-col gap-0.5 leading-none">
+              <div className="flex flex-col justify-center gap-0.5 leading-none">
                 <span className="font-semibold text-sm">{topic.title}</span>
                 <span className="text-xs text-muted-foreground">
                   {topic.files.length} files
@@ -37,17 +38,12 @@ export function TopicSidebar({ topic }: { topic: TopicItem }) {
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              size="sm"
-              render={<Link href="/dashboard/learning" />}
-            >
-              <ChevronLeft className="size-4" />
-              <span>All topics</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
+      <div className="px-3 my-2">
+        <div className="h-px bg-border/40" />
+      </div>
 
       <SidebarContent>
         <SidebarMenu>
@@ -71,7 +67,7 @@ export function TopicSidebar({ topic }: { topic: TopicItem }) {
                     className={cn(
                       "h-8 text-[13px] px-3 font-normal transition-all py-1.5 rounded-md cursor-pointer",
                       isActive
-                        ? "bg-primary/10 text-primary font-medium hover:bg-primary/10 hover:text-primary"
+                        ? "bg-neutral-100 dark:bg-neutral-800 text-foreground font-semibold hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-foreground"
                         : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                     )}
                   >
@@ -84,6 +80,32 @@ export function TopicSidebar({ topic }: { topic: TopicItem }) {
           )}
         </SidebarMenu>
       </SidebarContent>
+
+      <SidebarFooter className="p-3 border-t border-border/40">
+        <SidebarMenu className="gap-2">
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              size="default"
+              render={<Link href="/dashboard/help" />}
+              className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border/60 hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all"
+            >
+              <HelpCircle className="size-4 shrink-0" />
+              <span>Help & Support</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              size="default"
+              render={<Link href="/dashboard/learning" />}
+              className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border/60 hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all"
+            >
+              <ChevronLeft className="size-4 shrink-0" />
+              <span>Back to Courses</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+
     </Sidebar>
   );
 }
