@@ -2,16 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 
-const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
-];
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,27 +21,14 @@ export function Header() {
           <span className="text-lg font-semibold tracking-tight">LearnHub</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
         {/* Desktop CTA */}
         <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" render={<Link href="/sign-in" />}>
-            Sign In
-          </Button>
-          <Button size="sm" render={<Link href="/sign-up" />}>
-            Get Started
-          </Button>
+          <Link
+            href="/dashboard"
+            className={cn(buttonVariants({ size: "sm" }))}
+          >
+            Start Learning
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -68,27 +49,14 @@ export function Header() {
         )}
       >
         <nav className="flex flex-col gap-1 px-4 py-4">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-              {link.label}
-            </Link>
-          ))}
           <hr className="my-2 border-border/40" />
           <Link
-            href="/sign-in"
+            href="/dashboard"
             onClick={() => setIsOpen(false)}
-            className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className={cn(buttonVariants({ size: "default" }), "mt-1 w-full")}
           >
-            Sign In
+            Start Learning
           </Link>
-          <Button className="mt-1 w-full" render={<Link href="/sign-up" onClick={() => setIsOpen(false)} />}>
-            Get Started
-          </Button>
         </nav>
       </div>
     </header>

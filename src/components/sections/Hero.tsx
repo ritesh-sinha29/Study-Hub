@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export function Hero() {
@@ -34,19 +35,17 @@ export function Hero() {
           and a community that helps you grow.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-          <Button size="lg" className="h-11 gap-2 px-6 text-base" render={<Link href="/sign-up" />}>
-            Start Learning <ArrowRight className="size-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="h-11 gap-2 px-6 text-base"
-            render={<Link href="#features" />}
+        {/* CTA Button */}
+        <div className="mt-8 flex flex-col items-center">
+          <Link
+            href="/dashboard"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "h-11 gap-2 px-6 text-base inline-flex items-center"
+            )}
           >
-            Explore Features
-          </Button>
+            Start Learning <ArrowRight className="size-4 ml-1" />
+          </Link>
         </div>
 
         {/* Social proof */}
