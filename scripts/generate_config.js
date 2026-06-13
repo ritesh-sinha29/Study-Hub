@@ -90,9 +90,10 @@ function extractTitle(filePath, slug) {
         const clean = line.replace(/^#\s*/, '').replace(/[\-=\*#_]+/g, '').trim();
         
         if (clean.length > 2) {
-          let title = clean.replace(/^\d+[\.\s_]*/, '');
+          let title = clean;
           title = title.replace(/^FASTAPI STUDY GUIDE:\s*/i, '');
           title = title.replace(/^PYTHON STUDY GUIDE:\s*/i, '');
+          title = title.replace(/^\d+[\.\s_]*/, '');
           
           return title.split(/\s+/)
             .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
@@ -111,6 +112,15 @@ function extractTitle(filePath, slug) {
   return slug.split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
+}
+
+function getFileNumber(filename) {
+  const match = filename.match(/^(\d+)([a-zA-Z]*)/);
+  if (!match) return { num: Infinity, suffix: '' };
+  return {
+    num: parseInt(match[1], 10),
+    suffix: match[2]
+  };
 }
 
 function generateConfig() {
@@ -132,33 +142,40 @@ function generateConfig() {
 
           const baseName = item.replace(/\.[^/.]+$/, "");
           const slug = baseName.replace(/^\d+[_ \-]/, "").replace(/_/g, "-");
-          const title = extractTitle(fullPath, slug);
+          let title = extractTitle(fullPath, slug);
+          
+          // Match leading number prefix (e.g. "01", "02", "08b")
+          const numberMatch = baseName.match(/^(\d+[a-zA-Z]*)[_ \-]/);
+          if (numberMatch) {
+            const numPrefix = numberMatch[1];
+            title = `${numPrefix}. ${title}`;
+          }
           
           files.push({
             title,
             slug,
+            filename: item,
             sortKey: item.toLowerCase()
           });
         }
       }
     }
 
-    // Sort files by preferred order first, then alphabetically
+    // Sort files primarily by the numeric prefix in their filename
     files.sort((a, b) => {
-      const orderList = PREFERRED_ORDER[staticTopic.slug] || [];
-      const indexA = orderList.indexOf(a.slug);
-      const indexB = orderList.indexOf(b.slug);
+      const numA = getFileNumber(a.filename);
+      const numB = getFileNumber(b.filename);
       
-      if (indexA !== -1 && indexB !== -1) {
-        return indexA - indexB;
+      if (numA.num !== numB.num) {
+        return numA.num - numB.num;
       }
-      if (indexA !== -1) return -1;
-      if (indexB !== -1) return 1;
-      
+      if (numA.suffix !== numB.suffix) {
+        return numA.suffix.localeCompare(numB.suffix);
+      }
       return a.sortKey.localeCompare(b.sortKey);
     });
 
-    const cleanFiles = files.map(({ title, slug }) => ({ title, slug }));
+    const cleanFiles = files.map(({ title, slug, filename }) => ({ title, slug, filename }));
 
     topics.push({
       ...staticTopic,
