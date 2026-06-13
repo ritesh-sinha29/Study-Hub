@@ -1,0 +1,77 @@
+import Link from "next/link";
+import { learningTopics } from "@/config/learning";
+import { BookOpen, Code2, Network, Dices, ArrowRight } from "lucide-react";
+
+const iconMap: Record<string, typeof BookOpen> = {
+  Python: Code2,
+  FastAPI: BookOpen,
+  LangGraph: Network,
+  DSA: Dices,
+};
+
+export default function LearningHubPage() {
+  return (
+    <div className="flex flex-1 flex-col gap-8 p-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          My Learning Hub 📚
+        </h1>
+        <p className="mt-2 text-muted-foreground max-w-xl">
+          Browse your revision notes organized by topic. Click a topic to dive into the content.
+        </p>
+      </div>
+
+      {/* Topic Grid */}
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {learningTopics.map((topic) => {
+          const Icon = iconMap[topic.icon ?? ""] || BookOpen;
+          return (
+            <Link
+              key={topic.slug}
+              href={`/dashboard/learning/${topic.slug}`}
+              className="group relative rounded-xl border bg-card p-5 transition-all hover:shadow-md hover:border-primary/30 active:scale-[0.98]"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <Icon className="size-5" />
+                </div>
+                <ArrowRight className="size-4 text-muted-foreground opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
+              </div>
+              <h3 className="mt-4 font-semibold">{topic.title}</h3>
+              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                {topic.description}
+              </p>
+              <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
+                <span>{topic.files.length} files</span>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Empty state for adding new topics */}
+      <div className="rounded-xl border-2 border-dashed p-8 flex flex-col items-center justify-center text-center">
+        <div className="flex size-12 items-center justify-center rounded-full bg-muted">
+          <svg
+            className="size-6 text-muted-foreground"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 4.5v15m7.5-7.5h-15"
+            />
+          </svg>
+        </div>
+        <h3 className="mt-4 text-lg font-semibold">Add a new topic</h3>
+        <p className="mt-2 text-sm text-muted-foreground max-w-sm">
+          Create a new learning folder for any subject you are studying and  start adding notes for future revision.
+        </p>
+      </div>
+    </div>
+  );
+}
