@@ -127,3 +127,40 @@ def get_user(user_id: int):
 
 print(get_user(1))
 print(get_user(99))
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Data Validation Filters: Writing reusable utility functions to validate
+#    format schemas (e.g. validate_email).
+#
+# 2. Reusable Math Computation: Encapsulating calculations like tax rates or
+#    shipping surcharges.
+#
+# 3. Shared Logger Utilities: Writing a standardized logging function used
+#    across all modules.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. Why is using a mutable object (like a list or dictionary) as a default
+#     argument in Python dangerous?
+# A:  Python evaluates default arguments once when the function is defined,
+#     not when it is called. If you pass a mutable object as a default (e.g.,
+#     `def add(item, lst=[])`), all subsequent function calls without a second
+#     parameter will share and mutate the EXACT same list.
+#
+# Q2. What do *args and **kwargs do in a function definition?
+# A:  See the comparison table below:
+#     | Parameter | Captures | Received As | Example Call |
+#     | :--- | :--- | :--- | :--- |
+#     | `*args` | Positional arguments | Tuple | `func(1, 2, 3)` |
+#     | `**kwargs` | Keyword arguments | Dictionary | `func(a=1, b=2)` |
+#
+# Q3. What is the LEGB rule for variable scope lookup in Python?
+# A:  It defines the order Python searches scopes for variable resolution:
+#     Local (inside the function), Enclosing (in outer nested functions),
+#     Global (at the module level), and Built-in (pre-defined Python functions
+#     like print(), len()).

@@ -114,3 +114,40 @@ print()
 print("--- 11. Emptying the dictionary using .clear() ---")
 person.clear()
 print("Dictionary after clear():", person)
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. User Session Caching: Mapping user session tokens (keys) to active user
+#    profile objects (values).
+#
+# 2. API Headers Configuration: Structuring HTTP headers (Content-Type,
+#    Authorization) as key-value pairs.
+#
+# 3. Entity Mapping: Storing configuration profiles, database configurations,
+#    or localized translation maps.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What are the constraints on Python dictionary keys?
+# A:  Dictionary keys must be hashable. This means they must be immutable
+#     objects (e.g., strings, numbers, tuples with immutable items). Mutable
+#     objects like lists, sets, or other dictionaries cannot be used as keys
+#     because their hashes could change, breaking lookup logic.
+#
+# Q2. How does Python resolve key lookups, and what happens during a hash
+#     collision?
+# A:  Python dictionaries use hash tables. It hashes the key to find a bucket
+#     index. If multiple keys hash to the same bucket (collision), Python uses
+#     'open addressing' (specifically pseudo-random probing) to search for the
+#     next available bucket. Lookups remain O(1) on average.
+#
+# Q3. How does the get() method differ from using bracket notation dict[key]?
+# A:  See the comparison table below:
+#     | Access Method | If Key Exists | If Key Is Missing |
+#     | :--- | :--- | :--- |
+#     | `dict[key]` | Returns the value | Raises `KeyError` |
+#     | `dict.get()` | Returns the value | Returns default (`None` or custom) |

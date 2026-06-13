@@ -42,3 +42,41 @@ print("--- 4. Trying to modify a tuple (Raises Error) ---")
 # t[0] = 89  # <- This line is commented out because it will crash the script!
 print("# You cannot write: t[0] = 89")
 print("# Python does not allow changing tuple values after they are created.")
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Database Records: Representing rows from a database table where each
+#    index has a fixed meaning (e.g. (id, username, email)).
+#
+# 2. API Coordinates: Storing fixed spatial coords (latitude, longitude) or
+#    screen size specifications.
+#
+# 3. Dictionary Keys: Using a combination of values (like first_name,
+#    last_name) as a unique key in a hash map.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. Why are tuples faster and more memory-efficient than lists in Python?
+# A:  See the comparison table below:
+#     | Feature | Tuple | List |
+#     | :--- | :--- | :--- |
+#     | **Mutability** | Immutable (fixed) | Mutable (modifiable) |
+#     | **Syntax** | Parentheses `()` | Square brackets `[]` |
+#     | **Memory** | Fixed allocation (smaller) | Dynamic over-allocation (larger) |
+#     | **Performance**| Faster access/creation | Slower |
+#
+# Q2. Can a tuple contain mutable elements? Is it still hashable?
+# A:  Yes, a tuple can contain mutable elements like lists (e.g. t = (1, 2,
+#     [3, 4])). However, a tuple is ONLY hashable (and can only be used as a
+#     dictionary key or set element) if ALL of its elements are also
+#     hashable/immutable. If it contains a list, it raises a TypeError.
+#
+# Q3. What is tuple unpacking, and how is it commonly used to swap variables?
+# A:  Tuple unpacking allows assigning elements of a tuple to separate
+#     variables in one line. Swapping variables uses this: 'a, b = b, a'.
+#     Python evaluates the right side (creating a temporary tuple (b, a)) and
+#     unpacks it into the variables on the left.

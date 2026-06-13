@@ -113,8 +113,16 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
         }
 
         if (currentQA) {
-          const cleanLine = line.replace(/^#\s?/, '');
-          currentQA.answerLines.push(cleanLine);
+          if (currentQA.answerLines.length === 0) {
+            // Continuation of the question
+            const cleanQuestionPart = line.replace(/^#\s*/, '').trim();
+            currentQA.question += ' ' + cleanQuestionPart;
+          } else {
+            // Continuation of the answer
+            let cleanLine = line.replace(/^#\s?/, '');
+            cleanLine = cleanLine.replace(/^(\s*)#\s?/, '$1');
+            currentQA.answerLines.push(cleanLine);
+          }
         }
       }
       continue;

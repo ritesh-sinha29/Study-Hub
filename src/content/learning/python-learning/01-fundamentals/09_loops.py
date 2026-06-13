@@ -116,3 +116,38 @@ users = [
 print("All registered users:")
 for user in users:
     print(f"  User ID: {user['id']} | Name: {user['name']}")
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. API Pagination Resolver: Using a while loop to continually fetch pages of
+#    results until next_link is empty.
+#
+# 2. Network Request Retry: Retrying an API call up to 3 times inside a loop
+#    if it fails.
+#
+# 3. Batch Database Processing: Splitting a large list of 10,000 records into
+#    smaller chunks of 100 for batch insertion.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. How does the else clause behave when attached to a for or while loop?
+# A:  The loop's else block executes ONLY if the loop completes all iterations
+#     naturally without encountering a 'break' statement. If the loop is
+#     terminated early by a 'break', the else block is skipped entirely. This
+#     is useful for search loops.
+#
+# Q2. What is the difference between break and continue statements?
+# A:  See the comparison table below:
+#     | Statement | Loop Behavior | Next Line Executed |
+#     | :--- | :--- | :--- |
+#     | `break` | Terminates loop immediately | First line outside the loop |
+#     | `continue` | Skips rest of current iteration | Next iteration evaluation |
+#
+# Q3. Why is range() memory-efficient even when generating large sequences?
+# A:  In Python 3, range() returns a lazy sequence object (an iterator), not a
+#     fully populated list. It computes numbers dynamically on-demand during
+#     iteration, using O(1) memory regardless of how large the range is.

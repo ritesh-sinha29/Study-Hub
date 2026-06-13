@@ -117,3 +117,44 @@ if os.path.exists("example.txt"):
     os.remove("example.txt")
 if os.path.exists("server.log"):
     os.remove("server.log")
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Log Exporter Service: Appending trace warnings and error logs to a local
+#    file using append mode.
+#
+# 2. Local Storage Database: Saving application JSON settings files locally.
+#
+# 3. Bulk Report Generation: Creating CSV file reports on disk from lists of
+#    databases.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. Why should you always use the 'with' statement when opening files in
+#     Python?
+# A:  The 'with' statement implements the context manager protocol. It
+#     guarantees that the file is closed automatically once the code block
+#     exits, even if an exception is raised inside the block. This prevents
+#     file descriptors/resource leaks.
+#
+# Q2. What are the differences between 'w', 'a', and 'x' file opening modes?
+# A:  See the comparison table below:
+#     | Mode | Action | If File Exists | If File Doesn't Exist |
+#     | :--- | :--- | :--- | :--- |
+#     | `'w'` | Write | Overwrites contents | Creates new file |
+#     | `'a'` | Append | Appends to the end | Creates new file |
+#     | `'x'` | Exclusive Write| Raises `FileExistsError` | Creates new file |
+#
+# Q3. What is the difference between read(), readline(), and readlines()?
+# A:  See the comparison table below:
+#     | Method | Returns | Reads | Memory Usage |
+#     | :--- | :--- | :--- | :--- |
+#     | `read()` | String | Entire file content | High (loads whole file) |
+#     | `readline()` | String | One line at a time | Low (one line in memory) |
+#     | `readlines()` | List of strings | All lines as a list | High (loads whole list) |
+#     #
+#     *Tip: Iterate directly over the file object (e.g. `for line in f:`) for the best memory efficiency.*

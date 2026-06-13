@@ -73,3 +73,41 @@ print()
 print("--- String Slicing ---")
 # This gets indices 0, 1, 2, 3 (index 4 's' is excluded)
 print("Slicing name[0:4]:", name[0:4]) # Prints "Rite"
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. User Profile Parsing: Extracting first/last name or username from form
+#    inputs and sanitizing them (e.g. removing extra whitespaces using
+#    strip()).
+#
+# 2. Email Validation: Checking if the input string contains '@' and ends with
+#    a valid domain using endswith() and split().
+#
+# 3. Search Filters: Normalizing database queries and text search fields to
+#    lowercase using lower() for case-insensitive matching.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What is string immutability in Python, and why is it important?
+# A:  Immutability means that once a string is created in memory, its contents
+#     cannot be modified. Any operation (like upper(), replace()) returns a
+#     NEW string object. This is important for performance (string
+#     interning/sharing) and security (e.g. hash keys in dictionaries, file
+#     paths, and database connections).
+#
+# Q2. What is the difference between find() and index() string methods?
+# A:  Both methods search for a substring. See the comparison table below:
+#     | Method | If Substring Found | If Substring Not Found |
+#     | :--- | :--- | :--- |
+#     | `find()` | Returns start index | Returns `-1` (safe) |
+#     | `index()` | Returns start index | Raises `ValueError` (requires try-except) |
+#
+# Q3. How does Python store strings in memory (String Interning)?
+# A:  Python automatically 'interns' short, identifier-like strings
+#     (containing only letters, numbers, or underscores). This means they
+#     point to the exact same memory address. You can check this using the
+#     'is' operator (e.g. a = 'hello'; b = 'hello'; a is b -> True).

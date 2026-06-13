@@ -13,7 +13,7 @@ import { useTheme } from "next-themes";
 
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 480;
-const DEFAULT_WIDTH = 220;
+const DEFAULT_WIDTH = 230;
 const STORAGE_KEY = "sidebar-width";
 
 function ThemeToggle() {
@@ -126,9 +126,12 @@ export default function DashboardLayout({
     <div
       ref={providerRef}
       style={{ "--sidebar-width": `${sidebarWidth}px` } as React.CSSProperties}
-      className="flex h-svh w-full"
+      className="flex h-svh w-full overflow-hidden"
     >
-    <SidebarProvider style={{ "--sidebar-width": "inherit" } as React.CSSProperties}>
+    <SidebarProvider
+      style={{ "--sidebar-width": "inherit" } as React.CSSProperties}
+      className="h-full overflow-hidden"
+    >
       {/* Swap sidebar based on route */}
       {topic ? <TopicSidebar topic={topic} /> : <AppSidebar />}
 
@@ -143,9 +146,9 @@ export default function DashboardLayout({
         <div className="absolute inset-y-0 -left-2 -right-2" />
       </div>
 
-      <SidebarInset>
+      <SidebarInset className="h-full overflow-y-auto">
         <header className="flex h-16 shrink-0 items-center border-b border-border bg-background/80 backdrop-blur-md px-4 sticky top-0 z-50 gap-2">
-          <SidebarTrigger className="-ml-1" />
+          <SidebarTrigger className="-ml-1 md:peer-data-[state=expanded]:hidden" />
           <div className="flex items-center gap-3 ml-auto">
             <div className="relative hidden sm:flex items-center">
               <Search className="absolute left-2.5 size-4 text-muted-foreground" />

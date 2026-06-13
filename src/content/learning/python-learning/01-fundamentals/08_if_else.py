@@ -140,3 +140,38 @@ print(validate_age(25))
 print(validate_age(-5))
 print(validate_age(200))
 print(validate_age("abc"))
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Access Authorization: Verifying user roles and permissions before
+#    displaying dashboard data.
+#
+# 2. Dynamic Pricing Engines: Calculating discounts or surcharges based on
+#    purchase volume or user type.
+#
+# 3. Form Field Validation: Checking if user password matches requirements
+#    before registration.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What is 'short-circuit evaluation' in Python logical operations?
+# A:  In logical operations ('and', 'or'), Python evaluates expressions
+#     left-to-right and stops as soon as the outcome is determined. For 'or',
+#     if the first expression is True, the second is not evaluated. For 'and',
+#     if the first is False, the second is skipped.
+#
+# Q2. What are Truthy and Falsy values in Python?
+# A:  Every object in Python has an implicit boolean value. Falsy values
+#     include None, False, numeric zero (0, 0.0), empty collections ([], {},
+#     (), set()), and empty strings (''). All other objects are Truthy by
+#     default.
+#
+# Q3. What is the ternary operator in Python and what is its syntax?
+# A:  The ternary operator is a one-line conditional expression. Syntax:
+#     'value_if_true if condition else value_if_false'. Example: 'status =
+#     "Adult" if age >= 18 else "Minor"'. It is useful for clean inline
+#     assignments.

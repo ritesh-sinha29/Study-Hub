@@ -46,3 +46,41 @@ print("--- 4. Sorting a List of Numbers ---")
 print("Before sort:", numbers_list)
 numbers_list.sort()  # Sorts the numbers in-place (ascending order)
 print("After sort:", numbers_list)
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Shopping Carts: Maintaining an ordered, modifiable collection of items
+#    selected by a user.
+#
+# 2. Task Queues: Implementing a basic queue using list methods where tasks
+#    are appended and popped.
+#
+# 3. Data Feed Buffering: Accumulating live API payloads before saving them in
+#    a database.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What is the difference between append() and extend() on a Python list?
+# A:  Both methods add items to a list. See the comparison table below:
+#     | Method | Parameter Type | Action |
+#     | :--- | :--- | :--- |
+#     | `append()` | Any object (single item) | Adds argument as 1 new element |
+#     | `extend()` | Iterable (list, tuple, etc.) | Unpacks & appends all items |
+#
+# Q2. How does Python allocate memory for lists, and what is its performance
+#     implication?
+# A:  Python lists are dynamic arrays. To avoid resizing on every append,
+#     Python over-allocates memory. Resizing happens exponentially. Append has
+#     an amortized time complexity of O(1), but insertion at arbitrary indexes
+#     is O(n) because elements must be shifted.
+#
+# Q3. What is the difference between list.sort() and sorted()?
+# A:  See the comparison table below:
+#     | Operation | Modification | Return Value | Iterable Type |
+#     | :--- | :--- | :--- | :--- |
+#     | `list.sort()` | Modifies in-place | Returns `None` | Lists only |
+#     | `sorted()` | Creates new list | Returns sorted list | Any iterable |

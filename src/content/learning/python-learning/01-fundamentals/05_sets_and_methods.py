@@ -80,3 +80,41 @@ a1.remove(500)
 print("a1 after removing 500:", a1)
 
 # Note: Calling a1.remove(a1) would fail because a1 is a set, not a number inside the set.
+
+# ==========================================
+# REAL-LIFE USE CASES
+# ==========================================
+#
+# 1. Unique Visitors Tracking: Logging IP addresses or user IDs to count
+#    unique active users daily.
+#
+# 2. Social Graph Commonalities: Finding common friends/followers between two
+#    users using set intersections.
+#
+# 3. Spam Filtering: Comparing a list of words in an email against a set of
+#    known spam words.
+
+# ==========================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ==========================================
+#
+# Q1. What is the time complexity of searching (membership testing) in a set
+#     vs a list?
+# A:  Searching in a set is O(1) on average because sets are implemented as
+#     hash tables. In contrast, searching in a list is O(n) because Python
+#     must scan the list element-by-element. Always use sets for large
+#     membership checks.
+#
+# Q2. What are the requirements for an element to be added to a set?
+# A:  Elements in a set must be 'hashable'. This means they must have a hash
+#     value that never changes during their lifetime (i.e. they must be
+#     immutable objects like strings, numbers, or tuples containing only
+#     immutable types). Lists or dictionaries cannot be added to sets.
+#
+# Q3. What is the difference between set.remove() and set.discard()?
+# A:  Both methods delete an element from the set. See the comparison table
+#     below:
+#     | Method | If Element Exists | If Element Not Found |
+#     | :--- | :--- | :--- |
+#     | `remove()` | Deletes element from set | Raises `KeyError` |
+#     | `discard()` | Deletes element from set | Fails silently (no error) |
