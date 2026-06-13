@@ -42,12 +42,12 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
               <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-                L
+                S
               </div>
               <div className="flex flex-col justify-center gap-0.5 leading-none">
-                <span className="font-semibold text-sm">LearnHub</span>
+                <span className="font-semibold text-sm">Study Hub</span>
                 <span className="text-xs text-muted-foreground">
-                  Learning Platform
+                  Study Platform
                 </span>
               </div>
             </SidebarMenuButton>

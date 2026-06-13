@@ -6,7 +6,7 @@ import {
   ChevronRight,
   ChevronLeft,
 } from "lucide-react";
-import { getTopicBySlug, learningTopics, type TopicFile } from "@/config/learning";
+import { getTopicBySlug, getAllTopicFiles, learningTopics, type TopicFile } from "@/config/learning";
 import { MarkdownRenderer } from "@/components/learning/MarkdownRenderer";
 import { TableOfContents } from "@/components/learning/TableOfContents";
 import { extractHeadings } from "@/lib/extract-headings";
@@ -35,10 +35,14 @@ export default async function TopicFilePage({ params }: PageProps) {
     notFound();
   }
 
-  const file = topic.files.find((f) => f.slug === fileSlug);
+  const allFiles = getAllTopicFiles(topic);
+  const file = allFiles.find((f) => f.slug === fileSlug);
   if (!file) {
     notFound();
   }
+
+  const displayTitle = file.number ? `${file.number}. ${file.title}` : file.title;
+  const getFileDisplayTitle = (f: TopicFile) => f.number ? `${f.number}. ${f.title}` : f.title;
 
   // Read the content from the file system using the filename in config
   const contentPath = path.join(
@@ -55,14 +59,14 @@ export default async function TopicFilePage({ params }: PageProps) {
   try {
     content = fs.readFileSync(contentPath, "utf-8");
     if (isPython) {
-      content = parsePythonToMarkdown(content, file.title);
+      content = parsePythonToMarkdown(content, displayTitle);
     }
   } catch {
-    content = `# ${file.title}\n\n*Content coming soon. Add your notes in \`src/content/learning/${topicSlug}/${file.filename}\`.*`;
+    content = `# ${displayTitle}\n\n*Content coming soon. Add your notes in \`src/content/learning/${topicSlug}/${file.filename}\`.*`;
   }
 
   const headings = extractHeadings(content);
-  const { prev, next } = getPrevNext(topic.files, fileSlug);
+  const { prev, next } = getPrevNext(allFiles, fileSlug);
 
   return (
     <div className="flex flex-1">
@@ -86,7 +90,7 @@ export default async function TopicFilePage({ params }: PageProps) {
             </Link>
             <ChevronRight className="size-3.5" />
             <span className="text-foreground font-medium truncate max-w-[200px]">
-              {file.title}
+              {displayTitle}
             </span>
           </nav>
 
@@ -103,7 +107,7 @@ export default async function TopicFilePage({ params }: PageProps) {
                 <span className="text-xs text-muted-foreground">Previous</span>
                 <span className="flex items-center gap-1 text-sm font-medium text-foreground transition-colors group-hover:text-primary">
                   <ChevronLeft className="size-4" />
-                  {prev.title}
+                  {getFileDisplayTitle(prev)}
                 </span>
               </Link>
             ) : (
@@ -116,7 +120,7 @@ export default async function TopicFilePage({ params }: PageProps) {
               >
                 <span className="text-xs text-muted-foreground">Next</span>
                 <span className="flex items-center gap-1 text-sm font-medium text-foreground transition-colors group-hover:text-primary">
-                  {next.title}
+                  {getFileDisplayTitle(next)}
                   <ChevronRight className="size-4" />
                 </span>
               </Link>
@@ -140,7 +144,8 @@ export default async function TopicFilePage({ params }: PageProps) {
 export async function generateStaticParams() {
   const params: Array<{ topic: string; slug: string }> = [];
   for (const topic of learningTopics) {
-    for (const file of topic.files) {
+    const allFiles = getAllTopicFiles(topic);
+    for (const file of allFiles) {
       params.push({
         topic: topic.slug,
         slug: file.slug,

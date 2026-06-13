@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LearnHub",
-  description: "Your personal learning platform",
+  title: "Study Hub",
+  description: "Your personal study platform",
 };
 
 export default function RootLayout({

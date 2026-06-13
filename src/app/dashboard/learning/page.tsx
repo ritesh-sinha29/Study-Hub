@@ -9,13 +9,13 @@ const iconMap: Record<string, typeof BookOpen> = {
   DSA: Dices,
 };
 
-export default function LearningHubPage() {
+export default function StudyHubPage() {
   return (
     <div className="flex flex-1 flex-col gap-8 p-6">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          My Learning Hub 📚
+          My Study Hub 📚
         </h1>
         <p className="mt-2 text-muted-foreground max-w-xl">
           Browse your revision notes organized by topic. Click a topic to dive into the content.

@@ -164,62 +164,108 @@ function generateConfig() {
       icon: "BookOpen"
     };
 
-    const files = [];
+    // Root-level files (no subfolder)
+    const rootFiles = [];
+    // Subfolder groups
+    const groups = [];
+
+    function parseFile(item, fullPath, relativeFilename) {
+      if (item.endsWith('-test.md') || item.endsWith('-test.py')) return null;
+      const baseName = item.replace(/\.[^/.]+$/, '');
+      const slug = baseName.replace(/^\d+[_ \-]/, '').replace(/_/g, '-');
+      const title = extractTitle(fullPath, slug);
+      const numberMatch = baseName.match(/^(\d+[a-zA-Z]*)[_ \-]/);
+      const number = numberMatch ? numberMatch[1] : undefined;
+      return { title, slug, number, filename: relativeFilename.replace(/\\/g, '/'), sortKey: item.toLowerCase() };
+    }
+
+    function sortFiles(arr) {
+      return arr.sort((a, b) => {
+        const numA = getFileNumber(path.basename(a.filename));
+        const numB = getFileNumber(path.basename(b.filename));
+        if (numA.num !== numB.num) return numA.num - numB.num;
+        if (numA.suffix !== numB.suffix) return numA.suffix.localeCompare(numB.suffix);
+        return a.sortKey.localeCompare(b.sortKey);
+      });
+    }
 
     if (fs.existsSync(topicDir)) {
-      const items = fs.readdirSync(topicDir);
-      for (const item of items) {
+      const topLevelItems = fs.readdirSync(topicDir);
+
+      for (const item of topLevelItems) {
         const fullPath = path.join(topicDir, item);
         const stat = fs.statSync(fullPath);
-        
-        if (stat.isFile() && (item.endsWith('.md') || item.endsWith('.py'))) {
-          if (item.endsWith('-test.md') || item.endsWith('-test.py')) continue;
 
-          const baseName = item.replace(/\.[^/.]+$/, "");
-          const slug = baseName.replace(/^\d+[_ \-]/, "").replace(/_/g, "-");
-          let title = extractTitle(fullPath, slug);
-          
-          // Match leading number prefix (e.g. "01", "02", "08b")
-          const numberMatch = baseName.match(/^(\d+[a-zA-Z]*)[_ \-]/);
-          if (numberMatch) {
-            const numPrefix = numberMatch[1];
-            title = `${numPrefix}. ${title}`;
+        if (stat.isDirectory()) {
+          // This is a subfolder → becomes a group
+          const groupBaseName = item;
+          const groupSlug = groupBaseName.replace(/^\d+[_ \-]/, '').replace(/_/g, '-');
+          const groupNumberMatch = groupBaseName.match(/^(\d+[a-zA-Z]*)[_ \-]/);
+          const groupNumber = groupNumberMatch ? groupNumberMatch[1] : undefined;
+          let groupTitle = groupSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+          if (groupNumber) groupTitle = `${groupNumber}. ${groupTitle}`;
+
+          const groupFiles = [];
+          const subItems = fs.readdirSync(fullPath);
+          for (const subItem of subItems) {
+            const subFullPath = path.join(fullPath, subItem);
+            if (fs.statSync(subFullPath).isFile() && (subItem.endsWith('.md') || subItem.endsWith('.py'))) {
+              const parsed = parseFile(subItem, subFullPath, path.join(item, subItem));
+              if (parsed) groupFiles.push(parsed);
+            }
           }
-          
-          files.push({
-            title,
-            slug,
-            filename: item,
-            sortKey: item.toLowerCase()
+          sortFiles(groupFiles);
+          groups.push({
+            title: groupTitle,
+            slug: groupSlug,
+            number: groupNumber,
+            sortKey: item.toLowerCase(),
+            files: groupFiles.map(({ title, slug, number, filename }) => ({ title, slug, number, filename }))
           });
+
+        } else if (stat.isFile() && (item.endsWith('.md') || item.endsWith('.py'))) {
+          // Root-level file
+          const parsed = parseFile(item, fullPath, item);
+          if (parsed) rootFiles.push(parsed);
         }
       }
     }
 
-    // Sort files primarily by the numeric prefix in their filename
-    files.sort((a, b) => {
-      const numA = getFileNumber(a.filename);
-      const numB = getFileNumber(b.filename);
-      
-      if (numA.num !== numB.num) {
-        return numA.num - numB.num;
-      }
-      if (numA.suffix !== numB.suffix) {
-        return numA.suffix.localeCompare(numB.suffix);
-      }
+    sortFiles(rootFiles);
+    groups.sort((a, b) => {
+      const numA = getFileNumber(a.sortKey);
+      const numB = getFileNumber(b.sortKey);
+      if (numA.num !== numB.num) return numA.num - numB.num;
+      if (numA.suffix !== numB.suffix) return numA.suffix.localeCompare(numB.suffix);
       return a.sortKey.localeCompare(b.sortKey);
     });
 
-    const cleanFiles = files.map(({ title, slug, filename }) => ({ title, slug, filename }));
+    const cleanFiles = rootFiles.map(({ title, slug, number, filename }) => ({ title, slug, number, filename }));
+    const cleanGroups = groups.map(({ title, slug, number, files }) => ({ title, slug, number, files }));
 
     topics.push({
       ...topicMeta,
-      files: cleanFiles
+      files: cleanFiles,
+      groups: cleanGroups
     });
   }
 
   const code = `// This file is auto-generated by scripts/generate_config.js
 // Do not edit this file manually.
+
+export interface TopicFile {
+  title: string;
+  slug: string;
+  filename: string;
+  number?: string;
+}
+
+export interface TopicGroup {
+  title: string;
+  slug: string;
+  number?: string;
+  files: TopicFile[];
+}
 
 export interface TopicItem {
   title: string;
@@ -227,13 +273,7 @@ export interface TopicItem {
   description: string;
   icon?: string;
   files: TopicFile[];
-}
-
-export interface TopicFile {
-  title: string;
-  slug: string;
-  filename: string;
-  description?: string;
+  groups: TopicGroup[];
 }
 
 export const learningTopics: TopicItem[] = ${JSON.stringify(topics, null, 2)};
@@ -244,8 +284,20 @@ export function flattenTopicFiles(topics: TopicItem[]): (TopicFile & { topic: st
     for (const file of topic.files) {
       files.push({ ...file, topic: topic.slug });
     }
+    for (const group of topic.groups) {
+      for (const file of group.files) {
+        files.push({ ...file, topic: topic.slug });
+      }
+    }
   }
   return files;
+}
+
+export function getAllTopicFiles(topic: TopicItem): TopicFile[] {
+  return [
+    ...topic.files,
+    ...topic.groups.flatMap(g => g.files),
+  ];
 }
 
 export function getTopicBySlug(slug: string): TopicItem | undefined {

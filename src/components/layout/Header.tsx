@@ -16,9 +16,9 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-            L
+            S
           </div>
-          <span className="text-lg font-semibold tracking-tight">LearnHub</span>
+          <span className="text-lg font-semibold tracking-tight">Study Hub</span>
         </Link>
 
         {/* Desktop CTA */}
