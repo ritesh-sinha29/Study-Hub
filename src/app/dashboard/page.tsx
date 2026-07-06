@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { learningTopics, getAllTopicFiles } from "@/config/learning";
-import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers } from "lucide-react";
+import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers, Brain, Database } from "lucide-react";
 
 const iconMap: Record<string, typeof BookOpen> = {
   Python: Code2,
   FastAPI: BookOpen,
   LangGraph: Network,
   DSA: Dices,
+  LangChain: Brain,
+  RAG: Database,
 };
 
 export default function StudyHubPage() {

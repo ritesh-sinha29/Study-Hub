@@ -403,18 +403,18 @@ export const learningTopics: TopicItem[] = [
     ]
   },
   {
-    "title": "Langchain",
+    "title": "LangChain",
     "slug": "langchain",
-    "description": "Revision notes and guides for Langchain",
-    "icon": "BookOpen",
+    "description": "LangChain frameworks, components, and LLM integrations",
+    "icon": "LangChain",
     "files": [],
     "groups": []
   },
   {
-    "title": "Rag",
+    "title": "RAG",
     "slug": "rag",
-    "description": "Revision notes and guides for Rag",
-    "icon": "BookOpen",
+    "description": "Retrieval-Augmented Generation architectures, embeddings, and vector databases",
+    "icon": "RAG",
     "files": [],
     "groups": []
   }

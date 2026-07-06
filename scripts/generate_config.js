@@ -34,6 +34,18 @@ const STATIC_TOPICS = [
     slug: "cpp",
     description: "C++ basics, programming syntax, and foundations",
     icon: "BookOpen",
+  },
+  {
+    title: "LangChain",
+    slug: "langchain",
+    description: "LangChain frameworks, components, and LLM integrations",
+    icon: "LangChain",
+  },
+  {
+    title: "RAG",
+    slug: "rag",
+    description: "Retrieval-Augmented Generation architectures, embeddings, and vector databases",
+    icon: "RAG",
   }
 ];
 
