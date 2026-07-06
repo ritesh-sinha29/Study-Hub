@@ -192,7 +192,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
         return (
           <code
-            className={cn(className, "block font-mono text-[13px] leading-relaxed")}
+            className={`${className || ""} block font-mono text-[13px] leading-relaxed`}
             dangerouslySetInnerHTML={{ __html: highlightedHtml }}
             {...props}
           />
@@ -200,8 +200,9 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
       },
       pre: ({
         children,
+        node,
         ...props
-      }: React.ComponentPropsWithoutRef<"pre">) => {
+      }: React.ComponentPropsWithoutRef<"pre"> & { node?: any }) => {
         let codeText = "";
         if (children && typeof children === "object" && "props" in (children as object)) {
           const childProps = (children as { props?: { children?: unknown } }).props;
@@ -233,7 +234,8 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 <div className="w-10" /> {/* Spacer */}
               </div>
               <pre
-                className="overflow-x-auto p-5 text-[12px] font-mono leading-relaxed text-[#a9b1d6] whitespace-pre bg-transparent scrollbar-thin"
+                className="overflow-x-auto p-5 text-[12px] font-mono leading-relaxed text-[#a9b1d6] whitespace-pre bg-transparent scrollbar-thin [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit"
+                tabIndex={0}
                 {...props}
               >
                 {children}
@@ -256,6 +258,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             )}
             <pre
               className="overflow-x-auto p-4 text-[13px] font-mono leading-relaxed bg-transparent text-[#d4d4d4] [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit"
+              tabIndex={0}
               {...props}
             >
               {children}

@@ -115,7 +115,15 @@ function tryConvertBoxTable(lines: string[]): string[] | null {
     if (isSeparatorRow) {
       tableRows.push('|' + ' --- |'.repeat(cols.length));
     } else {
-      tableRows.push('| ' + cols.join(' | ') + ' |');
+      if (tableRows.length > 0) {
+        // Data row: Bold the first cell (the key concept or parameter name)
+        const boldedFirst = `**${cols[0]}**`;
+        const restCols = cols.slice(1);
+        tableRows.push('| ' + [boldedFirst, ...restCols].join(' | ') + ' |');
+      } else {
+        // Header row: Keep as is
+        tableRows.push('| ' + cols.join(' | ') + ' |');
+      }
       maxCols = Math.max(maxCols, cols.length);
     }
   }
@@ -203,7 +211,13 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
     const trimmed = line.trim();
 
     // Check Q&A section
-    if (trimmed.startsWith('#') && trimmed.includes('MNC INTERVIEW QUESTIONS')) {
+    const upperTrimmed = trimmed.toUpperCase();
+    if (trimmed.startsWith('#') && (
+      upperTrimmed.includes('MNC INTERVIEW') || 
+      upperTrimmed.includes('INTERVIEW PREPARATION') || 
+      upperTrimmed.includes('INTERVIEW QUESTIONS') || 
+      upperTrimmed.includes('INTERVIEW Q&A')
+    )) {
       inQASection = true;
       finishCurrentBlock();
       continue;
@@ -400,10 +414,30 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
       const subGroups: Array<{ kind: 'text' | 'diagram' | 'table'; lines: string[] }> = [];
       let currentGroup: { kind: 'text' | 'diagram' | 'table'; lines: string[] } | null = null;
 
-      for (const tline of block.lines) {
+      for (let idx = 0; idx < block.lines.length; idx++) {
+        const tline = block.lines[idx];
         let kind: 'text' | 'diagram' | 'table' = 'text';
         if (isAsciiDiagramLine(tline)) kind = 'diagram';
         else if (isMarkdownTableLine(tline)) kind = 'table';
+
+        // If we are currently in a diagram group, and this line is classified as 'text',
+        // check if there is another diagram line within the next 4 lines.
+        // If so, keep the current line as part of the 'diagram' to avoid fragmentation.
+        if (currentGroup && currentGroup.kind === 'diagram' && kind === 'text') {
+          let hasDiagramAhead = false;
+          for (let j = 1; j <= 4; j++) {
+            if (idx + j < block.lines.length) {
+              const aheadLine = block.lines[idx + j];
+              if (isAsciiDiagramLine(aheadLine)) {
+                hasDiagramAhead = true;
+                break;
+              }
+            }
+          }
+          if (hasDiagramAhead) {
+            kind = 'diagram';
+          }
+        }
 
         if (!currentGroup || currentGroup.kind !== kind) {
           if (currentGroup) subGroups.push(currentGroup);
