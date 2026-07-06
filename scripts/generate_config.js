@@ -28,6 +28,12 @@ const STATIC_TOPICS = [
     slug: "dsa-in-cpp",
     description: "Data structures and algorithms in C++",
     icon: "DSA",
+  },
+  {
+    title: "C++",
+    slug: "cpp",
+    description: "C++ basics, programming syntax, and foundations",
+    icon: "BookOpen",
   }
 ];
 

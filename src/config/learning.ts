@@ -341,8 +341,8 @@ export const learningTopics: TopicItem[] = [
   },
   {
     "title": "C++",
-    "slug": "C++",
-    "description": "Revision notes and guides for C++",
+    "slug": "cpp",
+    "description": "C++ basics, programming syntax, and foundations",
     "icon": "BookOpen",
     "files": [],
     "groups": [
