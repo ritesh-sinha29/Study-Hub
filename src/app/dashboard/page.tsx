@@ -1,21 +1,66 @@
 import Link from "next/link";
 import { learningTopics, getAllTopicFiles } from "@/config/learning";
-import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers, Brain, Database, Terminal, GitBranch, Box, Layout, Coffee } from "lucide-react";
+import { ArrowRight, FileText, Layers } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
 function getIconForTopic(slug: string, iconName?: string) {
-  const normalized = slug.toLowerCase();
-  if (iconName === "Python" || normalized.includes("python")) return Code2;
-  if (iconName === "FastAPI" || normalized.includes("fastapi") || normalized.includes("api")) return Terminal;
-  if (iconName === "LangGraph" || normalized.includes("graph")) return Network;
-  if (iconName === "DSA" || normalized.includes("dsa") || normalized.includes("algo")) return Dices;
-  if (iconName === "LangChain" || normalized.includes("chain") || normalized.includes("langchain")) return Brain;
-  if (iconName === "RAG" || normalized.includes("rag") || normalized.includes("database") || normalized.includes("db")) return Database;
-  if (normalized.includes("cpp") || normalized.includes("cplusplus") || normalized.includes("c-plus-plus") || normalized.includes("c++")) return Code2;
-  if (normalized.includes("git") || normalized.includes("github")) return GitBranch;
-  if (normalized.includes("docker") || normalized.includes("container") || normalized.includes("kubernetes")) return Box;
-  if (normalized.includes("javascript") || normalized.includes("js") || normalized.includes("react") || normalized.includes("web") || normalized.includes("node") || normalized.includes("html") || normalized.includes("css")) return Layout;
-  if (normalized.includes("java") || normalized.includes("spring")) return Coffee;
-  return BookOpen;
+  const normalized = slug.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+  // 1. If an explicit icon name is matched in Lucide, return it
+  if (iconName && (LucideIcons as any)[iconName]) {
+    return (LucideIcons as any)[iconName];
+  }
+
+  // 2. Check for exact match in Lucide keys (case-insensitive)
+  const keys = Object.keys(LucideIcons);
+  for (const key of keys) {
+    if (key.toLowerCase() === normalized) {
+      return (LucideIcons as any)[key];
+    }
+  }
+
+  // 3. Fallback standard developer keyword mappings
+  if (normalized.includes("python") || normalized.includes("cpp") || normalized.includes("cplusplus") || normalized.includes("programming")) {
+    return LucideIcons.Code2;
+  }
+  if (normalized.includes("fastapi") || normalized.includes("api") || normalized.includes("server")) {
+    return LucideIcons.Terminal;
+  }
+  if (normalized.includes("langgraph") || normalized.includes("graph")) {
+    return LucideIcons.Network;
+  }
+  if (normalized.includes("dsa") || normalized.includes("algo") || normalized.includes("structure")) {
+    return LucideIcons.Dices;
+  }
+  if (normalized.includes("langchain") || normalized.includes("chain")) {
+    return LucideIcons.Brain;
+  }
+  if (normalized.includes("rag") || normalized.includes("database") || normalized.includes("db") || normalized.includes("sql")) {
+    return LucideIcons.Database;
+  }
+  if (normalized.includes("git") || normalized.includes("github")) {
+    return LucideIcons.GitBranch;
+  }
+  if (normalized.includes("docker") || normalized.includes("container") || normalized.includes("kubernetes")) {
+    return LucideIcons.Box;
+  }
+  if (normalized.includes("javascript") || normalized.includes("js") || normalized.includes("react") || normalized.includes("web") || normalized.includes("node") || normalized.includes("html") || normalized.includes("css")) {
+    return LucideIcons.Layout;
+  }
+  if (normalized.includes("java") || normalized.includes("spring")) {
+    return LucideIcons.Coffee;
+  }
+
+  // 4. Check for partial prefix/containment match in Lucide
+  for (const key of keys) {
+    const keyLower = key.toLowerCase();
+    if (keyLower.startsWith(normalized) || keyLower.includes(normalized)) {
+      return (LucideIcons as any)[key];
+    }
+  }
+
+  // Default fallback
+  return LucideIcons.BookOpen;
 }
 
 export default function StudyHubPage() {
