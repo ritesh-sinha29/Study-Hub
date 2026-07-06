@@ -219,9 +219,21 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
         if (isDiagram) {
           return (
-            <div className="relative group my-6 rounded-lg border border-border/30 bg-muted/30 overflow-hidden">
+            <div className="relative group my-6 rounded-lg border border-neutral-800 bg-[#0f0f11] shadow-lg overflow-hidden">
+              {/* Terminal Window Header */}
+              <div className="flex items-center justify-between border-b border-neutral-800 bg-[#16161a] px-4 py-2.5 select-none">
+                <div className="flex gap-1.5">
+                  <span className="size-2.5 rounded-full bg-red-500/80" />
+                  <span className="size-2.5 rounded-full bg-yellow-500/80" />
+                  <span className="size-2.5 rounded-full bg-green-500/80" />
+                </div>
+                <span className="text-[10px] uppercase tracking-widest font-mono font-bold text-neutral-500">
+                  Visual Flow Diagram
+                </span>
+                <div className="w-10" /> {/* Spacer */}
+              </div>
               <pre
-                className="overflow-x-auto p-4 text-[12.5px] font-mono leading-relaxed text-foreground/80 whitespace-pre"
+                className="overflow-x-auto p-5 text-[12px] font-mono leading-relaxed text-[#a9b1d6] whitespace-pre bg-transparent scrollbar-thin"
                 {...props}
               >
                 {children}
@@ -291,18 +303,29 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         children,
         ...props
       }: React.ComponentPropsWithoutRef<"table">) => (
-        <div className="my-6 overflow-x-auto rounded-lg border border-border/40">
-          <table className="w-full text-sm" {...props}>
+        <div className="my-6 overflow-x-auto rounded-lg border border-border/20 shadow-sm">
+          <table className="w-full text-sm border-collapse" {...props}>
             {children}
           </table>
         </div>
+      ),
+      tr: ({
+        children,
+        ...props
+      }: React.ComponentPropsWithoutRef<"tr">) => (
+        <tr
+          className="even:bg-muted/20 hover:bg-muted/40 transition-colors duration-150"
+          {...props}
+        >
+          {children}
+        </tr>
       ),
       th: ({
         children,
         ...props
       }: React.ComponentPropsWithoutRef<"th">) => (
         <th
-          className="border-b border-border/40 bg-muted/40 px-4 py-2.5 text-left font-semibold text-foreground"
+          className="border border-border/30 bg-muted/65 px-4 py-3 text-left font-mono text-xs uppercase tracking-wider font-semibold text-foreground/80"
           {...props}
         >
           {children}
@@ -313,7 +336,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         ...props
       }: React.ComponentPropsWithoutRef<"td">) => (
         <td
-          className="border-b border-border/20 px-4 py-2.5 text-muted-foreground"
+          className="border border-border/15 px-4 py-3 text-muted-foreground hover:text-foreground/90 transition-colors"
           {...props}
         >
           {children}
@@ -345,6 +368,62 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     let mainContent = content;
     let questions: Array<{ id: string; title: string; content: string }> = [];
 
+    function formatAnswerContent(text: string): string {
+      const lines = text.split('\n');
+      const tableRows: string[] = [];
+      const nonTableRowsBefore: string[] = [];
+      const nonTableRowsAfter: string[] = [];
+      
+      let inTable = false;
+      let hasConvertedTable = false;
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          if (inTable) {
+            inTable = false;
+          }
+          continue;
+        }
+
+        const match = trimmed.match(/^([^→\->]+?)\s*(?:→|->)\s*(.+)$/);
+        
+        if (match && match[1].trim().length < 50 && !match[1].includes('http') && !match[1].includes('://')) {
+          if (!inTable) {
+            inTable = true;
+            hasConvertedTable = true;
+          }
+          const term = match[1].trim();
+          const desc = match[2].trim();
+          tableRows.push(`| **${term}** | ${desc} |`);
+        } else {
+          if (inTable) {
+            inTable = false;
+          }
+          if (hasConvertedTable) {
+            nonTableRowsAfter.push(line);
+          } else {
+            nonTableRowsBefore.push(line);
+          }
+        }
+      }
+
+      if (tableRows.length >= 2) {
+        const header = `| Term / Concept | Description |`;
+        const separator = `| --- | --- |`;
+        const tableStr = [header, separator, ...tableRows].join('\n');
+        
+        const resultParts: string[] = [];
+        if (nonTableRowsBefore.length > 0) resultParts.push(nonTableRowsBefore.join('\n'));
+        resultParts.push(tableStr);
+        if (nonTableRowsAfter.length > 0) resultParts.push(nonTableRowsAfter.join('\n'));
+        
+        return resultParts.join('\n\n');
+      }
+
+      return text;
+    }
+
     if (match) {
       mainContent = content.replace(qaRegex, "");
       const qaSection = match[1];
@@ -354,7 +433,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         questions.push({
           id: qMatch[1],
           title: qMatch[2],
-          content: qMatch[3].trim(),
+          content: formatAnswerContent(qMatch[3].trim()),
         });
       }
     }

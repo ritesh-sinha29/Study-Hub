@@ -55,16 +55,12 @@
 # SECTION 3 — PYDANTIC VS TYPEDDICT: WHEN TO USE WHICH
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
-#  USE PYDANTIC (BaseModel) WHEN:
-#    ✓ You need runtime validation (e.g., email format, positive numbers)
-#    ✓ You want Field descriptions to guide the model's output
-#    ✓ You need IDE autocompletion on the result object (result.field_name)
-#    ✓ You're building database insert pipelines or API payloads
-#
-#  USE TYPEDDICT WHEN:
-#    ✓ You want plain Python dictionaries (result["field_name"])
-#    ✓ You're defining LangGraph node state schemas (common pattern)
-#    ✓ You want zero class instantiation overhead for high-throughput pipelines
+#  CRITERIA         │ PYDANTIC (BASEMODEL)            │ TYPEDDICT
+#  ─────────────────┼─────────────────────────────────┼────────────────────────────────
+#  Return Format    │ Python Object (dot access)      │ Plain Dictionary (key access)
+#  Validation       │ Strict runtime type validation  │ None (static type checking only)
+#  Model Guidance   │ Excellent (via Field descriptions)│ Moderate (via comments/types)
+#  Primary Use Case │ API schemas, validated inputs   │ LangGraph state whiteboard
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # SECTION 4 — FIELD DESCRIPTIONS AS MODEL INSTRUCTIONS

@@ -40,8 +40,10 @@ function isAsciiDiagramLine(text: string): boolean {
   if (/[\u2500-\u257F\u2580-\u259F]/.test(text)) return true;
   // Heavy horizontal rule lines like ━━━━━━━
   if (/^[\s]*[━─═]{4,}/.test(text)) return true;
+  // Lines that contain diagram connectors/arrows like -->, ==>, ->, ⇄, ⇄, ⇄
+  if (/\s*([─═\-]{2,}>|<[─═\-]{2,}|\u21c4|\u21e8|\u21e6|\u21cc)/.test(text)) return true;
   // Lines that are purely box art: lots of │ ┌ └ ─ ┐ ┘ spaces
-  if (/^[\s│┌└─┐┘┤├┬┴┼╔╗╚╝║═\s]{6,}$/.test(text)) return true;
+  if (/^[\s│┌└─┐┘┤├┬┴┼╔╗╚╝║═\s\-\=\>\<]{6,}$/.test(text)) return true;
   return false;
 }
 
@@ -50,6 +52,105 @@ function isMarkdownTableLine(text: string): boolean {
   const t = text.trim();
   // Must start with | and have at least two | separators
   return t.startsWith('|') && (t.match(/\|/g) || []).length >= 2;
+}
+
+/** Tries to convert a box-drawing ASCII table (using │, ┌, ├, etc.) to a standard Markdown table */
+function tryConvertBoxTable(lines: string[]): string[] | null {
+  const hasColumns = lines.some(l => l.includes('│') || l.includes('║'));
+  if (!hasColumns) return null;
+
+  // Flowchart/diagram detection: If lines contain standalone flow arrows (▼, ▲, ↓, ──►, -->)
+  // or connector links, it's a visual flowchart, not a structured tabular block.
+  const hasFlowElements = lines.some(line => {
+    const trimmed = line.trim();
+    if (/[─═\-]{2,}>|<[─═\-]{2,}/.test(trimmed)) return true;
+    if (/\b(?:[a-zA-Z0-9_\-\s]+)\s*(?:[─═\-]{2,}>|-->)\s*(?:[a-zA-Z0-9_\-\s]+)\b/.test(trimmed)) return true;
+    
+    // Check if one of the columns is just an arrow pointing down/up
+    if (line.includes('│') || line.includes('║')) {
+      const parts = line.split(/[│║]/).map(p => p.trim());
+      if (parts.some(p => p === '▼' || p === '▲' || p === '↓' || p === '↓' || p === '↑' || p === '→' || p === '←')) {
+        return true;
+      }
+    }
+    return false;
+  });
+
+  if (hasFlowElements) return null;
+
+  const tableRows: string[] = [];
+  let maxCols = 0;
+
+  for (const line of lines) {
+    let cleanLine = line.trim();
+    if (!cleanLine) continue;
+
+    // Check if the line is just a decorative boundary/border line (e.g. ┌────┐ or └────┘)
+    const isBoundary = /^[┌┐└┘╔╗╚╝╓╢╙╒╞╘═─┬┼┴╦╬╩╪╫╬═─\s]+$/.test(cleanLine);
+    if (isBoundary) {
+      // Intersections are used to detect column boundaries
+      if (cleanLine.includes('┼') || cleanLine.includes('╬') || cleanLine.includes('╪') || cleanLine.includes('┬') || cleanLine.includes('├')) {
+        if (maxCols > 0) {
+          tableRows.push('|' + ' --- |'.repeat(maxCols));
+        }
+      }
+      continue;
+    }
+
+    // Strip outer borders if they exist (e.g. starting and ending with box vertical lines)
+    if (cleanLine.startsWith('│') && cleanLine.endsWith('│')) {
+      cleanLine = cleanLine.substring(1, cleanLine.length - 1).trim();
+    } else if (cleanLine.startsWith('║') && cleanLine.endsWith('║')) {
+      cleanLine = cleanLine.substring(1, cleanLine.length - 1).trim();
+    }
+
+    // Split line by columns
+    const cols = cleanLine.split(/[│║|]/).map(c => c.trim());
+    if (cols.length < 2) {
+      continue; // Skip title headers or empty rows in box
+    }
+
+    // Check if the row itself is a separator line (all hyphens or double lines)
+    const isSeparatorRow = cols.every(col => /^[─═\-\s]+$/.test(col));
+    if (isSeparatorRow) {
+      tableRows.push('|' + ' --- |'.repeat(cols.length));
+    } else {
+      tableRows.push('| ' + cols.join(' | ') + ' |');
+      maxCols = Math.max(maxCols, cols.length);
+    }
+  }
+
+  // A valid table needs at least a header and some data rows
+  if (tableRows.length >= 2 && maxCols >= 2) {
+    // Keep only one separator row, right after the first row
+    const cleanTable: string[] = [];
+    let addedSep = false;
+
+    for (let i = 0; i < tableRows.length; i++) {
+      const row = tableRows[i];
+      const isSep = /^\|[-:\s|]+\|$/.test(row.trim());
+
+      if (isSep) {
+        if (!addedSep && cleanTable.length > 0) {
+          cleanTable.push(row);
+          addedSep = true;
+        }
+      } else {
+        cleanTable.push(row);
+      }
+    }
+
+    // If no separator row was found, inject one after the header
+    const hasSep = cleanTable.some(row => /^\|[-:\s|]+\|$/.test(row.trim()));
+    if (!hasSep && cleanTable.length >= 1) {
+      const sep = '|' + ' --- |'.repeat(maxCols);
+      cleanTable.splice(1, 0, sep);
+    }
+
+    return cleanTable;
+  }
+
+  return null;
 }
 
 function isCodeLine(text: string): boolean {
@@ -318,8 +419,13 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
         if (!sgText) continue;
 
         if (sg.kind === 'diagram') {
-          // Wrap in a fenced text block for monospace rendering
-          md += '```text\n' + sgText + '\n```\n\n';
+          const convertedTable = tryConvertBoxTable(sg.lines);
+          if (convertedTable) {
+            md += convertedTable.join('\n') + '\n\n';
+          } else {
+            // Wrap in a fenced text block for monospace rendering
+            md += '```text\n' + sgText + '\n```\n\n';
+          }
         } else if (sg.kind === 'table') {
           // Ensure there is a GFM separator row after the first line
           const tableLines = sg.lines.filter(l => l.trim());

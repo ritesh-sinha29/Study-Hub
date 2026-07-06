@@ -59,14 +59,12 @@
 # SECTION 4 — CONSTRUCTOR VS INVOCATION CALLBACKS
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
-# CONSTRUCTOR callbacks (apply to ALL requests from this model instance):
-#   model = init_chat_model("gpt-4o-mini", callbacks=[GlobalAuditHandler()])
-#
-# INVOCATION callbacks (apply to ONLY this specific call):
-#   model.invoke(prompt, config={"callbacks": [PerRequestTracer()]})
-#
-# Use constructor callbacks for: global APM tracing, centralized cost dashboards.
-# Use invocation callbacks for: per-user session tracking, per-request debug traces.
+#  FEATURE          │ CONSTRUCTOR CALLBACKS           │ INVOCATION CALLBACKS
+#  ─────────────────┼─────────────────────────────────┼────────────────────────────────
+#  Scope            │ Global (all requests on object) │ Local (single request execution)
+#  Definition       │ Pass in init_chat_model(...)    │ Pass in config dict on invoke()
+#  Primary Use Case │ Global telemetry / monitoring   │ Per-user session tracking
+#  Best For         │ Sentry APM, global cost meters  │ Per-request trace logging
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # SECTION 5 — GPT-4o-mini TOKEN COST REFERENCE (for cost estimation)

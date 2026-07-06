@@ -55,26 +55,16 @@
 # SECTION 3 — GENERATIVE AI VS. AUTONOMOUS AGENTS
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
-# 1. PLAIN LLM (GENERATIVE AI — PASSIVE RESPONDER):
-#    - Input : "What is the weather in New York?"
-#    - Output: Cannot answer accurately. LLMs have a training cutoff date.
-#              They have no real-time internet access, no tools, no memory.
-#              The model simply generates what statistically follows the input.
+#  FEATURE          │ PLAIN LLM (GENERATIVE AI)       │ AUTONOMOUS AGENT
+#  ─────────────────┼─────────────────────────────────┼────────────────────────────────
+#  Role             │ Passive Responder               │ Active Reasoner
+#  Capabilities     │ Text pattern matching only      │ Reason + Tool Execution
+#  Internet Access  │ No (cutoff training date)       │ Yes (real-time search/APIs)
+#  Decision Loop    │ Single prompt → text generation │ Thought → Action → Observation
+#  Example Behavior │ "I don't know the weather."     │ Calls weather_tool() → replies
 #
-# 2. AUTONOMOUS AGENT (ACTIVE REASONER):
-#    - Input: "What is the weather in New York?"
-#    - Step 1 — THOUGHT:
-#        The agent (model) thinks: "I cannot answer this from training data.
-#        I need to call an external weather API tool to get real-time info."
-#    - Step 2 — ACTION:
-#        Agent calls: weather_tool(city="New York")
-#    - Step 3 — OBSERVATION:
-#        Tool returns: "New York: Partly Cloudy, 18°C"
-#    - Step 4 — FINAL ANSWER:
-#        Agent generates: "Currently in New York, it is partly cloudy at 18°C."
-#
-#    This THOUGHT → ACTION → OBSERVATION → ANSWER loop is called the
-#    ReAct (Reasoning + Acting) loop, the foundation of all modern AI agents.
+#  This loop of thought, action, and observation is called the ReAct loop, 
+#  which forms the foundation of all modern AI agents.
 #
 #  ┌──────────────────────────────────────────────────────────────────────┐
 #  │                      COGNITIVE SPECTRUM                              │
