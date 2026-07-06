@@ -332,8 +332,8 @@ export const learningTopics: TopicItem[] = [
     "groups": []
   },
   {
-    "title": "DSA in C++",
-    "slug": "dsa-in-cpp",
+    "title": "DSA with C++",
+    "slug": "dsa-with-cpp",
     "description": "Data structures and algorithms in C++",
     "icon": "DSA",
     "files": [],
@@ -401,14 +401,6 @@ export const learningTopics: TopicItem[] = [
         ]
       }
     ]
-  },
-  {
-    "title": "DSA with C++",
-    "slug": "DSA with C++",
-    "description": "Revision notes and guides for DSA with C++",
-    "icon": "BookOpen",
-    "files": [],
-    "groups": []
   },
   {
     "title": "Langchain",

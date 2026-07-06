@@ -24,8 +24,8 @@ const STATIC_TOPICS = [
     icon: "LangGraph",
   },
   {
-    title: "DSA in C++",
-    slug: "dsa-in-cpp",
+    title: "DSA with C++",
+    slug: "dsa-with-cpp",
     description: "Data structures and algorithms in C++",
     icon: "DSA",
   },
