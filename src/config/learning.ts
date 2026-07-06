@@ -380,6 +380,18 @@ export const learningTopics: TopicItem[] = [
         "slug": "functions",
         "number": "06",
         "filename": "06_functions.cpp"
+      },
+      {
+        "title": "C++ Stl (standard Template Library) Basics",
+        "slug": "stl-basics",
+        "number": "07",
+        "filename": "07_stl_basics.cpp"
+      },
+      {
+        "title": "Time And Space Complexity",
+        "slug": "time-complexity",
+        "number": "08",
+        "filename": "08_time_complexity.cpp"
       }
     ],
     "groups": []
