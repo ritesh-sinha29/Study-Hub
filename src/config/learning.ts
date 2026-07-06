@@ -347,56 +347,56 @@ export const learningTopics: TopicItem[] = [
     "files": [],
     "groups": [
       {
-        "title": "Programming Basics",
-        "slug": "programming-basics",
+        "title": "Required For Dsa",
+        "slug": "required-for-dsa",
         "files": [
           {
             "title": "C++ Skeleton And Basic Io",
             "slug": "skeleton-and-io",
             "number": "01",
-            "filename": "programming-basics/01_skeleton_and_io.cpp"
+            "filename": "required-for-dsa/01_skeleton_and_io.cpp"
           },
           {
             "title": "C++ Data Types And Ranges",
             "slug": "data-types",
             "number": "02",
-            "filename": "programming-basics/02_data_types.cpp"
+            "filename": "required-for-dsa/02_data_types.cpp"
           },
           {
             "title": "C++ Conditionals: Ifelse And Switch",
             "slug": "conditionals-and-switch",
             "number": "03",
-            "filename": "programming-basics/03_conditionals_and_switch.cpp"
+            "filename": "required-for-dsa/03_conditionals_and_switch.cpp"
           },
           {
             "title": "C++ Arrays And Strings",
             "slug": "arrays-and-strings",
             "number": "04",
-            "filename": "programming-basics/04_arrays_and_strings.cpp"
+            "filename": "required-for-dsa/04_arrays_and_strings.cpp"
           },
           {
             "title": "C++ Loops: For And While",
             "slug": "loops",
             "number": "05",
-            "filename": "programming-basics/05_loops.cpp"
+            "filename": "required-for-dsa/05_loops.cpp"
           },
           {
             "title": "C++ Functions: Pass By Value And Reference",
             "slug": "functions",
             "number": "06",
-            "filename": "programming-basics/06_functions.cpp"
+            "filename": "required-for-dsa/06_functions.cpp"
           },
           {
             "title": "C++ Stl (standard Template Library) Basics",
             "slug": "stl-basics",
             "number": "07",
-            "filename": "programming-basics/07_stl_basics.cpp"
+            "filename": "required-for-dsa/07_stl_basics.cpp"
           },
           {
             "title": "Time And Space Complexity",
             "slug": "time-complexity",
             "number": "08",
-            "filename": "programming-basics/08_time_complexity.cpp"
+            "filename": "required-for-dsa/08_time_complexity.cpp"
           }
         ]
       }
