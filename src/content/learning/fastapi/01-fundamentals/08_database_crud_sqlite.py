@@ -181,7 +181,7 @@ if __name__ == "__main__":
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 08_database_crud_sqlite.py`
 # 2. A file named `todos.db` will be created in this directory.
-# 3. Go to: http://127.0.0.1:8000/docs
+# 3. Go to: http://localhost:8000/docs
 # 4. Try out POST `/todos` to add a task (e.g. title: "Learn FastAPI", description: "From scratch!").
 # 5. Try GET `/todos` to see your saved tasks.
 # 6. Try PUT `/todos/1` to toggle `"completed": true`.

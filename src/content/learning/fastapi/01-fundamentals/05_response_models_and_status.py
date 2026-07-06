@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 05_response_models_and_status.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Try creating a user using the POST `/users` endpoint. Look at the output:
 #    It returns HTTP code 201 (Created), and the JSON payload contains only `username`, 
 #    `email`, and `is_active`. The `password` key is completely hidden!

@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 09_middleware_cors.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Try executing the GET `/slow-endpoint` endpoint.
 # 4. Check your Python terminal! You will see:
 #    `[Log] Request: GET /slow-endpoint | Time taken: 0.5012s`

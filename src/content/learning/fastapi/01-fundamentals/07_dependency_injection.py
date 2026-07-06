@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 07_dependency_injection.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Try `/items` or `/users` — Swagger UI automatically detects the query parameters 
 #    (`q`, `skip`, `limit`) even though they are inside the `Depends()` function!
 # 4. Try `/admin/dashboard` — you must supply the header `x-api-key` with value `secret-token-123`.

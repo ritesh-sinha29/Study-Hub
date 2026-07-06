@@ -228,7 +228,7 @@ def create_user(user: User):  # "user: User" tells FastAPI to expect a User-shap
 # Start the server (from the project root):
 #    poetry run uvicorn main:app --reload
 #
-# Then open your browser and go to: http://127.0.0.1:8000/docs
+# Then open your browser and go to: http://localhost:8000/docs
 # 3. Click on the POST /create_user endpoint.
 # 4. Click "Try it out" and send this JSON:
 #    {

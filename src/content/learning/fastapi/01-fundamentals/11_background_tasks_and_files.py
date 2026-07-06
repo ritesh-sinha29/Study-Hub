@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 11_background_tasks_and_files.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Try `/upload-single` by uploading any small text file or image.
 # 4. Try `/request-report` with your email.
 #    * Watch Swagger return the success response immediately (0 seconds delay).

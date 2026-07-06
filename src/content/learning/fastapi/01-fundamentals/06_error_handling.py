@@ -62,7 +62,7 @@ async def db_connection_exception_handler(request: Request, exc: DatabaseConnect
         content={
             "error_type": "DATABASE_ERROR",
             "message": f"Could not connect to database: '{exc.db_name}'. Please try again later.",
-            "documentation_url": "http://127.0.0.1:8000/docs"
+            "documentation_url": "http://localhost:8000/docs"
         }
     )
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 06_error_handling.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Test `/items/sword` (returns weapon details).
 # 4. Test `/items/potion` (returns 404 error and message in JSON: "detail": "...")
 # 5. Test `/simulate-db-error` (returns 503 Service Unavailable, and our custom structured JSON error output).

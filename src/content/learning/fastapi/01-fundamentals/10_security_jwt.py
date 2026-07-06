@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 10_security_jwt.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Notice the green "Authorize" lock button at the top right of the Swagger UI!
 # 4. Try calling GET `/users/me` — it will fail with `401 Unauthorized` (lock is open).
 # 5. Click the "Authorize" button, type username: `ritesh` and password: `mysecret123`. Click Authorize.

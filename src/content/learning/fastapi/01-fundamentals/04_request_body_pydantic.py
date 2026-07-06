@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 04_request_body_pydantic.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Look at the `/products/{product_id}` POST endpoint in Swagger. It automatically 
 #    shows the JSON body schema required to make the request!
 # 4. Try sending an invalid body (e.g. price: -10.0 or a name with only 1 letter). 

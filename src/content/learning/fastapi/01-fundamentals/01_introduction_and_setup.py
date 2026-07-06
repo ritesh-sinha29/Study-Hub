@@ -55,7 +55,7 @@ async def root():
     return {
         "message": "Welcome to FastAPI, Ritesh!",
         "status": "Learning from scratch",
-        "next_step": "Go to http://127.0.0.1:8000/docs in your browser!"
+        "next_step": "Go to http://localhost:8000/docs in your browser!"
     }
 
 # 3. ANOTHER ROUTE (ANOTHER ENDPOINT)
@@ -77,13 +77,13 @@ async def about():
 #   uvicorn 01_introduction_and_setup:app --reload
 #
 # Then visit:
-#   http://127.0.0.1:8000/docs     ← Swagger UI (interactive)
-#   http://127.0.0.1:8000/redoc    ← ReDoc UI
+#   http://localhost:8000/docs     ← Swagger UI (interactive)
+#   http://localhost:8000/redoc    ← ReDoc UI
 # ----------------------------------------------------------
 if __name__ == "__main__":
     print("Starting FastAPI server...")
-    print("Visit Swagger Documentation at: http://127.0.0.1:8000/docs")
-    print("Visit ReDoc Documentation at: http://127.0.0.1:8000/redoc")
+    print("Visit Swagger Documentation at: http://localhost:8000/docs")
+    print("Visit ReDoc Documentation at: http://localhost:8000/redoc")
     uvicorn.run("01_introduction_and_setup:app", host="127.0.0.1", port=8000, reload=True)
 
 
@@ -155,7 +155,7 @@ if __name__ == "__main__":
 # Q4. What is OpenAPI and how does FastAPI use it?
 # A:  OpenAPI (formerly Swagger) is a standard specification for describing REST APIs.
 #     FastAPI automatically generates an openapi.json file from your code.
-#     You can view it at: http://127.0.0.1:8000/openapi.json
+#     You can view it at: http://localhost:8000/openapi.json
 #     Swagger UI (/docs) and ReDoc (/redoc) are just pretty viewers of that JSON spec.
 #     This means: You write code → FastAPI generates documentation AUTOMATICALLY.
 

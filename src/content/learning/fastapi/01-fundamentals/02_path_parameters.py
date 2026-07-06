@@ -90,7 +90,7 @@ async def read_file(file_path: str):
 # OR
 #   uvicorn 02_path_parameters:app --reload
 #
-# Then open: http://127.0.0.1:8000/docs
+# Then open: http://localhost:8000/docs
 # ----------------------------------------------------------
 if __name__ == "__main__":
     uvicorn.run("02_path_parameters:app", host="127.0.0.1", port=8000, reload=True)
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 02_path_parameters.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Try out `/items/1` (works!)
 # 4. Try out `/items/featured` (works!)
 # 5. Try out `/items/hello` (returns automatic validation error - standard HTTP 422)

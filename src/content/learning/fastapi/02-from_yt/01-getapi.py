@@ -34,7 +34,7 @@ app = FastAPI(
 # ==========================================================
 # 1. ROOT ENDPOINT (Home Route)
 # ==========================================================
-# When someone visits http://127.0.0.1:8000/
+# When someone visits http://localhost:8000/
 # this function runs and returns a welcome message.
 #
 # Real-Life Use Case:
@@ -100,10 +100,10 @@ def users():
 #   uvicorn main:app --reload
 #
 # Then open your browser and visit:
-#   http://127.0.0.1:8000/         → Home
-#   http://127.0.0.1:8000/about    → About
-#   http://127.0.0.1:8000/users    → Users list
-#   http://127.0.0.1:8000/docs     → Interactive Swagger UI (AUTO-GENERATED!)
+#   http://localhost:8000/         → Home
+#   http://localhost:8000/about    → About
+#   http://localhost:8000/users    → Users list
+#   http://localhost:8000/docs     → Interactive Swagger UI (AUTO-GENERATED!)
 # ----------------------------------------------------------
 
 

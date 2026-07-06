@@ -32,7 +32,7 @@ USERS_DATABASE = [
 # - `limit` has a default value of `2`.
 # - If the client doesn't send them, the default values are used.
 # - If they are sent, they are automatically converted to integers.
-# Try visiting: http://127.0.0.1:8000/users?skip=1&limit=2
+# Try visiting: http://localhost:8000/users?skip=1&limit=2
 @app.get("/users")
 async def get_users(skip: int = 0, limit: int = 2):
     # Slice the list based on pagination
@@ -49,7 +49,7 @@ async def get_users(skip: int = 0, limit: int = 2):
 #   (or `str | None = None` in modern Python), FastAPI knows it is optional and defaults to `None`.
 # - `active` is a boolean query parameter. FastAPI is smart: it converts query strings like
 #   `true`, `1`, `yes`, `on` into Python `True`, and `false`, `0`, `no` into Python `False`.
-# Try visiting: http://127.0.0.1:8000/search-users?active=yes&role=admin
+# Try visiting: http://localhost:8000/search-users?active=yes&role=admin
 @app.get("/search-users")
 async def search_users(
     role: Union[str, None] = None, 
@@ -78,7 +78,7 @@ async def search_users(
 # - `q` must have a minimum length of 3 characters, max of 15.
 # - If the user provides a string with fewer than 3 characters, FastAPI rejects it.
 # - We can also add a description for the Swagger UI documentation.
-# Try visiting: http://127.0.0.1:8000/search?q=ri
+# Try visiting: http://localhost:8000/search?q=ri
 # It will return a 422 error because "ri" is less than 3 characters!
 @app.get("/search")
 async def search(
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
 # --- QUICK SUMMARY FOR RETESTING ---
 # 1. Run this file: `python 03_query_parameters.py`
-# 2. Go to: http://127.0.0.1:8000/docs
+# 2. Go to: http://localhost:8000/docs
 # 3. Try the `/users` endpoint without any query params (it uses defaults skip=0, limit=2)
 # 4. Try `/search-users` with `active=false`. Watch it convert "false" to boolean `False`.
 # 5. Try `/search` with a query `q` that is too short (e.g. `ab`) and check the error.

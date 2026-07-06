@@ -16,13 +16,13 @@ export function CopyButton({ text, inline }: { text: string; inline?: boolean })
     return (
       <button
         onClick={handleCopy}
-        className="flex items-center gap-1.5 rounded px-2 py-1 text-xs font-medium text-muted-foreground/70 hover:text-foreground hover:bg-muted/50 transition-all cursor-pointer"
+        className="flex items-center gap-1.5 rounded px-2 py-1 text-xs font-medium text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 transition-all cursor-pointer"
         aria-label="Copy code"
       >
         {copied ? (
           <>
-            <Check className="size-3 text-green-500 animate-in fade-in duration-200" />
-            <span className="text-green-500 text-[10px] uppercase tracking-wider font-semibold">Copied</span>
+            <Check className="size-3 text-emerald-400 animate-in fade-in duration-200" />
+            <span className="text-emerald-400 text-[10px] uppercase tracking-wider font-semibold">Copied</span>
           </>
         ) : (
           <>
@@ -37,11 +37,11 @@ export function CopyButton({ text, inline }: { text: string; inline?: boolean })
   return (
     <button
       onClick={handleCopy}
-      className="absolute right-3 top-3 flex size-7 items-center justify-center rounded-md border border-border/20 bg-[#0d0d15] text-muted-foreground/50 opacity-0 transition-all hover:border-border/40 hover:text-muted-foreground group-hover:opacity-100 cursor-pointer shadow-md"
+      className="absolute right-3 top-3 flex size-7 items-center justify-center rounded-md border border-zinc-800 bg-[#252526] text-zinc-400 opacity-0 transition-all hover:border-zinc-700 hover:text-zinc-100 group-hover:opacity-100 cursor-pointer shadow-md"
       aria-label="Copy code"
     >
       {copied ? (
-        <Check className="size-3.5 text-green-500 animate-in fade-in duration-200" />
+        <Check className="size-3.5 text-emerald-400 animate-in fade-in duration-200" />
       ) : (
         <Copy className="size-3.5" />
       )}

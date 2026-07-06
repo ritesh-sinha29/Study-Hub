@@ -71,7 +71,7 @@ def create_user(user: User):
 # Open your terminal in this folder (03-request-body) and run:
 #   uvicorn main:app --reload
 #
-# Then test in your browser or Swagger UI at http://127.0.0.1:8000/docs
+# Then test in your browser or Swagger UI at http://localhost:8000/docs
 #
 # Try sending a POST request to /create-user with this JSON body:
 # {

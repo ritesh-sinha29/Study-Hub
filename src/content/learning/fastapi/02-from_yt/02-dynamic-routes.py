@@ -212,26 +212,26 @@ def get_product_with_pagination(id: int, limit: int = 10, offset: int = 0):
 # Open your terminal in this folder (02-dynamic-routes) and run:
 #   uvicorn main:app --reload
 #
-# Then test in your browser or Swagger UI at http://127.0.0.1:8000/docs:
+# Then test in your browser or Swagger UI at http://localhost:8000/docs:
 #
 #   Path Parameter:
-#     http://127.0.0.1:8000/users/3
-#     http://127.0.0.1:8000/users/abc  ← This will give a 422 error (int expected!)
+#     http://localhost:8000/users/3
+#     http://localhost:8000/users/abc  ← This will give a 422 error (int expected!)
 #
 #   Query Parameters:
-#     http://127.0.0.1:8000/username?name=ritesh
-#     http://127.0.0.1:8000/user          (optional - no name)
-#     http://127.0.0.1:8000/user?name=bob
+#     http://localhost:8000/username?name=ritesh
+#     http://localhost:8000/user          (optional - no name)
+#     http://localhost:8000/user?name=bob
 #
 #   Default Values:
-#     http://127.0.0.1:8000/products          → limit=10 (default)
-#     http://127.0.0.1:8000/products?limit=5  → limit=5
+#     http://localhost:8000/products          → limit=10 (default)
+#     http://localhost:8000/products?limit=5  → limit=5
 #
 #   Multiple Query Params:
-#     http://127.0.0.1:8000/items?name=phone&price=3000
+#     http://localhost:8000/items?name=phone&price=3000
 #
 #   Combined (Path + Query):
-#     http://127.0.0.1:8000/products/5?limit=5&offset=10
+#     http://localhost:8000/products/5?limit=5&offset=10
 # ----------------------------------------------------------
 
 
