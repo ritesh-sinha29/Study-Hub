@@ -86,8 +86,8 @@ function extractTitle(filePath, slug) {
       line = line.trim();
       if (line === '') continue;
       
-      if (line.startsWith('#')) {
-        const clean = line.replace(/^#\s*/, '').replace(/[\-=\*#_]+/g, '').trim();
+      if (line.startsWith('#') || line.startsWith('//')) {
+        const clean = line.replace(/^(?:#|\/\/)\s*/, '').replace(/[\-=\*#_\/]+/g, '').trim();
         
         if (clean.length > 2) {
           let title = clean;
@@ -210,7 +210,7 @@ function generateConfig() {
           const subItems = fs.readdirSync(fullPath);
           for (const subItem of subItems) {
             const subFullPath = path.join(fullPath, subItem);
-            if (fs.statSync(subFullPath).isFile() && (subItem.endsWith('.md') || subItem.endsWith('.py'))) {
+            if (fs.statSync(subFullPath).isFile() && (subItem.endsWith('.md') || subItem.endsWith('.py') || subItem.endsWith('.cpp'))) {
               const parsed = parseFile(subItem, subFullPath, path.join(item, subItem));
               if (parsed) groupFiles.push(parsed);
             }
@@ -224,7 +224,7 @@ function generateConfig() {
             files: groupFiles.map(({ title, slug, number, filename }) => ({ title, slug, number, filename }))
           });
 
-        } else if (stat.isFile() && (item.endsWith('.md') || item.endsWith('.py'))) {
+        } else if (stat.isFile() && (item.endsWith('.md') || item.endsWith('.py') || item.endsWith('.cpp'))) {
           // Root-level file
           const parsed = parseFile(item, fullPath, item);
           if (parsed) rootFiles.push(parsed);

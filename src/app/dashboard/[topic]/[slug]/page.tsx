@@ -11,6 +11,7 @@ import { MarkdownRenderer } from "@/components/learning/MarkdownRenderer";
 import { TableOfContents } from "@/components/learning/TableOfContents";
 import { extractHeadings } from "@/lib/extract-headings";
 import { parsePythonToMarkdown } from "@/lib/parse-python";
+import { parseCppToMarkdown } from "@/lib/parse-cpp";
 
 interface PageProps {
   params: Promise<{ topic: string; slug: string }>;
@@ -54,12 +55,15 @@ export default async function TopicFilePage({ params }: PageProps) {
     file.filename
   );
   const isPython = file.filename.endsWith(".py");
+  const isCpp = file.filename.endsWith(".cpp");
 
   let content = "";
   try {
     content = fs.readFileSync(contentPath, "utf-8");
     if (isPython) {
       content = parsePythonToMarkdown(content, displayTitle);
+    } else if (isCpp) {
+      content = parseCppToMarkdown(content, displayTitle);
     }
   } catch {
     content = `# ${displayTitle}\n\n*Content coming soon. Add your notes in \`src/content/learning/${topicSlug}/${file.filename}\`.*`;

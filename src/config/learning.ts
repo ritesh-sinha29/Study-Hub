@@ -80,13 +80,13 @@ export const learningTopics: TopicItem[] = [
             "filename": "01-fundamentals/07_user_input.py"
           },
           {
-            "title": "If / Elif / Else",
+            "title": "If Elif Else",
             "slug": "if-else",
             "number": "08",
             "filename": "01-fundamentals/08_if_else.py"
           },
           {
-            "title": "Matchcase / Switchcase",
+            "title": "Matchcase Switchcase",
             "slug": "08b-match-case",
             "number": "08b",
             "filename": "01-fundamentals/08b_match_case.py"
@@ -122,7 +122,7 @@ export const learningTopics: TopicItem[] = [
             "filename": "01-fundamentals/13_decorators.py"
           },
           {
-            "title": "Async / Await",
+            "title": "Async Await",
             "slug": "async-await",
             "number": "14",
             "filename": "01-fundamentals/14_async_await.py"
@@ -176,7 +176,7 @@ export const learningTopics: TopicItem[] = [
             "filename": "01-fundamentals/22_environment_variables.py"
           },
           {
-            "title": "File Input / Output",
+            "title": "File Input Output (file Io)",
             "slug": "file-io",
             "number": "23",
             "filename": "01-fundamentals/23_file_io.py"
@@ -336,6 +336,59 @@ export const learningTopics: TopicItem[] = [
     "slug": "dsa-in-cpp",
     "description": "Data structures and algorithms in C++",
     "icon": "DSA",
+    "files": [],
+    "groups": []
+  },
+  {
+    "title": "C++",
+    "slug": "C++",
+    "description": "Revision notes and guides for C++",
+    "icon": "BookOpen",
+    "files": [
+      {
+        "title": "C++ Skeleton And Basic Io",
+        "slug": "skeleton-and-io",
+        "number": "01",
+        "filename": "01_skeleton_and_io.cpp"
+      },
+      {
+        "title": "C++ Data Types And Ranges",
+        "slug": "data-types",
+        "number": "02",
+        "filename": "02_data_types.cpp"
+      },
+      {
+        "title": "C++ Conditionals: Ifelse And Switch",
+        "slug": "conditionals-and-switch",
+        "number": "03",
+        "filename": "03_conditionals_and_switch.cpp"
+      },
+      {
+        "title": "C++ Arrays And Strings",
+        "slug": "arrays-and-strings",
+        "number": "04",
+        "filename": "04_arrays_and_strings.cpp"
+      },
+      {
+        "title": "C++ Loops: For And While",
+        "slug": "loops",
+        "number": "05",
+        "filename": "05_loops.cpp"
+      },
+      {
+        "title": "C++ Functions: Pass By Value And Reference",
+        "slug": "functions",
+        "number": "06",
+        "filename": "06_functions.cpp"
+      }
+    ],
+    "groups": []
+  },
+  {
+    "title": "DSA with C++",
+    "slug": "DSA with C++",
+    "description": "Revision notes and guides for DSA with C++",
+    "icon": "BookOpen",
     "files": [],
     "groups": []
   },
