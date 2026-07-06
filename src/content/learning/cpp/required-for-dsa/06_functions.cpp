@@ -2,6 +2,9 @@
 // C++ FUNCTIONS: PASS BY VALUE AND REFERENCE
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// Functions are reusable blocks of code that perform specific tasks. Arguments can be passed by value (copying data) or by reference (pointing directly to the original memory).
+//
 // --- REAL-WORLD USE CASES ---
 // Functions help split large codebases into modular, reusable blocks.
 // Examples:

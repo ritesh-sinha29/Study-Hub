@@ -2,6 +2,9 @@
 // C++ CONDITIONALS: IF-ELSE AND SWITCH
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// Conditionals (if-else, switch) are control flow statements that allow your program to make decisions and execute different blocks of code based on true or false conditions.
+//
 // --- REAL-WORLD USE CASES ---
 // Conditionals are used to make decisions in code execution based on variables.
 // Examples:

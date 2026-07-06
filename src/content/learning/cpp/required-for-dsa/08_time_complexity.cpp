@@ -2,6 +2,9 @@
 // TIME AND SPACE COMPLEXITY
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// Complexity analysis is the mathematical standard used to measure and compare how the runtime (Time Complexity) and memory (Space Complexity) of an algorithm scales with the input size N.
+//
 // --- REAL-WORLD USE CASES ---
 // Complexity analysis is the language of algorithm performance. It helps you:
 //   * Performance Tuning: Predict how slow an app will run when processing millions of users.

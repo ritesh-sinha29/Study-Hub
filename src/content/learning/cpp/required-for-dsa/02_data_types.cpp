@@ -2,6 +2,9 @@
 // C++ DATA TYPES AND RANGES
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// Data types specify the type and size of values that variables can store (such as integers, decimals, characters, or text). This tells the compiler how much memory to allocate.
+//
 // --- REAL-WORLD USE CASES ---
 // Data types define the type and size of data a variable can store. Examples:
 //   * int / long: Storing counts, IDs, age.

@@ -2,6 +2,9 @@
 // C++ ARRAYS AND STRINGS
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// Arrays are fixed-size containers that store elements of the same type sequentially in memory. Strings are specialized arrays of characters used to store and manipulate text.
+//
 // --- REAL-WORLD USE CASES ---
 // Arrays and Strings are basic containers used to store collection of elements sequentially.
 // Examples:

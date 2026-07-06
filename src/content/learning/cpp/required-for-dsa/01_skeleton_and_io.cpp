@@ -2,6 +2,10 @@
 // C++ SKELETON AND BASIC I/O
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// The skeleton is the basic boilerplate code required to compile and run any C++ program. 
+// It imports standard input/output libraries to allow communication with the user.
+//
 // --- REAL-WORLD USE CASES ---
 // Every C++ application requires a basic skeleton structure. This is used in:
 //   * Console Applications: Command-line utilities that read user inputs and print output.

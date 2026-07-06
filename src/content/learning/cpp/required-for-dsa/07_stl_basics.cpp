@@ -2,6 +2,9 @@
 // C++ STL (STANDARD TEMPLATE LIBRARY) BASICS
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// The Standard Template Library (STL) is a library of pre-built, highly optimized data structures (like vectors, sets, maps) and algorithms (like sorting) in C++.
+//
 // --- REAL-WORLD USE CASES ---
 // The Standard Template Library (STL) provides pre-built data structures and algorithms 
 // so you don't have to build them from scratch.

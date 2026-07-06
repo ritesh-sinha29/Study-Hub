@@ -2,6 +2,9 @@
 // C++ LOOPS: FOR AND WHILE
 // ==========================================
 //
+// --- QUICK DEFINITION ---
+// Loops (for, while) are structures used to repeat a block of code multiple times until a specific condition is met, preventing you from writing repetitive instructions.
+//
 // --- REAL-WORLD USE CASES ---
 // Loops are used to repeat a block of code multiple times.
 // Examples:
