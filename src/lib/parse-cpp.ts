@@ -102,7 +102,7 @@ export function parseCppToMarkdown(rawContent: string, pageTitle: string): strin
 
     if (inQASection) {
       if (trimmed.startsWith('//')) {
-        const qMatch = line.match(/^\/\/\s*(Q\d+)\.\s*(.*)/);
+        const qMatch = line.match(/^\/\/\s*(?:[^\w\s]+\s*)?(Q\d+)\.\s*(.*)/);
         if (qMatch) {
           if (currentQA) {
             currentQA.answerLines = trimCommonIndentation(currentQA.answerLines);
