@@ -215,7 +215,88 @@ export const learningTopics: TopicItem[] = [
     "description": "LangChain frameworks, components, and LLM integrations",
     "icon": "LangChain",
     "files": [],
-    "groups": []
+    "groups": [
+      {
+        "title": "01. Fundamentals",
+        "slug": "fundamentals",
+        "number": "01",
+        "files": [
+          {
+            "title": "Introduction, Ecosystem & Environment Setup",
+            "slug": "introduction-and-setup",
+            "number": "01",
+            "filename": "01-fundamentals/01_introduction_and_setup.py"
+          },
+          {
+            "title": "Dynamic Model Integration & Vendor Abstraction",
+            "slug": "model-integration",
+            "number": "02",
+            "filename": "01-fundamentals/02_model_integration.py"
+          },
+          {
+            "title": "Token Streaming & Concurrent Batch Processing",
+            "slug": "streaming-and-batch",
+            "number": "03",
+            "filename": "01-fundamentals/03_streaming_and_batch.py"
+          },
+          {
+            "title": "Tools, @tool Decorator & Schema Binding",
+            "slug": "tools-creation",
+            "number": "04",
+            "filename": "01-fundamentals/04_tools_creation.py"
+          },
+          {
+            "title": "Message Types, Schemas & Conversation Lifecycle",
+            "slug": "messages",
+            "number": "05",
+            "filename": "01-fundamentals/05_messages.py"
+          },
+          {
+            "title": "Structured Output Enforcement",
+            "slug": "structured-output",
+            "number": "06",
+            "filename": "01-fundamentals/06_structured_output.py"
+          },
+          {
+            "title": "Callbacks, Middleware & Observability",
+            "slug": "middleware",
+            "number": "07",
+            "filename": "01-fundamentals/07_middleware.py"
+          }
+        ]
+      },
+      {
+        "title": "02. Lcel And Memory",
+        "slug": "lcel-and-memory",
+        "number": "02",
+        "files": [
+          {
+            "title": "Langchain Expression Language (lcel) Basics",
+            "slug": "lcel-basics",
+            "number": "01",
+            "filename": "02-lcel-and-memory/01_lcel_basics.py"
+          },
+          {
+            "title": "Runnable Parallel & Passthrough",
+            "slug": "runnable-parallel-and-passthrough",
+            "number": "02",
+            "filename": "02-lcel-and-memory/02_runnable_parallel_and_passthrough.py"
+          },
+          {
+            "title": "Runnable Lambda (custom Functions In Chains)",
+            "slug": "runnable-lambda",
+            "number": "03",
+            "filename": "02-lcel-and-memory/03_runnable_lambda.py"
+          },
+          {
+            "title": "Chat History, Memory & Session Management",
+            "slug": "chat-history-memory",
+            "number": "04",
+            "filename": "02-lcel-and-memory/04_chat_history_memory.py"
+          }
+        ]
+      }
+    ]
   },
   {
     "title": "LangGraph",
@@ -223,7 +304,88 @@ export const learningTopics: TopicItem[] = [
     "description": "LangGraph agent workflows and graphs",
     "icon": "LangGraph",
     "files": [],
-    "groups": []
+    "groups": [
+      {
+        "title": "01. Fundamentals",
+        "slug": "fundamentals",
+        "number": "01",
+        "files": [
+          {
+            "title": "Introduction & The Stategraphnodeedge Paradigm",
+            "slug": "introduction-and-setup",
+            "number": "01",
+            "filename": "01-fundamentals/01_introduction_and_setup.py"
+          },
+          {
+            "title": "React Agent With Tools",
+            "slug": "react-agent-with-tools",
+            "number": "02",
+            "filename": "01-fundamentals/02_react_agent_with_tools.py"
+          },
+          {
+            "title": "Conditional Routing & Dynamic Edge Functions",
+            "slug": "conditional-routing",
+            "number": "03",
+            "filename": "01-fundamentals/03_conditional_routing.py"
+          },
+          {
+            "title": "Persistence, Checkpointing & Thread Memory",
+            "slug": "persistence-and-memory",
+            "number": "04",
+            "filename": "01-fundamentals/04_persistence_and_memory.py"
+          },
+          {
+            "title": "Humanintheloop (hitl) With Breakpoints",
+            "slug": "human-in-the-loop",
+            "number": "05",
+            "filename": "01-fundamentals/05_human_in_the_loop.py"
+          },
+          {
+            "title": "Advanced Architectures (orchestratorworker)",
+            "slug": "advanced-architectures",
+            "number": "06",
+            "filename": "01-fundamentals/06_advanced_architectures.py"
+          },
+          {
+            "title": "Prompt Chaining",
+            "slug": "prompt-chaining",
+            "number": "07",
+            "filename": "01-fundamentals/07_prompt_chaining.py"
+          },
+          {
+            "title": "Generatorevaluator Loop",
+            "slug": "generator-evaluator",
+            "number": "08",
+            "filename": "01-fundamentals/08_generator_evaluator.py"
+          },
+          {
+            "title": "Guardrails",
+            "slug": "guardrails",
+            "number": "09",
+            "filename": "01-fundamentals/09_guardrails.py"
+          }
+        ]
+      },
+      {
+        "title": "02. Advanced",
+        "slug": "advanced",
+        "number": "02",
+        "files": [
+          {
+            "title": "Mcp Tool Integration",
+            "slug": "mcp-tool-integration",
+            "number": "01",
+            "filename": "02-advanced/01_mcp_tool_integration.py"
+          },
+          {
+            "title": "Hitl Memory Ingestion",
+            "slug": "human-in-the-loop-memory",
+            "number": "02",
+            "filename": "02-advanced/02_human_in_the_loop_memory.py"
+          }
+        ]
+      }
+    ]
   },
   {
     "title": "Python Learning",
@@ -416,7 +578,39 @@ export const learningTopics: TopicItem[] = [
     "description": "Retrieval-Augmented Generation architectures, embeddings, and vector databases",
     "icon": "RAG",
     "files": [],
-    "groups": []
+    "groups": [
+      {
+        "title": "01. Fundamentals",
+        "slug": "fundamentals",
+        "number": "01",
+        "files": [
+          {
+            "title": "Traditional Vs Advanced Llamacloud Parsing",
+            "slug": "traditional-vs-llamacloud-rag",
+            "number": "01",
+            "filename": "01-fundamentals/01_traditional_vs_llamacloud_rag.py"
+          },
+          {
+            "title": "Hybrid Retrieval (dense Vs Sparse Search)",
+            "slug": "hybrid-search-rag",
+            "number": "02",
+            "filename": "01-fundamentals/02_hybrid_search_rag.py"
+          },
+          {
+            "title": "Knowledge Graph Rag (neo4j + Cypher)",
+            "slug": "graph-rag-neo4j",
+            "number": "03",
+            "filename": "01-fundamentals/03_graph_rag_neo4j.py"
+          },
+          {
+            "title": "Corrective Rag (crag) Agentic Architecture",
+            "slug": "corrective-rag-agent",
+            "number": "04",
+            "filename": "01-fundamentals/04_corrective_rag_agent.py"
+          }
+        ]
+      }
+    ]
   }
 ];
 

@@ -169,15 +169,25 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         const lang = match ? match[1] : "";
         const codeText = String(children).replace(/\n$/, "");
         
+        // For plain-text / diagram blocks — skip syntax highlighting, output as-is
+        const isDiagramBlock = lang === 'text' || lang === 'diagram';
         let highlightedHtml = "";
-        try {
-          if (lang && Prism.languages[lang]) {
-            highlightedHtml = Prism.highlight(codeText, Prism.languages[lang], lang);
-          } else {
-            highlightedHtml = Prism.highlight(codeText, Prism.languages.markup, "markup");
+        if (isDiagramBlock) {
+          // Escape HTML entities only; preserve whitespace as-is
+          highlightedHtml = codeText
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+        } else {
+          try {
+            if (lang && Prism.languages[lang]) {
+              highlightedHtml = Prism.highlight(codeText, Prism.languages[lang], lang);
+            } else {
+              highlightedHtml = Prism.highlight(codeText, Prism.languages.markup, "markup");
+            }
+          } catch (e) {
+            highlightedHtml = codeText;
           }
-        } catch (e) {
-          highlightedHtml = codeText;
         }
 
         return (
@@ -203,6 +213,21 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           const childProps = (children as { props?: { className?: string } }).props;
           const match = childProps?.className?.match(/language-(\w+)/);
           language = match ? match[1] : "";
+        }
+
+        const isDiagram = language === 'text' || language === 'diagram';
+
+        if (isDiagram) {
+          return (
+            <div className="relative group my-6 rounded-lg border border-border/30 bg-muted/30 overflow-hidden">
+              <pre
+                className="overflow-x-auto p-4 text-[12.5px] font-mono leading-relaxed text-foreground/80 whitespace-pre"
+                {...props}
+              >
+                {children}
+              </pre>
+            </div>
+          );
         }
 
         return (

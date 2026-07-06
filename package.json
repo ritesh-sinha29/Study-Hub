@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/generate_config.js && next dev",
+    "dev": "node scripts/generate_config.js && next dev --webpack",
     "build": "node scripts/generate_config.js && next build",
     "start": "next start",
     "lint": "eslint"

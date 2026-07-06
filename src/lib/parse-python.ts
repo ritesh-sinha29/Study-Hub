@@ -34,6 +34,24 @@ function isDivider(line: string): boolean {
   return line.trim().match(/^#\s*[=\-]{5,}/) !== null;
 }
 
+/** Detects box-drawing / ASCII-art diagram lines */
+function isAsciiDiagramLine(text: string): boolean {
+  // Contains Unicode box-drawing characters
+  if (/[\u2500-\u257F\u2580-\u259F]/.test(text)) return true;
+  // Heavy horizontal rule lines like ━━━━━━━
+  if (/^[\s]*[━─═]{4,}/.test(text)) return true;
+  // Lines that are purely box art: lots of │ ┌ └ ─ ┐ ┘ spaces
+  if (/^[\s│┌└─┐┘┤├┬┴┼╔╗╚╝║═\s]{6,}$/.test(text)) return true;
+  return false;
+}
+
+/** Detects markdown pipe-table rows (lines starting/containing | col | col) */
+function isMarkdownTableLine(text: string): boolean {
+  const t = text.trim();
+  // Must start with | and have at least two | separators
+  return t.startsWith('|') && (t.match(/\|/g) || []).length >= 2;
+}
+
 function isCodeLine(text: string): boolean {
   const t = text.trim();
   if (t === '') return false;
@@ -128,8 +146,13 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
       continue;
     }
 
-    // 1. Divider lines
+    // 1. Divider lines (=====, -----, ━━━━━ in comments)
     if (isDivider(line)) {
+      finishCurrentBlock();
+      continue;
+    }
+    // Heavy box dividers inside comment body: # ━━━━━━━━━━━━
+    if (line.startsWith('#') && /^#\s*[\u2500\u2501\u2550]{4,}/.test(line)) {
       finishCurrentBlock();
       continue;
     }
@@ -146,16 +169,28 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
       continue;
     }
 
+    // 2b. SECTION N — HEADING TITLE pattern
+    const sectionMatch = line.match(/^#\s*SECTION\s+\d+\s*[\u2014\u2013-]+\s*(.+)/);
+    if (sectionMatch) {
+      finishCurrentBlock();
+      blocks.push({
+        type: 'heading',
+        level: 2,
+        text: sectionMatch[1].trim()
+      });
+      continue;
+    }
+
     // 3. Comment lines
     if (line.startsWith('#')) {
       const textContent = line.startsWith('# ') ? line.substring(2) : line.substring(1);
 
-      if (textContent.includes('REAL-LIFE USE CASES')) {
+      if (textContent.includes('REAL-LIFE USE CASES') || textContent.includes('REAL-WORLD USE CASES')) {
         finishCurrentBlock();
         blocks.push({
           type: 'heading',
           level: 2,
-          text: 'Real-Life Use Cases'
+          text: 'Real-World Use Cases'
         });
         continue;
       }
@@ -260,9 +295,46 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
       }
       md += `${'#'.repeat(block.level || 2)} ${block.text}\n\n`;
     } else if (block.type === 'text' && block.lines) {
-      const text = block.lines.join('\n').trim();
-      if (text) {
-        md += `${text}\n\n`;
+      // Split text blocks into sub-groups: normal text, ascii diagrams, markdown tables
+      const subGroups: Array<{ kind: 'text' | 'diagram' | 'table'; lines: string[] }> = [];
+      let currentGroup: { kind: 'text' | 'diagram' | 'table'; lines: string[] } | null = null;
+
+      for (const tline of block.lines) {
+        let kind: 'text' | 'diagram' | 'table' = 'text';
+        if (isAsciiDiagramLine(tline)) kind = 'diagram';
+        else if (isMarkdownTableLine(tline)) kind = 'table';
+
+        if (!currentGroup || currentGroup.kind !== kind) {
+          if (currentGroup) subGroups.push(currentGroup);
+          currentGroup = { kind, lines: [tline] };
+        } else {
+          currentGroup.lines.push(tline);
+        }
+      }
+      if (currentGroup) subGroups.push(currentGroup);
+
+      for (const sg of subGroups) {
+        const sgText = sg.lines.join('\n').trim();
+        if (!sgText) continue;
+
+        if (sg.kind === 'diagram') {
+          // Wrap in a fenced text block for monospace rendering
+          md += '```text\n' + sgText + '\n```\n\n';
+        } else if (sg.kind === 'table') {
+          // Ensure there is a GFM separator row after the first line
+          const tableLines = sg.lines.filter(l => l.trim());
+          // Check if separator row already exists
+          const hasSeparator = tableLines.some(l => /^\|[-:\s|]+\|$/.test(l.trim()));
+          if (!hasSeparator && tableLines.length >= 1) {
+            // Build a separator based on column count of first row
+            const cols = (tableLines[0].match(/\|/g) || []).length - 1;
+            const sep = '|' + ' --- |'.repeat(Math.max(cols, 1));
+            tableLines.splice(1, 0, sep);
+          }
+          md += tableLines.join('\n') + '\n\n';
+        } else {
+          md += `${sgText}\n\n`;
+        }
       }
     } else if (block.type === 'text_code' && block.lines) {
       const codeText = block.lines.join('\n').trim();

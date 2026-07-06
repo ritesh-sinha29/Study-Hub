@@ -1,88 +1,219 @@
-# ==========================================================
-# LANGGRAPH STUDY GUIDE: 01. INTRODUCTION & SETUP
-# ==========================================================
-
-# --- WHAT IS LANGGRAPH? ---
-# LangGraph is a library for building stateful, multi-actor applications with LLMs.
-# Unlike standard LangChain chains which flow in a single direction, LangGraph lets you define
-# cycles, loops, and state machine transitions.
-# Key Pillars of LangGraph:
-# 1. State: The shared database/memory of the graph (schema defined via TypedDict or Pydantic).
-# 2. Nodes: Python functions that perform operations. They receive the current State and return updates to it.
-# 3. Edges: Control flows that decide which Node to execute next.
+# ========================================================================================
+# LANGGRAPH CRASH COURSE — MODULE 01: INTRODUCTION & THE STATE-GRAPH-NODE-EDGE PARADIGM
+# ========================================================================================
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 1 — WHAT IS LANGGRAPH AND WHY WAS IT BUILT?
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# LangChain's LCEL is perfect for LINEAR pipelines:
+#   prompt | model | parser  (A → B → C, done)
+#
+# But real-world agents need:
+#   - LOOPS (retry until output is good enough)
+#   - BRANCHING (route to different steps based on content)
+#   - SHARED MEMORY (multiple nodes reading/writing the same variables)
+#   - PERSISTENCE (state survives restarts, power cuts, server deploys)
+#   - HUMAN REVIEW (pause mid-execution, wait for human input, resume)
+#
+# LangGraph was built specifically for these requirements. It treats your AI application
+# as a directed graph (like a flowchart) where nodes are Python functions and edges
+# define the control flow between them.
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 2 — THE FOUR PILLARS OF LANGGRAPH
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+#  PILLAR       │ WHAT IT IS                          │ ANALOGY
+#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
+#  State        │ A TypedDict/Pydantic schema defining  │ A shared whiteboard in an
+#               │ all the data that flows through the   │ office — anyone can read/write
+#               │ graph. Persists across all nodes.     │ anything on it
+#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
+#  Nodes        │ Regular Python functions that receive │ Workers who read from the
+#               │ the full State and return a dict of   │ whiteboard, do their job,
+#               │ updates to apply back to it.          │ and update it with results
+#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
+#  Edges        │ Connections defining which node runs  │ The arrows in a flowchart
+#               │ after which. Can be fixed or dynamic  │ telling workers who goes next
+#               │ (conditional routing).                │
+#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
+#  Checkpointer │ Saves the full State after every node │ Auto-save in a video game
+#               │ execution to a database. Enables       │ — lose power, load the save,
+#               │ memory, resume, time-travel.          │ continue from that point
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 3 — HOW NODES UPDATE STATE (REDUCERS)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# A node NEVER modifies state directly. It returns a dict of changes, and LangGraph
+# applies those changes to the shared state using a REDUCER.
+#
+# DEFAULT REDUCER (overwrite):
+#   If a node returns {"name": "Ritesh"}, the state["name"] is replaced by "Ritesh".
+#
+# CUSTOM REDUCER (add_messages — append instead of overwrite):
+#   messages: Annotated[list, add_messages]
+#   If a node returns {"messages": [new_msg]}, it's APPENDED to the list,
+#   not replacing the entire list. This is critical for chat history.
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 4 — GRAPH CONSTRUCTION LIFECYCLE
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+#  STEP 1: Define State Schema (TypedDict or Pydantic)
+#  STEP 2: Define Node functions (Python functions)
+#  STEP 3: Instantiate StateGraph(StateSchema)
+#  STEP 4: Add nodes:  builder.add_node("name", function)
+#  STEP 5: Add edges:  builder.add_edge(source, target)
+#  STEP 6: Compile:    graph = builder.compile()
+#  STEP 7: Invoke:     result = graph.invoke({"key": "value"})
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 5 — LANGGRAPH vs LANGCHAIN LCEL: WHEN TO USE WHICH
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+#  USE LCEL (LangChain) WHEN:              USE LANGGRAPH WHEN:
+#  ✓ The flow is strictly linear           ✓ You need loops (retry/feedback)
+#  ✓ No state is shared between steps      ✓ Multiple agents share state
+#  ✓ Single-step RAG or summarization      ✓ You need human approval pauses
+#  ✓ Simple prompt → model → output        ✓ You need cross-session memory
+#  ✓ High-throughput batch jobs            ✓ Complex multi-path routing
+#
+# ========================================================================================
 
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
 
-# 1. Define the State Schema
-# The State is passed from node to node. Each node returns a dictionary updating this state.
-class GraphState(TypedDict):
-    input_text: str
-    processed_text: str
 
-# 2. Define the Nodes
-# Each node is a standard Python function that takes the current State and returns updates.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# STEP 1: DEFINE THE GRAPH STATE
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# TypedDict defines the "shape" of the shared whiteboard.
+# Every node reads from and writes to this schema.
+class GraphState(TypedDict):
+    input_text:      str   # Original raw input from the user
+    processed_text:  str   # Text after transformation nodes have run
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# STEP 2: DEFINE THE NODE FUNCTIONS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 def initial_clean_node(state: GraphState) -> dict:
-    print("Executing: initial_clean_node")
+    """
+    NODE: Clean & Normalize
+
+    Reads `input_text` from the shared state, strips extra whitespace and
+    lowercases the string, then returns the update dict.
+
+    IMPORTANT: This function DOES NOT mutate state in place.
+    It returns {"processed_text": cleaned} and LangGraph applies the update.
+    """
+    print("  [Node] initial_clean_node executing...")
     original = state.get("input_text", "")
-    # Simple cleaning: strip whitespace and lowercase
-    cleaned = original.strip().lower()
+    cleaned  = original.strip().lower()
+    print(f"    Input : '{original}'")
+    print(f"    Output: '{cleaned}'")
     return {"processed_text": cleaned}
 
+
 def uppercase_node(state: GraphState) -> dict:
-    print("Executing: uppercase_node")
+    """
+    NODE: Uppercase Transformer
+
+    Reads the ALREADY-CLEANED `processed_text` from state (written by the
+    previous node) and uppercases it. This demonstrates how nodes form a
+    sequential data pipeline via shared state.
+    """
+    print("  [Node] uppercase_node executing...")
     processed = state.get("processed_text", "")
-    # Uppercase the processed text
-    upper = processed.upper()
+    upper     = processed.upper()
+    print(f"    Input : '{processed}'")
+    print(f"    Output: '{upper}'")
     return {"processed_text": upper}
 
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# STEPS 3-7: BUILD, COMPILE & RUN THE GRAPH
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 def build_and_run_graph():
-    print("--- 1. BUILDING LANGGRAPH ---")
-    
-    # 3. Initialize the StateGraph with the state schema
+    print("\n" + "="*70)
+    print("BUILDING & RUNNING THE FIRST LANGGRAPH")
+    print("="*70)
+
+    # STEP 3: Instantiate StateGraph with the schema
     builder = StateGraph(GraphState)
-    
-    # 4. Add the Nodes
+
+    # STEP 4: Register nodes
+    # "clean_step" and "shout_step" are the node names used in edges
     builder.add_node("clean_step", initial_clean_node)
     builder.add_node("shout_step", uppercase_node)
-    
-    # 5. Connect the Nodes with Edges
-    # START is a built-in entry point that routes the initial input to the first node
-    builder.add_edge(START, "clean_step")
-    builder.add_edge("clean_step", "shout_step")
-    # END is a built-in termination point
-    builder.add_edge("shout_step", END)
-    
-    # 6. Compile the Graph
+
+    # STEP 5: Define edges (control flow)
+    # START is a built-in sentinel — the first edge from START defines the entry node
+    builder.add_edge(START, "clean_step")           # Entry → clean_step
+    builder.add_edge("clean_step", "shout_step")   # clean_step → shout_step
+    builder.add_edge("shout_step", END)             # shout_step → exit
+
+    # STEP 6: Compile — locks the graph and prepares it for execution
+    # After compile(), no more nodes or edges can be added
     graph = builder.compile()
-    
-    # 7. Run the Graph
+
+    # STEP 7: Invoke — runs the full graph from START to END
     initial_input = {"input_text": "   Welcome to LangGraph Masterclass!   "}
-    print(f"Initial Input: {initial_input}")
-    
+    print(f"\n  Initial Input: {initial_input}")
+    print(f"\n  Graph Execution:")
+
     result = graph.invoke(initial_input)
-    print(f"Final State: {result}")
+
+    print(f"\n  Final State:")
+    print(f"    input_text     : '{result.get('input_text')}'")
+    print(f"    processed_text : '{result.get('processed_text')}'")
+
 
 if __name__ == "__main__":
     build_and_run_graph()
 
-# ==========================================================
-# REAL-LIFE USE CASES
-# ==========================================================
-# 1. ORDER PROCESSING WORKFLOW: Graph state holds the order details. Node 1 verifies payment,
-#    Node 2 reserves inventory, Node 3 triggers shipping updates, routing to failure nodes if errors occur.
-# 2. EMAIL TRIAGING SYSTEM: Node 1 classifies emails (spam, query, billing). Edges route billing queries
-#    to a support-bot node and spam straight to the archive/end node.
 
-# ==========================================================
-# MNC INTERVIEW QUESTIONS & ANSWERS
-# ==========================================================
-# Q1. What is a "State" in LangGraph and how does it differ from memory in chains?
-# A:  In LangGraph, State is a centralized data schema that persists across the lifecycle of the graph run.
-#     Every node can read from it and return updates to it. Unlike chain memory which is often just a list
-#     of past messages, Graph State can hold arbitrary structured variables (dictionaries, Pydantic objects).
+# ========================================================================================
+# REAL-WORLD USE CASES
+# ========================================================================================
 #
-# Q2. How do Nodes update the State in LangGraph?
-# A:  Nodes do not overwrite the state directly. They return a dictionary containing key-value updates.
-#     LangGraph automatically merges these updates back into the centralized state. By default, updates
-#     overwrite keys, but you can define custom reducers (like adding items to a list) using the Annotated type.
+# 1. ORDER PROCESSING WORKFLOW:
+#    State holds: order_id, payment_status, inventory_reserved, shipping_triggered
+#    Node 1: verify_payment (checks Stripe API)
+#    Node 2: reserve_inventory (checks warehouse DB)
+#    Node 3: trigger_shipping (calls logistics API)
+#    Conditional edges route to failure nodes if any step encounters an error.
+#
+# 2. EMAIL TRIAGE SYSTEM:
+#    Node 1: classify_email (spam / billing / general)
+#    Conditional edges: spam → archive node, billing → support_agent node
+#    The graph automates routing without any if-else code in the main application.
+#
+# ========================================================================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ========================================================================================
+#
+# Q1. What is Graph State in LangGraph and how does it differ from LangChain memory?
+# A:  LangGraph State is a centralized typed schema that persists across the entire graph
+#     lifecycle. Every node can read any field and write updates to any field. Unlike
+#     LangChain's RunnableWithMessageHistory (which only tracks messages), LangGraph State
+#     can hold arbitrary structured data: order details, user profiles, flags, counters,
+#     tool results — anything your application needs across steps.
+#
+# Q2. How do nodes update state without mutating it directly?
+# A:  Nodes return a plain Python dict containing ONLY the keys they want to update.
+#     LangGraph applies these updates using a reducer function. The default reducer
+#     overwrites the value. For lists (like message history), you use:
+#       messages: Annotated[list[BaseMessage], add_messages]
+#     which appends new items instead of overwriting the entire list.
+#
+# Q3. What is START and END in LangGraph and why are they needed?
+# A:  START is a sentinel node that marks the graph's entry point. The first
+#     `add_edge(START, "node_name")` tells LangGraph which node receives the initial
+#     input dict. END is a sentinel that marks a terminal state — any edge pointing
+#     to END means "execution stops here". Both are imported from `langgraph.graph`.

@@ -1,122 +1,260 @@
-# ==========================================================
-# LANGGRAPH STUDY GUIDE: 03. CONDITIONAL ROUTING
-# ==========================================================
-
-# --- CONDITIONAL ROUTING ---
-# In many applications, the graph flow cannot be hardcoded. Edges must route execution 
-# dynamically to different nodes based on the state.
+# ========================================================================================
+# LANGGRAPH CRASH COURSE — MODULE 03: CONDITIONAL ROUTING & DYNAMIC EDGE FUNCTIONS
+# ========================================================================================
 #
-# In LangGraph, this is achieved using `add_conditional_edges()`.
-# You provide:
-# 1. The source node.
-# 2. A routing function that inspects the state and returns a path string (key).
-# 3. A mapping dictionary linking routing keys to target nodes.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 1 — FIXED EDGES VS CONDITIONAL EDGES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# FIXED EDGE: Always routes to the same next node.
+#   builder.add_edge("step_a", "step_b")   → step_a always goes to step_b
+#   Use for: deterministic sequential pipelines (prompt chaining, RAG)
+#
+# CONDITIONAL EDGE: Routes dynamically based on current State values.
+#   builder.add_conditional_edges("classifier", router_fn, {"key_a": "node_a", ...})
+#   Use for: branching agents, approval flows, ReAct loops, category-based routing
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 2 — HOW add_conditional_edges() WORKS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# SIGNATURE:
+#   builder.add_conditional_edges(
+#       source,       # str: name of the node that this edge originates from
+#       path,         # callable: function that inspects State and returns a string key
+#       path_map      # dict: maps those string keys to target node names
+#   )
+#
+# EXAMPLE:
+#   def router(state) -> str:
+#       if state["sentiment"] == "positive": return "go_happy"
+#       if state["sentiment"] == "negative": return "go_sad"
+#       return "go_end"
+#
+#   builder.add_conditional_edges(
+#       "classifier",
+#       router,
+#       {
+#           "go_happy": "happy_responder",   # maps key → node name
+#           "go_sad":   "sad_responder",
+#           "go_end":   END
+#       }
+#   )
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 3 — ROUTING ARCHITECTURE DIAGRAM
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+#                     START
+#                       │
+#                       ▼
+#               ┌───────────────┐
+#               │  classifier   │  (analyze_sentiment node)
+#               └───────────────┘
+#                       │
+#              router(state) returns...
+#                       │
+#       ┌───────────────┼───────────────┐
+#       │ "go_happy"    │ "go_sad"      │ "go_end"
+#       ▼               ▼               ▼
+# ┌──────────┐   ┌──────────┐       ┌─────┐
+# │ happy_   │   │  sad_    │       │ END │
+# │responder │   │responder │       └─────┘
+# └──────────┘   └──────────┘
+#       │               │
+#       └───────┬────────┘
+#               ▼
+#             END
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 4 — LLM-BASED ROUTING (INTELLIGENT ROUTING)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# In production, routers are often LLM-based, not rule-based.
+# The classifier node calls the model with a structured output schema and returns
+# a category that drives conditional routing.
+#
+# Example: Support Ticket Router
+#   Model classifies: "billing", "technical", "general"
+#   Conditional edge routes each category to a specialized handler agent.
+#
+# ========================================================================================
 
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
 
-# 1. Define the State Schema
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# STATE DEFINITION
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 class RoutingState(TypedDict):
     user_input: str
-    sentiment: str  # "positive", "negative", "neutral"
-    reply: str
+    sentiment:  str   # "positive" | "negative" | "neutral"
+    reply:      str
 
-# 2. Define the Nodes
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# NODE FUNCTIONS
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 def analyze_sentiment(state: RoutingState) -> dict:
-    print("Executing: analyze_sentiment")
+    """
+    Classifier Node: Determines the sentiment of the user's input.
+
+    In production: Replace keyword matching with:
+      model.with_structured_output(SentimentSchema).invoke(text)
+    for LLM-powered classification that handles nuance and sarcasm.
+    """
+    print("  [Node] analyze_sentiment executing...")
     text = state.get("user_input", "").lower()
-    
-    # Simple rule-based classifier for demonstration
-    if any(word in text for word in ["great", "happy", "love", "good"]):
+
+    positive_words = ["great", "happy", "love", "good", "amazing", "excellent"]
+    negative_words = ["bad",   "sad",   "angry", "hate", "terrible", "awful"]
+
+    if any(w in text for w in positive_words):
         sentiment = "positive"
-    elif any(word in text for word in ["bad", "sad", "angry", "hate"]):
+    elif any(w in text for w in negative_words):
         sentiment = "negative"
     else:
         sentiment = "neutral"
-        
+
+    print(f"  [Node] Detected sentiment: '{sentiment}'")
     return {"sentiment": sentiment}
 
+
 def enthusiastic_reply(state: RoutingState) -> dict:
-    print("Executing: enthusiastic_reply")
+    """Response node for positive sentiment."""
+    print("  [Node] enthusiastic_reply executing...")
     return {"reply": "Awesome! I'm so thrilled to hear that! Keep smiling! 😊"}
 
+
 def apologetic_reply(state: RoutingState) -> dict:
-    print("Executing: apologetic_reply")
-    return {"reply": "I'm so sorry to hear that. I hope things get better soon! Hugs! ❤️"}
+    """Response node for negative sentiment."""
+    print("  [Node] apologetic_reply executing...")
+    return {"reply": "I'm so sorry to hear that. I hope things get better soon! ❤️"}
+
+
+def neutral_reply(state: RoutingState) -> dict:
+    """Response node for neutral sentiment."""
+    print("  [Node] neutral_reply executing...")
+    return {"reply": f"Thanks for sharing. You said: '{state.get('user_input', '')}'"}
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ROUTER FUNCTION
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+def sentiment_router(state: RoutingState) -> str:
+    """
+    Router: Reads the 'sentiment' key from State set by analyze_sentiment
+    and returns a routing key string that maps to a target node.
+
+    This function is passed to add_conditional_edges() as the `path` argument.
+    """
+    sentiment = state.get("sentiment", "neutral")
+    if sentiment == "positive": return "go_happy"
+    if sentiment == "negative": return "go_sad"
+    return "go_neutral"
+
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# GRAPH CONSTRUCTION
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 def build_routing_graph():
-    print("--- 3. BUILDING ROUTING GRAPH ---")
+    print("\n" + "="*70)
+    print("BUILDING CONDITIONAL ROUTING GRAPH")
+    print("="*70)
+
     builder = StateGraph(RoutingState)
-    
-    # Add nodes
-    builder.add_node("classifier", analyze_sentiment)
+
+    # Register all nodes
+    builder.add_node("classifier",      analyze_sentiment)
     builder.add_node("happy_responder", enthusiastic_reply)
-    builder.add_node("sad_responder", apologetic_reply)
-    
-    # Connect START to the classifier
+    builder.add_node("sad_responder",   apologetic_reply)
+    builder.add_node("neutral_handler", neutral_reply)
+
+    # Entry edge
     builder.add_edge(START, "classifier")
-    
-    # 3. Define the Router function
-    def router(state: RoutingState) -> str:
-        sentiment = state.get("sentiment", "neutral")
-        if sentiment == "positive":
-            return "go_happy"
-        elif sentiment == "negative":
-            return "go_sad"
-        return "go_end"
-        
-    # 4. Bind conditional edges to the classifier node
+
+    # Conditional edge — after classifier runs, route based on sentiment
     builder.add_conditional_edges(
-        "classifier",
-        router,
+        "classifier",       # source node
+        sentiment_router,   # routing function (returns string key)
         {
-            "go_happy": "happy_responder",
-            "go_sad": "sad_responder",
-            "go_end": END
+            "go_happy":   "happy_responder",
+            "go_sad":     "sad_responder",
+            "go_neutral": "neutral_handler"
         }
     )
-    
-    # Connect responders directly to the END
+
+    # All responders terminate at END
     builder.add_edge("happy_responder", END)
-    builder.add_edge("sad_responder", END)
-    
+    builder.add_edge("sad_responder",   END)
+    builder.add_edge("neutral_handler", END)
+
     return builder.compile()
+
 
 if __name__ == "__main__":
     graph = build_routing_graph()
-    
-    # Test case 1: Positive Sentiment
-    print("\n--- Test 1: Positive Sentiment ---")
-    res1 = graph.invoke({"user_input": "I had a great day today!"})
-    print("Result:", res1)
-    
-    # Test case 2: Negative Sentiment
-    print("\n--- Test 2: Negative Sentiment ---")
-    res2 = graph.invoke({"user_input": "This is a bad experience."})
-    print("Result:", res2)
-    
-    # Test case 3: Neutral Sentiment
-    print("\n--- Test 3: Neutral Sentiment ---")
-    res3 = graph.invoke({"user_input": "The sky is blue."})
-    print("Result:", res3)
 
-# ==========================================================
-# REAL-LIFE USE CASES
-# ==========================================================
-# 1. TICKET ROUTING AGENT: Classifies support tickets based on urgency. Urgent issues route to an on-call
-#    alert node, while general inquiries route to a database retrieval node.
-# 2. FRAUD DETECTION SYSTEM: Analyzes bank transactions. High-risk actions route to a security verification
-#    node (blocking execution), while low-risk transactions are approved immediately.
+    test_cases = [
+        "I had a great day today!",           # → positive → happy_responder
+        "This is a terrible experience.",      # → negative → sad_responder
+        "The report is ready for review.",     # → neutral  → neutral_handler
+    ]
 
-# ==========================================================
-# MNC INTERVIEW QUESTIONS & ANSWERS
-# ==========================================================
-# Q1. What are the arguments needed for `add_conditional_edges` in LangGraph?
-# A:  It requires:
-#     - `source`: The name of the node from which the routing starts.
-#     - `path`: A routing function (callable) that evaluates the state and returns a route key (string).
-#     - `path_map`: A dictionary mapping the return values of the routing function to target node names.
+    for i, text in enumerate(test_cases, 1):
+        print(f"\n{'='*70}")
+        print(f"TEST {i}: '{text}'")
+        print("="*70)
+        result = graph.invoke({"user_input": text})
+        print(f"  Sentiment : {result.get('sentiment')}")
+        print(f"  Reply     : {result.get('reply')}")
+
+
+# ========================================================================================
+# REAL-WORLD USE CASES
+# ========================================================================================
 #
-# Q2. Can a routing function in conditional edges be asynchronous?
-# A:  Yes. The routing function can be either synchronous or asynchronous. LangGraph automatically
-#     handles async propagation when executing graphs asynchronously.
+# 1. SUPPORT TICKET ROUTING:
+#    The classifier node calls an LLM to classify the ticket as:
+#    "billing" | "technical" | "account" | "general"
+#    Each category routes to a specialized agent with domain-specific tools.
+#    Billing agent has access to Stripe API; Technical agent has access to Jira.
+#
+# 2. FRAUD DETECTION PIPELINE:
+#    A risk scorer node outputs: "high_risk" | "medium_risk" | "low_risk"
+#    High-risk transactions → security_block_node (transaction frozen immediately)
+#    Medium-risk → human_review_node (goes to a queue for analyst review)
+#    Low-risk → approve_node (transaction cleared automatically)
+#
+# 3. HEALTHCARE TRIAGE BOT:
+#    If user describes chest pain / difficulty breathing:
+#      → emergency_alert_node (bypass LLM, immediately call emergency services)
+#    If general wellness question:
+#      → information_agent_node (standard LLM answer)
+#
+# ========================================================================================
+# MNC INTERVIEW QUESTIONS & ANSWERS
+# ========================================================================================
+#
+# Q1. What are the three required arguments of `add_conditional_edges()`?
+# A:  - `source`: The name string of the node from which this conditional edge originates.
+#     - `path`: A callable (router function) that takes the current State as input and
+#       returns a string key.
+#     - `path_map`: A dictionary mapping the returned string keys to target node names
+#       (or END). LangGraph uses this mapping to determine the next node.
+#
+# Q2. Can a routing function make LLM API calls?
+# A:  Yes. The router function is a plain Python function. You can call any LLM or
+#     external API inside it. However, for performance-critical routing, prefer
+#     using a classifier node to set a state key, then read that key in a lightweight
+#     string-comparison router — separating classification (heavy) from routing (fast).
+#
+# Q3. Can a conditional edge route to more than two nodes?
+# A:  Yes — there is no limit on path_map entries. You can route to as many nodes as
+#     your business logic requires. For example, a support router might have 8 categories:
+#     billing, technical, shipping, account, general, spam, escalation, feedback.

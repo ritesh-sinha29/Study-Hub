@@ -111,8 +111,14 @@ function extractTitle(filePath, slug) {
           let title = clean;
           // Strip any course/series heading prefix like "FASTAPI STUDY GUIDE: 01." or "FASTAPI YT SERIES: 02."
           title = title.replace(/^(?:[\w]+\s+)+(?:guide|study|series|course|tutorial)[:\s]*(?:\d+[\w]*[\.\s\-]*)*/i, '');
+          // Strip "CRASH COURSE —" or "CRASH COURSE:" prefix
+          title = title.replace(/^.*?crash\s+course\s*[—\-:]+\s*/i, '');
+          // Strip "MODULE NN:" or "— MODULE NN:" or "LCEL MODULE NN:" prefixes
+          title = title.replace(/^(?:—\s*)?(?:\w+\s+)?module\s+\d+\w*\s*[:\-—]+\s*/i, '');
           // Strip any remaining leading number like "01. " or "01 - "
           title = title.replace(/^\d+[a-zA-Z]*[\.\s\-]+/, '');
+          // Strip leading em-dash or hyphen leftover
+          title = title.replace(/^[\u2014\u2013\-\u2015]+\s*/, '');
           
           let formattedTitle = title.split(/\s+/)
             .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())

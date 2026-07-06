@@ -1,44 +1,76 @@
-# ==========================================================
-# LANGGRAPH STUDY GUIDE: 01. MCP TOOL INTEGRATION (ARCADE)
-# ==========================================================
-
-# --- MODEL CONTEXT PROTOCOL (MCP) ---
-# Model Context Protocol (MCP) is an open standard that enables AI applications to safely
-# connect with external data sources and API tools (like Slack, Google Drive, Notion, Gmail).
+# ========================================================================================
+# MCP TOOL INTEGRATION
+# ========================================================================================
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 1 — MODEL CONTEXT PROTOCOL (MCP)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+# Model Context Protocol (MCP) is an open standard designed by Anthropic that enables AI 
+# applications to safely connect with external data sources and API tools (like Slack, 
+# Google Drive, Notion, Gmail, GitHub).
 #
 # Arcade / Composio provides standard wrapper servers for MCP tools.
 # In LangGraph, we bind MCP tools to LLMs similarly to native tools:
-# 1. Start or connect to the MCP Server.
-# 2. Fetch the tools exposed by the MCP Server.
-# 3. Bind those tools to the LangGraph ChatOpenAI / LLM node.
+#   1. Start or connect to the MCP Server.
+#   2. Fetch the tools exposed by the MCP Server.
+#   3. Bind those tools to the LangGraph ChatOpenAI / LLM node.
+#
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# SECTION 2 — MCP ARCHITECTURE
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+#
+#   [ LangGraph Agent ] ──(Exposes query)──► [ MCP client ]
+#                                                 │
+#                                        (Standardized JSON-RPC)
+#                                                 ▼
+#                                          [ MCP Server ]
+#                                           (Gmail, Slack)
+#                                                 │
+#                                          (Executes APIs)
+#                                                 ▼
+#                                        [ Target Services ]
+#
+# ========================================================================================
 
 from typing import TypedDict, List
 from langchain_core.tools import tool
 from langgraph.graph import StateGraph, START, END
 
-# 1. Define the State
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# STATE SCHEMA
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 class MCPState(TypedDict):
     user_query: str
     mcp_tool_output: str
     final_response: str
 
-# 2. Define a Mock MCP Tool (Gmail lookup simulation)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# MOCK MCP TOOL
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 @tool
 def mcp_gmail_search(query: str) -> str:
     """
     Simulated MCP Tool: Search user inbox via Gmail MCP server connection.
+    
+    Args:
+        query: The search term or subject keywords.
     """
-    print(f"\n[MCP SERVER CALL] mcp_gmail_search invoked with query: '{query}'")
-    # Simulation: Returning search matches
+    print(f"\n  [MCP SERVER CALL] mcp_gmail_search invoked with query: '{query}'")
     return "Email Subject: Q3 Financial Goals. Content: Please find the attached Q3 spreadsheet."
 
-# 3. Define Graph Nodes
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# NODES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 def call_mcp_node(state: MCPState) -> dict:
-    print("Executing: call_mcp_node")
+    print("  [Node] call_mcp_node evaluating query...")
     query = state["user_query"]
     
-    # Simulate LLM tool calling decision
-    # If the user asks about emails, we run the MCP tool
+    # Simulate LLM tool calling decision:
+    # If the user asks about emails or inbox, we route to the Gmail MCP tool
     if "email" in query.lower() or "inbox" in query.lower():
         result = mcp_gmail_search.invoke({"query": query})
     else:
@@ -47,12 +79,15 @@ def call_mcp_node(state: MCPState) -> dict:
     return {"mcp_tool_output": result}
 
 def generate_with_mcp_context(state: MCPState) -> dict:
-    print("Executing: generate_with_mcp_context")
+    print("  [Node] generate_with_mcp_context synthesizing response...")
     context = state["mcp_tool_output"]
     response = f"Answer synthesized with MCP context: [{context}]"
     return {"final_response": response}
 
-# 4. Build MCP Graph
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# GRAPH CONSTRUCTION
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 def build_mcp_graph():
     builder = StateGraph(MCPState)
     builder.add_node("call_mcp", call_mcp_node)
@@ -65,26 +100,34 @@ def build_mcp_graph():
     return builder.compile()
 
 if __name__ == "__main__":
-    print("--- RUNNING MCP TOOL GRAPH ---")
+    print("\n" + "="*70)
+    print("RUNNING MCP TOOL GRAPH")
+    print("="*70)
+    
     graph = build_mcp_graph()
     
     test_input = {"user_query": "Find the email containing Q3 spreadsheet."}
     result = graph.invoke(test_input)
     
-    print("\nFinal State response:")
-    print(result["final_response"])
+    print("\n  Final State response:")
+    print(" ", result["final_response"])
 
-# ==========================================================
-# REAL-LIFE USE CASES
-# ==========================================================
-# 1. ENTERPRISE EMAIL AUTOPILOT: Connecting Gmail/Outlook MCP. The agent reads calendar slots, drafts email
+# ========================================================================================
+# REAL-WORLD USE CASES
+# ========================================================================================
+#
+# 1. ENTERPRISE EMAIL AUTOPILOT:
+#    Connecting Gmail/Outlook MCP. The agent reads calendar slots, drafts email
 #    replies to meeting requests, and sends them out upon user approval.
-# 2. FILE MANAGEMENT CO-PILOT: Bound to Google Drive/Notion MCP. The agent searches pages, summarizes documents,
+#
+# 2. FILE MANAGEMENT CO-PILOT:
+#    Bound to Google Drive/Notion MCP. The agent searches pages, summarizes documents,
 #    and updates spreadsheets directly.
-
-# ==========================================================
+#
+# ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS
-# ==========================================================
+# ========================================================================================
+#
 # Q1. What is the Model Context Protocol (MCP) and what problem does it solve?
 # A:  MCP is an open standard that decouples LLMs from API integration. Instead of writing custom API wrappers 
 #     for Gmail, Slack, and Notion for each agent, MCP servers expose tools in a uniform JSON schema, 
