@@ -251,8 +251,13 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
   // Build Markdown
   let md = `# ${pageTitle}\n\n`;
 
+  let skippedFirstHeading = false;
   for (const block of blocks) {
     if (block.type === 'heading') {
+      if (!skippedFirstHeading) {
+        skippedFirstHeading = true;
+        continue;
+      }
       md += `${'#'.repeat(block.level || 2)} ${block.text}\n\n`;
     } else if (block.type === 'text' && block.lines) {
       const text = block.lines.join('\n').trim();
