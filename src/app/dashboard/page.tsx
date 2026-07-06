@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { learningTopics, getAllTopicFiles } from "@/config/learning";
-import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers, Brain, Database, Terminal } from "lucide-react";
+import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers, Brain, Database, Terminal, GitBranch, Box, Layout, Coffee } from "lucide-react";
 
 function getIconForTopic(slug: string, iconName?: string) {
   const normalized = slug.toLowerCase();
@@ -11,6 +11,10 @@ function getIconForTopic(slug: string, iconName?: string) {
   if (iconName === "LangChain" || normalized.includes("chain") || normalized.includes("langchain")) return Brain;
   if (iconName === "RAG" || normalized.includes("rag") || normalized.includes("database") || normalized.includes("db")) return Database;
   if (normalized.includes("cpp") || normalized.includes("cplusplus") || normalized.includes("c-plus-plus") || normalized.includes("c++")) return Code2;
+  if (normalized.includes("git") || normalized.includes("github")) return GitBranch;
+  if (normalized.includes("docker") || normalized.includes("container") || normalized.includes("kubernetes")) return Box;
+  if (normalized.includes("javascript") || normalized.includes("js") || normalized.includes("react") || normalized.includes("web") || normalized.includes("node") || normalized.includes("html") || normalized.includes("css")) return Layout;
+  if (normalized.includes("java") || normalized.includes("spring")) return Coffee;
   return BookOpen;
 }
 
