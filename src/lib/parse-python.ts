@@ -40,10 +40,14 @@ function isAsciiDiagramLine(text: string): boolean {
   if (/[\u2500-\u257F\u2580-\u259F]/.test(text)) return true;
   // Heavy horizontal rule lines like ━━━━━━━
   if (/^[\s]*[━─═]{4,}/.test(text)) return true;
-  // Lines that contain diagram connectors/arrows like -->, ==>, ->, ⇄, ⇄, ⇄
+  // Lines that contain diagram connectors/arrows like -->, ==>, ->, ⇄
   if (/\s*([─═\-]{2,}>|<[─═\-]{2,}|\u21c4|\u21e8|\u21e6|\u21cc)/.test(text)) return true;
   // Lines that are purely box art: lots of │ ┌ └ ─ ┐ ┘ spaces
   if (/^[\s│┌└─┐┘┤├┬┴┼╔╗╚╝║═\s\-\=\>\<]{6,}$/.test(text)) return true;
+  // Standalone vertical flow arrows (▼ ▲ ↓ ↑) on a line (possibly with spaces)
+  if (/^\s*[▼▲↓↑]\s*$/.test(text)) return true;
+  // Lines with inline ← → ▼ ▲ surrounded by non-box content (flow labels)
+  if (/[▼▲↓↑←→⟵⟶⇐⇒]/.test(text)) return true;
   return false;
 }
 
@@ -65,11 +69,14 @@ function tryConvertBoxTable(lines: string[]): string[] | null {
     const trimmed = line.trim();
     if (/[─═\-]{2,}>|<[─═\-]{2,}/.test(trimmed)) return true;
     if (/\b(?:[a-zA-Z0-9_\-\s]+)\s*(?:[─═\-]{2,}>|-->)\s*(?:[a-zA-Z0-9_\-\s]+)\b/.test(trimmed)) return true;
-    
+    // Standalone vertical arrow on its own line — unmistakable flowchart indicator
+    if (/^\s*[▼▲↓↑]\s*$/.test(trimmed)) return true;
+    // Inline arrows mixed with labels (e.g. "[node] ← LLM decides")
+    if (/[▼▲↓↑←→]/.test(trimmed)) return true;
     // Check if one of the columns is just an arrow pointing down/up
     if (line.includes('│') || line.includes('║')) {
       const parts = line.split(/[│║]/).map(p => p.trim());
-      if (parts.some(p => p === '▼' || p === '▲' || p === '↓' || p === '↓' || p === '↑' || p === '→' || p === '←')) {
+      if (parts.some(p => p === '▼' || p === '▲' || p === '↓' || p === '↑' || p === '→' || p === '←')) {
         return true;
       }
     }
@@ -116,8 +123,9 @@ function tryConvertBoxTable(lines: string[]): string[] | null {
       tableRows.push('|' + ' --- |'.repeat(cols.length));
     } else {
       if (tableRows.length > 0) {
-        // Data row: Bold the first cell (the key concept or parameter name)
-        const boldedFirst = `**${cols[0]}**`;
+        // Data row: Bold the first cell only if it's non-empty (avoids "****" from empty │ cells)
+        const firstCell = cols[0].trim();
+        const boldedFirst = firstCell ? `**${firstCell}**` : '';
         const restCols = cols.slice(1);
         tableRows.push('| ' + [boldedFirst, ...restCols].join(' | ') + ' |');
       } else {
@@ -420,22 +428,29 @@ export function parsePythonToMarkdown(rawContent: string, pageTitle: string): st
         if (isAsciiDiagramLine(tline)) kind = 'diagram';
         else if (isMarkdownTableLine(tline)) kind = 'table';
 
-        // If we are currently in a diagram group, and this line is classified as 'text',
-        // check if there is another diagram line within the next 4 lines.
-        // If so, keep the current line as part of the 'diagram' to avoid fragmentation.
-        if (currentGroup && currentGroup.kind === 'diagram' && kind === 'text') {
-          let hasDiagramAhead = false;
-          for (let j = 1; j <= 4; j++) {
-            if (idx + j < block.lines.length) {
-              const aheadLine = block.lines[idx + j];
-              if (isAsciiDiagramLine(aheadLine)) {
+        // Bidirectional lookahead: if this text line is short (a label, not a paragraph)
+        // merge it into the diagram group using either forward or backward context.
+        // Forward: a diagram line appears within the next 3 lines → start/extend diagram.
+        // Backward: we're already inside a diagram group → keep trailing labels in the box.
+        if (kind === 'text') {
+          const trimmedLine = tline.trim();
+          const isLikelyLabel = trimmedLine.length > 0 && trimmedLine.length <= 80;
+
+          if (isLikelyLabel) {
+            // Forward lookahead: diagram follows soon
+            let hasDiagramAhead = false;
+            for (let j = 1; j <= 3; j++) {
+              if (idx + j < block.lines.length && isAsciiDiagramLine(block.lines[idx + j])) {
                 hasDiagramAhead = true;
                 break;
               }
             }
-          }
-          if (hasDiagramAhead) {
-            kind = 'diagram';
+            // Backward context: already inside a diagram group
+            const inDiagramGroup = currentGroup !== null && currentGroup.kind === 'diagram';
+
+            if (hasDiagramAhead || inDiagramGroup) {
+              kind = 'diagram';
+            }
           }
         }
 
