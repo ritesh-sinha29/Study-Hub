@@ -1,16 +1,16 @@
 // ==========================================
 // C++ CONDITIONALS: IF-ELSE AND SWITCH
 // ==========================================
-
+//
 // --- REAL-WORLD USE CASES ---
 // Conditionals are used to make decisions in code execution based on variables.
 // Examples:
 //   * Authentication: Check if username and password match database records.
 //   * Menu Options: Choose actions (e.g., Press 1 to Save, Press 2 to Delete).
 //   * Eligibility: Checking if a user's age is 18 or older to allow sign up.
+//
 
 #include <iostream>
-
 using namespace std;
 
 int main() {

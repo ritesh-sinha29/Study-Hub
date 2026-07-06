@@ -1,17 +1,17 @@
 // ==========================================
 // C++ DATA TYPES AND RANGES
 // ==========================================
-
+//
 // --- REAL-WORLD USE CASES ---
 // Data types define the type and size of data a variable can store. Examples:
 //   * int / long: Storing counts, IDs, age.
 //   * float / double: Storing financial prices, temperature, coordinates.
 //   * char: Storing state flags ('Y'/'N'), grades ('A', 'B').
 //   * string: Storing full names, emails, addresses.
+//
 
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 int main() {
@@ -35,9 +35,8 @@ int main() {
     // --- 3. Characters ---
     // 'char' stores a single character enclosed in single quotes (1 byte).
     char symbol = '$';
- 
     cout << "Symbol: " << symbol << endl; // Output: Symbol: $
- 
+
     // --- 4. Strings & getline() ---
     // A string is a collection of characters enclosed in double quotes.
     // 'cin >>' only reads a string until the first whitespace.

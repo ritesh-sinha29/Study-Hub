@@ -1,17 +1,17 @@
 // ==========================================
 // C++ ARRAYS AND STRINGS
 // ==========================================
-
+//
 // --- REAL-WORLD USE CASES ---
 // Arrays and Strings are basic containers used to store collection of elements sequentially.
 // Examples:
 //   * Chessboards: 2D array of size 8x8 storing chess pieces.
 //   * Lists of Marks: Storing student test marks.
 //   * Text Processing: Storing and parsing string tokens like words or commands.
+//
 
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 int main() {

@@ -1,7 +1,7 @@
 // ==========================================
 // C++ STL (STANDARD TEMPLATE LIBRARY) BASICS
 // ==========================================
-
+//
 // --- REAL-WORLD USE CASES ---
 // The Standard Template Library (STL) provides pre-built data structures and algorithms 
 // so you don't have to build them from scratch.
@@ -9,6 +9,7 @@
 //   * Dynamic Lists: Using std::vector to store an online shopping cart list that grows.
 //   * Priority Tasks: Using std::queue to handle system printing tasks in order.
 //   * Search Indexing: Using std::map (dictionary) to search users by user ID.
+//
 
 #include <iostream>
 #include <vector>
@@ -17,7 +18,6 @@
 #include <set>
 #include <map>
 #include <algorithm> // Required for sort()
-
 using namespace std;
 
 int main() {

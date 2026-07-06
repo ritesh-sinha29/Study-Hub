@@ -1,16 +1,16 @@
 // ==========================================
 // C++ LOOPS: FOR AND WHILE
 // ==========================================
-
+//
 // --- REAL-WORLD USE CASES ---
 // Loops are used to repeat a block of code multiple times.
 // Examples:
 //   * Repeating tasks: Checking for new notifications every few seconds.
 //   * Array Traversal: Summing up values inside an array.
 //   * Game Loops: Keep rendering frames until the user presses the 'Exit' button.
+//
 
 #include <iostream>
-
 using namespace std;
 
 int main() {

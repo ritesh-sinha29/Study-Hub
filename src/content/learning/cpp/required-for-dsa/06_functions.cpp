@@ -1,16 +1,20 @@
 // ==========================================
 // C++ FUNCTIONS: PASS BY VALUE AND REFERENCE
 // ==========================================
-
+//
 // --- REAL-WORLD USE CASES ---
 // Functions help split large codebases into modular, reusable blocks.
 // Examples:
 //   * Math Operations: Creating a function to compute factorials or exponents.
 //   * Sorting Utilities: Reusable functions that sort any array passed to them.
 //   * Data Modifiers: Updating user details in databases.
+//
+// --- HOW IT WORKS ---
+// 1. Pass by Value: Passes a COPY of the variable. Changes inside do NOT affect the original.
+// 2. Pass by Reference: Passes the memory reference of the original variable (uses '&').
+//
 
 #include <iostream>
-
 using namespace std;
 
 // --- 1. Pass by Value ---
