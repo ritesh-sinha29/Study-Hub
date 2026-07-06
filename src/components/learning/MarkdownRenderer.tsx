@@ -206,10 +206,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         }
 
         return (
-          <div className="relative group my-6 rounded-lg border border-border/60 dark:border-border/40 bg-neutral-50 dark:bg-[#09090b] overflow-hidden">
+          <div className="relative group my-6 rounded-lg border border-zinc-800 bg-[#1e1e1e] overflow-hidden">
             {language ? (
-              <div className="flex items-center justify-between border-b border-border/60 dark:border-border/40 bg-muted/30 dark:bg-muted/10 px-4 py-2">
-                <span className="text-[10px] uppercase tracking-wider font-mono font-bold text-muted-foreground/60">
+              <div className="flex items-center justify-between border-b border-zinc-800 bg-[#252526] px-4 py-2">
+                <span className="text-[10px] uppercase tracking-wider font-mono font-bold text-zinc-400">
                   {language}
                 </span>
                 <CopyButton text={codeText} inline />
@@ -218,7 +218,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               <CopyButton text={codeText} />
             )}
             <pre
-              className="overflow-x-auto p-4 text-[13px] font-mono leading-relaxed bg-transparent text-foreground/90 dark:text-[#e4e4e7] [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit"
+              className="overflow-x-auto p-4 text-[13px] font-mono leading-relaxed bg-transparent text-[#d4d4d4] [&>code]:bg-transparent [&>code]:p-0 [&>code]:text-inherit"
               {...props}
             >
               {children}
