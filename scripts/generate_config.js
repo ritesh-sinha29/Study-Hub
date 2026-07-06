@@ -156,30 +156,37 @@ function generateConfig() {
   const topics = [];
 
   // Dynamically discover all course folders in the learning content directory
-  let folders = [];
+  const folders = [];
   if (fs.existsSync(CONTENT_DIR)) {
-    folders = fs.readdirSync(CONTENT_DIR).filter(item => {
+    const items = fs.readdirSync(CONTENT_DIR).filter(item => {
       const fullPath = path.join(CONTENT_DIR, item);
       return fs.statSync(fullPath).isDirectory();
     });
+    for (const item of items) {
+      const staticTopic = STATIC_TOPICS.find(t => 
+        t.slug.toLowerCase() === item.toLowerCase() || 
+        t.title.toLowerCase() === item.toLowerCase()
+      );
+      
+      const slug = staticTopic ? staticTopic.slug : item.toLowerCase()
+        .replace(/\+/g, 'p')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+        
+      folders.push({
+        dirName: item,
+        slug: slug,
+        staticTopic: staticTopic
+      });
+    }
   }
 
-  // Combine predefined static topics and any newly created subdirectories
-  const allTopicSlugs = Array.from(new Set([
-    ...STATIC_TOPICS.map(t => t.slug),
-    ...folders
-  ]));
-
-  for (const topicSlug of allTopicSlugs) {
-    const staticTopic = STATIC_TOPICS.find(t => t.slug === topicSlug);
-    const topicDir = path.join(CONTENT_DIR, topicSlug);
-    
-    const topicMeta = staticTopic || {
-      title: topicSlug.split('-')
-        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(' '),
-      slug: topicSlug,
-      description: `Revision notes and guides for ${topicSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}`,
+  for (const folder of folders) {
+    const topicDir = path.join(CONTENT_DIR, folder.dirName);
+    const topicMeta = folder.staticTopic || {
+      title: folder.dirName,
+      slug: folder.slug,
+      description: `Revision notes and guides for ${folder.dirName}`,
       icon: "BookOpen"
     };
 

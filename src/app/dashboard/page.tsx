@@ -1,15 +1,18 @@
 import Link from "next/link";
 import { learningTopics, getAllTopicFiles } from "@/config/learning";
-import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers, Brain, Database } from "lucide-react";
+import { BookOpen, Code2, Network, Dices, ArrowRight, FileText, Layers, Brain, Database, Terminal } from "lucide-react";
 
-const iconMap: Record<string, typeof BookOpen> = {
-  Python: Code2,
-  FastAPI: BookOpen,
-  LangGraph: Network,
-  DSA: Dices,
-  LangChain: Brain,
-  RAG: Database,
-};
+function getIconForTopic(slug: string, iconName?: string) {
+  const normalized = slug.toLowerCase();
+  if (iconName === "Python" || normalized.includes("python")) return Code2;
+  if (iconName === "FastAPI" || normalized.includes("fastapi") || normalized.includes("api")) return Terminal;
+  if (iconName === "LangGraph" || normalized.includes("graph")) return Network;
+  if (iconName === "DSA" || normalized.includes("dsa") || normalized.includes("algo")) return Dices;
+  if (iconName === "LangChain" || normalized.includes("chain") || normalized.includes("langchain")) return Brain;
+  if (iconName === "RAG" || normalized.includes("rag") || normalized.includes("database") || normalized.includes("db")) return Database;
+  if (normalized.includes("cpp") || normalized.includes("cplusplus") || normalized.includes("c-plus-plus") || normalized.includes("c++")) return Code2;
+  return BookOpen;
+}
 
 export default function StudyHubPage() {
   return (
@@ -27,7 +30,7 @@ export default function StudyHubPage() {
       {/* Topic Grid */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {learningTopics.map((topic) => {
-          const Icon = iconMap[topic.icon ?? ""] || BookOpen;
+          const Icon = getIconForTopic(topic.slug, topic.icon);
           const totalFiles = getAllTopicFiles(topic).length;
           const hasGroups = topic.groups.length > 0;
           return (

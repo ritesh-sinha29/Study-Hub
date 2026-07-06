@@ -26,6 +26,206 @@ export interface TopicItem {
 
 export const learningTopics: TopicItem[] = [
   {
+    "title": "C++",
+    "slug": "cpp",
+    "description": "C++ basics, programming syntax, and foundations",
+    "icon": "BookOpen",
+    "files": [],
+    "groups": [
+      {
+        "title": "Required For Dsa",
+        "slug": "required-for-dsa",
+        "files": [
+          {
+            "title": "C++ Skeleton And Basic Io",
+            "slug": "skeleton-and-io",
+            "number": "01",
+            "filename": "required-for-dsa/01_skeleton_and_io.cpp"
+          },
+          {
+            "title": "C++ Data Types And Ranges",
+            "slug": "data-types",
+            "number": "02",
+            "filename": "required-for-dsa/02_data_types.cpp"
+          },
+          {
+            "title": "C++ Conditionals: Ifelse And Switch",
+            "slug": "conditionals-and-switch",
+            "number": "03",
+            "filename": "required-for-dsa/03_conditionals_and_switch.cpp"
+          },
+          {
+            "title": "C++ Arrays And Strings",
+            "slug": "arrays-and-strings",
+            "number": "04",
+            "filename": "required-for-dsa/04_arrays_and_strings.cpp"
+          },
+          {
+            "title": "C++ Loops: For And While",
+            "slug": "loops",
+            "number": "05",
+            "filename": "required-for-dsa/05_loops.cpp"
+          },
+          {
+            "title": "C++ Functions: Pass By Value And Reference",
+            "slug": "functions",
+            "number": "06",
+            "filename": "required-for-dsa/06_functions.cpp"
+          },
+          {
+            "title": "C++ Stl (standard Template Library) Basics",
+            "slug": "stl-basics",
+            "number": "07",
+            "filename": "required-for-dsa/07_stl_basics.cpp"
+          },
+          {
+            "title": "Time And Space Complexity",
+            "slug": "time-complexity",
+            "number": "08",
+            "filename": "required-for-dsa/08_time_complexity.cpp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "DSA with C++",
+    "slug": "dsa-with-cpp",
+    "description": "Data structures and algorithms in C++",
+    "icon": "DSA",
+    "files": [],
+    "groups": []
+  },
+  {
+    "title": "FastAPI",
+    "slug": "fastapi",
+    "description": "FastAPI fundamentals and project structure",
+    "icon": "FastAPI",
+    "files": [],
+    "groups": [
+      {
+        "title": "01. Fundamentals",
+        "slug": "fundamentals",
+        "number": "01",
+        "files": [
+          {
+            "title": "Introduction & Setup",
+            "slug": "introduction-and-setup",
+            "number": "01",
+            "filename": "01-fundamentals/01_introduction_and_setup.py"
+          },
+          {
+            "title": "Path Parameters",
+            "slug": "path-parameters",
+            "number": "02",
+            "filename": "01-fundamentals/02_path_parameters.py"
+          },
+          {
+            "title": "Query Parameters",
+            "slug": "query-parameters",
+            "number": "03",
+            "filename": "01-fundamentals/03_query_parameters.py"
+          },
+          {
+            "title": "Request Body & Pydantic",
+            "slug": "request-body-pydantic",
+            "number": "04",
+            "filename": "01-fundamentals/04_request_body_pydantic.py"
+          },
+          {
+            "title": "Response Models & Status Codes",
+            "slug": "response-models-and-status",
+            "number": "05",
+            "filename": "01-fundamentals/05_response_models_and_status.py"
+          },
+          {
+            "title": "Error Handling",
+            "slug": "error-handling",
+            "number": "06",
+            "filename": "01-fundamentals/06_error_handling.py"
+          },
+          {
+            "title": "Dependency Injection (di)",
+            "slug": "dependency-injection",
+            "number": "07",
+            "filename": "01-fundamentals/07_dependency_injection.py"
+          },
+          {
+            "title": "Database Crud (sqlite & Orm)",
+            "slug": "database-crud-sqlite",
+            "number": "08",
+            "filename": "01-fundamentals/08_database_crud_sqlite.py"
+          },
+          {
+            "title": "Middleware & Cors",
+            "slug": "middleware-cors",
+            "number": "09",
+            "filename": "01-fundamentals/09_middleware_cors.py"
+          },
+          {
+            "title": "Security & Jwt (json Web Tokens)",
+            "slug": "security-jwt",
+            "number": "10",
+            "filename": "01-fundamentals/10_security_jwt.py"
+          },
+          {
+            "title": "File Uploads & Background Tasks",
+            "slug": "background-tasks-and-files",
+            "number": "11",
+            "filename": "01-fundamentals/11_background_tasks_and_files.py"
+          }
+        ]
+      },
+      {
+        "title": "02. From Yt",
+        "slug": "from-yt",
+        "number": "02",
+        "files": [
+          {
+            "title": "Get Api Basic Routes",
+            "slug": "getapi",
+            "number": "01",
+            "filename": "02-from_yt/01-getapi.py"
+          },
+          {
+            "title": "Dynamic Routes",
+            "slug": "dynamic-routes",
+            "number": "02",
+            "filename": "02-from_yt/02-dynamic-routes.py"
+          },
+          {
+            "title": "Request Body",
+            "slug": "request-body",
+            "number": "03",
+            "filename": "02-from_yt/03-request-body.py"
+          },
+          {
+            "title": "Pydantic Models (nested Models)",
+            "slug": "pydantic-model",
+            "number": "04",
+            "filename": "02-from_yt/04-pydantic-model.py"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "LangChain",
+    "slug": "langchain",
+    "description": "LangChain frameworks, components, and LLM integrations",
+    "icon": "LangChain",
+    "files": [],
+    "groups": []
+  },
+  {
+    "title": "LangGraph",
+    "slug": "langgraph",
+    "description": "LangGraph agent workflows and graphs",
+    "icon": "LangGraph",
+    "files": [],
+    "groups": []
+  },
+  {
     "title": "Python Learning",
     "slug": "python-learning",
     "description": "Python fundamentals, deep dives, and core concepts",
@@ -209,206 +409,6 @@ export const learningTopics: TopicItem[] = [
         ]
       }
     ]
-  },
-  {
-    "title": "FastAPI",
-    "slug": "fastapi",
-    "description": "FastAPI fundamentals and project structure",
-    "icon": "FastAPI",
-    "files": [],
-    "groups": [
-      {
-        "title": "01. Fundamentals",
-        "slug": "fundamentals",
-        "number": "01",
-        "files": [
-          {
-            "title": "Introduction & Setup",
-            "slug": "introduction-and-setup",
-            "number": "01",
-            "filename": "01-fundamentals/01_introduction_and_setup.py"
-          },
-          {
-            "title": "Path Parameters",
-            "slug": "path-parameters",
-            "number": "02",
-            "filename": "01-fundamentals/02_path_parameters.py"
-          },
-          {
-            "title": "Query Parameters",
-            "slug": "query-parameters",
-            "number": "03",
-            "filename": "01-fundamentals/03_query_parameters.py"
-          },
-          {
-            "title": "Request Body & Pydantic",
-            "slug": "request-body-pydantic",
-            "number": "04",
-            "filename": "01-fundamentals/04_request_body_pydantic.py"
-          },
-          {
-            "title": "Response Models & Status Codes",
-            "slug": "response-models-and-status",
-            "number": "05",
-            "filename": "01-fundamentals/05_response_models_and_status.py"
-          },
-          {
-            "title": "Error Handling",
-            "slug": "error-handling",
-            "number": "06",
-            "filename": "01-fundamentals/06_error_handling.py"
-          },
-          {
-            "title": "Dependency Injection (di)",
-            "slug": "dependency-injection",
-            "number": "07",
-            "filename": "01-fundamentals/07_dependency_injection.py"
-          },
-          {
-            "title": "Database Crud (sqlite & Orm)",
-            "slug": "database-crud-sqlite",
-            "number": "08",
-            "filename": "01-fundamentals/08_database_crud_sqlite.py"
-          },
-          {
-            "title": "Middleware & Cors",
-            "slug": "middleware-cors",
-            "number": "09",
-            "filename": "01-fundamentals/09_middleware_cors.py"
-          },
-          {
-            "title": "Security & Jwt (json Web Tokens)",
-            "slug": "security-jwt",
-            "number": "10",
-            "filename": "01-fundamentals/10_security_jwt.py"
-          },
-          {
-            "title": "File Uploads & Background Tasks",
-            "slug": "background-tasks-and-files",
-            "number": "11",
-            "filename": "01-fundamentals/11_background_tasks_and_files.py"
-          }
-        ]
-      },
-      {
-        "title": "02. From Yt",
-        "slug": "from-yt",
-        "number": "02",
-        "files": [
-          {
-            "title": "Get Api Basic Routes",
-            "slug": "getapi",
-            "number": "01",
-            "filename": "02-from_yt/01-getapi.py"
-          },
-          {
-            "title": "Dynamic Routes",
-            "slug": "dynamic-routes",
-            "number": "02",
-            "filename": "02-from_yt/02-dynamic-routes.py"
-          },
-          {
-            "title": "Request Body",
-            "slug": "request-body",
-            "number": "03",
-            "filename": "02-from_yt/03-request-body.py"
-          },
-          {
-            "title": "Pydantic Models (nested Models)",
-            "slug": "pydantic-model",
-            "number": "04",
-            "filename": "02-from_yt/04-pydantic-model.py"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "LangGraph",
-    "slug": "langgraph",
-    "description": "LangGraph agent workflows and graphs",
-    "icon": "LangGraph",
-    "files": [],
-    "groups": []
-  },
-  {
-    "title": "DSA with C++",
-    "slug": "dsa-with-cpp",
-    "description": "Data structures and algorithms in C++",
-    "icon": "DSA",
-    "files": [],
-    "groups": []
-  },
-  {
-    "title": "C++",
-    "slug": "cpp",
-    "description": "C++ basics, programming syntax, and foundations",
-    "icon": "BookOpen",
-    "files": [],
-    "groups": [
-      {
-        "title": "Required For Dsa",
-        "slug": "required-for-dsa",
-        "files": [
-          {
-            "title": "C++ Skeleton And Basic Io",
-            "slug": "skeleton-and-io",
-            "number": "01",
-            "filename": "required-for-dsa/01_skeleton_and_io.cpp"
-          },
-          {
-            "title": "C++ Data Types And Ranges",
-            "slug": "data-types",
-            "number": "02",
-            "filename": "required-for-dsa/02_data_types.cpp"
-          },
-          {
-            "title": "C++ Conditionals: Ifelse And Switch",
-            "slug": "conditionals-and-switch",
-            "number": "03",
-            "filename": "required-for-dsa/03_conditionals_and_switch.cpp"
-          },
-          {
-            "title": "C++ Arrays And Strings",
-            "slug": "arrays-and-strings",
-            "number": "04",
-            "filename": "required-for-dsa/04_arrays_and_strings.cpp"
-          },
-          {
-            "title": "C++ Loops: For And While",
-            "slug": "loops",
-            "number": "05",
-            "filename": "required-for-dsa/05_loops.cpp"
-          },
-          {
-            "title": "C++ Functions: Pass By Value And Reference",
-            "slug": "functions",
-            "number": "06",
-            "filename": "required-for-dsa/06_functions.cpp"
-          },
-          {
-            "title": "C++ Stl (standard Template Library) Basics",
-            "slug": "stl-basics",
-            "number": "07",
-            "filename": "required-for-dsa/07_stl_basics.cpp"
-          },
-          {
-            "title": "Time And Space Complexity",
-            "slug": "time-complexity",
-            "number": "08",
-            "filename": "required-for-dsa/08_time_complexity.cpp"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "LangChain",
-    "slug": "langchain",
-    "description": "LangChain frameworks, components, and LLM integrations",
-    "icon": "LangChain",
-    "files": [],
-    "groups": []
   },
   {
     "title": "RAG",
