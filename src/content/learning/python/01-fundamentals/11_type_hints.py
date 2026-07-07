@@ -7,7 +7,7 @@
 # a variable or function expects. They do NOT crash if wrong, but editors
 # will warn you and FastAPI uses them to VALIDATE data automatically.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI uses type hints to automatically:
 #     - Validate incoming request data
 #     - Generate API documentation
@@ -17,7 +17,7 @@
 # --- BASIC SYNTAX ---
 # variable_name: data_type = value
 #
-# HOW IT WORKS INTERNALLY: Type hints are stored in `__annotations__` but
+# **HOW IT WORKS INTERNALLY:** Type hints are stored in `__annotations__` but
 # Python itself does NOT enforce them at runtime — you can still pass the
 # wrong type and Python won't crash (unless you're using a validator like
 # Pydantic). It is static type checkers like mypy or Pylance (VS Code) that

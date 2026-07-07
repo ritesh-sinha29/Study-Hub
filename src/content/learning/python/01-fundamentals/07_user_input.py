@@ -2,7 +2,7 @@
 # PYTHON USER INPUT (FOR BEGINNERS)
 # ==========================================
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # Use the `input()` function when you need your program to interact with a human 
 # and collect information from them.
 # Examples:
@@ -11,11 +11,11 @@
 #   * Interactive Games: Asking "Do you want to play again? (yes/no)".
 
 # In Python, the `input()` function lets the program wait and ask the user to type something.
-# IMPORTANT: Whatever the user types is ALWAYS treated as a String (text) by default.
+# IMPORTANT: Whatever the user types is **ALWAYS** treated as a String (text) by default.
 #
-# HOW IT WORKS: `input()` pauses the program, waits for the user to type something
+# **HOW IT WORKS:** `input()` pauses the program, waits for the user to type something
 # and press Enter, then hands the typed text back to your code as a str.
-# KEY INSIGHT: `input()` ALWAYS returns a `str` — even if the user types "42".
+# KEY INSIGHT: `input()` **ALWAYS** returns a `str` — even if the user types "42".
 # You receive the text "42", not the number 42. You must explicitly convert
 # it with `int()` or `float()` before doing any arithmetic.
 # If you skip the conversion, Python will raise a TypeError:
@@ -24,13 +24,17 @@
 # IMPORTANT: `int("hello")` raises a `ValueError`. In production code, always
 # wrap type-casting in a try-except to give a helpful error message instead of crashing.
 
-# --- Example 1: Asking for Text ---
+# ---
+#
+# **Example 1:** Asking for Text ---
 # Here, we ask the user for their name and print a greeting.
 name = input("Enter your name: ")
 print("Hello,", name)      
 print()
 
-# --- Example 2: Asking for Numbers ---
+# ---
+#
+# **Example 2:** Asking for Numbers ---
 # Because `input()` always returns a string, we cannot do math directly with it.
 # E.g., if you input "8" and try to add 6, you will get an error.
 # We must convert the string to an integer (number) using `int()` first. This is called Type Casting.

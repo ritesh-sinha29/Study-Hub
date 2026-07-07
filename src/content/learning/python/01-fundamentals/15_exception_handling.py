@@ -2,7 +2,9 @@
 # PYTHON EXCEPTION HANDLING (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS EXCEPTION HANDLING? ---
+# ---
+#
+# **WHAT IS EXCEPTION HANDLING?** ---
 # An exception is an ERROR that happens while the program is running.
 # Without handling it, your entire program CRASHES.
 # With try/except, you can CATCH the error and handle it gracefully.
@@ -12,12 +14,12 @@
 # If they fall (error happens), the net catches them (except block runs),
 # and the show can continue instead of everything stopping.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: Return a proper error message (400, 404, 500) instead of crashing
 # * LangGraph: If an AI agent fails, catch the error and retry or go to fallback
 # * File reading: If a file doesn't exist, show a nice message instead of crashing
 #
-# HOW IT WORKS INTERNALLY: When an exception is raised, Python unwinds the
+# **HOW IT WORKS INTERNALLY:** When an exception is raised, Python unwinds the
 # call stack frame by frame, looking for a matching `except` clause. If none
 # is found all the way to the module level, Python prints the traceback and exits.
 #
@@ -27,7 +29,7 @@
 # which is why `except Exception:` does NOT catch Ctrl+C — intentional.
 #
 # KEY INSIGHT: The order of `except` clauses matters. Python checks them top
-# to bottom and runs the FIRST match. Always put specific exceptions (like
+# to bottom and runs the **FIRST** match. Always put specific exceptions (like
 # `ValueError`) before generic ones (like `Exception`).
 
 print("==========================================")
@@ -104,7 +106,7 @@ try:
 except FileNotFoundError:
     print("File not found!")
 finally:
-    # This ALWAYS runs — even if an error happened
+    # This **ALWAYS** runs — even if an error happened
     print("Cleanup done. Moving on.")
 
 print()
@@ -193,7 +195,7 @@ print(get_user(99))  # Not found → returns error response
 #     | Block | When it Executes | Primary Use Case |
 #     | :--- | :--- | :--- |
 #     | `else` | ONLY if no exceptions were raised | Logic that depends on try success |
-#     | `finally` | ALWAYS (even after errors/returns)| Resource cleanup (closing) |
+#     | `finally` | **ALWAYS** (even after errors/returns)| Resource cleanup (closing) |
 #
 # Q2. Why is catching bare exceptions (like `except:`) or `except Exception:`
 #     discouraged for control flow?

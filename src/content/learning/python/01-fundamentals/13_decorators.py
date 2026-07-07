@@ -2,18 +2,20 @@
 # PYTHON DECORATORS (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A DECORATOR? ---
+# ---
+#
+# **WHAT IS A DECORATOR?** ---
 # A decorator is a special function that WRAPS another function 
 # and adds extra behavior WITHOUT changing the original function's code.
 # You apply a decorator using the `@` symbol on top of a function.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: @app.get("/users") tells FastAPI "this function handles GET /users"
 # * Logging: Automatically log every time a function is called
 # * Timing: Measure how long a function takes to run
 # * Authentication: Check if a user is logged in before running a function
 #
-# HOW IT WORKS INTERNALLY: Python functions are first-class objects — you can
+# **HOW IT WORKS INTERNALLY:** Python functions are first-class objects — you can
 # store them in variables, pass them as arguments, and return them from other
 # functions. A decorator is simply a function that receives another function,
 # wraps it in an inner "wrapper" function, and returns the wrapper.

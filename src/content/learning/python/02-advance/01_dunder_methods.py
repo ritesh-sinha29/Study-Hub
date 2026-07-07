@@ -11,16 +11,18 @@
 # For example, when you run `len(my_list)`, Python actually calls `my_list.__len__()`.
 # When you write `a + b`, Python calls `a.__add__(b)`.
 
-# --- WHY USE THEM? ---
+# ---
+#
+# **WHY USE THEM?** ---
 # They allow your custom classes to behave exactly like Python's built-in types (lists, integers, strings).
 # This makes your code cleaner, more readable, and highly professional.
 #
-# HOW PYTHON DISPATCHES OPERATORS: When you write `a + b`, Python calls
+# **HOW PYTHON DISPATCHES OPERATORS:** When you write `a + b`, Python calls
 # `type(a).__add__(a, b)`. If that returns `NotImplemented`, Python tries
 # `type(b).__radd__(b, a)` as a fallback. This lets both operand types
 # participate in deciding how the operation works.
 #
-# PROTOCOL DESIGN: Python's data model is built on protocols — sets of dunder
+# **PROTOCOL DESIGN:** Python's data model is built on protocols — sets of dunder
 # methods that give objects specific capabilities. Implement `__iter__` and
 # `__next__` to make an object iterable. Implement `__enter__` and `__exit__`
 # to make it a context manager. You don’t inherit from any base class;

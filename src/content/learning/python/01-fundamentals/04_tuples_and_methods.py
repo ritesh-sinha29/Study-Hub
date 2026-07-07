@@ -2,8 +2,8 @@
 # PYTHON TUPLES AND METHODS (FOR BEGINNERS)
 # ==========================================
 
-# --- REAL-WORLD USE CASES ---
-# Use a Tuple when you have a sequence of values that must NEVER change 
+# --- WHY LEARN THIS? ---
+# Use a Tuple when you have a sequence of values that must **NEVER** change 
 # during the execution of your program. This prevents accidental changes.
 # Examples:
 #   * GPS Coordinates: (latitude, longitude) e.g., (28.6139, 77.2090)
@@ -11,11 +11,14 @@
 #   * Calendar constants: ("Monday", "Tuesday", ...) or ("Jan", "Feb", ...)
 
 # A Tuple is an ordered collection of items.
-# Rule 1: We use parentheses `()` to create a tuple.
-# Rule 2: Tuples are IMMUTABLE (cannot be changed). Once created, you cannot add, remove, or modify items.
-# Rule 3: Tuples can contain duplicates and different data types.
 #
-# HOW IT WORKS: Immutability gives tuples a superpower — they are HASHABLE.
+# **Rule 1:** We use parentheses `()` to create a tuple.
+#
+# **Rule 2:** Tuples are **IMMUTABLE** (cannot be changed). Once created, you cannot add, remove, or modify items.
+#
+# **Rule 3:** Tuples can contain duplicates and different data types.
+#
+# **HOW IT WORKS:** Immutability gives tuples a superpower — they are **HASHABLE**.
 # This means a tuple can be used as a dictionary key or stored inside a set,
 # whereas a list cannot. For example: coords = {(28.6, 77.2): "Delhi"} – valid.
 #

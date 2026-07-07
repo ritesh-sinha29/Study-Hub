@@ -2,7 +2,7 @@
 # PYTHON LISTS AND METHODS (FOR BEGINNERS)
 # ==========================================
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # Use a List when you have a collection of items where order matters, 
 # and you want to add, remove, or sort items later.
 # Examples:
@@ -11,11 +11,14 @@
 #   * To-Do List: ["study python", "go to gym", "clean room"]
 
 # A List is an ordered collection of items.
-# Rule 1: We use square brackets `[]` to create a list.
-# Rule 2: Lists are mutable (changeable). You can add, remove, or change items.
-# Rule 3: Lists can hold different types of data at the same time (strings, numbers, etc.).
 #
-# HOW IT WORKS INTERNALLY: Python lists are dynamic arrays. When you `append()`
+# **Rule 1:** We use square brackets `[]` to create a list.
+#
+# **Rule 2:** Lists are mutable (changeable). You can add, remove, or change items.
+#
+# **Rule 3:** Lists can hold different types of data at the same time (strings, numbers, etc.).
+#
+# **HOW IT WORKS INTERNALLY:** Python lists are dynamic arrays. When you `append()`
 # past the current capacity, Python allocates a bigger block (roughly doubles)
 # and copies existing items over. This is why append is O(1) amortized, but
 # insert at position 0 is O(n) because every item must shift right.

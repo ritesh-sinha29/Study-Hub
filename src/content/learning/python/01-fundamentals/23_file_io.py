@@ -11,13 +11,13 @@
 #   * Config Files: Reading settings for your FastAPI application.
 #   * Data Persistence: Saving user inputs or results so they aren't lost when the program closes.
 #
-# HOW IT WORKS INTERNALLY: When you open a file, the OS allocates a FILE
+# **HOW IT WORKS INTERNALLY:** When you open a file, the OS allocates a FILE
 # DESCRIPTOR — an integer handle that represents the open connection to
 # the file. All read/write calls go through this descriptor. Forgetting to
 # close it leaks the descriptor (OS has a limit). The `with` statement
 # guarantees `file.close()` is called even if an exception occurs.
 #
-# BUFFERING: Python writes to an in-memory buffer first, then flushes to
+# **BUFFERING:** Python writes to an in-memory buffer first, then flushes to
 # disk. Call `file.flush()` or use `buffering=0` for unbuffered writes when
 # you need data on disk immediately (e.g., real-time logging).
 #

@@ -12,13 +12,13 @@
 # Async:                You order food, sit down, chat with friends, check your phone.
 #                       When the food is ready, you pick it up. You didn't waste time!
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: All route functions can be `async def` — they wait for databases
 #            without blocking other users' requests.
 # * LangGraph: Async lets AI agents make multiple LLM calls at the same time.
 # * Web scraping, API calls, file reading — any "waiting" task benefits from async.
 #
-# HOW IT WORKS INTERNALLY: Python runs async code on a single-threaded EVENT
+# **HOW IT WORKS INTERNALLY:** Python runs async code on a single-threaded EVENT
 # LOOP. When your code hits `await`, it pauses the current coroutine and hands
 # control back to the loop, which can then run other waiting coroutines. There
 # is no multi-threading — only cooperative multitasking.

@@ -3,7 +3,7 @@
 # ==========================================================
 
 # --- QUICK DECORATOR RECAP ---
-# In Python, functions are FIRST-CLASS objects. This means:
+# In Python, functions are **FIRST**-CLASS objects. This means:
 # 1. You can pass functions as arguments to other functions.
 # 2. You can return functions from other functions.
 # A decorator is simply a function that takes another function,
@@ -16,7 +16,7 @@
 # This is because `@repeat(3)` first calls `repeat(3)`, which must return
 # a decorator function, which is then applied to the decorated function.
 #
-# STACKING ORDER: When you stack `@dec1` on top of `@dec2`, Python applies
+# **STACKING ORDER:** When you stack `@dec1` on top of `@dec2`, Python applies
 # them bottom-to-top at DEFINITION time: `func = dec1(dec2(func))`.
 # At CALL time, dec1’s wrapper runs first (outermost), then dec2’s (innermost).
 #

@@ -2,7 +2,9 @@
 # PYTHON JSON HANDLING (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS JSON? ---
+# ---
+#
+# **WHAT IS JSON?** ---
 # JSON stands for JavaScript Object Notation.
 # It is the UNIVERSAL language of APIs — all data sent between a
 # frontend (website/app) and a backend (FastAPI) is in JSON format.
@@ -12,12 +14,12 @@
 # JSON string:        '{"name": "Ritesh", "age": 20}'
 # They look the same, but a JSON string is just TEXT, not a Python object.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: Receives JSON from a mobile app, returns JSON responses
 # * LangGraph: AI agents pass messages and state as JSON
 # * Reading config files, API responses, databases — all use JSON
 #
-# HOW IT WORKS: JSON is a TEXT format for representing structured data.
+# **HOW IT WORKS:** JSON is a TEXT format for representing structured data.
 # Python's `json` module handles two operations:
 #   Serialization   (Python → JSON text): json.dumps() / json.dump()
 #   Deserialization (JSON text → Python): json.loads() / json.load()
@@ -126,7 +128,7 @@ print("5. FASTAPI USE CASE — JSON is the default response")
 print("==========================================")
 
 # In FastAPI, when you return a dictionary from a route function,
-# FastAPI AUTOMATICALLY converts it to JSON and sends it to the client.
+# FastAPI **AUTOMATICALLY** converts it to JSON and sends it to the client.
 # You don't need to call json.dumps() yourself!
 
 # Real FastAPI code:

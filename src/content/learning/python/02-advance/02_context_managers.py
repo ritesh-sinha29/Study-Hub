@@ -2,7 +2,9 @@
 # PYTHON CONTEXT MANAGERS & THE 'WITH' STATEMENT (DEEPER PYTHON)
 # ==========================================================
 
-# --- WHAT IS A CONTEXT MANAGER? ---
+# ---
+#
+# **WHAT IS A CONTEXT MANAGER?** ---
 # A context manager is a tool that allows you to allocate and release resources
 # exactly when you want to.
 #
@@ -12,15 +14,15 @@
 #   with open("test.txt", "w") as file:
 #       file.write("Hello")
 #
-# Why use `with`? Because it AUTOMATICALLY closes the file for you,
+# Why use `with`? Because it **AUTOMATICALLY** closes the file for you,
 # even if an error/crash occurs inside the block! This prevents resource leaks.
 #
-# HOW IT WORKS INTERNALLY:
+# **HOW IT WORKS INTERNALLY:**
 #   1. Python calls `obj.__enter__()` — returns the resource (assigned via `as`).
 #   2. Your code block runs.
 #   3. Python calls `obj.__exit__(exc_type, exc_val, exc_tb)` unconditionally,
 #      even if an exception occurred. The three arguments describe the exception.
-#   4. If `__exit__` returns True, the exception is SUPPRESSED. If False/None,
+#   4. If `__exit__` returns True, the exception is **SUPPRESSED**. If False/None,
 #      the exception propagates up the call stack.
 #
 # KEY INSIGHT: `@contextmanager` from `contextlib` lets you write a context

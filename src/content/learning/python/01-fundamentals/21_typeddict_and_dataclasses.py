@@ -2,24 +2,26 @@
 # TYPEDDICT & DATACLASSES (FOR BEGINNERS)
 # ==========================================
 
-# --- WHY ARE THESE IMPORTANT? ---
+# ---
+#
+# **WHY ARE THESE IMPORTANT?** ---
 # Both TypedDict and dataclasses are ways to create STRUCTURED data containers.
 # They tell Python (and your editor) exactly what fields exist and their types.
 #
 # LangGraph uses TypedDict to define the STATE of your AI agent.
 # FastAPI uses dataclasses and Pydantic models for request/response shapes.
 #
-# HOW THEY DIFFER AT RUNTIME:
+# **HOW THEY DIFFER AT RUNTIME:**
 #   TypedDict compiles down to a plain Python `dict` at runtime. It adds zero
 #   overhead — type-checking is only done statically by mypy/Pylance.
 #   Dataclass creates a real custom CLASS with an auto-generated `__init__`,
 #   `__repr__`, and `__eq__`, and supports methods, inheritance, and validators.
 #
-# WHY LANGGRAPH USES TypedDict: LangGraph state must be a plain dict under
+# **WHY LANGGRAPH USES TypedDict:** LangGraph state must be a plain dict under
 # the hood so that the graph framework can merge partial state updates across
 # nodes. Dataclasses don't support dict-style merging natively.
 #
-# KEY INSIGHT: In dataclasses, NEVER use a mutable default like `tags: list = []`.
+# KEY INSIGHT: In dataclasses, **NEVER** use a mutable default like `tags: list = []`.
 # Use `field(default_factory=list)` instead. Without it, all instances share
 # the exact same list object — modifying one modifies all.
 
@@ -30,7 +32,7 @@ print("==========================================")
 # --- WHAT IS TypedDict? ---
 # TypedDict is a dictionary where each key has a FIXED type.
 # It's like a regular dict, but with type labels for each field.
-# LangGraph's state is ALWAYS defined as a TypedDict.
+# LangGraph's state is **ALWAYS** defined as a TypedDict.
 
 from typing import TypedDict, List, Optional
 
@@ -90,7 +92,9 @@ print("==========================================")
 print("PART 2: Dataclasses")
 print("==========================================")
 
-# --- WHAT IS A DATACLASS? ---
+# ---
+#
+# **WHAT IS A DATACLASS?** ---
 # A dataclass is a SHORTCUT for creating a class that mainly holds data.
 # Without it, you have to write __init__, etc. manually.
 # With @dataclass, Python writes all that for you automatically!

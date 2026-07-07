@@ -2,18 +2,20 @@
 # PYTHON MODULES & IMPORTS (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A MODULE? ---
+# ---
+#
+# **WHAT IS A MODULE?** ---
 # A module is simply a PYTHON FILE (.py) that contains code (functions, classes, variables).
 # You can IMPORT that code into another file to reuse it.
 # This lets you split your project into small, organized files.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: Your routes, models, and database code live in separate files
 #            and you import them in main.py
 # * LangGraph: Different AI agents/nodes live in separate files and get imported
 # * Every Python project: Use built-in modules like `json`, `os`, `datetime`
 #
-# HOW IT WORKS INTERNALLY: When you `import math`, Python searches `sys.path`
+# **HOW IT WORKS INTERNALLY:** When you `import math`, Python searches `sys.path`
 # in order: (1) current script directory, (2) PYTHONPATH env var, (3) standard
 # library, (4) site-packages (pip installs). The first match wins.
 # Once a module is imported, Python caches it in `sys.modules`. Subsequent

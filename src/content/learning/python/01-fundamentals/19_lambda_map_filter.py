@@ -2,17 +2,19 @@
 # PYTHON LAMBDA, MAP, FILTER (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A LAMBDA? ---
+# ---
+#
+# **WHAT IS A LAMBDA?** ---
 # A lambda is a TINY, one-line, anonymous (no name) function.
 # Use it when you need a simple function in one place and don't want
 # to write a full `def` function for it.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * Sorting: Sort a list of users by their age using a lambda
 # * LangGraph: Pass small processing functions as callbacks to nodes
 # * map/filter: Transform or filter large lists quickly
 #
-# HOW IT WORKS: `lambda params: expression` is equivalent to a `def` function
+# **HOW IT WORKS:** `lambda params: expression` is equivalent to a `def` function
 # with a single `return expression` statement. Python creates an anonymous
 # function object that lives only as long as the variable holding it.
 #

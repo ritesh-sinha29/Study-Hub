@@ -2,11 +2,13 @@
 # PYTHON LOOPS (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A LOOP? ---
+# ---
+#
+# **WHAT IS A LOOP?** ---
 # A loop means: "Do this same thing many times automatically."
 # Instead of writing print("hello") 100 times, a loop does it for you.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * Sending an email to 1000 users (loop through the list of emails)
 # * FastAPI: Loop through a list of items returned from a database
 # * LangGraph: Loop through each step of an AI agent workflow

@@ -2,7 +2,7 @@
 # PYTHON DICTIONARIES (LEARNING GUIDE)
 # ==========================================
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # Use a Dictionary when you want to search for data using a "label" (Key) 
 # instead of a number index.
 # Examples:
@@ -13,11 +13,14 @@
 # Imagine a real-life dictionary:
 # You look up a "Word" (Key) to find its "Meaning" (Value).
 # In Python, a dictionary is a collection of "Key: Value" pairs.
-# Rule 1: We use curly braces `{}` to create a dictionary.
-# Rule 2: Each key is separated from its value by a colon `:`
-# Rule 3: Each key-value pair is separated by a comma `,`
 #
-# HOW IT WORKS INTERNALLY: Python is a built-in hash map. Every key is hashed
+# **Rule 1:** We use curly braces `{}` to create a dictionary.
+#
+# **Rule 2:** Each key is separated from its value by a colon `:`
+#
+# **Rule 3:** Each key-value pair is separated by a comma `,`
+#
+# **HOW IT WORKS INTERNALLY:** Python is a built-in hash map. Every key is hashed
 # to find its bucket, so lookup is O(1) regardless of dict size — in a list
 # you'd have to scan every entry, but in a dict you jump straight to the answer.
 #
@@ -95,35 +98,40 @@ print()
 # them or wrap in list() to get a static snapshot.
 # ==========================================
 
-# Method 1: .keys()
+#
+# **Method 1:** .keys()
 # This gives you a list of all the keys (labels) in the dictionary.
 print("--- 6. Getting all keys using .keys() ---")
 all_keys = person.keys()
 print(all_keys) 
 print()
 
-# Method 2: .values()
+#
+# **Method 2:** .values()
 # This gives you a list of all the values in the dictionary.
 print("--- 7. Getting all values using .values() ---")
 all_values = person.values()
 print(all_values)
 print()
 
-# Method 3: .items()
+#
+# **Method 3:** .items()
 # This gives you all key-value pairs grouped together as pairs.
 print("--- 8. Getting all pairs using .items() ---")
 all_pairs = person.items()
 print(all_pairs)
 print()
 
-# Method 4: .update()
+#
+# **Method 4:** .update()
 # This allows you to add or change multiple items at once.
 print("--- 9. Updating multiple items using .update() ---")
 person.update({"city": "Mumbai", "phone": 123456})
 print("After update:", person)
 print()
 
-# Method 5: .pop()
+#
+# **Method 5:** .pop()
 # This removes an item using its key and returns the value that was removed.
 print("--- 10. Removing an item using .pop() ---")
 removed_hobby = person.pop("hobby")
@@ -131,7 +139,8 @@ print("Removed hobby was:", removed_hobby)
 print("Dictionary after popping hobby:", person)
 print()
 
-# Method 6: .clear()
+#
+# **Method 6:** .clear()
 # This completely empties the dictionary.
 print("--- 11. Emptying the dictionary using .clear() ---")
 person.clear()

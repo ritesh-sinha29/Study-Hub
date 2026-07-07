@@ -19,7 +19,7 @@
 # 1. Cleaner readability when checking a single variable against many values.
 # 2. Pattern Matching: It can match complex structures (like lists and dictionaries) and extract values from them.
 #
-# HOW IT WORKS INTERNALLY: match-case is NOT just if-elif sugar. Python's
+# **HOW IT WORKS INTERNALLY:** match-case is NOT just if-elif sugar. Python's
 # structural pattern matching actually deconstructs the matched value against
 # each case pattern. This means cases can bind sub-parts of the value to
 # local names automatically (e.g., `case {"role": role}` extracts the role).
@@ -27,7 +27,7 @@
 # GUARD CLAUSES: You can add an `if` condition inside a case:
 #   case x if x > 100:   <- only matches numbers greater than 100
 #
-# KEY INSIGHT: The `_` wildcard case matches EVERYTHING and doesn't bind a
+# KEY INSIGHT: The `_` wildcard case matches **EVERYTHING** and doesn't bind a
 # name. Always put it last — it acts as the default/else branch.
 
 

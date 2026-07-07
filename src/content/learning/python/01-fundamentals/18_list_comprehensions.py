@@ -2,7 +2,9 @@
 # PYTHON LIST COMPREHENSIONS (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A LIST COMPREHENSION? ---
+# ---
+#
+# **WHAT IS A LIST COMPREHENSION?** ---
 # A list comprehension is a SHORT and CLEAN way to create a new list
 # from an existing list (or any collection), often in just ONE line.
 
@@ -10,12 +12,12 @@
 # Normal way: Take each apple from the basket, check if it's red, put it in a new basket.
 # Comprehension: [apple for apple in basket if apple is red]  ← Same thing, one line!
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: Filter or transform a list of database results quickly
 # * LangGraph: Process a list of AI messages or tool outputs
 # * Everywhere: Whenever you loop over a list to create a new one
 #
-# HOW IT WORKS: A list comprehension is syntactic sugar for a for-loop with
+# **HOW IT WORKS:** A list comprehension is syntactic sugar for a for-loop with
 # an append. Python evaluates the entire comprehension EAGERLY and stores all
 # results in a new list in memory immediately.
 #

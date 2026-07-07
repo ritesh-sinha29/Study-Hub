@@ -2,12 +2,14 @@
 # PYTHON FUNCTIONS (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A FUNCTION? ---
+# ---
+#
+# **WHAT IS A FUNCTION?** ---
 # A function is a block of reusable code that does ONE specific task.
 # Instead of writing the same code again and again, you write it once 
 # inside a function and just CALL it whenever needed.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: EVERY API route (endpoint) is a function.
 #   e.g., @app.get("/users") -> def get_users(): ...
 # * LangGraph: Every "node" in the AI graph is a function.
@@ -16,7 +18,7 @@
 # To CREATE a function, use the keyword `def` (short for "define")
 # Syntax:  def function_name(parameters):
 #
-# HOW IT WORKS INTERNALLY: When you call a function, Python creates a new
+# **HOW IT WORKS INTERNALLY:** When you call a function, Python creates a new
 # "stack frame" in memory for that call — a private workspace containing the
 # function's local variables. When the function returns, the frame is destroyed
 # and control returns to the caller with the return value.

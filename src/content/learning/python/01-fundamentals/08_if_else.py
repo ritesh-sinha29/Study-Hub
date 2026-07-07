@@ -2,7 +2,7 @@
 # PYTHON IF / ELIF / ELSE (FOR BEGINNERS)
 # ==========================================
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # Use if/else when your program needs to make a DECISION based on a condition.
 # Examples:
 #   * Login System: If password is correct -> allow access, else -> deny.
@@ -14,7 +14,7 @@
 # If True  -> runs the `if` block
 # If False -> checks `elif`, or falls to `else`
 #
-# HOW PYTHON EVALUATES CONDITIONS: Python doesn't just check for True/False
+# **HOW PYTHON EVALUATES CONDITIONS:** Python doesn't just check for True/False
 # literals. It checks for TRUTHINESS. The following values are all "falsy":
 # 0, 0.0, "", [], {}, set(), None, False.
 # Everything else is "truthy". This means `if my_list:` is a clean way to
@@ -24,7 +24,7 @@
 # evaluates B (pointless). In `if A or B`, if A is True, Python skips B.
 # This saves time and lets you write guards like: `if user and user.is_active:`
 #
-# KEY INSIGHT: `elif` is NOT a separate if. Python stops at the FIRST branch
+# KEY INSIGHT: `elif` is NOT a separate if. Python stops at the **FIRST** branch
 # that is True and skips all remaining elif/else blocks. Order matters!
 
 

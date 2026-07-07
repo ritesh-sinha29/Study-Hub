@@ -2,18 +2,20 @@
 # PYTHON CLASSES & OOP (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A CLASS? ---
+# ---
+#
+# **WHAT IS A CLASS?** ---
 # A class is like a BLUEPRINT or TEMPLATE for creating objects.
 # Example: A "Car" blueprint defines: color, brand, speed.
 #          From that blueprint, you can create many actual cars.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI + Pydantic: You define a `class User` as a model,
 #   and FastAPI uses it to validate request and response data.
 # * LangGraph: State objects that hold data as an agent runs are classes.
 # * Everywhere: Grouping related data and behavior together.
 #
-# HOW IT WORKS INTERNALLY: When you write `Dog("Bruno", "Labrador")`, Python
+# **HOW IT WORKS INTERNALLY:** When you write `Dog("Bruno", "Labrador")`, Python
 # first calls `Dog.__new__(Dog)` to allocate a blank object in memory, then
 # calls `Dog.__init__(obj, "Bruno", "Labrador")` to populate it. So __init__
 # is an INITIALIZER, not a constructor — the object already exists when it runs.

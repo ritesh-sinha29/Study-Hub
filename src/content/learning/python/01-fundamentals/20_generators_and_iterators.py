@@ -2,7 +2,9 @@
 # PYTHON GENERATORS & ITERATORS (FOR BEGINNERS)
 # ==========================================
 
-# --- WHAT IS A GENERATOR? ---
+# ---
+#
+# **WHAT IS A GENERATOR?** ---
 # A generator is a special function that produces values ONE AT A TIME
 # instead of creating the whole list in memory at once.
 # It uses the `yield` keyword instead of `return`.
@@ -12,12 +14,12 @@
 # Generator: Like a tap — gives you water on demand, one drop at a time.
 #            Much more memory efficient for large data!
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * LangGraph / LangChain: Streaming AI responses word by word (not waiting for full reply)
 # * FastAPI: Streaming large file downloads or real-time data
 # * Processing large CSV files without loading everything into memory
 #
-# HOW IT WORKS INTERNALLY: When Python sees `yield` inside a function, it
+# **HOW IT WORKS INTERNALLY:** When Python sees `yield` inside a function, it
 # compiles it as a generator function. Calling it returns a generator OBJECT
 # (no code runs yet). Each call to `next()` resumes execution from the last
 # `yield`, runs until the next `yield`, pauses again, and hands the value

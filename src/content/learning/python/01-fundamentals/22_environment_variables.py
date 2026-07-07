@@ -4,7 +4,7 @@
 
 # --- WHAT ARE ENVIRONMENT VARIABLES? ---
 # Environment variables are SECRET pieces of information stored OUTSIDE your code.
-# Things like API keys, database passwords, and secret tokens should NEVER
+# Things like API keys, database passwords, and secret tokens should **NEVER**
 # be written directly in your code (someone could steal them from GitHub!).
 # Instead, you store them in a special file called `.env` and read them in Python.
 
@@ -12,18 +12,18 @@
 # Your code is like a public notice board — anyone can read it.
 # Environment variables are like a locked safe — only your app can open it.
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # * FastAPI: Store database URL, JWT secret key, OpenAI API key in .env
 # * LangGraph: Store your LLM provider API keys (OpenAI, Anthropic, Google)
-# * All projects: NEVER hardcode secrets in your code!
+# * All projects: **NEVER** hardcode secrets in your code!
 #
-# HOW IT WORKS INTERNALLY: Environment variables are key-value pairs stored
+# **HOW IT WORKS INTERNALLY:** Environment variables are key-value pairs stored
 # in the operating system's process environment. Each process inherits a copy
 # of its parent's environment. `os.environ` is a mapping object that reads
 # directly from this inherited copy — changes made via `os.environ[key] = val`
 # affect only the current Python process, not your shell or other processes.
 #
-# .env FILE SECURITY: The .env file holds plaintext secrets and must ALWAYS
+# **.env FILE SECURITY:** The .env file holds plaintext secrets and must **ALWAYS**
 # be listed in .gitignore. If it's committed to Git, anyone with repo access
 # can read your API keys. Create a .env.example with dummy values for teammates.
 #
@@ -153,8 +153,8 @@ print()
 # ==========================================
 print("5. IMPORTANT RULES for environment variables")
 print("==========================================")
-print("  1. NEVER hardcode secrets (API keys, passwords) in your .py files")
-print("  2. ALWAYS add .env to your .gitignore file")
+print("  1. **NEVER** hardcode secrets (API keys, passwords) in your .py files")
+print("  2. **ALWAYS** add .env to your .gitignore file")
 print("  3. Create a .env.example file (without real values) for teammates")
 print("  4. Use os.environ.get('KEY', 'default') to avoid crashes if key is missing")
 print("  5. For production, use your hosting platform's secret manager (e.g., Railway, Render)")

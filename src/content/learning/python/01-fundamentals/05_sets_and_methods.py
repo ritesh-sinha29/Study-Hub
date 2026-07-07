@@ -2,7 +2,7 @@
 # PYTHON SETS AND METHODS (FOR BEGINNERS)
 # ==========================================
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # Use a Set when you want to ensure there are no duplicate items, 
 # or when you need to perform math-like operations (like finding common values).
 # Examples:
@@ -10,12 +10,15 @@
 #   * Mutual Friends: Finding the intersection (common friends) between two profiles.
 #   * Deduplication: Removing duplicate items from a list of registered emails.
 
-# A Set is an unordered collection of UNIQUE elements.
-# Rule 1: We use curly braces `{}` to create a set.
-# Rule 2: Sets do not allow duplicate items. Any duplicates are automatically removed!
-# Rule 3: Sets are unordered (they don't keep track of the insertion order).
+# A Set is an unordered collection of **UNIQUE** elements.
 #
-# HOW IT WORKS INTERNALLY: Python computes a hash for every item you add.
+# **Rule 1:** We use curly braces `{}` to create a set.
+#
+# **Rule 2:** Sets do not allow duplicate items. Any duplicates are automatically removed!
+#
+# **Rule 3:** Sets are unordered (they don't keep track of the insertion order).
+#
+# **HOW IT WORKS INTERNALLY:** Python computes a hash for every item you add.
 # If two items produce the same hash (collision), Python checks whether they
 # are truly equal. If equal, only one copy is kept — hence automatic deduplication.
 #
@@ -28,7 +31,7 @@
 #   -  (difference)     — items in A but not in B
 #   ^  (symmetric diff) — items in either set, but NOT in both
 #
-# KEY INSIGHT: Elements must be HASHABLE (immutable). Lists, dicts, and other
+# KEY INSIGHT: Elements must be **HASHABLE** (immutable). Lists, dicts, and other
 # sets cannot be added to a set because they are mutable and their hash would
 # change — breaking the internal hash table.
 

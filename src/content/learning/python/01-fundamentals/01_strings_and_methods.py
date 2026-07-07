@@ -2,7 +2,7 @@
 # PYTHON STRINGS AND METHODS (FOR BEGINNERS)
 # ==========================================
 
-# --- REAL-WORLD USE CASES ---
+# --- WHY LEARN THIS? ---
 # Use a String when you need to store and manipulate text data.
 # Examples:
 #   * Usernames / Passwords: "ritesh_123"
@@ -10,13 +10,15 @@
 #   * Status Messages: Printing feedback to users like "Loading...", "Success!"
 
 # A String is a sequence of characters surrounded by quotes.
-# IMPORTANT RULE: Strings are IMMUTABLE (cannot be changed after creation).
+#
+# **IMPORTANT RULE:** Strings are **IMMUTABLE** (cannot be changed after creation).
 # All string methods return a NEW string; they do NOT change the original string.
 #
-# HOW IT WORKS: Think of a string as a "read-only tape" — you can inspect any
+# **HOW IT WORKS:** Think of a string as a "read-only tape" — you can inspect any
 # character by index, copy slices, or produce new transformed versions of it,
 # but you can never reach in and modify a character in place.
-# WHY IMMUTABLE? Strings are used as dictionary keys and set elements, which
+#
+# **WHY **IMMUTABLE**?** Strings are used as dictionary keys and set elements, which
 # rely on the hash of the object never changing. If strings were mutable,
 # changing one would silently corrupt every dict that used it as a key.
 #
