@@ -184,9 +184,6 @@ export async function POST(req: Request) {
         searchWeb: tool({
           description: "Search the web using Google for general topics outside Study-Hub.",
           inputSchema: z.object({ query: z.string() }),
-          execute: async ({ query }) => {
-            return `Simulated search results for: "${query}"`;
-          },
         }),
       },
       stopWhen: isStepCount(5),
