@@ -65,28 +65,22 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
   const setIsOpen = onOpenChange !== undefined ? onOpenChange : setInternalOpen;
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [messages, setMessages] = useState<{role: string, content: string}[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [toolDecisions, setToolDecisions] = useState<Record<string, "approved" | "denied">>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
-
-    const newMessages = [...messages, { role: "user", content: input }];
-    setMessages(newMessages);
-    setInput("");
+  const sendChatRequest = async (currentMessages: any[]) => {
     setIsLoading(true);
-
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: currentMessages }),
       });
 
       if (!res.ok) {
@@ -101,26 +95,105 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let assistantMsg = { role: "assistant", content: "" };
+      let assistantMsg = { role: "assistant", content: "", toolCalls: [] as any[] };
       
-      setMessages([...newMessages, assistantMsg]);
+      setMessages([...currentMessages, assistantMsg]);
 
+      let buffer = "";
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        assistantMsg.content += decoder.decode(value, { stream: true });
-        setMessages([...newMessages, { ...assistantMsg }]);
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          try {
+            const data = JSON.parse(line);
+            if (data.type === "text") {
+              assistantMsg.content += data.delta;
+              setMessages([...currentMessages, { ...assistantMsg }]);
+            } else if (data.type === "tool-call") {
+              assistantMsg.toolCalls = assistantMsg.toolCalls || [];
+              assistantMsg.toolCalls.push(data);
+              setMessages([...currentMessages, { ...assistantMsg }]);
+            }
+          } catch {
+            // Fallback for raw text lines
+            assistantMsg.content += line;
+            setMessages([...currentMessages, { ...assistantMsg }]);
+          }
+        }
       }
     } catch (error: any) {
       console.error("Chat error:", error);
       const msg = error?.message || "Something went wrong. Please try again.";
-      setMessages([...newMessages, { role: "assistant", content: `⚠️ ${msg}` }]);
+      setMessages([...currentMessages, { role: "assistant", content: `⚠️ ${msg}` }]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const clear = () => setMessages([]);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    const newMessages = [...messages, { role: "user", content: input }];
+    setMessages(newMessages);
+    setInput("");
+    await sendChatRequest(newMessages);
+  };
+
+  const handleToolApproval = async (msgIdx: number, toolCall: any, approved: boolean) => {
+    if (isLoading) return;
+    
+    // Set decision state
+    setToolDecisions(prev => ({ ...prev, [toolCall.id]: approved ? "approved" : "denied" }));
+    setIsLoading(true);
+
+    let searchResult = "User denied web search access. Please answer based on your internal knowledge.";
+    
+    if (approved) {
+      try {
+        const searchRes = await fetch(`/api/search?query=${encodeURIComponent(toolCall.args.query)}`);
+        if (searchRes.ok) {
+          const searchData = await searchRes.json();
+          searchResult = searchData.result || "No search results returned.";
+        } else {
+          searchResult = "Web search failed to execute.";
+        }
+      } catch (err) {
+        console.error("Search API error:", err);
+        searchResult = "Error performing web search.";
+      }
+    }
+
+    // Add tool response message
+    const updatedMessages = [
+      ...messages,
+      {
+        role: "tool",
+        content: [
+          {
+            type: "tool-result",
+            toolCallId: toolCall.id,
+            toolName: toolCall.name,
+            result: searchResult
+          }
+        ]
+      }
+    ];
+
+    setMessages(updatedMessages);
+    await sendChatRequest(updatedMessages);
+  };
+
+  const clear = () => {
+    setMessages([]);
+    setToolDecisions({});
+  };
 
   useEffect(() => {
     if (scrollContainerRef.current) {
@@ -194,6 +267,20 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
             ) : (
               <div className="space-y-3 text-left animate-in fade-in-50 duration-200">
                 {messages.map((msg, idx) => {
+                  if (msg.role === "tool") {
+                    const isApproved = msg.content?.[0]?.result && !msg.content[0].result.includes("denied");
+                    return (
+                      <div key={idx} className="flex justify-start pl-7 text-[10px] text-muted-foreground items-center gap-1.5 py-1">
+                        <AIAssistantIcon className="size-3.5 opacity-70 animate-pulse text-indigo-500" />
+                        <span>
+                          {isApproved 
+                            ? `Searched the web for: "${msg.content[0].toolName}"` 
+                            : "Web search cancelled"}
+                        </span>
+                      </div>
+                    );
+                  }
+
                   const isUser = msg.role === "user";
                   return (
                     <div
@@ -242,11 +329,62 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
                           >
                             {msg.content}
                           </ReactMarkdown>
-                        ) : isLoading && msg.role !== "user" ? (
+                        ) : isLoading && msg.role !== "user" && (!msg.toolCalls || msg.toolCalls.length === 0) ? (
                           <span className="flex items-center gap-1.5 font-medium text-shimmer">
                             Assistant is thinking...
                           </span>
                         ) : null}
+
+                        {/* Interactive Tool Approval Request Panel */}
+                        {msg.toolCalls?.map((tc: any) => {
+                          if (tc.name === "searchWeb") {
+                            const decision = toolDecisions[tc.id];
+                            if (!decision) {
+                              return (
+                                <div key={tc.id} className="mt-2 p-2 rounded-xl border border-indigo-150 dark:border-indigo-900/60 bg-indigo-50/40 dark:bg-indigo-950/20 text-[10px] space-y-2">
+                                  <div className="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-400 font-semibold">
+                                    <AIAssistantIcon className="size-3.5" />
+                                    <span>Web Search: "{tc.args.query}"</span>
+                                  </div>
+                                  <p className="text-muted-foreground leading-normal">
+                                    I need to search the web to retrieve this information.
+                                  </p>
+                                  <div className="flex gap-1.5 pt-0.5">
+                                    <Button
+                                      size="sm"
+                                      type="button"
+                                      onClick={() => handleToolApproval(idx, tc, true)}
+                                      className="h-6 px-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-[9.5px] cursor-pointer"
+                                    >
+                                      Approve Search
+                                    </Button>
+                                    <Button
+                                      size="sm"
+                                      type="button"
+                                      variant="outline"
+                                      onClick={() => handleToolApproval(idx, tc, false)}
+                                      className="h-6 px-2.5 text-[9.5px] rounded-md border-indigo-200 hover:bg-indigo-50/50 dark:border-indigo-900 cursor-pointer text-foreground"
+                                    >
+                                      Deny
+                                    </Button>
+                                  </div>
+                                </div>
+                              );
+                            } else {
+                              return (
+                                <div key={tc.id} className="mt-2 text-[9.5px] text-muted-foreground italic flex items-center gap-1">
+                                  <span>
+                                    {decision === "approved" 
+                                      ? `✓ Web search approved ("${tc.args.query}")`
+                                      : `✗ Web search denied`
+                                    }
+                                  </span>
+                                </div>
+                              );
+                            }
+                          }
+                          return null;
+                        })}
                       </div>
                       {isUser && (
                         <Avatar className="h-6 w-6 border border-border shrink-0 mt-0.5">
