@@ -24,7 +24,7 @@
 # the INSTANCE's `__dict__`, then the CLASS's `__dict__`, then parent classes
 # in Method Resolution Order (MRO). This is how inheritance works at runtime.
 #
-# KEY INSIGHT: `super().__init__(...)` explicitly calls the PARENT class's
+# **KEY INSIGHT:** `super().__init__(...)` explicitly calls the PARENT class's
 # __init__ using the MRO. In multiple inheritance, MRO (C3 linearization)
 # determines which parent's method gets called first.
 

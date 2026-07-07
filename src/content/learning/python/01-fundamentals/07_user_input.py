@@ -15,7 +15,8 @@
 #
 # **HOW IT WORKS:** `input()` pauses the program, waits for the user to type something
 # and press Enter, then hands the typed text back to your code as a str.
-# KEY INSIGHT: `input()` **ALWAYS** returns a `str` — even if the user types "42".
+#
+# **KEY INSIGHT:** `input()` **ALWAYS** returns a `str` — even if the user types "42".
 # You receive the text "42", not the number 42. You must explicitly convert
 # it with `int()` or `float()` before doing any arithmetic.
 # If you skip the conversion, Python will raise a TypeError:

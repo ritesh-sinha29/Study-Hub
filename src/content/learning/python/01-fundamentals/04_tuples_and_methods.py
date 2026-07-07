@@ -27,7 +27,7 @@
 #   • Fixed config: months = ("Jan", "Feb", ...) — nothing should change it.
 #   • Dict keys or set elements that are composite (e.g. (user_id, session_id)).
 #
-# KEY INSIGHT: Because tuples have a fixed size and no need for over-allocation,
+# **KEY INSIGHT:** Because tuples have a fixed size and no need for over-allocation,
 # they use less memory and are faster to create than equivalent lists.
 
 # Let's create a tuple of numbers:

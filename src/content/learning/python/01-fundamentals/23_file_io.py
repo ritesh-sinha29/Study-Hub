@@ -21,7 +21,7 @@
 # disk. Call `file.flush()` or use `buffering=0` for unbuffered writes when
 # you need data on disk immediately (e.g., real-time logging).
 #
-# KEY INSIGHT: Always specify `encoding='utf-8'` when opening text files:
+# **KEY INSIGHT:** Always specify `encoding='utf-8'` when opening text files:
 #   `open("file.txt", "r", encoding="utf-8")`
 # The default encoding is platform-dependent (UTF-8 on Linux/Mac, cp1252
 # on Windows), which causes silent data corruption when sharing files.

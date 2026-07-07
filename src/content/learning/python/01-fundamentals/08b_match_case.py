@@ -27,7 +27,7 @@
 # GUARD CLAUSES: You can add an `if` condition inside a case:
 #   case x if x > 100:   <- only matches numbers greater than 100
 #
-# KEY INSIGHT: The `_` wildcard case matches **EVERYTHING** and doesn't bind a
+# **KEY INSIGHT:** The `_` wildcard case matches **EVERYTHING** and doesn't bind a
 # name. Always put it last — it acts as the default/else branch.
 
 

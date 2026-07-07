@@ -25,7 +25,7 @@
 # keeping it alive in memory even after the outer decorator function returns.
 # This is how the wrapper can still call `func(...)` later.
 #
-# KEY INSIGHT: Always use `@functools.wraps(func)` inside your wrapper.
+# **KEY INSIGHT:** Always use `@functools.wraps(func)` inside your wrapper.
 # Without it, the decorated function loses its `__name__` and `__doc__`,
 # which breaks debugging tools and API documentation generators.
 

@@ -23,7 +23,7 @@
 # until you iterate over them (e.g., wrap in `list()`). This makes them
 # memory-efficient for large datasets.
 #
-# KEY INSIGHT: Lambda functions are ideal for short, one-off key functions
+# **KEY INSIGHT:** Lambda functions are ideal for short, one-off key functions
 # (like `sorted(users, key=lambda u: u["age"])`). For anything complex or
 # reused in multiple places, use a regular named `def` function instead —
 # it's more readable and debuggable.

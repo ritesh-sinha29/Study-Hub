@@ -28,7 +28,7 @@
 # `SystemExit`, and `GeneratorExit` inherit from `BaseException` directly,
 # which is why `except Exception:` does NOT catch Ctrl+C — intentional.
 #
-# KEY INSIGHT: The order of `except` clauses matters. Python checks them top
+# **KEY INSIGHT:** The order of `except` clauses matters. Python checks them top
 # to bottom and runs the **FIRST** match. Always put specific exceptions (like
 # `ValueError`) before generic ones (like `Exception`).
 

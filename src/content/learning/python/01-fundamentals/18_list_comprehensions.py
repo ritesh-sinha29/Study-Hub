@@ -30,7 +30,7 @@
 #   [x for x in items if condition]           ← filter items out
 # These look similar but behave very differently — the first never skips items.
 #
-# KEY INSIGHT: Nested comprehensions are possible but readability suffers fast.
+# **KEY INSIGHT:** Nested comprehensions are possible but readability suffers fast.
 # `[val for row in matrix for val in row]` is fine; anything deeper should
 # be a regular for-loop.
 

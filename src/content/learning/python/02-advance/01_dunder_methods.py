@@ -28,7 +28,7 @@
 # to make it a context manager. You don’t inherit from any base class;
 # just implement the right methods and Python treats you as that type.
 #
-# KEY INSIGHT: `__repr__` should return a string that, when passed to `eval()`,
+# **KEY INSIGHT:** `__repr__` should return a string that, when passed to `eval()`,
 # recreates the object: `eval(repr(obj)) == obj`. This makes it invaluable
 # for debugging and logging because you can reproduce the exact object state.
 

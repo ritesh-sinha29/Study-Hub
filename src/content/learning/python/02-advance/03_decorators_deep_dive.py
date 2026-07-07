@@ -20,7 +20,7 @@
 # them bottom-to-top at DEFINITION time: `func = dec1(dec2(func))`.
 # At CALL time, dec1’s wrapper runs first (outermost), then dec2’s (innermost).
 #
-# KEY INSIGHT: Class-based decorators store state cleanly as instance attributes
+# **KEY INSIGHT:** Class-based decorators store state cleanly as instance attributes
 # and trigger on each call via `__call__`. They excel when you need persistent
 # state (e.g., call counts, caches) across multiple invocations.
 

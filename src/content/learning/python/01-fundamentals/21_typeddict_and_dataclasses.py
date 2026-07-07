@@ -21,7 +21,7 @@
 # the hood so that the graph framework can merge partial state updates across
 # nodes. Dataclasses don't support dict-style merging natively.
 #
-# KEY INSIGHT: In dataclasses, **NEVER** use a mutable default like `tags: list = []`.
+# **KEY INSIGHT:** In dataclasses, **NEVER** use a mutable default like `tags: list = []`.
 # Use `field(default_factory=list)` instead. Without it, all instances share
 # the exact same list object — modifying one modifies all.
 

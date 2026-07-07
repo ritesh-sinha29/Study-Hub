@@ -32,7 +32,7 @@
 #   True/False →  true/false
 #   None       →  null
 #
-# KEY INSIGHT: Custom Python objects (like classes) cannot be serialized by
+# **KEY INSIGHT:** Custom Python objects (like classes) cannot be serialized by
 # default. You must either convert them to a dict first, use a custom
 # JSONEncoder subclass, or use Pydantic's `.model_dump()` method.
 

@@ -28,7 +28,7 @@
 # the incoming JSON against them automatically. If a field expects `int` and
 # receives `"hello"`, FastAPI returns a 422 error with a detailed message.
 #
-# KEY INSIGHT: The `Optional[str]` type means the value can be a `str` OR
+# **KEY INSIGHT:** The `Optional[str]` type means the value can be a `str` OR
 # `None`. In Python 3.10+ you can write `str | None` instead. Use `Optional`
 # for fields that may be absent in an API request body.
 

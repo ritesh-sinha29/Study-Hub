@@ -34,7 +34,7 @@ is a good boy'''
 print(b)
 
 #
-# KEY INSIGHT: Triple-quoted strings are used in three very different roles:
+# **KEY INSIGHT:** Triple-quoted strings are used in three very different roles:
 #   1. Docstrings (placed immediately after def/class) — Python stores them
 #      in `obj.__doc__` and they appear in help().
 #   2. Long string data — SQL queries, HTML templates, AI system prompts.

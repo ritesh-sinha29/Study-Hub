@@ -28,7 +28,7 @@
 # can store it, pass it to another function, or use it in an expression.
 # A function without a `return` statement implicitly returns `None`.
 #
-# KEY INSIGHT: Functions with default parameter values (`def greet(name="World")`)
+# **KEY INSIGHT:** Functions with default parameter values (`def greet(name="World")`)
 # allow callers to omit that argument. Default values are evaluated ONCE at
 # definition time — using a mutable default like `def fn(lst=[])` is a classic
 # bug because all callers share the SAME list object.

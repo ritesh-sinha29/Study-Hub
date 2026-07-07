@@ -27,7 +27,7 @@
 # be listed in .gitignore. If it's committed to Git, anyone with repo access
 # can read your API keys. Create a .env.example with dummy values for teammates.
 #
-# KEY INSIGHT: `os.environ.get("KEY")` returns None if the key is missing.
+# **KEY INSIGHT:** `os.environ.get("KEY")` returns None if the key is missing.
 # `os.environ["KEY"]` raises a KeyError. Use `get()` for optional settings
 # and bracket notation for required settings that must exist at startup.
 

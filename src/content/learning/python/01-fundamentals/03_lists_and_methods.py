@@ -23,7 +23,7 @@
 # and copies existing items over. This is why append is O(1) amortized, but
 # insert at position 0 is O(n) because every item must shift right.
 #
-# KEY INSIGHT: Lists can hold mixed types, but sorting requires all items
+# **KEY INSIGHT:** Lists can hold mixed types, but sorting requires all items
 # to be comparable to each other. Mixing str and int causes a TypeError
 # because Python doesn't know how to rank "Ritesh" vs 5.
 

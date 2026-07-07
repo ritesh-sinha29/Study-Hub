@@ -21,7 +21,7 @@
 # range() is LAZY — it doesn't create a list of numbers in memory. It yields
 # one number at a time, making `for i in range(1_000_000):` memory-free.
 #
-# KEY INSIGHT: `break` exits the loop immediately and skips the `else` block
+# **KEY INSIGHT:** `break` exits the loop immediately and skips the `else` block
 # (if any). `continue` skips the rest of the current iteration and jumps to
 # the next one. `else` on a loop runs ONLY if the loop completed without `break`.
 

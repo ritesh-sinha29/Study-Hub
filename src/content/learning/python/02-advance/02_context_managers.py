@@ -25,7 +25,7 @@
 #   4. If `__exit__` returns True, the exception is **SUPPRESSED**. If False/None,
 #      the exception propagates up the call stack.
 #
-# KEY INSIGHT: `@contextmanager` from `contextlib` lets you write a context
+# **KEY INSIGHT:** `@contextmanager` from `contextlib` lets you write a context
 # manager as a generator function. Code before `yield` is the setup
 # (__enter__) and code after `yield` (in a `finally` block) is the cleanup
 # (__exit__). Use this for simple, one-off context managers without a class.

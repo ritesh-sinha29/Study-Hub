@@ -31,7 +31,7 @@
 #   -  (difference)     — items in A but not in B
 #   ^  (symmetric diff) — items in either set, but NOT in both
 #
-# KEY INSIGHT: Elements must be **HASHABLE** (immutable). Lists, dicts, and other
+# **KEY INSIGHT:** Elements must be **HASHABLE** (immutable). Lists, dicts, and other
 # sets cannot be added to a set because they are mutable and their hash would
 # change — breaking the internal hash table.
 

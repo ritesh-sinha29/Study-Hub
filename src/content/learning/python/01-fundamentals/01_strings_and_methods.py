@@ -22,7 +22,7 @@
 # rely on the hash of the object never changing. If strings were mutable,
 # changing one would silently corrupt every dict that used it as a key.
 #
-# KEY INSIGHT: Every string method (upper, replace, strip...) returns a BRAND
+# **KEY INSIGHT:** Every string method (upper, replace, strip...) returns a BRAND
 # NEW string object. The original is never touched. This is why you must
 # capture the return value: `name = name.upper()` — not just `name.upper()`.
 
@@ -90,7 +90,7 @@ print()
 #   Index:          0 1 2 3 4 5
 #   Negative idx:  -6-5-4-3-2-1
 #
-# KEY INSIGHT: The stop index is exclusive — `name[0:4]` gives characters at
+# **KEY INSIGHT:** The stop index is exclusive — `name[0:4]` gives characters at
 # positions 0, 1, 2, 3 but NOT 4. Think of indices as "between character"
 # markers, not the characters themselves.
 

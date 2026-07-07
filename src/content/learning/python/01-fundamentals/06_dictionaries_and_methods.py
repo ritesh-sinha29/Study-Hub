@@ -24,7 +24,7 @@
 # to find its bucket, so lookup is O(1) regardless of dict size — in a list
 # you'd have to scan every entry, but in a dict you jump straight to the answer.
 #
-# KEY INSIGHT: Keys must be hashable (strings, ints, tuples — NOT lists or
+# **KEY INSIGHT:** Keys must be hashable (strings, ints, tuples — NOT lists or
 # dicts). Values can be anything: numbers, lists, nested dicts, even functions.
 
 # Let's create our first dictionary storing information about a person:

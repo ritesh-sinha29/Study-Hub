@@ -28,7 +28,7 @@
 # Coroutines are managed by Python's event loop, are extremely lightweight,
 # and share memory safely because only one coroutine runs at a time.
 #
-# KEY INSIGHT: `async def` alone does nothing special. You MUST `await` the
+# **KEY INSIGHT:** `async def` alone does nothing special. You MUST `await` the
 # coroutine to actually execute it. Calling `my_async_fn()` without `await`
 # just creates a coroutine object — it never runs.
 

@@ -24,7 +24,7 @@
 # evaluates B (pointless). In `if A or B`, if A is True, Python skips B.
 # This saves time and lets you write guards like: `if user and user.is_active:`
 #
-# KEY INSIGHT: `elif` is NOT a separate if. Python stops at the **FIRST** branch
+# **KEY INSIGHT:** `elif` is NOT a separate if. Python stops at the **FIRST** branch
 # that is True and skips all remaining elif/else blocks. Order matters!
 
 

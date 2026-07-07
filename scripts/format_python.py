@@ -10,6 +10,7 @@ headers = [
     r'WHY IMMUTABLE\?',
     r'WHAT IS [A-Z ]+\?',
     r'Rule \d+:',
+    r'KEY INSIGHT:',
     r'WHY USE THEM\?',
     r'WHY ARE THESE IMPORTANT\?',
     r'HOW PYTHON [A-Z ]+:',

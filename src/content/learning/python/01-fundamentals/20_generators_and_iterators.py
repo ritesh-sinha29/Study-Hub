@@ -30,7 +30,7 @@
 # allocates ~8 MB of RAM. A generator producing the same items uses only a
 # few dozen bytes — the list doesn't exist until you iterate.
 #
-# KEY INSIGHT: Generators are single-use. Once exhausted (StopIteration is
+# **KEY INSIGHT:** Generators are single-use. Once exhausted (StopIteration is
 # raised), you cannot restart them. You must create a new generator object
 # by calling the generator function again.
 

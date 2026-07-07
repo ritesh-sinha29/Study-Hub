@@ -25,7 +25,7 @@
 # and caches them in a __pycache__ folder. On future imports, it loads the
 # faster bytecode directly, skipping re-parsing the source file.
 #
-# KEY INSIGHT: The `if __name__ == '__main__':` guard runs code only when the
+# **KEY INSIGHT:** The `if __name__ == '__main__':` guard runs code only when the
 # file is executed directly (not when it's imported as a module). This is the
 # standard pattern for making files both importable and runnable.
 
