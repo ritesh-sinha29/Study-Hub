@@ -183,9 +183,13 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
       }
     }
 
+    // Build history up to and including the assistant message that made this tool call.
+    // We must NOT include the empty streaming assistant bubble appended by sendChatRequest.
+    const historyUpToToolCall = messages.slice(0, msgIdx + 1);
+
     // Add tool response message
     const updatedMessages = [
-      ...messages,
+      ...historyUpToToolCall,
       {
         role: "tool",
         content: [
