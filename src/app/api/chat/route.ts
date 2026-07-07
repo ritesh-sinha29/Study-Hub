@@ -44,22 +44,39 @@ function isRateLimited(ip: string): boolean {
 
 // Convert client-side message structure to Vercel AI SDK CoreMessage structure
 function formatMessages(messages: any[]): any[] {
+  // Find all tool call IDs that actually have a matching tool result in the history
+  const respondedToolCallIds = new Set<string>();
+  messages.forEach(msg => {
+    if (msg.role === 'tool' && Array.isArray(msg.content)) {
+      msg.content.forEach((tr: any) => {
+        const id = tr.toolCallId || tr.id;
+        if (id) respondedToolCallIds.add(id);
+      });
+    }
+  });
+
   return messages.map(msg => {
     if (msg.role === 'user') {
       return { role: 'user', content: msg.content };
     }
     if (msg.role === 'assistant') {
-      if (msg.toolCalls && msg.toolCalls.length > 0) {
+      // Filter out tool calls that were never responded to by the client
+      const validToolCalls = (msg.toolCalls || []).filter((tc: any) => {
+        const id = tc.id || tc.toolCallId;
+        return respondedToolCallIds.has(id);
+      });
+
+      if (validToolCalls.length > 0) {
         const content: any[] = [];
         if (msg.content) {
           content.push({ type: 'text', text: msg.content });
         }
-        msg.toolCalls.forEach((tc: any) => {
+        validToolCalls.forEach((tc: any) => {
           content.push({
             type: 'tool-call',
             toolCallId: tc.id || tc.toolCallId,
             toolName: tc.name || tc.toolName,
-            args: tc.args || tc.input
+            input: tc.args || tc.input
           });
         });
         return { role: 'assistant', content };
