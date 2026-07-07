@@ -12,6 +12,20 @@
 # * Logging: Automatically log every time a function is called
 # * Timing: Measure how long a function takes to run
 # * Authentication: Check if a user is logged in before running a function
+#
+# HOW IT WORKS INTERNALLY: Python functions are first-class objects — you can
+# store them in variables, pass them as arguments, and return them from other
+# functions. A decorator is simply a function that receives another function,
+# wraps it in an inner "wrapper" function, and returns the wrapper.
+# The `@my_decorator` syntax is just shorthand for: `func = my_decorator(func)`
+#
+# CLOSURES: The wrapper function "closes over" the original `func` variable,
+# keeping it alive in memory even after the outer decorator function returns.
+# This is how the wrapper can still call `func(...)` later.
+#
+# KEY INSIGHT: Always use `@functools.wraps(func)` inside your wrapper.
+# Without it, the decorated function loses its `__name__` and `__doc__`,
+# which breaks debugging tools and API documentation generators.
 
 print("==========================================")
 print("1. THE PROBLEM DECORATORS SOLVE")

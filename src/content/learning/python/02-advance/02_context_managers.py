@@ -12,8 +12,21 @@
 #   with open("test.txt", "w") as file:
 #       file.write("Hello")
 #
-# Why use `with`? Because it AUTOMATICALLY closes the file for you, 
+# Why use `with`? Because it AUTOMATICALLY closes the file for you,
 # even if an error/crash occurs inside the block! This prevents resource leaks.
+#
+# HOW IT WORKS INTERNALLY:
+#   1. Python calls `obj.__enter__()` — returns the resource (assigned via `as`).
+#   2. Your code block runs.
+#   3. Python calls `obj.__exit__(exc_type, exc_val, exc_tb)` unconditionally,
+#      even if an exception occurred. The three arguments describe the exception.
+#   4. If `__exit__` returns True, the exception is SUPPRESSED. If False/None,
+#      the exception propagates up the call stack.
+#
+# KEY INSIGHT: `@contextmanager` from `contextlib` lets you write a context
+# manager as a generator function. Code before `yield` is the setup
+# (__enter__) and code after `yield` (in a `finally` block) is the cleanup
+# (__exit__). Use this for simple, one-off context managers without a class.
 
 import time
 from contextlib import contextmanager

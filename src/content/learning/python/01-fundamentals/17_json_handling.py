@@ -16,6 +16,23 @@
 # * FastAPI: Receives JSON from a mobile app, returns JSON responses
 # * LangGraph: AI agents pass messages and state as JSON
 # * Reading config files, API responses, databases — all use JSON
+#
+# HOW IT WORKS: JSON is a TEXT format for representing structured data.
+# Python's `json` module handles two operations:
+#   Serialization   (Python → JSON text): json.dumps() / json.dump()
+#   Deserialization (JSON text → Python): json.loads() / json.load()
+#
+# TYPE MAPPING (Python → JSON):
+#   dict       →  object  { }
+#   list/tuple →  array   [ ]
+#   str        →  string  "..."
+#   int/float  →  number
+#   True/False →  true/false
+#   None       →  null
+#
+# KEY INSIGHT: Custom Python objects (like classes) cannot be serialized by
+# default. You must either convert them to a dict first, use a custom
+# JSONEncoder subclass, or use Pydantic's `.model_dump()` method.
 
 import json  # Python's built-in JSON module
 

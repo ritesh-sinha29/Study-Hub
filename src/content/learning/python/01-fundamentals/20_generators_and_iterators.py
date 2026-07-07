@@ -16,6 +16,21 @@
 # * LangGraph / LangChain: Streaming AI responses word by word (not waiting for full reply)
 # * FastAPI: Streaming large file downloads or real-time data
 # * Processing large CSV files without loading everything into memory
+#
+# HOW IT WORKS INTERNALLY: When Python sees `yield` inside a function, it
+# compiles it as a generator function. Calling it returns a generator OBJECT
+# (no code runs yet). Each call to `next()` resumes execution from the last
+# `yield`, runs until the next `yield`, pauses again, and hands the value
+# back to the caller. The generator's entire local state (variables, loop
+# counters, etc.) is preserved between calls.
+#
+# MEMORY ADVANTAGE: A regular function returning a list of 1 million items
+# allocates ~8 MB of RAM. A generator producing the same items uses only a
+# few dozen bytes — the list doesn't exist until you iterate.
+#
+# KEY INSIGHT: Generators are single-use. Once exhausted (StopIteration is
+# raised), you cannot restart them. You must create a new generator object
+# by calling the generator function again.
 
 print("==========================================")
 print("1. NORMAL FUNCTION vs GENERATOR")

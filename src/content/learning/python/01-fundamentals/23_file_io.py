@@ -3,13 +3,28 @@
 # ==========================================================
 
 # --- WHY IS FILE I/O IMPORTANT? ---
-# File I/O (Input/Output) allows your program to read data from files on your disk 
-# and write data back to files. 
+# File I/O (Input/Output) allows your program to read data from files on your disk
+# and write data back to files.
 #
 # Examples of why we need this:
 #   * Log Files: Recording when errors occur in your app.
 #   * Config Files: Reading settings for your FastAPI application.
 #   * Data Persistence: Saving user inputs or results so they aren't lost when the program closes.
+#
+# HOW IT WORKS INTERNALLY: When you open a file, the OS allocates a FILE
+# DESCRIPTOR — an integer handle that represents the open connection to
+# the file. All read/write calls go through this descriptor. Forgetting to
+# close it leaks the descriptor (OS has a limit). The `with` statement
+# guarantees `file.close()` is called even if an exception occurs.
+#
+# BUFFERING: Python writes to an in-memory buffer first, then flushes to
+# disk. Call `file.flush()` or use `buffering=0` for unbuffered writes when
+# you need data on disk immediately (e.g., real-time logging).
+#
+# KEY INSIGHT: Always specify `encoding='utf-8'` when opening text files:
+#   `open("file.txt", "r", encoding="utf-8")`
+# The default encoding is platform-dependent (UTF-8 on Linux/Mac, cp1252
+# on Windows), which causes silent data corruption when sharing files.
 
 import os
 

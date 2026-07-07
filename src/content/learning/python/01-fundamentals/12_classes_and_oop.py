@@ -12,6 +12,19 @@
 #   and FastAPI uses it to validate request and response data.
 # * LangGraph: State objects that hold data as an agent runs are classes.
 # * Everywhere: Grouping related data and behavior together.
+#
+# HOW IT WORKS INTERNALLY: When you write `Dog("Bruno", "Labrador")`, Python
+# first calls `Dog.__new__(Dog)` to allocate a blank object in memory, then
+# calls `Dog.__init__(obj, "Bruno", "Labrador")` to populate it. So __init__
+# is an INITIALIZER, not a constructor — the object already exists when it runs.
+#
+# NAMESPACE LOOKUP CHAIN: When you access `dog1.name`, Python first looks in
+# the INSTANCE's `__dict__`, then the CLASS's `__dict__`, then parent classes
+# in Method Resolution Order (MRO). This is how inheritance works at runtime.
+#
+# KEY INSIGHT: `super().__init__(...)` explicitly calls the PARENT class's
+# __init__ using the MRO. In multiple inheritance, MRO (C3 linearization)
+# determines which parent's method gets called first.
 
 print("==========================================")
 print("1. CREATING A CLASS AND ITS OBJECTS")

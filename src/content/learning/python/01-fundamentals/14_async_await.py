@@ -17,6 +17,20 @@
 #            without blocking other users' requests.
 # * LangGraph: Async lets AI agents make multiple LLM calls at the same time.
 # * Web scraping, API calls, file reading — any "waiting" task benefits from async.
+#
+# HOW IT WORKS INTERNALLY: Python runs async code on a single-threaded EVENT
+# LOOP. When your code hits `await`, it pauses the current coroutine and hands
+# control back to the loop, which can then run other waiting coroutines. There
+# is no multi-threading — only cooperative multitasking.
+#
+# COROUTINE vs THREAD: Threads are managed by the OS and can truly run in
+# parallel (on multiple cores) but have overhead and race conditions.
+# Coroutines are managed by Python's event loop, are extremely lightweight,
+# and share memory safely because only one coroutine runs at a time.
+#
+# KEY INSIGHT: `async def` alone does nothing special. You MUST `await` the
+# coroutine to actually execute it. Calling `my_async_fn()` without `await`
+# just creates a coroutine object — it never runs.
 
 import asyncio  # Python's built-in library for async programming
 

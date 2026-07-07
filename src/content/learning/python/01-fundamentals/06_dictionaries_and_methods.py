@@ -13,10 +13,16 @@
 # Imagine a real-life dictionary:
 # You look up a "Word" (Key) to find its "Meaning" (Value).
 # In Python, a dictionary is a collection of "Key: Value" pairs.
-
 # Rule 1: We use curly braces `{}` to create a dictionary.
 # Rule 2: Each key is separated from its value by a colon `:`
 # Rule 3: Each key-value pair is separated by a comma `,`
+#
+# HOW IT WORKS INTERNALLY: Python is a built-in hash map. Every key is hashed
+# to find its bucket, so lookup is O(1) regardless of dict size — in a list
+# you'd have to scan every entry, but in a dict you jump straight to the answer.
+#
+# KEY INSIGHT: Keys must be hashable (strings, ints, tuples — NOT lists or
+# dicts). Values can be anything: numbers, lists, nested dicts, even functions.
 
 # Let's create our first dictionary storing information about a person:
 person = {
@@ -34,6 +40,12 @@ print()  # prints an empty line for neat spacing
 
 # ==========================================
 # HOW TO ACCESS (READ) DATA FROM A DICTIONARY
+# ==========================================
+# Two ways: bracket notation `d[key]` and `.get(key, default)`.
+# Bracket: fast, raises KeyError if the key is missing — best when the key
+# is required and its absence is a programming error.
+# .get(): safe, returns None (or your custom default) if missing — best for
+# optional fields like user-provided query parameters or config overrides.
 # ==========================================
 
 # You can access a value by putting its key inside square brackets `[]`:
@@ -55,6 +67,12 @@ print()
 # ==========================================
 # HOW TO ADD OR UPDATE DATA
 # ==========================================
+# Assigning `d[key] = value` does double duty:
+#   • If the key already exists — the old value is REPLACED.
+#   • If the key is new — a new entry is INSERTED.
+# This is intentional. There is no separate "insert" and "update" — it’s
+# always a single upsert operation.
+# ==========================================
 
 # To change a value, just use its key and assign a new value:
 print("--- 4. Changing (updating) a value ---")
@@ -71,6 +89,10 @@ print()
 
 # ==========================================
 # DICTIONARY METHODS (BUILT-IN TOOLS)
+# ==========================================
+# Dictionaries expose view objects (.keys(), .values(), .items()) that are
+# LIVE — they update automatically if the dict changes. You can iterate over
+# them or wrap in list() to get a static snapshot.
 # ==========================================
 
 # Method 1: .keys()

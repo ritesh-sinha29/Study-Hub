@@ -10,6 +10,18 @@
 # * Sending an email to 1000 users (loop through the list of emails)
 # * FastAPI: Loop through a list of items returned from a database
 # * LangGraph: Loop through each step of an AI agent workflow
+#
+# HOW FOR LOOPS WORK INTERNALLY: A for loop calls `iter()` on the collection
+# to get an iterator object, then repeatedly calls `next()` on it until a
+# StopIteration exception is raised. This is the iterator protocol and means
+# you can use for loops on ANY object that implements __iter__ and __next__.
+#
+# range() is LAZY — it doesn't create a list of numbers in memory. It yields
+# one number at a time, making `for i in range(1_000_000):` memory-free.
+#
+# KEY INSIGHT: `break` exits the loop immediately and skips the `else` block
+# (if any). `continue` skips the rest of the current iteration and jumps to
+# the next one. `else` on a loop runs ONLY if the loop completed without `break`.
 
 print("==========================================")
 print("1. FOR LOOP — Loop through a list")

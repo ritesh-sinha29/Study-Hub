@@ -11,6 +11,20 @@
 # * Sorting: Sort a list of users by their age using a lambda
 # * LangGraph: Pass small processing functions as callbacks to nodes
 # * map/filter: Transform or filter large lists quickly
+#
+# HOW IT WORKS: `lambda params: expression` is equivalent to a `def` function
+# with a single `return expression` statement. Python creates an anonymous
+# function object that lives only as long as the variable holding it.
+#
+# WHY map() AND filter() RETURN ITERATORS: Both `map()` and `filter()` are
+# lazy — they return iterator objects, not lists. This means they do NO work
+# until you iterate over them (e.g., wrap in `list()`). This makes them
+# memory-efficient for large datasets.
+#
+# KEY INSIGHT: Lambda functions are ideal for short, one-off key functions
+# (like `sorted(users, key=lambda u: u["age"])`). For anything complex or
+# reused in multiple places, use a regular named `def` function instead —
+# it's more readable and debuggable.
 
 print("==========================================")
 print("1. NORMAL FUNCTION vs LAMBDA")

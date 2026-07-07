@@ -13,6 +13,20 @@
 # Python checks if a condition is True or False.
 # If True  -> runs the `if` block
 # If False -> checks `elif`, or falls to `else`
+#
+# HOW PYTHON EVALUATES CONDITIONS: Python doesn't just check for True/False
+# literals. It checks for TRUTHINESS. The following values are all "falsy":
+# 0, 0.0, "", [], {}, set(), None, False.
+# Everything else is "truthy". This means `if my_list:` is a clean way to
+# check if a list is non-empty without writing `if len(my_list) > 0:`.
+#
+# SHORT-CIRCUIT EVALUATION: In `if A and B`, if A is False, Python never
+# evaluates B (pointless). In `if A or B`, if A is True, Python skips B.
+# This saves time and lets you write guards like: `if user and user.is_active:`
+#
+# KEY INSIGHT: `elif` is NOT a separate if. Python stops at the FIRST branch
+# that is True and skips all remaining elif/else blocks. Order matters!
+
 
 print("==========================================")
 print("BASIC IF / ELSE")

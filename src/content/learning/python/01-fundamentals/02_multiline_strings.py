@@ -11,10 +11,29 @@
 
 # Sometimes we want to write a long string that spans multiple lines.
 # There are two main ways to write multi-line strings in Python:
+#
+# Python has two distinct mechanisms for writing text that spans source lines:
+
+# Method 1 — Backslash line continuation: The `\` at the end of a line tells
+# the Python parser "this statement continues on the next line". It does NOT
+# insert a newline character into the string. The resulting value is still a
+# single contiguous line of text.
+
+# Method 2 — Triple-quoted strings (`'''` or `"""`): Everything between the
+# opening and closing triple-quote is kept verbatim, including real newlines,
+# indentation, and spaces. This is the go-to method for multi-line content.
+#
+# KEY INSIGHT: Triple-quoted strings are used in three very different roles:
+#   1. Docstrings (placed immediately after def/class) — Python stores them
+#      in `obj.__doc__` and they appear in help().
+#   2. Long string data — SQL queries, HTML templates, AI system prompts.
+#   3. Temporary multi-line comments (though `#` comment lines are preferred).
 
 # --- Method 1: Using the backslash `\` escape character ---
 # The backslash tells Python: "This line continues on the next line."
 # Note: This will print as a single line because Python joins them together.
+# The `\` tells Python: "ignore the newline here; this string continues."
+# The result is a single line of text — no \n is inserted.
 print("--- Method 1: Backslash continuation ---")
 a = 'Ritesh ' \
     'is a good boy'  # Note the space after Ritesh to prevent words from sticking
@@ -22,8 +41,11 @@ print(a)
 print()
 
 # --- Method 2: Using triple quotes `'''` or `"""` ---
-# This is the most common way. Anything inside triple quotes maintains 
+# This is the most common way. Anything inside triple quotes maintains
 # its exact formatting, including new lines and spaces.
+# Everything between triple quotes is stored exactly as typed — real newlines,
+# spaces, and indentation are all captured in the string value.
+# This is the standard choice for multi-line SQL, JSON templates, or AI prompts.
 print("--- Method 2: Triple Quotes ---")
 b = '''Ritesh
 is a good boy'''

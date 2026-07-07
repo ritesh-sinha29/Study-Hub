@@ -16,6 +16,20 @@
 # * FastAPI: Store database URL, JWT secret key, OpenAI API key in .env
 # * LangGraph: Store your LLM provider API keys (OpenAI, Anthropic, Google)
 # * All projects: NEVER hardcode secrets in your code!
+#
+# HOW IT WORKS INTERNALLY: Environment variables are key-value pairs stored
+# in the operating system's process environment. Each process inherits a copy
+# of its parent's environment. `os.environ` is a mapping object that reads
+# directly from this inherited copy — changes made via `os.environ[key] = val`
+# affect only the current Python process, not your shell or other processes.
+#
+# .env FILE SECURITY: The .env file holds plaintext secrets and must ALWAYS
+# be listed in .gitignore. If it's committed to Git, anyone with repo access
+# can read your API keys. Create a .env.example with dummy values for teammates.
+#
+# KEY INSIGHT: `os.environ.get("KEY")` returns None if the key is missing.
+# `os.environ["KEY"]` raises a KeyError. Use `get()` for optional settings
+# and bracket notation for required settings that must exist at startup.
 
 import os  # Built-in module to access environment variables
 

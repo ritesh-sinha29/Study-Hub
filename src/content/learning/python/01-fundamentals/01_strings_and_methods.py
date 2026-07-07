@@ -12,12 +12,25 @@
 # A String is a sequence of characters surrounded by quotes.
 # IMPORTANT RULE: Strings are IMMUTABLE (cannot be changed after creation).
 # All string methods return a NEW string; they do NOT change the original string.
+#
+# HOW IT WORKS: Think of a string as a "read-only tape" — you can inspect any
+# character by index, copy slices, or produce new transformed versions of it,
+# but you can never reach in and modify a character in place.
+# WHY IMMUTABLE? Strings are used as dictionary keys and set elements, which
+# rely on the hash of the object never changing. If strings were mutable,
+# changing one would silently corrupt every dict that used it as a key.
+#
+# KEY INSIGHT: Every string method (upper, replace, strip...) returns a BRAND
+# NEW string object. The original is never touched. This is why you must
+# capture the return value: `name = name.upper()` — not just `name.upper()`.
 
 name = "Ritesh"
 print("Original string:", name)
 print()
 
 # --- Common String Methods ---
+# Each method below is a tool that solves a specific, recurring real-world need.
+# Pattern: call the method on the string object → get a NEW string back.
 
 # 1. isnumeric() - Returns True if all characters are numbers (like "123")
 print("1. Is the name numeric?", name.isnumeric())
@@ -65,9 +78,19 @@ print()
 # ==========================================
 # STRING SLICING (EXTRACTING PARTS)
 # ==========================================
-# Slicing is used to break a string and get a smaller piece of it.
-# Syntax: string[start_index : stop_index]
-# Note: The stop_index is EXCLUSIVE (it is not included in the output).
+# Slicing extracts a contiguous sub-sequence from a string without modifying it.
+# Python uses zero-based indexing — the first character is always at index 0.
+#
+# Syntax: string[start : stop]   (stop index is EXCLUDED from the result)
+#
+# Mental model — lay out each character with its index:
+#   S t r i n g :  "Ritesh"
+#   Index:          0 1 2 3 4 5
+#   Negative idx:  -6-5-4-3-2-1
+#
+# KEY INSIGHT: The stop index is exclusive — `name[0:4]` gives characters at
+# positions 0, 1, 2, 3 but NOT 4. Think of indices as "between character"
+# markers, not the characters themselves.
 
 # For "Ritesh": 0='R', 1='i', 2='t', 3='e', 4='s', 5='h'
 print("--- String Slicing ---")

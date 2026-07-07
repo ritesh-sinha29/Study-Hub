@@ -12,6 +12,20 @@
 #            and you import them in main.py
 # * LangGraph: Different AI agents/nodes live in separate files and get imported
 # * Every Python project: Use built-in modules like `json`, `os`, `datetime`
+#
+# HOW IT WORKS INTERNALLY: When you `import math`, Python searches `sys.path`
+# in order: (1) current script directory, (2) PYTHONPATH env var, (3) standard
+# library, (4) site-packages (pip installs). The first match wins.
+# Once a module is imported, Python caches it in `sys.modules`. Subsequent
+# imports of the same module return the cached version instantly.
+#
+# __pycache__: Python compiles .py files to bytecode (.pyc) on first import
+# and caches them in a __pycache__ folder. On future imports, it loads the
+# faster bytecode directly, skipping re-parsing the source file.
+#
+# KEY INSIGHT: The `if __name__ == '__main__':` guard runs code only when the
+# file is executed directly (not when it's imported as a module). This is the
+# standard pattern for making files both importable and runnable.
 
 print("==========================================")
 print("1. IMPORTING BUILT-IN MODULES")

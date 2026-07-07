@@ -15,6 +15,21 @@
 
 # To CREATE a function, use the keyword `def` (short for "define")
 # Syntax:  def function_name(parameters):
+#
+# HOW IT WORKS INTERNALLY: When you call a function, Python creates a new
+# "stack frame" in memory for that call — a private workspace containing the
+# function's local variables. When the function returns, the frame is destroyed
+# and control returns to the caller with the return value.
+#
+# RETURN vs PRINT: `print()` writes text to the console — humans see it but
+# code cannot use it. `return` sends a value back to the caller so other code
+# can store it, pass it to another function, or use it in an expression.
+# A function without a `return` statement implicitly returns `None`.
+#
+# KEY INSIGHT: Functions with default parameter values (`def greet(name="World")`)
+# allow callers to omit that argument. Default values are evaluated ONCE at
+# definition time — using a mutable default like `def fn(lst=[])` is a classic
+# bug because all callers share the SAME list object.
 
 print("==========================================")
 print("1. BASIC FUNCTION — No inputs, no output")

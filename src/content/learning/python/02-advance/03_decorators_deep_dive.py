@@ -6,8 +6,23 @@
 # In Python, functions are FIRST-CLASS objects. This means:
 # 1. You can pass functions as arguments to other functions.
 # 2. You can return functions from other functions.
-# A decorator is simply a function that takes another function, 
+# A decorator is simply a function that takes another function,
 # adds some behavior to it, and returns the modified function.
+#
+# PARAMETERIZED DECORATORS require three nested levels:
+#   Level 1 (outermost): accepts the decorator's arguments (e.g. num_times=3)
+#   Level 2 (middle):    accepts the function to decorate
+#   Level 3 (innermost): the actual wrapper that runs at call time
+# This is because `@repeat(3)` first calls `repeat(3)`, which must return
+# a decorator function, which is then applied to the decorated function.
+#
+# STACKING ORDER: When you stack `@dec1` on top of `@dec2`, Python applies
+# them bottom-to-top at DEFINITION time: `func = dec1(dec2(func))`.
+# At CALL time, dec1’s wrapper runs first (outermost), then dec2’s (innermost).
+#
+# KEY INSIGHT: Class-based decorators store state cleanly as instance attributes
+# and trigger on each call via `__call__`. They excel when you need persistent
+# state (e.g., call counts, caches) across multiple invocations.
 
 from functools import wraps
 

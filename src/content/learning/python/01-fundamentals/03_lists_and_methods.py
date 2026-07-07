@@ -14,6 +14,15 @@
 # Rule 1: We use square brackets `[]` to create a list.
 # Rule 2: Lists are mutable (changeable). You can add, remove, or change items.
 # Rule 3: Lists can hold different types of data at the same time (strings, numbers, etc.).
+#
+# HOW IT WORKS INTERNALLY: Python lists are dynamic arrays. When you `append()`
+# past the current capacity, Python allocates a bigger block (roughly doubles)
+# and copies existing items over. This is why append is O(1) amortized, but
+# insert at position 0 is O(n) because every item must shift right.
+#
+# KEY INSIGHT: Lists can hold mixed types, but sorting requires all items
+# to be comparable to each other. Mixing str and int causes a TypeError
+# because Python doesn't know how to rank "Ritesh" vs 5.
 
 # Let's create a list with numbers and a string:
 my_list = [6, 5, 4, 3, 2, 1, 0, "Ritesh"]
@@ -26,6 +35,9 @@ print()
 
 # --- Method: .reverse() ---
 # This flips the list upside down (in-place).
+# .reverse() modifies the list IN-PLACE and returns None.
+# Use when you want the list itself reversed, not a reversed copy.
+# If you need a reversed copy without touching the original, use reversed().
 print("--- 2. Reversing the List ---")
 my_list.reverse()
 print("Reversed list:", my_list)
@@ -33,8 +45,10 @@ print()
 
 # --- Sorting a List ---
 # The .sort() method arranges items in ascending order (like 0, 1, 2, 3...).
-# IMPORTANT: You CANNOT sort a list that contains both numbers AND strings (mixed types).
+# IMPORTANT: You CANNOT sort a list that contains both numbers AND strings.
 # If you try to sort `[1, "Ritesh"]`, Python will throw a TypeError.
+# .sort() modifies the list IN-PLACE (returns None).
+# Use sorted(lst) instead if you need the original list unchanged.
 print("--- 3. Sorting a Mixed List (Raises Error) ---")
 print("# We cannot sort my_list because it has 'Ritesh' (string) and numbers!")
 print()

@@ -12,6 +12,17 @@
 
 # In Python, the `input()` function lets the program wait and ask the user to type something.
 # IMPORTANT: Whatever the user types is ALWAYS treated as a String (text) by default.
+#
+# HOW IT WORKS: `input()` pauses the program, waits for the user to type something
+# and press Enter, then hands the typed text back to your code as a str.
+# KEY INSIGHT: `input()` ALWAYS returns a `str` — even if the user types "42".
+# You receive the text "42", not the number 42. You must explicitly convert
+# it with `int()` or `float()` before doing any arithmetic.
+# If you skip the conversion, Python will raise a TypeError:
+#   "5" + 6  →  TypeError     vs.     int("5") + 6  →  11
+#
+# IMPORTANT: `int("hello")` raises a `ValueError`. In production code, always
+# wrap type-casting in a try-except to give a helpful error message instead of crashing.
 
 # --- Example 1: Asking for Text ---
 # Here, we ask the user for their name and print a greeting.
@@ -23,6 +34,10 @@ print()
 # Because `input()` always returns a string, we cannot do math directly with it.
 # E.g., if you input "8" and try to add 6, you will get an error.
 # We must convert the string to an integer (number) using `int()` first. This is called Type Casting.
+# Steps:
+#   1. Receive text: a = input("Enter a number: ")  -> "8" (a string)
+#   2. Convert:      int(a) -> 8 (an integer)
+#   3. Compute:      int(a) + 6 -> 14
 
 a = input("Enter a number to add 6 to it: ")
 

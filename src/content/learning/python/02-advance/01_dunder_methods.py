@@ -14,6 +14,21 @@
 # --- WHY USE THEM? ---
 # They allow your custom classes to behave exactly like Python's built-in types (lists, integers, strings).
 # This makes your code cleaner, more readable, and highly professional.
+#
+# HOW PYTHON DISPATCHES OPERATORS: When you write `a + b`, Python calls
+# `type(a).__add__(a, b)`. If that returns `NotImplemented`, Python tries
+# `type(b).__radd__(b, a)` as a fallback. This lets both operand types
+# participate in deciding how the operation works.
+#
+# PROTOCOL DESIGN: Python's data model is built on protocols — sets of dunder
+# methods that give objects specific capabilities. Implement `__iter__` and
+# `__next__` to make an object iterable. Implement `__enter__` and `__exit__`
+# to make it a context manager. You don’t inherit from any base class;
+# just implement the right methods and Python treats you as that type.
+#
+# KEY INSIGHT: `__repr__` should return a string that, when passed to `eval()`,
+# recreates the object: `eval(repr(obj)) == obj`. This makes it invaluable
+# for debugging and logging because you can reproduce the exact object state.
 
 # ==========================================================
 # 1. REPRESENTATION: __str__ vs __repr__

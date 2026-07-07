@@ -14,6 +14,23 @@
 # * FastAPI: Filter or transform a list of database results quickly
 # * LangGraph: Process a list of AI messages or tool outputs
 # * Everywhere: Whenever you loop over a list to create a new one
+#
+# HOW IT WORKS: A list comprehension is syntactic sugar for a for-loop with
+# an append. Python evaluates the entire comprehension EAGERLY and stores all
+# results in a new list in memory immediately.
+#
+# MEMORY TIP: For very large datasets, replace `[...]` with `(...)` to get a
+# generator expression instead — it produces values one at a time (lazy),
+# using O(1) memory instead of O(n).
+#
+# TERNARY SYNTAX inside comprehensions:
+#   [x if condition else y for x in items]   ← transform every item
+#   [x for x in items if condition]           ← filter items out
+# These look similar but behave very differently — the first never skips items.
+#
+# KEY INSIGHT: Nested comprehensions are possible but readability suffers fast.
+# `[val for row in matrix for val in row]` is fine; anything deeper should
+# be a regular for-loop.
 
 print("==========================================")
 print("1. NORMAL LOOP vs LIST COMPREHENSION")

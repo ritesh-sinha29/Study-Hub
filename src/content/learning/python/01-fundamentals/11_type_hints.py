@@ -16,6 +16,21 @@
 
 # --- BASIC SYNTAX ---
 # variable_name: data_type = value
+#
+# HOW IT WORKS INTERNALLY: Type hints are stored in `__annotations__` but
+# Python itself does NOT enforce them at runtime — you can still pass the
+# wrong type and Python won't crash (unless you're using a validator like
+# Pydantic). It is static type checkers like mypy or Pylance (VS Code) that
+# read annotations and report mismatches before you even run the code.
+#
+# WHY FASTAPI USES THEM: FastAPI uses Pydantic under the hood. It reads the
+# type hints on your route parameters and request body models, then validates
+# the incoming JSON against them automatically. If a field expects `int` and
+# receives `"hello"`, FastAPI returns a 422 error with a detailed message.
+#
+# KEY INSIGHT: The `Optional[str]` type means the value can be a `str` OR
+# `None`. In Python 3.10+ you can write `str | None` instead. Use `Optional`
+# for fields that may be absent in an API request body.
 
 print("==========================================")
 print("1. BASIC TYPE HINTS ON VARIABLES")

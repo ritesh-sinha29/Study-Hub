@@ -16,6 +16,19 @@
 # * FastAPI: Return a proper error message (400, 404, 500) instead of crashing
 # * LangGraph: If an AI agent fails, catch the error and retry or go to fallback
 # * File reading: If a file doesn't exist, show a nice message instead of crashing
+#
+# HOW IT WORKS INTERNALLY: When an exception is raised, Python unwinds the
+# call stack frame by frame, looking for a matching `except` clause. If none
+# is found all the way to the module level, Python prints the traceback and exits.
+#
+# EXCEPTION HIERARCHY: All built-in exceptions inherit from `BaseException`.
+# `Exception` is the base for most recoverable errors. `KeyboardInterrupt`,
+# `SystemExit`, and `GeneratorExit` inherit from `BaseException` directly,
+# which is why `except Exception:` does NOT catch Ctrl+C — intentional.
+#
+# KEY INSIGHT: The order of `except` clauses matters. Python checks them top
+# to bottom and runs the FIRST match. Always put specific exceptions (like
+# `ValueError`) before generic ones (like `Exception`).
 
 print("==========================================")
 print("1. WHAT HAPPENS WITHOUT EXCEPTION HANDLING")

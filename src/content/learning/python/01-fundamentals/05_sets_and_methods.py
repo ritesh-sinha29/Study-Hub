@@ -14,6 +14,24 @@
 # Rule 1: We use curly braces `{}` to create a set.
 # Rule 2: Sets do not allow duplicate items. Any duplicates are automatically removed!
 # Rule 3: Sets are unordered (they don't keep track of the insertion order).
+#
+# HOW IT WORKS INTERNALLY: Python computes a hash for every item you add.
+# If two items produce the same hash (collision), Python checks whether they
+# are truly equal. If equal, only one copy is kept — hence automatic deduplication.
+#
+# Because lookup is hash-based, checking `x in my_set` is O(1) regardless of
+# how large the set is, compared to O(n) for a list search.
+#
+# Set mathematics are built directly in:
+#   |  (union)          — all unique items from both sets
+#   &  (intersection)   — items present in BOTH sets
+#   -  (difference)     — items in A but not in B
+#   ^  (symmetric diff) — items in either set, but NOT in both
+#
+# KEY INSIGHT: Elements must be HASHABLE (immutable). Lists, dicts, and other
+# sets cannot be added to a set because they are mutable and their hash would
+# change — breaking the internal hash table.
+
 
 # Let's create two sets of numbers:
 a1 = {3, 5, 6, 7, 7, 88, 8, 9, 9, 9, 10, 111, 111}
@@ -27,25 +45,33 @@ print()
 
 # --- Common Set Operations ---
 
-# 1. Union: Merges both sets to show all unique items from both (does not change original sets)
+# .union() — returns a NEW set containing every unique item from both sets.
+# Equivalent to the pipe operator: a1 | a2
+# Use case: merge two tag lists, combine two user permission sets.
 print("--- 2. Union ---")
 all_items = a1.union(a2)
 print("Combined unique items:", all_items)
 print()
 
-# 2. Intersection: Finds items that are present in BOTH sets
+# .intersection() — returns items that appear in BOTH sets.
+# Equivalent to: a1 & a2
+# Use case: find mutual friends, find products in both a wishlist and a sale.
 print("--- 3. Intersection ---")
 common_items = a1.intersection(a2)
 print("Items present in both a1 and a2:", common_items) # Should be empty set() since they have no common numbers
 print()
 
-# 3. Difference: Finds items that are in a1 but NOT in a2
+# .difference() — items in the LEFT set that are NOT in the right set.
+# Equivalent to: a1 - a2
+# Use case: find users who have NOT upgraded to premium.
 print("--- 4. Difference ---")
 diff_items = a1.difference(a2)
 print("Items in a1 but not in a2:", diff_items)
 print()
 
-# 4. Symmetric Difference: Finds items in either set, but NOT in both
+# .symmetric_difference() — items in either set, but NOT shared by both.
+# Equivalent to: a1 ^ a2
+# Use case: find users who are in exactly one of two user groups.
 print("--- 5. Symmetric Difference ---")
 sym_diff = a1.symmetric_difference(a2)
 print("Items unique to each set:", sym_diff)

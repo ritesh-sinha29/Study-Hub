@@ -14,6 +14,18 @@
 # Rule 1: We use parentheses `()` to create a tuple.
 # Rule 2: Tuples are IMMUTABLE (cannot be changed). Once created, you cannot add, remove, or modify items.
 # Rule 3: Tuples can contain duplicates and different data types.
+#
+# HOW IT WORKS: Immutability gives tuples a superpower — they are HASHABLE.
+# This means a tuple can be used as a dictionary key or stored inside a set,
+# whereas a list cannot. For example: coords = {(28.6, 77.2): "Delhi"} – valid.
+#
+# When to pick tuple over list:
+#   • Function return values: `return x, y` is a tuple under the hood.
+#   • Fixed config: months = ("Jan", "Feb", ...) — nothing should change it.
+#   • Dict keys or set elements that are composite (e.g. (user_id, session_id)).
+#
+# KEY INSIGHT: Because tuples have a fixed size and no need for over-allocation,
+# they use less memory and are faster to create than equivalent lists.
 
 # Let's create a tuple of numbers:
 t = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1)
@@ -25,6 +37,8 @@ print()
 
 # --- Tuple Methods ---
 # Since tuples cannot be changed, they have very few methods (only two!).
+# Tuples are immutable, so both methods are read-only — there is no append,
+# remove, sort, or any mutating operation.
 
 # 1. count() - Counts how many times an element appears in the tuple.
 print("--- 2. Using .count() ---")
