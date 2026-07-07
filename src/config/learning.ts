@@ -388,8 +388,8 @@ export const learningTopics: TopicItem[] = [
     ]
   },
   {
-    "title": "Python Learning",
-    "slug": "python-learning",
+    "title": "Python",
+    "slug": "python",
     "description": "Python fundamentals, deep dives, and core concepts",
     "icon": "Python",
     "files": [],

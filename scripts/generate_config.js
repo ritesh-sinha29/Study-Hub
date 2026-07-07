@@ -6,8 +6,8 @@ const CONFIG_FILE = path.join(__dirname, '../src/config/learning.ts');
 
 const STATIC_TOPICS = [
   {
-    title: "Python Learning",
-    slug: "python-learning",
+    title: "Python",
+    slug: "python",
     description: "Python fundamentals, deep dives, and core concepts",
     icon: "Python",
   },
@@ -50,7 +50,7 @@ const STATIC_TOPICS = [
 ];
 
 const PREFERRED_ORDER = {
-  "python-learning": [
+  "python": [
     "day-1-first-program",
     "strings-and-methods",
     "multiline-strings",
