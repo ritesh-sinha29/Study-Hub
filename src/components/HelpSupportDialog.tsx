@@ -18,7 +18,9 @@ import {
   User,
   Trash2,
   Square,
-  ChevronRight
+  ChevronRight,
+  Loader2,
+  Check
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -95,7 +97,7 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let assistantMsg = { role: "assistant", content: "", toolCalls: [] as any[] };
+      let assistantMsg = { role: "assistant", content: "", toolCalls: [] as any[], toolResults: [] as any[] };
       
       setMessages([...currentMessages, assistantMsg]);
 
@@ -117,7 +119,18 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
               setMessages([...currentMessages, { ...assistantMsg }]);
             } else if (data.type === "tool-call") {
               assistantMsg.toolCalls = assistantMsg.toolCalls || [];
-              assistantMsg.toolCalls.push(data);
+              if (!assistantMsg.toolCalls.some((tc: any) => tc.id === data.id)) {
+                assistantMsg.toolCalls.push(data);
+              }
+              setMessages([...currentMessages, { ...assistantMsg }]);
+            } else if (data.type === "tool-result") {
+              assistantMsg.toolResults = assistantMsg.toolResults || [];
+              if (!assistantMsg.toolResults.some((tr: any) => tr.id === data.id)) {
+                assistantMsg.toolResults.push(data);
+              }
+              setMessages([...currentMessages, { ...assistantMsg }]);
+            } else if (data.type === "error") {
+              assistantMsg.content += `⚠️ **Error:** ${data.error}`;
               setMessages([...currentMessages, { ...assistantMsg }]);
             }
           } catch {
@@ -329,14 +342,35 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
                           >
                             {msg.content}
                           </ReactMarkdown>
-                        ) : isLoading && msg.role !== "user" && (!msg.toolCalls || msg.toolCalls.length === 0) ? (
+                        ) : isLoading && msg.role !== "user" && !msg.content ? (
                           <span className="flex items-center gap-1.5 font-medium text-shimmer">
                             Assistant is thinking...
                           </span>
                         ) : null}
 
-                        {/* Interactive Tool Approval Request Panel */}
+                        {/* Interactive Tool Approval Request Panel & Status Indicators */}
                         {msg.toolCalls?.map((tc: any) => {
+                          const queryText = tc.args?.query || tc.input?.query || "";
+                          
+                          if (tc.name === "searchLocalCourses") {
+                            const isCompleted = msg.toolResults?.some((tr: any) => tr.id === tc.id);
+                            return (
+                              <div key={tc.id} className="mt-2 p-2 rounded-xl border border-border bg-muted/20 text-[10px] flex items-center gap-2">
+                                {isCompleted ? (
+                                  <>
+                                    <Check className="size-3.5 text-green-500 shrink-0" />
+                                    <span className="text-muted-foreground">Searched local course materials: "{queryText}"</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Loader2 className="size-3.5 animate-spin text-primary shrink-0" />
+                                    <span className="text-foreground font-medium">Searching local course materials: "{queryText}"...</span>
+                                  </>
+                                )}
+                              </div>
+                            );
+                          }
+
                           if (tc.name === "searchWeb") {
                             const decision = toolDecisions[tc.id];
                             if (!decision) {
@@ -344,7 +378,7 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
                                 <div key={tc.id} className="mt-2 p-2 rounded-xl border border-indigo-150 dark:border-indigo-900/60 bg-indigo-50/40 dark:bg-indigo-950/20 text-[10px] space-y-2">
                                   <div className="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-400 font-semibold">
                                     <AIAssistantIcon className="size-3.5" />
-                                    <span>Web Search: "{tc.args.query}"</span>
+                                    <span>Web Search: "{queryText}"</span>
                                   </div>
                                   <p className="text-muted-foreground leading-normal">
                                     I need to search the web to retrieve this information.
@@ -375,7 +409,7 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
                                 <div key={tc.id} className="mt-2 text-[9.5px] text-muted-foreground italic flex items-center gap-1">
                                   <span>
                                     {decision === "approved" 
-                                      ? `✓ Web search approved ("${tc.args.query}")`
+                                      ? `✓ Web search approved ("${queryText}")`
                                       : `✗ Web search denied`
                                     }
                                   </span>

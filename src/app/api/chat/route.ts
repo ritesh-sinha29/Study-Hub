@@ -1,5 +1,5 @@
-import { createGoogleGenerativeAI } from '@ai-sdk/google';
-import { streamText, tool } from 'ai';
+import { createOpenAI } from '@ai-sdk/openai';
+import { streamText, tool, isStepCount } from 'ai';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { searchLocalCourses } from '@/lib/knowledge-base';
@@ -7,8 +7,8 @@ import { searchLocalCourses } from '@/lib/knowledge-base';
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_API_KEY || '',
+const openai = createOpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 // sliding window: 15 requests / minute
@@ -49,26 +49,47 @@ function formatMessages(messages: any[]): any[] {
       return { role: 'user', content: msg.content };
     }
     if (msg.role === 'assistant') {
-      const formatted: any = { role: 'assistant', content: msg.content || "" };
       if (msg.toolCalls && msg.toolCalls.length > 0) {
-        formatted.toolCalls = msg.toolCalls.map((tc: any) => ({
-          type: 'tool-call',
-          toolCallId: tc.id,
-          toolName: tc.name,
-          args: tc.args
-        }));
+        const content: any[] = [];
+        if (msg.content) {
+          content.push({ type: 'text', text: msg.content });
+        }
+        msg.toolCalls.forEach((tc: any) => {
+          content.push({
+            type: 'tool-call',
+            toolCallId: tc.id || tc.toolCallId,
+            toolName: tc.name || tc.toolName,
+            args: tc.args || tc.input
+          });
+        });
+        return { role: 'assistant', content };
       }
-      return formatted;
+      return { role: 'assistant', content: msg.content || "" };
     }
     if (msg.role === 'tool') {
       return {
         role: 'tool',
-        content: Array.isArray(msg.content) ? msg.content.map((tr: any) => ({
-          type: 'tool-result',
-          toolCallId: tr.toolCallId,
-          toolName: tr.toolName,
-          result: tr.result
-        })) : []
+        content: Array.isArray(msg.content) ? msg.content.map((tr: any) => {
+          const rawResult = tr.result !== undefined ? tr.result : tr.output;
+          
+          let outputObj: any;
+          if (rawResult && typeof rawResult === 'object' && 'type' in rawResult && ('value' in rawResult || 'reason' in rawResult)) {
+            outputObj = rawResult;
+          } else if (typeof rawResult === 'string') {
+            outputObj = { type: 'text', value: rawResult };
+          } else if (rawResult !== undefined && rawResult !== null) {
+            outputObj = { type: 'json', value: rawResult };
+          } else {
+            outputObj = { type: 'text', value: "No result returned" };
+          }
+
+          return {
+            type: 'tool-result',
+            toolCallId: tr.toolCallId,
+            toolName: tr.toolName,
+            output: outputObj
+          };
+        }) : []
       };
     }
     return msg;
@@ -105,27 +126,35 @@ export async function POST(req: Request) {
   }
 
   const lastMessage = messages[messages.length - 1];
-  if (!lastMessage || !lastMessage.content || typeof lastMessage.content !== 'string') {
+  if (!lastMessage || !lastMessage.content) {
     return new NextResponse(
       JSON.stringify({ error: 'Invalid message structure.' }),
       { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
   }
 
-  // Prevent sending massive strings
-  if (lastMessage.content.length > 4000) {
-    return new NextResponse(
-      JSON.stringify({ error: 'Message content exceeds the maximum allowed length (4000 characters).' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
+  // Prevent sending massive strings for text/user inputs
+  if (lastMessage.role === 'user' || typeof lastMessage.content === 'string') {
+    if (typeof lastMessage.content !== 'string') {
+      return new NextResponse(
+        JSON.stringify({ error: 'Invalid message structure: user content must be a string.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    if (lastMessage.content.length > 4000) {
+      return new NextResponse(
+        JSON.stringify({ error: 'Message content exceeds the maximum allowed length (4000 characters).' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
   }
 
   try {
     const formattedMessages = formatMessages(messages);
 
     const result = streamText({
-      model: google('gemini-2.5-flash'),
-      system: "You are the Study-Hub AI assistant. You help users learn programming, software engineering, and computer science concepts across all available courses (such as Python, C++, Data Structures & Algorithms, FastAPI, LangChain, LangGraph, and more), and help them navigate the Study-Hub platform. Be encouraging, concise, and informative. Use markdown formatting for code snippets. If you need details about course content, use the 'searchLocalCourses' tool. If the user asks general questions outside of local courses, use the 'searchWeb' tool.",
+      model: openai('gpt-4o-mini'),
+      system: "You are the Study-Hub AI assistant. You help users learn programming, software engineering, and computer science concepts across all available courses (such as Python, C++, Data Structures & Algorithms, FastAPI, LangChain, LangGraph, and more), and help them navigate the Study-Hub platform. Keep all your responses extremely short, compact, and concise (aim for a maximum of 2-3 sentences or a few short bullet points per response, avoiding long paragraphs). Use markdown formatting for code snippets. If you need details about course content, use the 'searchLocalCourses' tool. If the user asks general questions outside of local courses, use the 'searchWeb' tool.",
       messages: formattedMessages,
       tools: {
         searchLocalCourses: tool({
@@ -143,8 +172,8 @@ export async function POST(req: Request) {
           },
         }),
       },
-      maxSteps: 5,
-    } as any);
+      stopWhen: isStepCount(5),
+    });
 
     // Custom JSONL stream implementation
     const responseStream = new TransformStream();
@@ -156,7 +185,7 @@ export async function POST(req: Request) {
         for await (const part of result.fullStream) {
           const p = part as any;
           if (p.type === 'text-delta') {
-            writer.write(encoder.encode(JSON.stringify({ type: 'text', delta: p.textDelta }) + '\n'));
+            writer.write(encoder.encode(JSON.stringify({ type: 'text', delta: p.text }) + '\n'));
           } else if (p.type === 'tool-call') {
             writer.write(encoder.encode(JSON.stringify({ 
               type: 'tool-call', 
@@ -169,19 +198,30 @@ export async function POST(req: Request) {
               type: 'tool-result', 
               id: p.toolCallId, 
               name: p.toolName, 
-              result: p.result 
+              result: p.result !== undefined ? p.result : p.output 
             }) + '\n'));
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         console.error("Stream writing failed:", err);
+        const errMsg = err?.message || "An error occurred during response generation.";
+        try {
+          writer.write(encoder.encode(JSON.stringify({ type: 'error', error: errMsg }) + '\n'));
+        } catch (writeErr) {
+          console.error("Failed to write error to stream:", writeErr);
+        }
       } finally {
         writer.close();
       }
     })();
 
     return new NextResponse(responseStream.readable, {
-      headers: { 'Content-Type': 'application/x-ndjson' }
+      headers: { 
+        'Content-Type': 'application/x-ndjson; charset=utf-8',
+        'Cache-Control': 'no-cache, no-transform',
+        'Connection': 'keep-alive',
+        'X-Accel-Buffering': 'no',
+      }
     });
   } catch (error) {
     console.error('Error generating chat response:', error);

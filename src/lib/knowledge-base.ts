@@ -13,7 +13,7 @@ export interface IndexedDoc {
 
 let searchIndex: IndexedDoc[] | null = null;
 let lastIndexTime = 0;
-const CACHE_DURATION = 15 * 1000; // 15 seconds cache in development mode
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes cache in development mode
 
 // Stopwords to filter out from queries & content for better keyword matching
 const STOPWORDS = new Set([
@@ -87,7 +87,7 @@ async function buildIndex(): Promise<IndexedDoc[]> {
           content = parseCppToMarkdown(content, title);
         }
 
-        const tokens = tokenize(`${title} ${content}`);
+        const tokens = tokenize(`${topicSlug} ${title} ${content}`);
         index.push({
           topicSlug,
           filename: relativeFilename,
@@ -129,6 +129,11 @@ export async function searchLocalCourses(query: string): Promise<string> {
     
     // Check keyword intersection matches
     for (const token of queryTokens) {
+      // Boost score if topic slug matches a query token
+      if (doc.topicSlug.toLowerCase() === token) {
+        score += 25;
+      }
+
       if (doc.tokens.has(token)) {
         // High weight for title matches
         const titleLower = doc.title.toLowerCase();
