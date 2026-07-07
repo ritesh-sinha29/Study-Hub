@@ -159,7 +159,7 @@ export async function searchLocalCourses(query: string): Promise<string> {
   const matches = scoredDocs
     .filter(item => item.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 3); // Get top 3 matching documents
+    .slice(0, 2); // Get top 2 matching documents
 
   if (matches.length === 0) {
     return "No matching local course material found for this query.";
@@ -168,8 +168,7 @@ export async function searchLocalCourses(query: string): Promise<string> {
   // Format matches into a structured text context block
   return matches
     .map(({ doc, score }, idx) => {
-      // Chunk content if too long to save token cost
-      const maxCharLength = 3000;
+      const maxCharLength = 800;
       const contentExcerpt = doc.content.length > maxCharLength 
         ? doc.content.slice(0, maxCharLength) + "\n\n...(content truncated due to length)..."
         : doc.content;

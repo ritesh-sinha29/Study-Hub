@@ -20,7 +20,8 @@ import {
   Square,
   ChevronRight,
   Loader2,
-  Check
+  Check,
+  Copy
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -54,6 +55,26 @@ export const AIAssistantIcon = ({ className }: { className?: string }) => (
     />
   </svg>
 );
+
+const CopyButton = ({ text }: { text: string }) => {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      title="Copy"
+      className="mt-1.5 flex items-center gap-1 text-[10px] text-muted-foreground hover:text-foreground transition-colors"
+    >
+      {copied ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+      {copied ? "Copied!" : "Copy"}
+    </button>
+  );
+};
 
 interface HelpSupportDialogProps {
   trigger?: React.ReactNode;
@@ -310,49 +331,51 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
                       {!isUser && (
                         <AIAssistantIcon className="h-5 w-5 shrink-0 mt-0.5 text-primary" />
                       )}
-                      <div
-                        className={cn(
-                          "max-w-[75%] rounded-2xl p-2 text-[11px] leading-relaxed break-words",
-                          isUser
-                            ? "bg-primary text-primary-foreground rounded-tr-none shadow-md"
-                            : "bg-muted/40 border border-border/80 text-foreground rounded-tl-none"
-                        )}
-                      >
-                        {msg.content ? (
-                          <ReactMarkdown
-                            remarkPlugins={[remarkGfm]}
-                            components={{
-                              p: ({ children }) => <p className="mb-1.5 last:mb-0 leading-relaxed">{children}</p>,
-                              ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                              ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
-                              li: ({ children }) => <li className="leading-relaxed">{children}</li>,
-                              strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
-                              a: ({ href, children }) => (
-                                <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                  {children}
-                                </a>
-                              ),
-                              code: ({ className, children, ...props }: any) => {
-                                const isInline = !className;
-                                return isInline ? (
-                                  <code className="bg-muted px-1 py-0.5 rounded text-[10px] font-mono text-foreground">{children}</code>
-                                ) : (
-                                  <pre className="bg-muted p-2 rounded-lg my-1.5 overflow-x-auto text-[10px] font-mono border border-border text-muted-foreground">
-                                    <code {...props}>{children}</code>
-                                  </pre>
-                                );
-                              }
-                            }}
-                          >
-                            {msg.content}
-                          </ReactMarkdown>
-                        ) : isLoading && msg.role !== "user" && !msg.content ? (
-                          <span className="flex items-center gap-1.5 font-medium text-shimmer">
-                            Assistant is thinking...
-                          </span>
-                        ) : null}
+                      <div className="flex flex-col items-start">
+                        <div
+                          className={cn(
+                            "max-w-full rounded-2xl p-2 text-[11px] leading-relaxed break-words",
+                            isUser
+                              ? "bg-primary text-primary-foreground rounded-tr-none shadow-md"
+                              : "bg-muted/40 border border-border/80 text-foreground rounded-tl-none"
+                          )}
+                        >
+                          {msg.content ? (
+                            <ReactMarkdown
+                              remarkPlugins={[remarkGfm]}
+                              components={{
+                                p: ({ children }) => <p className="mb-1.5 last:mb-0 leading-relaxed">{children}</p>,
+                                ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
+                                ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
+                                li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                                strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+                                a: ({ href, children }) => (
+                                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                    {children}
+                                  </a>
+                                ),
+                                code: ({ className, children, ...props }: any) => {
+                                  const isInline = !className;
+                                  return isInline ? (
+                                    <code className="bg-muted px-1 py-0.5 rounded text-[10px] font-mono text-foreground">{children}</code>
+                                  ) : (
+                                    <pre className="bg-muted p-2 rounded-lg my-1.5 overflow-x-auto text-[10px] font-mono border border-border text-muted-foreground">
+                                      <code {...props}>{children}</code>
+                                    </pre>
+                                  );
+                                }
+                              }}
+                            >
+                              {msg.content}
+                            </ReactMarkdown>
+                          ) : isLoading && msg.role !== "user" && !msg.content ? (
+                            <span className="flex items-center gap-1.5 font-medium text-shimmer">
+                              Assistant is thinking...
+                            </span>
+                          ) : null}
+                        </div>
 
-                        {/* Interactive Tool Approval Request Panel & Status Indicators */}
+                        {/* Tool calls outside the bubble */}
                         {msg.toolCalls?.map((tc: any) => {
                           const queryText = tc.args?.query || tc.input?.query || "";
                           
@@ -423,6 +446,11 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
                           }
                           return null;
                         })}
+
+                        {/* Copy button outside bubble, below content */}
+                        {!isUser && msg.content && (
+                          <CopyButton text={msg.content} />
+                        )}
                       </div>
                       {isUser && (
                         <Avatar className="h-6 w-6 border border-border shrink-0 mt-0.5">
