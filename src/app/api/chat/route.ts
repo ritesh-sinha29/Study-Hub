@@ -171,7 +171,7 @@ export async function POST(req: Request) {
 
     const result = streamText({
       model: openai('gpt-4o-mini'),
-      system: "You are the Study-Hub AI assistant. You help users learn programming, software engineering, and computer science concepts across courses like Python, C++, Data Structures & Algorithms, FastAPI, LangChain, LangGraph, and more. Be helpful, concise, and use markdown for code. Default to short answers; give detailed explanations only when asked. Use the 'searchLocalCourses' tool for course-related questions, and the 'searchWeb' tool for general topics.",
+      system: "You are the Study-Hub AI assistant for programming and CS courses. KEEP ALL RESPONSES TO 1-3 SHORT SENTENCES MAXIMUM. No lists, no headers, no breakdowns unless the user explicitly asks for detail or an explanation. Use markdown only for inline code. Use 'searchLocalCourses' for course questions, 'searchWeb' for general topics.",
       messages: formattedMessages,
       tools: {
         searchLocalCourses: tool({
