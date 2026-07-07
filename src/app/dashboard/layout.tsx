@@ -49,6 +49,59 @@ function ThemeToggle() {
   );
 }
 
+import { HelpSupportDialog } from "@/components/HelpSupportDialog";
+
+function FloatingRoboButton() {
+  return (
+    <div className="fixed bottom-20 md:bottom-6 right-6 z-50 select-none hover:scale-110 active:scale-95 transition-all duration-300">
+      <div
+        className="relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-primary to-primary/80 text-primary-foreground shadow-2xl border border-primary/20 cursor-pointer"
+        aria-label="Ask AI Assistant"
+      >
+        {/* Antenna */}
+        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1 h-3 flex flex-col items-center">
+          <div className="w-0.5 h-2 bg-cyan-400" />
+          <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping absolute -top-1" />
+          <div className="w-2 h-2 rounded-full bg-cyan-400 absolute -top-0.5 shadow-[0_0_8px_#22d3ee]" />
+        </div>
+        
+        {/* Robo Head */}
+        <div className="w-10 h-8 rounded-xl bg-neutral-900 border border-neutral-700/80 flex flex-col justify-between items-center p-1.5 overflow-hidden relative shadow-[inset_0_1px_3px_rgba(255,255,255,0.1)]">
+          {/* Eyes container */}
+          <div className="flex gap-2.5 mt-0.5 justify-center items-center w-full">
+            {/* Left Eye */}
+            <div className="w-2.5 h-2.5 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center relative overflow-hidden">
+              <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 absolute animate-eyemove shadow-[0_0_4px_#22d3ee]" />
+            </div>
+            {/* Right Eye */}
+            <div className="w-2.5 h-2.5 rounded-full bg-neutral-800 border border-neutral-700 flex items-center justify-center relative overflow-hidden">
+              <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 absolute animate-eyemove shadow-[0_0_4px_#22d3ee]" />
+            </div>
+          </div>
+          {/* Mouth */}
+          <div className="w-5 h-0.5 bg-cyan-400/80 rounded-full animate-pulse shadow-[0_0_4px_#22d3ee] mb-0.5" />
+        </div>
+      </div>
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes eyemove {
+            0%, 100% { transform: translate(0, 0); }
+            15% { transform: translate(-1.5px, 0); }
+            30% { transform: translate(1.5px, 0); }
+            45% { transform: translate(0, -1px); }
+            60% { transform: translate(0, 1px); }
+            75% { transform: translate(1px, -0.5px); }
+          }
+          .animate-eyemove {
+            animation: eyemove 4s infinite ease-in-out;
+          }
+        `
+      }} />
+    </div>
+  );
+}
+
 export default function DashboardLayout({
   children,
 }: {
@@ -163,6 +216,8 @@ export default function DashboardLayout({
         <div className="flex flex-1 flex-col">
           {children}
         </div>
+        {/* Floating Chat Trigger */}
+        <HelpSupportDialog trigger={<FloatingRoboButton />} />
       </SidebarInset>
     </SidebarProvider>
     </div>

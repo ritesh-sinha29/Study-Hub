@@ -14,7 +14,7 @@ import {
   SidebarFooter,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { ChevronLeft, ChevronDown, ChevronRight, FileText, Folder, HelpCircle } from "lucide-react";
+import { ChevronLeft, ChevronDown, ChevronRight, FileText, Folder } from "lucide-react";
 import { type TopicItem, type TopicFile, type TopicGroup } from "@/config/learning";
 
 function FileItem({
@@ -120,6 +120,8 @@ function GroupSection({
   );
 }
 
+import { HelpSupportDialog, AIAssistantIcon } from "@/components/HelpSupportDialog";
+
 export function TopicSidebar({ topic }: { topic: TopicItem }) {
   const pathname = usePathname();
 
@@ -194,14 +196,17 @@ export function TopicSidebar({ topic }: { topic: TopicItem }) {
       <SidebarFooter className="p-3 group-data-[collapsible=icon]:p-2 border-t border-border">
         <SidebarMenu className="gap-2">
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="default"
-              render={<Link href="/dashboard/help" />}
-              className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:mx-auto"
-            >
-              <HelpCircle className="size-4 shrink-0" />
-              <span className="group-data-[collapsible=icon]:hidden">Help & Support</span>
-            </SidebarMenuButton>
+            <HelpSupportDialog
+              trigger={
+                <SidebarMenuButton
+                  size="default"
+                  className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:mx-auto"
+                >
+                  <AIAssistantIcon className="size-4 shrink-0" />
+                  <span className="group-data-[collapsible=icon]:hidden">Help & Support</span>
+                </SidebarMenuButton>
+              }
+            />
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton

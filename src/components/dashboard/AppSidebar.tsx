@@ -16,22 +16,15 @@ import {
 } from "@/components/ui/sidebar";
 import {
   BookOpen,
-  HelpCircle,
 } from "lucide-react";
+
+import { HelpSupportDialog, AIAssistantIcon } from "@/components/HelpSupportDialog";
 
 const navItems = [
   {
     title: "Courses",
     icon: BookOpen,
     href: "/dashboard",
-  },
-];
-
-const footerItems = [
-  {
-    title: "Help & Support",
-    icon: HelpCircle,
-    href: "/dashboard/help",
   },
 ];
 
@@ -77,14 +70,17 @@ export function AppSidebar() {
       <SidebarFooter className="p-3 group-data-[collapsible=icon]:p-2 border-t border-border">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="default"
-              render={<Link href="/dashboard/help" />}
-              className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:mx-auto"
-            >
-              <HelpCircle className="size-4 shrink-0" />
-              <span className="group-data-[collapsible=icon]:hidden">Help & Support</span>
-            </SidebarMenuButton>
+            <HelpSupportDialog
+              trigger={
+                <SidebarMenuButton
+                  size="default"
+                  className="flex items-center justify-center gap-2 w-full h-9 rounded-md border border-border hover:bg-muted/50 hover:text-foreground text-[13px] font-medium transition-all group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:mx-auto"
+                >
+                  <AIAssistantIcon className="size-4 shrink-0" />
+                  <span className="group-data-[collapsible=icon]:hidden">Help & Support</span>
+                </SidebarMenuButton>
+              }
+            />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
