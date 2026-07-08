@@ -54,11 +54,11 @@
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
 #                       ┌──────────────────────────────────────────┐
-#                       │         RunnableParallel                  │
+#                       │         RunnableParallel                 │
 #                       │                                          │
-#  Input: {"text": ...} ─┼──► [Branch A: summary_chain]  ──────────┼──► result["summary"]
+#  Input: {"text": ...}─┼──► [Branch A: summary_chain]   ──────────┼──► result["summary"]
 #                       │                                          │
-#                       ├──► [Branch B: bullets_chain]  ──────────┼──► result["bullets"]
+#                       ├──► [Branch B: bullets_chain]   ──────────┼──► result["bullets"]
 #                       │                                          │
 #                       └──► [Branch C: RunnablePassthrough] ──────┼──► result["original"]
 #                                                                  │

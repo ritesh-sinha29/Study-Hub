@@ -13,15 +13,15 @@
 # LangChain provides Python classes that map directly to these API roles:
 #
 #  ┌──────────────────────────────────────────────────────────────────────┐
-#  │              LANGCHAIN MESSAGE CLASS ↔ API ROLE MAPPING             │
+#  │              LANGCHAIN MESSAGE CLASS ↔ API ROLE MAPPING              │
 #  │                                                                      │
-#  │  LangChain Class    │ API Role    │ Purpose                         │
-#  │  ───────────────────┼─────────────┼─────────────────────────────── │
-#  │  SystemMessage      │ "system"    │ Sets model persona, rules,      │
+#  │  LangChain Class    │ API Role    │ Purpose                          │
+#  │  ───────────────────┼─────────────┼────────────────────────────────  │
+#  │  SystemMessage      │ "system"    │ Sets model persona, rules,       │
 #  │                     │             │ boundaries (sent once at start)  │
-#  │  HumanMessage       │ "user"      │ The user's query or message     │
-#  │  AIMessage          │ "assistant" │ The model's generated response  │
-#  │  ToolMessage        │ "tool"      │ The result returned from a      │
+#  │  HumanMessage       │ "user"      │ The user's query or message      │
+#  │  AIMessage          │ "assistant" │ The model's generated response   │
+#  │  ToolMessage        │ "tool"      │ The result returned from a       │
 #  │                     │             │ tool execution back to the model │
 #  └──────────────────────────────────────────────────────────────────────┘
 #

@@ -32,14 +32,14 @@
 #  ┌──────────────────────────────────────────────────────────────────────┐
 #  │                    THE RUNNABLE INTERFACE                            │
 #  │                                                                      │
-#  │  Method           │ Description                                     │
-#  │  ─────────────────┼────────────────────────────────────────────     │
-#  │  .invoke(input)   │ Sync: run once, return single result            │
-#  │  .ainvoke(input)  │ Async: run once, return single result           │
-#  │  .stream(input)   │ Sync: run and yield tokens as they arrive       │
-#  │  .astream(input)  │ Async: stream tokens asynchronously             │
-#  │  .batch([...])    │ Sync: run multiple inputs concurrently          │
-#  │  .abatch([...])   │ Async: batch concurrently using asyncio         │
+#  │  Method           │ Description                                      │
+#  │  ─────────────────┼────────────────────────────────────────────      │
+#  │  .invoke(input)   │ Sync: run once, return single result             │
+#  │  .ainvoke(input)  │ Async: run once, return single result            │
+#  │  .stream(input)   │ Sync: run and yield tokens as they arrive        │
+#  │  .astream(input)  │ Async: stream tokens asynchronously              │
+#  │  .batch([...])    │ Sync: run multiple inputs concurrently           │
+#  │  .abatch([...])   │ Async: batch concurrently using asyncio          │
 #  └──────────────────────────────────────────────────────────────────────┘
 #
 # Because ALL components share this interface, you can swap any part of a chain

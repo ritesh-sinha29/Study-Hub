@@ -46,12 +46,12 @@
 #  ┌──────────────────────────────────────────────────────────────────────┐
 #  │                    MULTI-SESSION MEMORY ISOLATION                    │
 #  │                                                                      │
-#  │  session_id="user_123"  → history: ["Hi I'm Ritesh", "Nice to meet"]│
-#  │  session_id="user_456"  → history: ["Hi I'm Priya", "Hello Priya!"] │
-#  │  session_id="user_789"  → history: []  (new user, no history yet)   │
+#  │  session_id="user_123"  → history: ["Hi I'm Ritesh", "Nice to meet"] │
+#  │  session_id="user_456"  → history: ["Hi I'm Priya", "Hello Priya!"]  │
+#  │  session_id="user_789"  → history: []  (new user, no history yet)    │
 #  │                                                                      │
 #  │  Each session is completely isolated — Priya cannot see Ritesh's     │
-#  │  conversation, and vice versa.                                        │
+#  │  conversation, and vice versa.                                       │
 #  └──────────────────────────────────────────────────────────────────────┘
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -61,7 +61,7 @@
 #  Storage Class                 │ Backend        │ Persistence │ Use Case
 #  ──────────────────────────────┼────────────────┼─────────────┼─────────────────────
 #  InMemoryChatMessageHistory    │ Python dict    │ ✗ Lost on   │ Local dev, testing
-#                                │                │   restart   │
+#                                │                │  restart    │
 #  SQLChatMessageHistory         │ SQLite/Postgres│ ✓ Permanent │ Production web apps
 #  RedisChatMessageHistory       │ Redis          │ ✓ Permanent │ High-traffic APIs
 #  MongoDBChatMessageHistory     │ MongoDB        │ ✓ Permanent │ Document-based apps

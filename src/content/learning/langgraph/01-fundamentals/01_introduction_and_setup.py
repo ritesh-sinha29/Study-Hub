@@ -24,23 +24,23 @@
 # SECTION 2 — THE FOUR PILLARS OF LANGGRAPH
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
-#  PILLAR       │ WHAT IT IS                          │ ANALOGY
-#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
-#  State        │ A TypedDict/Pydantic schema defining  │ A shared whiteboard in an
-#               │ all the data that flows through the   │ office — anyone can read/write
-#               │ graph. Persists across all nodes.     │ anything on it
-#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
-#  Nodes        │ Regular Python functions that receive │ Workers who read from the
-#               │ the full State and return a dict of   │ whiteboard, do their job,
-#               │ updates to apply back to it.          │ and update it with results
-#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
-#  Edges        │ Connections defining which node runs  │ The arrows in a flowchart
-#               │ after which. Can be fixed or dynamic  │ telling workers who goes next
-#               │ (conditional routing).                │
-#  ─────────────┼─────────────────────────────────────┼──────────────────────────────
-#  Checkpointer │ Saves the full State after every node │ Auto-save in a video game
-#               │ execution to a database. Enables       │ — lose power, load the save,
-#               │ memory, resume, time-travel.          │ continue from that point
+#  PILLAR       │ WHAT IT IS                           │ ANALOGY
+#  ─────────────┼──────────────────────────────────────┼──────────────────────────────
+#  State        │ A TypedDict/Pydantic schema defining │ A shared whiteboard in an
+#               │ all the data that flows through the  │ office — anyone can read/write
+#               │ graph. Persists across all nodes.    │ anything on it
+#  ─────────────┼──────────────────────────────────────┼──────────────────────────────
+#  Nodes        │ Regular Python functions that receive│ Workers who read from the
+#               │ the full State and return a dict of  │ whiteboard, do their job,
+#               │ updates to apply back to it.         │ and update it with results
+#  ─────────────┼──────────────────────────────────────┼──────────────────────────────
+#  Edges        │ Connections defining which node runs │ The arrows in a flowchart
+#               │ after which. Can be fixed or dynamic │ telling workers who goes next
+#               │ (conditional routing).               │
+#  ─────────────┼──────────────────────────────────────┼──────────────────────────────
+#  Checkpointer │ Saves the full State after every node│ Auto-save in a video game
+#               │ execution to a database. Enables     │ — lose power, load the save,
+#               │ memory, resume, time-travel.         │ continue from that point
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # SECTION 3 — HOW NODES UPDATE STATE (REDUCERS)

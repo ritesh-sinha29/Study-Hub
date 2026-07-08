@@ -15,7 +15,7 @@
 #  │       │                                                              │
 #  │       ▼                                                              │
 #  │  ┌──────────┐    generate output based on prompt + any prior feedback│
-#  │  │Generator │ ──────────────────────────────────────────────────►   │
+#  │  │Generator │ ──────────────────────────────────────────────────►    │
 #  │  └──────────┘                                                        │
 #  │       │                                                              │
 #  │       ▼                                                              │
@@ -23,9 +23,9 @@
 #  │  │Evaluator │    code syntax, character limit, format rules...)      │
 #  │  └──────────┘                                                        │
 #  │       │                                                              │
-#  │       ├── PASS (criteria met) ──────────────────────────────► END   │
+#  │       ├── PASS (criteria met) ──────────────────────────────► END    │
 #  │       │                                                              │
-#  │       └── FAIL (feedback written to state) ──► back to Generator    │
+#  │       └── FAIL (feedback written to state) ──► back to Generator     │
 #  └──────────────────────────────────────────────────────────────────────┘
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -44,10 +44,10 @@
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
 #  TYPE                  │ EXAMPLE CRITERIA                   │ SPEED
-#  ──────────────────────┼───────────────────────────────────┼─────────────────
+#  ──────────────────────┼────────────────────────────────────┼─────────────────
 #  Deterministic Check   │ word count, char limit, JSON valid,│ ⚡ Near-instant
 #  (Python code)         │ code compiles, URL format valid    │ (no API call)
-#  ──────────────────────┼───────────────────────────────────┼─────────────────
+#  ──────────────────────┼────────────────────────────────────┼─────────────────
 #  LLM-as-Judge          │ factual accuracy, tone, safety,    │ ⏱ ~1-2 seconds
 #  (model.invoke)        │ coherence, relevance               │ (API call cost)
 #

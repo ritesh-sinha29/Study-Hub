@@ -35,9 +35,9 @@
 #  ┌────────────────────────────────────────────────────────────┐
 #  │                  CHECKPOINTER DATABASE                     │
 #  │                                                            │
-#  │  thread_id: "user_ritesh"  → checkpoint_1, checkpoint_2   │
+#  │  thread_id: "user_ritesh"  → checkpoint_1, checkpoint_2    │
 #  │  thread_id: "user_priya"   → checkpoint_1                  │
-#  │  thread_id: "user_raj"     → checkpoint_1, checkpoint_2,  │
+#  │  thread_id: "user_raj"     → checkpoint_1, checkpoint_2,   │
 #  │                               checkpoint_3                 │
 #  └────────────────────────────────────────────────────────────┘
 #

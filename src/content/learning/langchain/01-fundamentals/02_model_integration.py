@@ -18,19 +18,19 @@
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
 #  ┌──────────────────────────────────────────────────────────────────────┐
-#  │  PARAMETER        │ WHAT IT DOES           │ TYPICAL VALUES          │
+#  │  PARAMETER        │ WHAT IT DOES            │ TYPICAL VALUES         │
 #  ├──────────────────────────────────────────────────────────────────────┤
 #  │  temperature      │ Controls randomness     │ 0.0 (precise) →        │
 #  │                   │ of token selection      │ 1.0+ (creative)        │
 #  ├──────────────────────────────────────────────────────────────────────┤
 #  │  max_tokens       │ Caps response length,   │ 100 (short) →          │
-#  │                   │ controls API cost        │ 8192 (long)            │
+#  │                   │ controls API cost       │ 8192 (long)            │
 #  ├──────────────────────────────────────────────────────────────────────┤
 #  │  model_provider   │ Selects which partner   │ "openai", "anthropic", │
-#  │                   │ package to load          │ "google_genai", "groq" │
+#  │                   │ package to load         │ "google_genai", "groq" │
 #  ├──────────────────────────────────────────────────────────────────────┤
 #  │  top_p            │ Nucleus sampling:       │ 0.9 (focused) →        │
-#  │                   │ limits token pool size   │ 1.0 (all tokens)       │
+#  │                   │ limits token pool size  │ 1.0 (all tokens)       │
 #  └──────────────────────────────────────────────────────────────────────┘
 #
 # TEMPERATURE GUIDANCE:
@@ -69,7 +69,7 @@
 #  │  [User Request]                                     │
 #  │        │                                            │
 #  │        ▼                                            │
-#  │  [Primary: GPT-4o-mini] ──► Success? ──► Return    │
+#  │  [Primary: GPT-4o-mini] ──► Success? ──► Return     │
 #  │        │                                            │
 #  │        └──► 429/503 Error                           │
 #  │                   │                                 │

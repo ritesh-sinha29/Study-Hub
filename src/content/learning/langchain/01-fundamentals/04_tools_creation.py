@@ -27,12 +27,12 @@
 # SECTION 2 — THE TOOL SCHEMA TRANSFER ARCHITECTURE
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
-#  ┌──────────────────────────────────────────────────────────────────────┐
-#  │                    TOOL CALL DATA FLOW                               │
-#  │                                                                      │
+#  ┌─────────────────────────────────────────────────────────────────────┐
+#  │                    TOOL CALL DATA FLOW                              │
+#  │                                                                     │
 #  │  @tool function           JSON Schema (sent to LLM)                 │
 #  │  def get_weather(         ┌─────────────────────────────────────┐   │
-#  │    city: str              │ {                                    │   │
+#  │    city: str              │ {                                   │   │
 #  │  ) -> str:                │   "name": "get_weather",            │   │
 #  │    """                    │   "description": "Get current...",  │   │
 #  │    Get current weather.   │   "parameters": {                   │   │
@@ -41,14 +41,14 @@
 #  │                           │ }                                   │   │
 #  │                           └─────────────────────────────────────┘   │
 #  │                                        │                            │
-#  │                           LLM Decision: "Call get_weather"           │
+#  │                           LLM Decision: "Call get_weather"          │
 #  │                                        │                            │
 #  │                           AIMessage.tool_calls = [                  │
-#  │                             {"name": "get_weather",                  │
-#  │                              "args": {"city": "London"},             │
-#  │                              "id": "call_abc123"}                    │
+#  │                             {"name": "get_weather",                 │
+#  │                              "args": {"city": "London"},            │
+#  │                              "id": "call_abc123"}                   │
 #  │                           ]                                         │
-#  └──────────────────────────────────────────────────────────────────────┘
+#  └─────────────────────────────────────────────────────────────────────┘
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # SECTION 3 — THE CRITICAL IMPORTANCE OF DOCSTRINGS

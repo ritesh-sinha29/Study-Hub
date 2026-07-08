@@ -55,12 +55,12 @@
 # SECTION 3 — PYDANTIC VS TYPEDDICT: WHEN TO USE WHICH
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 #
-#  CRITERIA         │ PYDANTIC (BASEMODEL)            │ TYPEDDICT
-#  ─────────────────┼─────────────────────────────────┼────────────────────────────────
-#  Return Format    │ Python Object (dot access)      │ Plain Dictionary (key access)
-#  Validation       │ Strict runtime type validation  │ None (static type checking only)
+#  CRITERIA         │ PYDANTIC (BASEMODEL)              │ TYPEDDICT
+#  ─────────────────┼───────────────────────────────────┼────────────────────────────────
+#  Return Format    │ Python Object (dot access)        │ Plain Dictionary (key access)
+#  Validation       │ Strict runtime type validation    │ None (static type checking only)
 #  Model Guidance   │ Excellent (via Field descriptions)│ Moderate (via comments/types)
-#  Primary Use Case │ API schemas, validated inputs   │ LangGraph state whiteboard
+#  Primary Use Case │ API schemas, validated inputs     │ LangGraph state whiteboard
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # SECTION 4 — FIELD DESCRIPTIONS AS MODEL INSTRUCTIONS

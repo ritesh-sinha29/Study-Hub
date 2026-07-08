@@ -30,24 +30,24 @@
 #   ┌──────────────────────────────────────────────────────────────────────┐
 #   │                    LANGCHAIN ECOSYSTEM MAP                           │
 #   │                                                                      │
-#   │  langchain-core       → Base abstractions: Runnable, prompts,       │
+#   │  langchain-core       → Base abstractions: Runnable, prompts,        │
 #   │                         messages, parsers (NO third-party deps)      │
 #   │                                                                      │
-#   │  langchain            → High-level chain builders, agent runtimes   │
+#   │  langchain            → High-level chain builders, agent runtimes    │
 #   │                         and convenience wrappers                     │
 #   │                                                                      │
-#   │  langchain-community  → Community-maintained integrations:          │
+#   │  langchain-community  → Community-maintained integrations:           │
 #   │                         Vector stores, doc loaders, APIs             │
 #   │                                                                      │
-#   │  Partner Packages     → Official, optimized integrations:           │
+#   │  Partner Packages     → Official, optimized integrations:            │
 #   │  (langchain-openai,     maintained by model providers directly       │
 #   │   langchain-anthropic,                                               │
 #   │   langchain-google-genai)                                            │
 #   │                                                                      │
-#   │  LangSmith            → Cloud observability: trace, debug, eval     │
+#   │  LangSmith            → Cloud observability: trace, debug, eval      │
 #   │                         every chain run visually                     │
 #   │                                                                      │
-#   │  LangGraph            → Advanced stateful agentic graphs            │
+#   │  LangGraph            → Advanced stateful agentic graphs             │
 #   │                         (covered in the LangGraph module)            │
 #   └──────────────────────────────────────────────────────────────────────┘
 #
@@ -69,12 +69,12 @@
 #  ┌──────────────────────────────────────────────────────────────────────┐
 #  │                      COGNITIVE SPECTRUM                              │
 #  │                                                                      │
-#  │   PASSIVE LLM                              AUTONOMOUS AGENT         │
-#  │   (Text In → Text Out)                     (Think → Tool → Answer)  │
+#  │   PASSIVE LLM                              AUTONOMOUS AGENT          │
+#  │   (Text In → Text Out)                     (Think → Tool → Answer)   │
 #  │        │                                          │                  │
 #  │        ▼                                          ▼                  │
-#  │   "I don't know"                          weather_tool() →          │
-#  │   (Hallucination risk)                    "18°C, Partly Cloudy"     │
+#  │   "I don't know"                          weather_tool() →           │
+#  │   (Hallucination risk)                    "18°C, Partly Cloudy"      │
 #  └──────────────────────────────────────────────────────────────────────┘
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
