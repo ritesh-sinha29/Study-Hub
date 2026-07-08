@@ -6,12 +6,17 @@
 // Conditionals (if-else, switch) are control flow statements that allow your program to make decisions and execute different blocks of code based on true or false conditions.
 //
 // --- REAL-WORLD USE CASES ---
-// Conditionals are used to make decisions in code execution based on variables.
-// Examples:
-//   * Authentication: Check if username and password match database records.
-//   * Menu Options: Choose actions (e.g., Press 1 to Save, Press 2 to Delete).
-//   * Eligibility: Checking if a user's age is 18 or older to allow sign up.
+// 1. AUTHENTICATION:
+//    - **Step 1**: Check if username.
+//    - **Result**: Password match database records.
 //
+// 2. MENU OPTIONS:
+//    - **Step 1**: Choose actions (e.g., Press 1.
+//    - **Result**: Save, Press 2.
+//
+// 3. ELIGIBILITY:
+//    - **Step 1**: Checking if a user's age is 18 or older.
+//    - **Result**: Allow sign up.
 
 #include <iostream>
 using namespace std;

@@ -7,10 +7,13 @@
 // It imports standard input/output libraries to allow communication with the user.
 //
 // --- REAL-WORLD USE CASES ---
-// Every C++ application requires a basic skeleton structure. This is used in:
-//   * Console Applications: Command-line utilities that read user inputs and print output.
-//   * Game Loggers: Printing logs during game execution to debug events.
+// 1. CONSOLE APPLICATIONS:
+//    - **Step 1**: Command-line utilities that read user inputs.
+//    - **Result**: Print output.
 //
+// 2. GAME LOGGERS:
+//    - **Step 1**: Printing logs during game execution.
+//    - **Result**: Debug events.
 // --- HOW IT WORKS ---
 // 1. #include <iostream>: Imports input/output stream library for cin/cout.
 // 2. using namespace std: Avoids writing std:: before cout/cin.

@@ -6,11 +6,14 @@
 // Complexity analysis is the mathematical standard used to measure and compare how the runtime (Time Complexity) and memory (Space Complexity) of an algorithm scales with the input size N.
 //
 // --- REAL-WORLD USE CASES ---
-// Complexity analysis is the language of algorithm performance. It helps you:
-//   * Performance Tuning: Predict how slow an app will run when processing millions of users.
-//   * Code Comparison: Decide which sorting algorithm is faster before shipping it.
-//   * Resource Planning: Calculate how much server RAM (Space Complexity) is needed for database logs.
+// 1. PERFORMANCE TUNING:
+//    - **Step 1**: Predict how slow an app will run when processing millions of users.
 //
+// 2. CODE COMPARISON:
+//    - **Step 1**: Decide which sorting algorithm is faster before shipping it.
+//
+// 3. RESOURCE PLANNING:
+//    - **Step 1**: Calculate how much server RAM (Space Complexity) is needed for database logs.
 
 #include <iostream>
 #include <vector>
@@ -56,7 +59,7 @@ int main() {
     printAllElements(sampleArr); // Output: 1 2 3 
 
     cout << "\nRunning quadratic time O(N^2):" << endl;
-    printAllPairs(sampleArr); // Output: (1, 1) (1, 2) (1, 3) (2, 1) ...
+    printAllPairs(sampleArr); // Output: (1, 1) (1, 2) (1, 3) (2, 1) ..
 
     return 0;
 }

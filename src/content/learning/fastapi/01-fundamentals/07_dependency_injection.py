@@ -30,14 +30,14 @@ async def pagination_parameters(q: Union[str, None] = None, skip: int = 0, limit
 async def read_items(params: dict = Depends(pagination_parameters)):
     # `params` contains the dictionary returned by `pagination_parameters`
     return {
-        "message": "Fetching items...",
+        "message": "Fetching items..",
         "filters_applied": params
     }
 
 @app.get("/users")
 async def read_users(params: dict = Depends(pagination_parameters)):
     return {
-        "message": "Fetching users...",
+        "message": "Fetching users..",
         "filters_applied": params
     }
 
@@ -48,7 +48,7 @@ async def read_users(params: dict = Depends(pagination_parameters)):
 # Dependencies can depend on OTHER dependencies.
 # Let's create an authentication check that looks for a "X-API-Key" header.
 
-async def verify_api_key(x_api_key: str = Header(..., description="API Access Token")):
+async def verify_api_key(x_api_key: str = Header(.., description="API Access Token")):
     # In a real app, you would check this key in a database.
     if x_api_key != "secret-token-123":
         raise HTTPException(
@@ -80,7 +80,7 @@ async def admin_dashboard(admin: dict = Depends(get_admin_user)):
 
 class MockDatabaseSession:
     def __init__(self):
-        print("[DB Connection] Opening connection session...")
+        print("[DB Connection] Opening connection session..")
     def query(self, data):
         return f"Database query result for: {data}"
     def close(self):
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 #    (`q`, `skip`, `limit`) even though they are inside the `Depends()` function!
 # 4. Try `/admin/dashboard` — you must supply the header `x-api-key` with value `secret-token-123`.
 # 5. Try `/db-query/hello`. Check your Python terminal output: you will see 
-#    "[DB Connection] Opening connection session..." followed by 
+#    "[DB Connection] Opening connection session.." followed by 
 #    "[DB Connection] Closing connection session!" proving the cleanup worked.
 
 
@@ -126,26 +126,24 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. DATABASE SESSION PER REQUEST (like every MNC backend)
-#    - Every route that touches the DB needs a session. Without DI:
-#        db = SessionLocal() → copy-paste in every function → bugs everywhere.
-#    - With DI: def get_db() is defined ONCE. Every route just writes `db = Depends(get_db)`.
-#    - If DB fails → the dependency raises an error → none of your routes need try/except.
-
+#    - **Step 1**: Every route that touches the DB needs a session. Without DI: db = SessionLocal() → copy-paste in every function → bugs everywhere.
+#    - **Step 2**: With DI: def get_db() is defined ONCE. Every route just writes `db = Depends(get_db)`.
+#    - **Result**: If DB fails → the dependency raises an error → none of your routes need try/except.
+#
 # 2. AUTHENTICATION & AUTHORIZATION (like every secured API)
-#    - `get_current_user` is a dependency. Any route that needs auth just adds:
-#        user = Depends(get_current_user)
-#    - Without DI: you'd write the same token verification code in EVERY protected route.
-#    - With DI: write once, reuse everywhere. Change auth logic in ONE place.
-
+#    - **Step 1**: `get_current_user` is a dependency. Any route that needs auth just adds: user = Depends(get_current_user).
+#    - **Step 2**: Without DI: you'd write the same token verification code in EVERY protected route.
+#    - **Result**: With DI: write once, reuse everywhere. Change auth logic in ONE place.
+#
 # 3. RATE LIMITING (like Razorpay / Stripe API)
-#    - A dependency checks: "Has this IP made more than 100 requests in 60 seconds?"
-#    - If yes → dependency raises HTTPException(429, "Too Many Requests")
-#    - All routes are automatically rate-limited just by adding Depends(rate_limiter).
-
+#    - **Step 1**: A dependency checks: "Has this IP made more than 100 requests in 60 seconds?".
+#    - **Step 2**: If yes → dependency raises HTTPException(429, "Too Many Requests").
+#    - **Result**: All routes are automatically rate-limited just by adding Depends(rate_limiter).
+#
 # 4. FEATURE FLAGS (like Netflix / Swiggy A/B testing)
-#    - A dependency reads a feature flag config and returns which features are ON/OFF.
-#    - Routes use Depends(get_feature_flags) to show different UI/behavior to users.
-#    - New features can be toggled ON/OFF without code deployment.
+#    - **Step 1**: A dependency reads a feature flag config and returns which features are ON/OFF.
+#    - **Step 2**: Routes use Depends(get_feature_flags) to show different UI/behavior to users.
+#    - **Result**: New features can be toggled ON/OFF without code deployment.
 
 
 # ==========================================================

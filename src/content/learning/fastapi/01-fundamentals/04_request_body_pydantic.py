@@ -31,8 +31,8 @@ PRODUCTS_DATABASE = {}
 # This class defines the structure (schema) of the JSON we expect from the client.
 # We can use Pydantic's `Field` to add validation rules (like min_length, gt, lt).
 class Product(BaseModel):
-    name: str = Field(..., min_length=2, description="Name of the product")
-    price: float = Field(..., gt=0, description="Price must be greater than zero")
+    name: str = Field(.., min_length=2, description="Name of the product")
+    price: float = Field(.., gt=0, description="Price must be greater than zero")
     description: Union[str, None] = Field(default=None, description="Optional description of the product")
     tax: Union[float, None] = 0.0  # Default value if not provided
     tags: List[str] = []           # Default to an empty list of strings
@@ -122,24 +122,24 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. USER REGISTRATION (like any app signup)
-#    - POST /register with body: {name, email, password, phone}
-#    - Pydantic validates email format, min-length for password, etc.
-#    - Without Pydantic: you'd write 20 lines of if/else checks. With Pydantic: 0 lines!
-
+#    - **Step 1**: POST /register with body: {name, email, password, phone}.
+#    - **Step 2**: Pydantic validates email format, min-length for password, etc.
+#    - **Result**: Without Pydantic: you'd write 20 lines of if/else checks. With Pydantic: 0 lines!.
+#
 # 2. PRODUCT CREATION (like Seller Dashboard on Amazon/Flipkart)
-#    - POST /products with body: {name, price, category, description, stock_count}
-#    - Pydantic ensures price > 0, stock_count >= 0, name is not empty, etc.
-#    - Seller portal shows friendly errors if any field is invalid.
-
+#    - **Step 1**: POST /products with body: {name, price, category, description, stock_count}.
+#    - **Step 2**: Pydantic ensures price > 0, stock_count >= 0, name is not empty, etc.
+#    - **Result**: Seller portal shows friendly errors if any field is invalid.
+#
 # 3. BOOKING / RESERVATION (like MakeMyTrip / OYO)
-#    - POST /bookings with body: {hotel_id, check_in, check_out, guests, room_type}
-#    - Pydantic validates check_in < check_out, guests > 0, etc.
-#    - Any invalid booking request is rejected BEFORE touching the database.
-
+#    - **Step 1**: POST /bookings with body: {hotel_id, check_in, check_out, guests, room_type}.
+#    - **Step 2**: Pydantic validates check_in < check_out, guests > 0, etc.
+#    - **Result**: Any invalid booking request is rejected BEFORE touching the database.
+#
 # 4. LOAN APPLICATION (like HDFC Bank / Bajaj Finance)
-#    - POST /loan/apply with body: {name, pan_number, income, loan_amount, tenure}
-#    - Pydantic's Field() validators check patterns (like PAN format), value ranges, etc.
-#    - The validated data is then passed to the credit scoring engine.
+#    - **Step 1**: POST /loan/apply with body: {name, pan_number, income, loan_amount, tenure}.
+#    - **Step 2**: Pydantic's Field() validators check patterns (like PAN format), value ranges, etc.
+#    - **Result**: The validated data is then passed to the credit scoring engine.
 
 
 # ==========================================================
@@ -168,11 +168,11 @@ if __name__ == "__main__":
 # Q3. What is the `Field` class in Pydantic? Give examples.
 # A:  `Field` adds extra rules and metadata to a Pydantic model attribute.
 #     Common uses:
-#       price: float = Field(..., gt=0, description="Must be greater than zero")
-#       name: str = Field(..., min_length=2, max_length=100)
+#       price: float = Field(.., gt=0, description="Must be greater than zero")
+#       name: str = Field(.., min_length=2, max_length=100)
 #       age: int = Field(default=18, ge=18, le=100)  # ge=greater-equal, le=less-equal
-#       email: str = Field(..., pattern=r'^[\w.-]+@[\w.-]+\.\w+$')  # regex validation
-#     `...` (Ellipsis) as the first argument means the field is REQUIRED.
+#       email: str = Field(.., pattern=r'^[\w.-]+@[\w.-]+\.\w+$')  # regex validation
+#     `..` (Ellipsis) as the first argument means the field is REQUIRED.
 
 # Q4. How does FastAPI know which parameter is a path param, query param, or request body?
 # A:  FastAPI uses a clear priority system:

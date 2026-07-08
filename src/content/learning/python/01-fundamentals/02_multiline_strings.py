@@ -44,15 +44,14 @@ print(b)
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. SQL Queries: Writing long, readable multi-line database queries directly
-#    in the code.
+#    - **Step 1**: In the code.
 #
 # 2. AI System Prompts: Defining complex instructions and templates for LLM
-#    API calls.
+#    - **Step 1**: API calls.
 #
 # 3. HTML/Text Templates: Formatting multi-line email bodies or basic HTML
-#    pages dynamically.
+#    - **Step 1**: Pages dynamically.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS
@@ -75,7 +74,7 @@ print(b)
 #     | **Storage** | Evaluated or assigned to var | Saved in `__doc__` attribute |
 #     | **Primary Use**| Text templates, long SQL queries | Code documentation & auto-doc generation |
 #
-# Q2. What are Raw Strings (r'...'), and when should you use them?
+# Q2. What are Raw Strings (r'..'), and when should you use them?
 # A:  Raw strings ignore escape characters like \n or \t, treating backslashes
 #     as literal characters. They are essential when writing Regular
 #     Expressions (regex) or Windows file paths (e.g.

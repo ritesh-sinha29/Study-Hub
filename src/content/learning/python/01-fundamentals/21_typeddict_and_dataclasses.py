@@ -173,15 +173,14 @@ print("FastAPI-style response:", create_user(request))
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. API Request DTOs: Defining strongly typed data structures representing
-#    HTTP request bodies.
+#    - **Step 1**: HTTP request bodies.
 #
 # 2. JSON Payloads Validation: Describing nested dictionary shapes returned by
-#    external APIs.
+#    - **Step 1**: External APIs.
 #
 # 3. Domain Configurations: Defining immutable configuration profiles inside
-#    classes.
+#    - **Step 1**: Classes.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

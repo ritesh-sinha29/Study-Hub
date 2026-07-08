@@ -136,14 +136,14 @@ if os.path.exists("server.log"):
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Log Exporter Service: Appending trace warnings and error logs to a local
-#    file using append mode.
+#    - **Step 1**: File using append mode.
 #
 # 2. Local Storage Database: Saving application JSON settings files locally.
+#    - **Step 1**: .
 #
 # 3. Bulk Report Generation: Creating CSV file reports on disk from lists of
-#    databases.
+#    - **Step 1**: Databases.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

@@ -167,15 +167,14 @@ print(get_user(99))  # Not found → returns error response
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. API Network Failover: Catching ConnectionError and retrying the request
-#    or serving cached data.
+#    - **Step 1**: Or serving cached data.
 #
 # 2. File Parsing Resilience: Catching FileNotFoundError or PermissionError
-#    during import tasks.
+#    - **Step 1**: During import tasks.
 #
 # 3. Database Transaction Cleanup: Guaranteeing database connection closure
-#    using a finally block.
+#    - **Step 1**: Using a finally block.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

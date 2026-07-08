@@ -85,7 +85,7 @@ if __name__ == "__main__":
 # 1. Run this file: `python 06_error_handling.py`
 # 2. Go to: http://localhost:8000/docs
 # 3. Test `/items/sword` (returns weapon details).
-# 4. Test `/items/potion` (returns 404 error and message in JSON: "detail": "...")
+# 4. Test `/items/potion` (returns 404 error and message in JSON: "detail": "..")
 # 5. Test `/simulate-db-error` (returns 503 Service Unavailable, and our custom structured JSON error output).
 
 
@@ -94,25 +94,24 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. E-COMMERCE: PRODUCT NOT FOUND (like Amazon / Flipkart)
-#    - GET /products/99999 → Product doesn't exist in DB
-#    - Backend raises HTTPException(404, detail="Product not found")
-#    - Frontend shows a friendly "Product not available" message using the 404 status.
-
+#    - **Step 1**: GET /products/99999 → Product doesn't exist in DB.
+#    - **Step 2**: Backend raises HTTPException(404, detail="Product not found").
+#    - **Result**: Frontend shows a friendly "Product not available" message using the 404 status.
+#
 # 2. FOOD ORDERING: RESTAURANT CLOSED (like Swiggy / Zomato)
-#    - POST /orders with a restaurant that's currently closed
-#    - Backend raises HTTPException(400, detail="Restaurant is not accepting orders right now")
-#    - App shows the correct error popup to the user.
-
+#    - **Step 1**: POST /orders with a restaurant that's currently closed.
+#    - **Step 2**: Backend raises HTTPException(400, detail="Restaurant is not accepting orders right now").
+#    - **Result**: App shows the correct error popup to the user.
+#
 # 3. BANKING: DATABASE OUTAGE HANDLING (like HDFC / ICICI Bank apps)
-#    - The core banking system goes down for maintenance.
-#    - Instead of crashing with a 500 error, a custom exception handler returns:
-#      {"error": "SERVICE_UNAVAILABLE", "message": "Please try again after 2 minutes"}
-#    - Users see a friendly message instead of a raw server crash.
-
+#    - **Step 1**: The core banking system goes down for maintenance.
+#    - **Step 2**: Instead of crashing with a 500 error, a custom exception handler returns: {"error": "SERVICE_UNAVAILABLE", "message": "Please try again after 2 minutes"}.
+#    - **Result**: Users see a friendly message instead of a raw server crash.
+#
 # 4. PAYMENT: INSUFFICIENT BALANCE (like Paytm / PhonePe)
-#    - POST /transfer with amount > wallet balance
-#    - Raises HTTPException(400, detail="Insufficient balance")
-#    - The correct HTTP 400 code tells the frontend "bad input" not "server crash".
+#    - **Step 1**: POST /transfer with amount > wallet balance.
+#    - **Step 2**: Raises HTTPException(400, detail="Insufficient balance").
+#    - **Result**: The correct HTTP 400 code tells the frontend "bad input" not "server crash".
 
 
 # ==========================================================

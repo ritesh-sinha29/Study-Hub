@@ -151,15 +151,14 @@ print(create_user("Ritesh", 20, "ritesh@example.com"))
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. IDE Code Completion: Enabling static tooling (PyCharm, VS Code) to
-#    provide autocomplete for parameters.
+#    - **Step 1**: Provide autocomplete for parameters.
 #
 # 2. API Payloads Documentation: Specifying typing rules for endpoints in web
-#    frameworks.
+#    - **Step 1**: Frameworks.
 #
 # 3. Refactoring Safety: Catching type incompatibility bugs in CI using static
-#    analysis tools like mypy.
+#    - **Step 1**: Analysis tools like mypy.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

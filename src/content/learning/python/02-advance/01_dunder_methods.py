@@ -169,7 +169,7 @@ print()
 # Try creating a class `ShoppingBag` that has:
 # - An `items` list.
 # - A `__len__` method to return the count of items in the bag.
-# - A `__str__` method to print a neat string: "Bag has items: [item1, item2...]"
+# - A `__str__` method to print a neat string: "Bag has items: [item1, item2..]"
 # - An `__add__` method to merge two bags together!
 
 class ShoppingBag:
@@ -213,15 +213,14 @@ print()
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Matrix Math Overloading: Customizing operations like matrix addition (+)
-#    by overriding __add__.
+#    - **Step 1**: By overriding __add__.
 #
 # 2. Custom Collection APIs: Implementing custom list/dictionary classes with
-#    length (__len__) and item lookup (__getitem__).
+#    - **Step 1**: Length (__len__) and item lookup (__getitem__).
 #
 # 3. Object Debugging Logs: Providing clean string representations (__str__
-#    and __repr__) for logging entities.
+#    - **Step 1**: And __repr__) for logging entities.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

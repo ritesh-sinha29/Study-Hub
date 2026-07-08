@@ -6,12 +6,15 @@
 // Arrays are fixed-size containers that store elements of the same type sequentially in memory. Strings are specialized arrays of characters used to store and manipulate text.
 //
 // --- REAL-WORLD USE CASES ---
-// Arrays and Strings are basic containers used to store collection of elements sequentially.
-// Examples:
-//   * Chessboards: 2D array of size 8x8 storing chess pieces.
-//   * Lists of Marks: Storing student test marks.
-//   * Text Processing: Storing and parsing string tokens like words or commands.
+// 1. CHESSBOARDS:
+//    - **Step 1**: 2D array of size 8x8 storing chess pieces.
 //
+// 2. LISTS OF MARKS:
+//    - **Step 1**: Storing student test marks.
+//
+// 3. TEXT PROCESSING:
+//    - **Step 1**: Storing.
+//    - **Result**: Parsing string tokens like words or commands.
 
 #include <iostream>
 #include <string>

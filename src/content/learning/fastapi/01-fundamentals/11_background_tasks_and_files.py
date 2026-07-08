@@ -28,7 +28,7 @@ app = FastAPI(title="FastAPI: File Uploads & Background Tasks")
 # ==========================================================
 
 @app.post("/upload-single")
-async def upload_single_file(file: UploadFile = File(...)):
+async def upload_single_file(file: UploadFile = File(..)):
     # You can read metadata:
     # - file.filename: Name of the file (e.g., "photo.jpg")
     # - file.content_type: MIME type (e.g., "image/jpeg")
@@ -48,7 +48,7 @@ async def upload_single_file(file: UploadFile = File(...)):
 
 
 @app.post("/upload-multiple")
-async def upload_multiple_files(files: List[UploadFile] = File(...)):
+async def upload_multiple_files(files: List[UploadFile] = File(..)):
     uploaded_files_info = []
     
     for file in files:
@@ -72,7 +72,7 @@ async def upload_multiple_files(files: List[UploadFile] = File(...)):
 # A standard Python function representing our slow background task
 def write_log_report(email: str, message: str):
     # Simulate a slow email dispatch or PDF write (5 seconds)
-    print(f"[Background Task] Start: Generating report for {email}...")
+    print(f"[Background Task] Start: Generating report for {email}..")
     time.sleep(5)
     print(f"[Background Task] Success: Report email sent to {email}! Message: '{message}'")
 
@@ -80,7 +80,7 @@ def write_log_report(email: str, message: str):
 # Endpoint that schedules the background task
 @app.post("/request-report")
 async def request_report(email: str, background_tasks: BackgroundTasks):
-    # Schedule the task: (task_function, arg1, arg2...)
+    # Schedule the task: (task_function, arg1, arg2..)
     # The client will receive the return response IMMEDIATELY.
     # The function `write_log_report` will run in the background after the response is sent.
     background_tasks.add_task(write_log_report, email, "Your report is attached below.")
@@ -105,7 +105,7 @@ if __name__ == "__main__":
 # 4. Try `/request-report` with your email.
 #    * Watch Swagger return the success response immediately (0 seconds delay).
 #    * Check your Python terminal! After 5 seconds, you will see the prints:
-#      `[Background Task] Success: Report email sent to ...` showing it executed in the background.
+#      `[Background Task] Success: Report email sent to ..` showing it executed in the background.
 
 
 # ==========================================================
@@ -113,26 +113,26 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. EMAIL NOTIFICATION ON SIGNUP (like any app)
-#    - User hits POST /register → account is created.
-#    - A background task sends the welcome email AFTER the response is returned.
-#    - User gets instant response ("Account created!") + email arrives in a few seconds.
-#    - Without BackgroundTasks: User waits 3-5 seconds for email server before response!
-
+#    - **Step 1**: User hits POST /register → account is created.
+#    - **Step 2**: A background task sends the welcome email AFTER the response is returned.
+#    - **Step 3**: User gets instant response ("Account created!") + email arrives in a few seconds.
+#    - **Result**: Without BackgroundTasks: User waits 3-5 seconds for email server before response!.
+#
 # 2. ORDER CONFIRMATION (like Swiggy / Amazon)
-#    - POST /orders → order saved to DB → response sent immediately.
-#    - Background task: Send SMS + email + push notification to user.
-#    - Background task: Notify restaurant/warehouse about the new order.
-#    - All of this happens AFTER user sees "Order Placed Successfully!" — no waiting.
-
+#    - **Step 1**: POST /orders → order saved to DB → response sent immediately.
+#    - **Step 2**: Background task: Send SMS + email + push notification to user.
+#    - **Step 3**: Background task: Notify restaurant/warehouse about the new order.
+#    - **Result**: All of this happens AFTER user sees "Order Placed Successfully!" — no waiting.
+#
 # 3. FILE PROCESSING (like resume parsing on Naukri.com)
-#    - POST /upload-resume → file saved → user gets "Upload successful" response immediately.
-#    - Background task: Parse the resume, extract skills, index them for search.
-#    - This processing takes 10-30 seconds. User should NOT wait for this!
-
+#    - **Step 1**: POST /upload-resume → file saved → user gets "Upload successful" response immediately.
+#    - **Step 2**: Background task: Parse the resume, extract skills, index them for search.
+#    - **Result**: This processing takes 10-30 seconds. User should NOT wait for this!.
+#
 # 4. REPORT GENERATION (like any analytics dashboard)
-#    - POST /reports/generate → user gets "Report is being generated" response.
-#    - Background task: Run heavy DB queries, generate PDF, send download link via email.
-#    - Report arrives in email in 2-3 minutes. User can use the app normally meanwhile.
+#    - **Step 1**: POST /reports/generate → user gets "Report is being generated" response.
+#    - **Step 2**: Background task: Run heavy DB queries, generate PDF, send download link via email.
+#    - **Result**: Report arrives in email in 2-3 minutes. User can use the app normally meanwhile.
 
 
 # ==========================================================

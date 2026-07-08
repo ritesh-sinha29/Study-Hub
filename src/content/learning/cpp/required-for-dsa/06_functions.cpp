@@ -6,12 +6,16 @@
 // Functions are reusable blocks of code that perform specific tasks. Arguments can be passed by value (copying data) or by reference (pointing directly to the original memory).
 //
 // --- REAL-WORLD USE CASES ---
-// Functions help split large codebases into modular, reusable blocks.
-// Examples:
-//   * Math Operations: Creating a function to compute factorials or exponents.
-//   * Sorting Utilities: Reusable functions that sort any array passed to them.
-//   * Data Modifiers: Updating user details in databases.
+// 1. MATH OPERATIONS:
+//    - **Step 1**: Creating a function.
+//    - **Result**: Compute factorials or exponents.
 //
+// 2. SORTING UTILITIES:
+//    - **Step 1**: Reusable functions that sort any array passed.
+//    - **Result**: Them.
+//
+// 3. DATA MODIFIERS:
+//    - **Step 1**: Updating user details in databases.
 // --- HOW IT WORKS ---
 // 1. Pass by Value: Passes a COPY of the variable. Changes inside do NOT affect the original.
 // 2. Pass by Reference: Passes the memory reference of the original variable (uses '&').

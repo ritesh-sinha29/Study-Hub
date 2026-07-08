@@ -6,12 +6,17 @@
 // Data types specify the type and size of values that variables can store (such as integers, decimals, characters, or text). This tells the compiler how much memory to allocate.
 //
 // --- REAL-WORLD USE CASES ---
-// Data types define the type and size of data a variable can store. Examples:
-//   * int / long: Storing counts, IDs, age.
-//   * float / double: Storing financial prices, temperature, coordinates.
-//   * char: Storing state flags ('Y'/'N'), grades ('A', 'B').
-//   * string: Storing full names, emails, addresses.
+// 1. INT / LONG:
+//    - **Step 1**: Storing counts, IDs, age.
 //
+// 2. FLOAT / DOUBLE:
+//    - **Step 1**: Storing financial prices, temperature, coordinates.
+//
+// 3. CHAR:
+//    - **Step 1**: Storing state flags ('Y'/'N'), grades ('A', 'B').
+//
+// 4. STRING:
+//    - **Step 1**: Storing full names, emails, addresses.
 
 #include <iostream>
 #include <string>

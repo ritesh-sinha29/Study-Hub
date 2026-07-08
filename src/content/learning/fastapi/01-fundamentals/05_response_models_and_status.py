@@ -113,27 +113,27 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. USER AUTHENTICATION SYSTEM (like any app login)
-#    - POST /users creates user. Database stores hashed password.
-#    - Response model STRIPS the password field automatically.
-#    - This is a CRITICAL security practice. Leaking password hashes can lead to data breach.
-
+#    - **Step 1**: POST /users creates user. Database stores hashed password.
+#    - **Step 2**: Response model STRIPS the password field automatically.
+#    - **Result**: This is a CRITICAL security practice. Leaking password hashes can lead to data breach.
+#
 # 2. E-COMMERCE ORDER RESPONSE
-#    - Database order record has: user_id, internal_cost, profit_margin, warehouse_id...
-#    - API response to customer should only have: order_id, items, total_price, delivery_date.
-#    - Response model ensures internal/sensitive fields are NEVER sent to the customer.
-
+#    - **Step 1**: Database order record has: user_id, internal_cost, profit_margin, warehouse_id.
+#    - **Step 2**: API response to customer should only have: order_id, items, total_price, delivery_date.
+#    - **Result**: Response model ensures internal/sensitive fields are NEVER sent to the customer.
+#
 # 3. INTERNAL ADMIN vs PUBLIC API
-#    - Same endpoint, different response models for different user types.
-#    - Admin sees: GET /users/{id} → UserAdminResponse (includes all fields)
-#    - Public sees: GET /users/{id} → UserPublicResponse (only name, bio, avatar)
-#    - In MNCs, this is implemented using response_model + role-based access control.
-
+#    - **Step 1**: Same endpoint, different response models for different user types.
+#    - **Step 2**: Admin sees: GET /users/{id} → UserAdminResponse (includes all fields).
+#    - **Step 3**: Public sees: GET /users/{id} → UserPublicResponse (only name, bio, avatar).
+#    - **Result**: In MNCs, this is implemented using response_model + role-based access control.
+#
 # 4. CORRECT STATUS CODES IN PRODUCTION
-#    - POST /orders → 201 Created (resource created)
-#    - DELETE /orders/1 → 204 No Content (deleted, nothing to return)
-#    - GET /orders/999 → 404 Not Found (doesn't exist)
-#    - POST /login with wrong password → 401 Unauthorized
-#    - Incorrect status codes cause frontend bugs and confuse monitoring systems.
+#    - **Step 1**: POST /orders → 201 Created (resource created).
+#    - **Step 2**: DELETE /orders/1 → 204 No Content (deleted, nothing to return).
+#    - **Step 3**: GET /orders/999 → 404 Not Found (doesn't exist).
+#    - **Step 4**: POST /login with wrong password → 401 Unauthorized.
+#    - **Result**: Incorrect status codes cause frontend bugs and confuse monitoring systems.
 
 
 # ==========================================================

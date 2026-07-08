@@ -23,7 +23,7 @@
 #
 # CLOSURES: The wrapper function "closes over" the original `func` variable,
 # keeping it alive in memory even after the outer decorator function returns.
-# This is how the wrapper can still call `func(...)` later.
+# This is how the wrapper can still call `func(..)` later.
 #
 # **KEY INSIGHT:** Always use `@functools.wraps(func)` inside your wrapper.
 # Without it, the decorated function loses its `__name__` and `__doc__`,
@@ -148,15 +148,14 @@ print("\nAll registered routes:", list(routes.keys()))
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Authentication Middleware: Restricting endpoint execution to
-#    authenticated users using @require_auth.
+#    - **Step 1**: Authenticated users using @require_auth.
 #
 # 2. Function Execution Timer: Logging performance metrics and load times for
-#    DB operations.
+#    - **Step 1**: DB operations.
 #
 # 3. API Rate Limiter: Tracking user requests and restricting them if they
-#    exceed limits.
+#    - **Step 1**: Exceed limits.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

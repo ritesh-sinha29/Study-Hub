@@ -83,6 +83,12 @@ export const learningTopics: TopicItem[] = [
             "slug": "time-complexity",
             "number": "08",
             "filename": "required-for-dsa/08_time_complexity.cpp"
+          },
+          {
+            "title": "Guardrails & Robust Input Validation (c++)",
+            "slug": "guardrails",
+            "number": "09",
+            "filename": "required-for-dsa/09_guardrails.cpp"
           }
         ]
       }
@@ -173,6 +179,12 @@ export const learningTopics: TopicItem[] = [
             "slug": "background-tasks-and-files",
             "number": "11",
             "filename": "01-fundamentals/11_background_tasks_and_files.py"
+          },
+          {
+            "title": "Fastapi Guardrails & Inputoutput Validation",
+            "slug": "guardrails",
+            "number": "12",
+            "filename": "01-fundamentals/12_guardrails.py"
           }
         ]
       },
@@ -567,6 +579,12 @@ export const learningTopics: TopicItem[] = [
             "slug": "decorators-deep-dive",
             "number": "03",
             "filename": "02-advance/03_decorators_deep_dive.py"
+          },
+          {
+            "title": "Guardrails & Validation (advanced)",
+            "slug": "guardrails",
+            "number": "04",
+            "filename": "02-advance/04_guardrails.py"
           }
         ]
       }

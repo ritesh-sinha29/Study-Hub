@@ -7,7 +7,7 @@
 # Examples:
 #   * Usernames / Passwords: "ritesh_123"
 #   * Form Entries: Storing names, addresses, or emails from input forms.
-#   * Status Messages: Printing feedback to users like "Loading...", "Success!"
+#   * Status Messages: Printing feedback to users like "Loading..", "Success!"
 
 # A String is a sequence of characters surrounded by quotes.
 #
@@ -22,7 +22,7 @@
 # rely on the hash of the object never changing. If strings were mutable,
 # changing one would silently corrupt every dict that used it as a key.
 #
-# **KEY INSIGHT:** Every string method (upper, replace, strip...) returns a BRAND
+# **KEY INSIGHT:** Every string method (upper, replace, strip..) returns a BRAND
 # NEW string object. The original is never touched. This is why you must
 # capture the return value: `name = name.upper()` — not just `name.upper()`.
 
@@ -102,16 +102,14 @@ print("Slicing name[0:4]:", name[0:4]) # Prints "Rite"
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. User Profile Parsing: Extracting first/last name or username from form
-#    inputs and sanitizing them (e.g. removing extra whitespaces using
-#    strip()).
+#    - **Step 1**: Inputs and sanitizing them (e.g. removing extra whitespaces using strip()).
 #
 # 2. Email Validation: Checking if the input string contains '@' and ends with
-#    a valid domain using endswith() and split().
+#    - **Step 1**: A valid domain using endswith() and split().
 #
 # 3. Search Filters: Normalizing database queries and text search fields to
-#    lowercase using lower() for case-insensitive matching.
+#    - **Step 1**: Lowercase using lower() for case-insensitive matching.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

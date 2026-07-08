@@ -115,8 +115,8 @@ def format_text(text: str) -> str:
     return text
 
 # Order of execution:
-# 1. italic(format_text) -> wraps it in <i>...</i>
-# 2. bold(italic_wrapper) -> wraps the result in <b>...</b>
+# 1. italic(format_text) -> wraps it in <i>..</i>
+# 2. bold(italic_wrapper) -> wraps the result in <b>..</b>
 print("Formatted Text:", format_text("Python is awesome"))
 print("-" * 40)
 
@@ -152,15 +152,14 @@ say_hi()
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Class Method Registry: Automatically logging and mapping class routes in
-#    web frameworks.
+#    - **Step 1**: Web frameworks.
 #
 # 2. Stateful Call Caching: Caching API responses in class properties with
-#    expiry timers.
+#    - **Step 1**: Expiry timers.
 #
 # 3. Dependency Injection Container: Injecting mock dependencies into test
-#    modules using class decorators.
+#    - **Step 1**: Modules using class decorators.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS
@@ -190,6 +189,6 @@ say_hi()
 #
 # Q3. What is the order of execution when multiple decorators are chained?
 # A:  Decorators are applied from bottom-to-top (closest to function first).
-#     For example: `@dec1 @dec2 def func(): ...` is equivalent to `func =
+#     For example: `@dec1 @dec2 def func(): ..` is equivalent to `func =
 #     dec1(dec2(func))`. The wrapper inside dec1 executes first, delegates to
 #     the wrapper inside dec2, which finally calls the original function.

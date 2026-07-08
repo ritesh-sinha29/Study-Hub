@@ -6,13 +6,17 @@
 // The Standard Template Library (STL) is a library of pre-built, highly optimized data structures (like vectors, sets, maps) and algorithms (like sorting) in C++.
 //
 // --- REAL-WORLD USE CASES ---
-// The Standard Template Library (STL) provides pre-built data structures and algorithms 
-// so you don't have to build them from scratch.
-// Examples:
-//   * Dynamic Lists: Using std::vector to store an online shopping cart list that grows.
-//   * Priority Tasks: Using std::queue to handle system printing tasks in order.
-//   * Search Indexing: Using std::map (dictionary) to search users by user ID.
+// 1. DYNAMIC LISTS:
+//    - **Step 1**: Using std::vector.
+//    - **Result**: Store an online shopping cart list that grows.
 //
+// 2. PRIORITY TASKS:
+//    - **Step 1**: Using std::queue.
+//    - **Result**: Handle system printing tasks in order.
+//
+// 3. SEARCH INDEXING:
+//    - **Step 1**: Using std::map (dictionary).
+//    - **Result**: Search users by user ID.
 
 #include <iostream>
 #include <vector>

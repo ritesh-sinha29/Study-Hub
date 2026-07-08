@@ -158,15 +158,14 @@ print(validate_age("abc"))
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Access Authorization: Verifying user roles and permissions before
-#    displaying dashboard data.
+#    - **Step 1**: Displaying dashboard data.
 #
 # 2. Dynamic Pricing Engines: Calculating discounts or surcharges based on
-#    purchase volume or user type.
+#    - **Step 1**: Purchase volume or user type.
 #
 # 3. Form Field Validation: Checking if user password matches requirements
-#    before registration.
+#    - **Step 1**: Before registration.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

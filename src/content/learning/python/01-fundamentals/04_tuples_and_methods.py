@@ -8,7 +8,7 @@
 # Examples:
 #   * GPS Coordinates: (latitude, longitude) e.g., (28.6139, 77.2090)
 #   * RGB Colors: (red, green, blue) e.g., (255, 0, 0) for pure Red.
-#   * Calendar constants: ("Monday", "Tuesday", ...) or ("Jan", "Feb", ...)
+#   * Calendar constants: ("Monday", "Tuesday", ..) or ("Jan", "Feb", ..)
 
 # A Tuple is an ordered collection of items.
 #
@@ -24,7 +24,7 @@
 #
 # When to pick tuple over list:
 #   • Function return values: `return x, y` is a tuple under the hood.
-#   • Fixed config: months = ("Jan", "Feb", ...) — nothing should change it.
+#   • Fixed config: months = ("Jan", "Feb", ..) — nothing should change it.
 #   • Dict keys or set elements that are composite (e.g. (user_id, session_id)).
 #
 # **KEY INSIGHT:** Because tuples have a fixed size and no need for over-allocation,
@@ -63,15 +63,14 @@ print("# Python does not allow changing tuple values after they are created.")
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Database Records: Representing rows from a database table where each
-#    index has a fixed meaning (e.g. (id, username, email)).
+#    - **Step 1**: Index has a fixed meaning (e.g. (id, username, email)).
 #
 # 2. API Coordinates: Storing fixed spatial coords (latitude, longitude) or
-#    screen size specifications.
+#    - **Step 1**: Screen size specifications.
 #
 # 3. Dictionary Keys: Using a combination of values (like first_name,
-#    last_name) as a unique key in a hash map.
+#    - **Step 1**: Last_name) as a unique key in a hash map.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

@@ -110,22 +110,21 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. USER PROFILE PAGE (like LinkedIn / Twitter)
-#    - GET /users/{username} → fetch profile of user "ritesh_sinha"
-#    - LinkedIn uses: GET /in/{publicIdentifier} to display any user's public profile.
-#    - The path param is the username. If user not found → return 404.
-
+#    - **Step 1**: GET /users/{username} → fetch profile of user "ritesh_sinha".
+#    - **Step 2**: LinkedIn uses: GET /in/{publicIdentifier} to display any user's public profile.
+#    - **Result**: The path param is the username. If user not found → return 404.
+#
 # 2. PRODUCT DETAIL PAGE (like Amazon / Flipkart)
-#    - GET /products/{product_id} → fetch all details of product ID 123456.
-#    - Each product URL has a unique ID embedded in it:
-#      https://amazon.in/dp/B09G3HRMVB → B09G3HRMVB is the path parameter!
-
+#    - **Step 1**: GET /products/{product_id} → fetch all details of product ID 123456.
+#    - **Result**: Each product URL has a unique ID embedded in it: https://amazon.in/dp/B09G3HRMVB → B09G3HRMVB is the path parameter!.
+#
 # 3. ORDER TRACKING (like Swiggy / Zomato)
-#    - GET /orders/{order_id}/status → returns live status of order 5001.
-#    - Nested path params are very common in REST APIs.
-
+#    - **Step 1**: GET /orders/{order_id}/status → returns live status of order 5001.
+#    - **Result**: Nested path params are very common in REST APIs.
+#
 # 4. FILE SERVING (like Google Drive / Dropbox)
-#    - GET /files/{file_path:path} → can serve /docs/2024/report.pdf directly.
-#    - The `:path` converter is used when the param itself contains slashes.
+#    - **Step 1**: GET /files/{file_path:path} → can serve /docs/2024/report.pdf directly.
+#    - **Result**: The `:path` converter is used when the param itself contains slashes.
 
 
 # ==========================================================

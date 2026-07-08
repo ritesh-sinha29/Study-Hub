@@ -126,7 +126,7 @@ response = "Hello! I am your AI assistant. How can I help you today?"
 streamed_text = ""
 for word in stream_ai_response(response):
     streamed_text += word + " "
-    print(f"  ...received: '{word}'")
+    print(f"  ..received: '{word}'")
 
 print("\nFull response:", streamed_text)
 
@@ -155,15 +155,14 @@ print("Key idea: yield sends data chunk by chunk to the client.")
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Large Log Streaming: Reading a 10GB server log file line-by-line using a
-#    generator without exhausting RAM.
+#    - **Step 1**: Generator without exhausting RAM.
 #
 # 2. Infinite Sequences: Generating an infinite stream of unique IDs or
-#    numbers dynamically.
+#    - **Step 1**: Numbers dynamically.
 #
 # 3. Lazy Database Query Pagination: Fetching database pages of 100 rows only
-#    when requested by the consumer.
+#    - **Step 1**: When requested by the consumer.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

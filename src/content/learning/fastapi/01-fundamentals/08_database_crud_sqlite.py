@@ -64,7 +64,7 @@ Base.metadata.create_all(bind=engine)
 # ==========================================================
 # Schema for incoming request data (POST/Create)
 class TodoCreate(BaseModel):
-    title: str = Field(..., min_length=1, max_length=100, description="Title of the Todo item")
+    title: str = Field(.., min_length=1, max_length=100, description="Title of the Todo item")
     description: Union[str, None] = Field(default=None, max_length=500)
 
 # Schema for updating request data (PUT/Update)
@@ -193,30 +193,30 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. TODO / TASK MANAGER (like Jira / Trello / Notion)
-#    - POST /tasks → create a new task (INSERT into DB)
-#    - GET /tasks → fetch all tasks (SELECT * from DB)
-#    - PUT /tasks/5 → mark task 5 as complete (UPDATE in DB)
-#    - DELETE /tasks/5 → remove task (DELETE from DB)
-#    - Every task management tool is built on top of CRUD operations.
-
+#    - **Step 1**: POST /tasks → create a new task (INSERT into DB).
+#    - **Step 2**: GET /tasks → fetch all tasks (SELECT * from DB).
+#    - **Step 3**: PUT /tasks/5 → mark task 5 as complete (UPDATE in DB).
+#    - **Step 4**: DELETE /tasks/5 → remove task (DELETE from DB).
+#    - **Result**: Every task management tool is built on top of CRUD operations.
+#
 # 2. USER MANAGEMENT (like any SaaS product)
-#    - POST /users → register new user (INSERT)
-#    - GET /users → admin lists all users (SELECT)
-#    - PUT /users/10 → update profile (UPDATE)
-#    - DELETE /users/10 → account deletion (DELETE)
-#    - Companies like Freshworks, Zoho use this exact pattern.
-
+#    - **Step 1**: POST /users → register new user (INSERT).
+#    - **Step 2**: GET /users → admin lists all users (SELECT).
+#    - **Step 3**: PUT /users/10 → update profile (UPDATE).
+#    - **Step 4**: DELETE /users/10 → account deletion (DELETE).
+#    - **Result**: Companies like Freshworks, Zoho use this exact pattern.
+#
 # 3. BLOG / CMS PLATFORM (like Medium / WordPress API)
-#    - POST /articles → author creates new post (INSERT)
-#    - GET /articles → readers fetch all posts (SELECT)
-#    - PUT /articles/3 → editor updates content (UPDATE)
-#    - DELETE /articles/3 → author deletes post (DELETE)
-
+#    - **Step 1**: POST /articles → author creates new post (INSERT).
+#    - **Step 2**: GET /articles → readers fetch all posts (SELECT).
+#    - **Step 3**: PUT /articles/3 → editor updates content (UPDATE).
+#    - **Result**: DELETE /articles/3 → author deletes post (DELETE).
+#
 # 4. INVENTORY MANAGEMENT (like Warehouse Management System)
-#    - POST /products → add new product to inventory (INSERT)
-#    - GET /products?category=electronics → filtered stock list (SELECT with filter)
-#    - PUT /products/7 → update price or stock count (UPDATE)
-#    - DELETE /products/7 → discontinue product (soft or hard DELETE)
+#    - **Step 1**: POST /products → add new product to inventory (INSERT).
+#    - **Step 2**: GET /products?category=electronics → filtered stock list (SELECT with filter).
+#    - **Step 3**: PUT /products/7 → update price or stock count (UPDATE).
+#    - **Result**: DELETE /products/7 → discontinue product (soft or hard DELETE).
 
 
 # ==========================================================

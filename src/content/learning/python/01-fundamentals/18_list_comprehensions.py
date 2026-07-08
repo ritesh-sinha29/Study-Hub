@@ -21,7 +21,7 @@
 # an append. Python evaluates the entire comprehension EAGERLY and stores all
 # results in a new list in memory immediately.
 #
-# MEMORY TIP: For very large datasets, replace `[...]` with `(...)` to get a
+# MEMORY TIP: For very large datasets, replace `[..]` with `(..)` to get a
 # generator expression instead — it produces values one at a time (lazy),
 # using O(1) memory instead of O(n).
 #
@@ -143,14 +143,14 @@ print("Safe API response (no passwords):", safe_users)
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Database Record Filtering: Creating lists of IDs matching specific
-#    parameters in one line.
+#    - **Step 1**: Parameters in one line.
 #
 # 2. Matrix Transposition: Flattening multidimensional lists or data tables
-#    easily.
+#    - **Step 1**: Easily.
 #
 # 3. Data Cleansing: Trimming whitespace from a list of user input fields.
+#    - **Step 1**: .
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS
@@ -175,7 +175,7 @@ print("Safe API response (no passwords):", safe_users)
 #     
 #     | Feature | List Comprehension | Generator Expression |
 #     | :--- | :--- | :--- |
-#     | **Syntax** | Square brackets `[...]` | Parentheses `(...)` |
+#     | **Syntax** | Square brackets `[..]` | Parentheses `(..)` |
 #     | **Evaluation** | Immediate (eager) | Lazy (on-demand) |
 #     | **Return Type** | List | Generator object |
 #     | **Memory Profile**| Uses `O(n)` RAM | Uses `O(1)` RAM |

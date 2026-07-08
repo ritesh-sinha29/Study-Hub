@@ -113,15 +113,14 @@ print("a1 after removing 500:", a1)
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Unique Visitors Tracking: Logging IP addresses or user IDs to count
-#    unique active users daily.
+#    - **Step 1**: Unique active users daily.
 #
 # 2. Social Graph Commonalities: Finding common friends/followers between two
-#    users using set intersections.
+#    - **Step 1**: Users using set intersections.
 #
 # 3. Spam Filtering: Comparing a list of words in an email against a set of
-#    known spam words.
+#    - **Step 1**: Known spam words.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

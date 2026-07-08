@@ -198,26 +198,26 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. USER LOGIN / SESSION (like any app: Swiggy, Zomato, IRCTC)
-#    - User logs in with email+password → POST /token → receives JWT.
-#    - App stores token in localStorage or cookie.
-#    - Every future request sends: Authorization: Bearer <token>
-#    - Backend verifies token → no need to hit DB for EVERY request.
-
+#    - **Step 1**: User logs in with email+password → POST /token → receives JWT.
+#    - **Step 2**: App stores token in localStorage or cookie.
+#    - **Step 3**: Every future request sends: Authorization: Bearer <token>.
+#    - **Result**: Backend verifies token → no need to hit DB for EVERY request.
+#
 # 2. MICROSERVICE AUTH (like internal APIs at Infosys / Wipro)
-#    - Service A calls Service B. Service A includes its JWT in the request.
-#    - Service B verifies the JWT signature using the shared SECRET_KEY.
-#    - No username/password exchange between services — just tokens.
-
+#    - **Step 1**: Service A calls Service B. Service A includes its JWT in the request.
+#    - **Step 2**: Service B verifies the JWT signature using the shared SECRET_KEY.
+#    - **Result**: No username/password exchange between services — just tokens.
+#
 # 3. ROLE-BASED ACCESS CONTROL (like admin panels)
-#    - JWT payload includes: {"sub": "ritesh", "role": "admin"}
-#    - Routes check the role from the token.
-#    - Admin routes only allow role=="admin". Others get 403 Forbidden.
-#    - Used in every CMS, ERP, and SaaS admin dashboard.
-
+#    - **Step 1**: JWT payload includes: {"sub": "ritesh", "role": "admin"}.
+#    - **Step 2**: Routes check the role from the token.
+#    - **Step 3**: Admin routes only allow role=="admin". Others get 403 Forbidden.
+#    - **Result**: Used in every CMS, ERP, and SaaS admin dashboard.
+#
 # 4. MOBILE APP AUTH (like PhonePe / Google Pay)
-#    - Mobile app logs in once and stores the JWT locally.
-#    - Token expires in 30 mins. Refresh token extends session without re-login.
-#    - User stays "logged in" for days without re-entering password.
+#    - **Step 1**: Mobile app logs in once and stores the JWT locally.
+#    - **Step 2**: Token expires in 30 mins. Refresh token extends session without re-login.
+#    - **Result**: User stays "logged in" for days without re-entering password.
 
 
 # ==========================================================
@@ -251,7 +251,7 @@ if __name__ == "__main__":
 # A:  OAuth2 is an industry-standard AUTHORIZATION protocol.
 #     FastAPI's `OAuth2PasswordBearer` implements the "Password Flow" of OAuth2:
 #       1. Client sends username+password to /token endpoint.
-#       2. Server validates, returns {"access_token": "...", "token_type": "bearer"}.
+#       2. Server validates, returns {"access_token": "..", "token_type": "bearer"}.
 #       3. Client includes `Authorization: Bearer <token>` header in future requests.
 #     The "Bearer" prefix is part of the OAuth2 standard. It tells the server
 #     the type of token being sent.

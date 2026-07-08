@@ -83,7 +83,7 @@ def get_user_by_id(id: int):
 #   Flipkart's search: GET /search?q=laptop&brand=HP&sort=price_asc
 @app.get("/username")
 def get_user_by_name(name: str):
-    # name is automatically read from ?name=... in the URL
+    # name is automatically read from ?name=.. in the URL
     return {
         "name": name,
         "message": f"Hello, {name}! Your profile was found."
@@ -281,7 +281,7 @@ def get_product_with_pagination(id: int, limit: int = 10, offset: int = 0):
 #     Anything NOT in the URL path → query param.
 #       @app.get("/products/{id}")
 #       def get_products(id: int, limit: int = 10, offset: int = 0):
-#         ...
+#         ..
 #     Here `id` is a path param. `limit` and `offset` are query params.
 
 # Q6. What happens if you don't provide a required query parameter?

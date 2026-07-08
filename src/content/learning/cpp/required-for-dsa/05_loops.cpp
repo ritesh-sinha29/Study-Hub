@@ -6,12 +6,14 @@
 // Loops (for, while) are structures used to repeat a block of code multiple times until a specific condition is met, preventing you from writing repetitive instructions.
 //
 // --- REAL-WORLD USE CASES ---
-// Loops are used to repeat a block of code multiple times.
-// Examples:
-//   * Repeating tasks: Checking for new notifications every few seconds.
-//   * Array Traversal: Summing up values inside an array.
-//   * Game Loops: Keep rendering frames until the user presses the 'Exit' button.
+// 1. REPEATING TASKS:
+//    - **Step 1**: Checking for new notifications every few seconds.
 //
+// 2. ARRAY TRAVERSAL:
+//    - **Step 1**: Summing up values inside an array.
+//
+// 3. GAME LOOPS:
+//    - **Step 1**: Keep rendering frames until the user presses the 'Exit' button.
 
 #include <iostream>
 using namespace std;

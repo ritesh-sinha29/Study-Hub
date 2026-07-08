@@ -11,7 +11,7 @@
 
 # --- WHY LEARN THIS? ---
 # * FastAPI: EVERY API route (endpoint) is a function.
-#   e.g., @app.get("/users") -> def get_users(): ...
+#   e.g., @app.get("/users") -> def get_users(): ..
 # * LangGraph: Every "node" in the AI graph is a function.
 # * Anywhere: Reuse the same calculation (like tax) without rewriting it.
 
@@ -148,15 +148,14 @@ print(get_user(99))
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Data Validation Filters: Writing reusable utility functions to validate
-#    format schemas (e.g. validate_email).
+#    - **Step 1**: Format schemas (e.g. validate_email).
 #
 # 2. Reusable Math Computation: Encapsulating calculations like tax rates or
-#    shipping surcharges.
+#    - **Step 1**: Shipping surcharges.
 #
 # 3. Shared Logger Utilities: Writing a standardized logging function used
-#    across all modules.
+#    - **Step 1**: Across all modules.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

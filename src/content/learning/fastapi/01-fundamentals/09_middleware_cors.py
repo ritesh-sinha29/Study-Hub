@@ -111,26 +111,26 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. CORS IN PRODUCTION (like any React + FastAPI app)
-#    - Your React frontend runs at: https://myapp.vercel.app
-#    - Your FastAPI backend runs at: https://api.myapp.com
-#    - Without CORS config: Browser BLOCKS all API calls from frontend. App is broken.
-#    - With CORSMiddleware(allow_origins=["https://myapp.vercel.app"]) → it works!
-#    - This is the #1 setup error for new fullstack developers at MNCs.
-
+#    - **Step 1**: Your React frontend runs at: https://myapp.vercel.app.
+#    - **Step 2**: Your FastAPI backend runs at: https://api.myapp.com.
+#    - **Step 3**: Without CORS config: Browser BLOCKS all API calls from frontend. App is broken.
+#    - **Step 4**: With CORSMiddleware(allow_origins=["https://myapp.vercel.app"]) → it works!.
+#    - **Result**: This is the #1 setup error for new fullstack developers at MNCs.
+#
 # 2. REQUEST LOGGING MIDDLEWARE (like Datadog / CloudWatch in AWS)
-#    - Every request is logged with: method, URL, status code, response time.
-#    - In production, this log goes to a monitoring system like Datadog or ELK Stack.
-#    - Engineers use these logs to debug: "Why did /checkout take 8 seconds at 11 PM?"
-
+#    - **Step 1**: Every request is logged with: method, URL, status code, response time.
+#    - **Step 2**: In production, this log goes to a monitoring system like Datadog or ELK Stack.
+#    - **Result**: Engineers use these logs to debug: "Why did /checkout take 8 seconds at 11 PM?".
+#
 # 3. AUTHENTICATION MIDDLEWARE (like API Gateway at Infosys / TCS)
-#    - A middleware checks the Authorization header on EVERY request before routing.
-#    - If the token is missing → return 401 immediately without touching any route logic.
-#    - This is more efficient than checking auth in every single route function.
-
+#    - **Step 1**: A middleware checks the Authorization header on EVERY request before routing.
+#    - **Step 2**: If the token is missing → return 401 immediately without touching any route logic.
+#    - **Result**: This is more efficient than checking auth in every single route function.
+#
 # 4. RESPONSE COMPRESSION MIDDLEWARE
-#    - GZip middleware compresses large JSON responses (like product lists with 1000 items).
-#    - Reduces bandwidth by 70-80%, making mobile apps load much faster.
-#    - Used by e-commerce backends to speed up product listing APIs.
+#    - **Step 1**: GZip middleware compresses large JSON responses (like product lists with 1000 items).
+#    - **Step 2**: Reduces bandwidth by 70-80%, making mobile apps load much faster.
+#    - **Result**: Used by e-commerce backends to speed up product listing APIs.
 
 
 # ==========================================================

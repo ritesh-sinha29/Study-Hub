@@ -149,15 +149,14 @@ print("Dictionary after clear():", person)
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. User Session Caching: Mapping user session tokens (keys) to active user
-#    profile objects (values).
+#    - **Step 1**: Profile objects (values).
 #
 # 2. API Headers Configuration: Structuring HTTP headers (Content-Type,
-#    Authorization) as key-value pairs.
+#    - **Step 1**: Authorization) as key-value pairs.
 #
 # 3. Entity Mapping: Storing configuration profiles, database configurations,
-#    or localized translation maps.
+#    - **Step 1**: Or localized translation maps.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

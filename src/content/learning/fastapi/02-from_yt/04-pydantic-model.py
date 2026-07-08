@@ -48,7 +48,7 @@
 #   class User(BaseModel):
 #       name: str
 #       age: int
-# ...you are defining a SCHEMA automatically!
+# ..you are defining a SCHEMA automatically!
 
 # Pydantic can also generate a STANDARD JSON Schema (a format that ANY language
 # can understand — JavaScript, TypeScript, Java, etc.).
@@ -248,7 +248,7 @@ def create_user(user: User):  # "user: User" tells FastAPI to expect a User-shap
 # WHAT IF YOU SEND WRONG DATA?
 # ==========================================================
 # Try sending:
-#   {"name": "Bob", "age": "twenty", "address": {...}}
+#   {"name": "Bob", "age": "twenty", "address": {..}}
 # FastAPI will automatically reject it and show an error message.
 # It will say: "age should be a valid integer" — very helpful!
 
@@ -258,20 +258,16 @@ def create_user(user: User):  # "user: User" tells FastAPI to expect a User-shap
 # ==========================================================
 
 # 1. E-COMMERCE ORDER (Amazon / Flipkart)
-#    Order contains: customer info + list of products + shipping address
-#    Order model has Address model + Product model nested inside it.
-
+#    - **Step 1**: Order contains: customer info + list of products + shipping address Order model has Address model + Product model nested inside it.
+#
 # 2. EMPLOYEE DATABASE (Company HR System)
-#    Employee has: personal details + department + manager info
-#    Employee model has Department model + Manager model nested inside it.
-
+#    - **Step 1**: Employee has: personal details + department + manager info Employee model has Department model + Manager model nested inside it.
+#
 # 3. HOSPITAL PATIENT RECORD
-#    Patient has: personal info + medical history + insurance details
-#    Each of those can be a separate Pydantic model nested inside Patient.
-
+#    - **Step 1**: Patient has: personal info + medical history + insurance details Each of those can be a separate Pydantic model nested inside Patient.
+#
 # 4. SOCIAL MEDIA POST (Instagram / Twitter)
-#    Post has: content + author info + comments list + likes count
-#    Post model has User model (author) + Comment model nested inside it.
+#    - **Step 1**: Post has: content + author info + comments list + likes count Post model has User model (author) + Comment model nested inside it.
 
 
 # ==========================================================

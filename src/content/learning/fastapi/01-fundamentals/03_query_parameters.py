@@ -120,24 +120,24 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. SEARCH & FILTER (like Naukri.com / LinkedIn Jobs)
-#    - GET /jobs?title=developer&location=bangalore&experience=3
-#    - All filters are query parameters. If not provided → return all jobs.
-#    - This is the MOST common use of query parameters in real products.
-
+#    - **Step 1**: GET /jobs?title=developer&location=bangalore&experience=3.
+#    - **Step 2**: All filters are query parameters. If not provided → return all jobs.
+#    - **Result**: This is the MOST common use of query parameters in real products.
+#
 # 2. PAGINATION (like Twitter Feed / Instagram)
-#    - GET /posts?skip=0&limit=10  → first 10 posts (page 1)
-#    - GET /posts?skip=10&limit=10 → next 10 posts (page 2)
-#    - Every social media feed uses skip+limit or cursor-based pagination.
-
+#    - **Step 1**: GET /posts?skip=0&limit=10  → first 10 posts (page 1).
+#    - **Step 2**: GET /posts?skip=10&limit=10 → next 10 posts (page 2).
+#    - **Result**: Every social media feed uses skip+limit or cursor-based pagination.
+#
 # 3. SEARCH WITH VALIDATION (like GitHub / GitLab API)
-#    - GitHub's API uses `q` param: GET /search/repositories?q=fastapi&sort=stars
-#    - Query is validated server-side for min length → prevents empty/garbage searches.
-#    - FastAPI's Query(min_length=3) does this automatically.
-
+#    - **Step 1**: GitHub's API uses `q` param: GET /search/repositories?q=fastapi&sort=stars.
+#    - **Step 2**: Query is validated server-side for min length → prevents empty/garbage searches.
+#    - **Result**: FastAPI's Query(min_length=3) does this automatically.
+#
 # 4. SORTING (like Amazon / Flipkart product listing)
-#    - GET /products?sort=price_asc   → sort by price ascending
-#    - GET /products?sort=rating_desc → sort by rating descending
-#    - The `sort` param is optional; default is usually "relevance".
+#    - **Step 1**: GET /products?sort=price_asc   → sort by price ascending.
+#    - **Step 2**: GET /products?sort=rating_desc → sort by rating descending.
+#    - **Result**: The `sort` param is optional; default is usually "relevance".
 
 
 # ==========================================================

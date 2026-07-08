@@ -82,11 +82,11 @@ class DatabaseConnection:
         self.db_name = db_name
 
     def __enter__(self):
-        print(f"[DB] Opening connection to '{self.db_name}'...")
+        print(f"[DB] Opening connection to '{self.db_name}'..")
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        print(f"[DB] Closing connection to '{self.db_name}'... (Cleanup successful)")
+        print(f"[DB] Closing connection to '{self.db_name}'.. (Cleanup successful)")
         if exc_type is not None:
             print(f"[DB] Caught an error inside the block: {exc_val}")
             # We return True to say: "We handled this error, don't crash the program!"
@@ -96,7 +96,7 @@ class DatabaseConnection:
 
 print("\n--- 2. ERROR HANDLING IN CONTEXT MANAGERS ---")
 with DatabaseConnection("UserDB") as db:
-    print("[DB] Performing query...")
+    print("[DB] Performing query..")
     # Let's simulate a crash inside the block:
     raise ValueError("Oops! Database query failed due to invalid query syntax.")
 
@@ -112,14 +112,14 @@ print("-" * 40)
 
 @contextmanager
 def simple_file_manager(filename: str, mode: str):
-    print(f"[File] Opening {filename}...")
+    print(f"[File] Opening {filename}..")
     file_object = open(filename, mode)
     try:
         # Everything BEFORE 'yield' is the setup (__enter__)
         yield file_object
     finally:
         # Everything AFTER 'yield' (and in 'finally') is the cleanup (__exit__)
-        print(f"[File] Closing {filename}...")
+        print(f"[File] Closing {filename}..")
         file_object.close()
 
 
@@ -138,15 +138,14 @@ if os.path.exists("temp_file.txt"):
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. DB Connection Lifecycles: Guaranteeing a connection is returned to the
-#    pool once a query finishes.
+#    - **Step 1**: Pool once a query finishes.
 #
 # 2. Thread Synchronization locks: Acquiring and automatically releasing locks
-#    to prevent thread conflicts.
+#    - **Step 1**: To prevent thread conflicts.
 #
 # 3. Temporary Files cleanup: Creating temporary scratch files and
-#    automatically deleting them on block completion.
+#    - **Step 1**: Automatically deleting them on block completion.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

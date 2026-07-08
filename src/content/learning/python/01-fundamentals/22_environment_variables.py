@@ -162,15 +162,14 @@ print("  5. For production, use your hosting platform's secret manager (e.g., Ra
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Database Credentials Security: Injecting passwords (DB_PASSWORD)
-#    dynamically in staging/prod without exposing them in git.
+#    - **Step 1**: Dynamically in staging/prod without exposing them in git.
 #
 # 2. Feature Flags toggles: Activating beta features by setting
-#    ENVIRONMENT_FEATURE_FLAG = "true".
+#    - **Step 1**: ENVIRONMENT_FEATURE_FLAG = "true".
 #
 # 3. Environment Profiling: Configuring API hosts based on env (Local vs Dev
-#    vs Prod).
+#    - **Step 1**: Vs Prod).
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

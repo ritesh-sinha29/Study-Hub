@@ -68,7 +68,7 @@ print("==========================================")
 money = 100
 
 while money > 0:
-    print("I have", money, "rupees left. Spending 25...")
+    print("I have", money, "rupees left. Spending 25..")
     money = money - 25  # subtract 25 each time
 
 print("Out of money!")
@@ -98,7 +98,7 @@ print("==========================================")
 for i in range(6):
     if i == 3:
         print("Skipping 3!")
-        continue  # Skip number 3, continue with 4, 5...
+        continue  # Skip number 3, continue with 4, 5..
     print("Number:", i)
 
 print()
@@ -134,15 +134,14 @@ for user in users:
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. API Pagination Resolver: Using a while loop to continually fetch pages of
-#    results until next_link is empty.
+#    - **Step 1**: Results until next_link is empty.
 #
 # 2. Network Request Retry: Retrying an API call up to 3 times inside a loop
-#    if it fails.
+#    - **Step 1**: If it fails.
 #
 # 3. Batch Database Processing: Splitting a large list of 10,000 records into
-#    smaller chunks of 100 for batch insertion.
+#    - **Step 1**: Smaller chunks of 100 for batch insertion.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

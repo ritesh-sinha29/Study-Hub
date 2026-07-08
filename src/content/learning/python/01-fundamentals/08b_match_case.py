@@ -7,13 +7,13 @@
 # It is a modern, clean, and powerful alternative to writing long chains of `if-elif-else` statements.
 #
 # Instead of checking conditions manually:
-#   if command == "start": ...
-#   elif command == "stop": ...
+#   if command == "start": ..
+#   elif command == "stop": ..
 #
 # You match a value against patterns:
 #   match command:
-#       case "start": ...
-#       case "stop": ...
+#       case "start": ..
+#       case "stop": ..
 
 # --- WHY USE IT? ---
 # 1. Cleaner readability when checking a single variable against many values.
@@ -109,7 +109,7 @@ print()
 def parse_command(command_parts: list[str]):
     match command_parts:
         case ["quit"] | ["exit"]:
-            print("Shutting down...")
+            print("Shutting down..")
         case ["load", filename]:
             # Matches if the list has exactly two elements, and the first is "load".
             # The second element is stored in the variable 'filename'.
@@ -132,15 +132,14 @@ print()
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. API Response Router: Handling different JSON shapes and status codes
-#    cleanly in a single controller.
+#    - **Step 1**: Cleanly in a single controller.
 #
 # 2. CLI Command Parser: Mapping user commands (e.g., 'git checkout <branch>',
-#    'git commit -m <msg>') to logical handlers.
+#    - **Step 1**: 'git commit -m <msg>') to logical handlers.
 #
 # 3. State Machine Reducers: Updating application states based on action types
-#    and payloads.
+#    - **Step 1**: And payloads.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

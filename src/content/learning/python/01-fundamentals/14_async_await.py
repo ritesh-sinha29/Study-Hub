@@ -81,7 +81,7 @@ print("==========================================")
 # In real code, this would be: await database.fetch_user(id)
 
 async def fetch_user(user_id: int):
-    print(f"Fetching user {user_id} from database...")
+    print(f"Fetching user {user_id} from database..")
     await asyncio.sleep(1)  # Simulate 1 second database delay
     print(f"Got user {user_id}!")
     return {"id": user_id, "name": "Ritesh"}
@@ -98,7 +98,7 @@ print("==========================================")
 # This is the POWER of async — run multiple slow tasks together instead of one by one!
 
 async def fetch_data(source, delay):
-    print(f"  Starting to fetch from {source}...")
+    print(f"  Starting to fetch from {source}..")
     await asyncio.sleep(delay)  # Simulate delay
     print(f"  Done fetching from {source}!")
     return f"Data from {source}"
@@ -147,15 +147,14 @@ print(asyncio.run(fastapi_style_route(1)))
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Concurrent Web Scraping: Fetching 50 web pages in parallel without
-#    blocking the main CPU thread.
+#    - **Step 1**: Blocking the main CPU thread.
 #
 # 2. WebSocket Notifications Server: Handling thousands of concurrent chat
-#    connections efficiently.
+#    - **Step 1**: Connections efficiently.
 #
 # 3. Asynchronous Database Queries: Querying databases and calling external
-#    APIs concurrently to reduce load times.
+#    - **Step 1**: APIs concurrently to reduce load times.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

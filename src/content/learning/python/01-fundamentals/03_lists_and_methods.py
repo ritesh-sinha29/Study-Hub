@@ -47,7 +47,7 @@ print("Reversed list:", my_list)
 print()
 
 # --- Sorting a List ---
-# The .sort() method arranges items in ascending order (like 0, 1, 2, 3...).
+# The .sort() method arranges items in ascending order (like 0, 1, 2, 3..).
 # IMPORTANT: You CANNOT sort a list that contains both numbers AND strings.
 # If you try to sort `[1, "Ritesh"]`, Python will throw a TypeError.
 # .sort() modifies the list IN-PLACE (returns None).
@@ -67,15 +67,14 @@ print("After sort:", numbers_list)
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Shopping Carts: Maintaining an ordered, modifiable collection of items
-#    selected by a user.
+#    - **Step 1**: Selected by a user.
 #
 # 2. Task Queues: Implementing a basic queue using list methods where tasks
-#    are appended and popped.
+#    - **Step 1**: Are appended and popped.
 #
 # 3. Data Feed Buffering: Accumulating live API payloads before saving them in
-#    a database.
+#    - **Step 1**: A database.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

@@ -81,7 +81,7 @@ async def about():
 #   http://localhost:8000/redoc    ← ReDoc UI
 # ----------------------------------------------------------
 if __name__ == "__main__":
-    print("Starting FastAPI server...")
+    print("Starting FastAPI server..")
     print("Visit Swagger Documentation at: http://localhost:8000/docs")
     print("Visit ReDoc Documentation at: http://localhost:8000/redoc")
     uvicorn.run("01_introduction_and_setup:app", host="127.0.0.1", port=8000, reload=True)
@@ -107,23 +107,23 @@ if __name__ == "__main__":
 # ==========================================================
 
 # 1. PAYMENT GATEWAY API (like Razorpay / Stripe)
-#    - Frontend (React) calls POST /payments → FastAPI backend processes payment.
-#    - FastAPI is used because of its speed and async support.
-#    - The /docs page is shared with partner companies to integrate quickly.
-
+#    - **Step 1**: Frontend (React) calls POST /payments → FastAPI backend processes payment.
+#    - **Step 2**: FastAPI is used because of its speed and async support.
+#    - **Result**: The /docs page is shared with partner companies to integrate quickly.
+#
 # 2. PRODUCT CATALOG (like Flipkart / Amazon)
-#    - Mobile apps send GET /products to fetch product listings.
-#    - FastAPI auto-validates the response so broken/missing data never reaches the app.
-
+#    - **Step 1**: Mobile apps send GET /products to fetch product listings.
+#    - **Result**: FastAPI auto-validates the response so broken/missing data never reaches the app.
+#
 # 3. INTERNAL MICROSERVICE (like Swiggy's order service)
-#    - A company has 10 microservices (orders, payments, notifications...).
-#    - Each service is a separate FastAPI app.
-#    - They communicate with each other using HTTP calls or message queues.
-
+#    - **Step 1**: A company has 10 microservices (orders, payments, notifications..).
+#    - **Step 2**: Each service is a separate FastAPI app.
+#    - **Result**: They communicate with each other using HTTP calls or message queues.
+#
 # 4. DATA SCIENCE / ML MODEL SERVING
-#    - A trained ML model (like fraud detection) is wrapped in a FastAPI endpoint.
-#    - Data engineers call POST /predict with transaction data → FastAPI returns prediction.
-#    - Companies like Walmart, HDFC Bank use this pattern in production.
+#    - **Step 1**: A trained ML model (like fraud detection) is wrapped in a FastAPI endpoint.
+#    - **Step 2**: Data engineers call POST /predict with transaction data → FastAPI returns prediction.
+#    - **Result**: Companies like Walmart, HDFC Bank use this pattern in production.
 
 
 # ==========================================================

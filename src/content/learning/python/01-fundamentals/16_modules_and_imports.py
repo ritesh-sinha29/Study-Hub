@@ -153,15 +153,14 @@ print("import asyncio                              ← For async/await support")
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Utility Libraries: Organizing codebase into separate helper modules
-#    (e.g., string_helpers.py, db.py).
+#    - **Step 1**: (e.g., string_helpers.py, db.py).
 #
 # 2. Project Packaging: Structuring codebase inside nested folders for modular
-#    importing.
+#    - **Step 1**: Importing.
 #
 # 3. Third-Party SDKs: Importing pre-built code packages (like requests,
-#    numpy) to extend functionality.
+#    - **Step 1**: Numpy) to extend functionality.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

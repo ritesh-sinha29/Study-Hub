@@ -53,15 +53,14 @@ print("Your number + 6 is:", result)
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. CLI Installation Prompts: Confirming configuration options or directory
-#    paths during setup scripts.
+#    - **Step 1**: Paths during setup scripts.
 #
 # 2. Interactive Troubleshooting Logs: Asking developers to enter system IDs
-#    to retrieve logs dynamically.
+#    - **Step 1**: To retrieve logs dynamically.
 #
 # 3. Interactive Shell Commands: Building a simple command interface for admin
-#    scripts.
+#    - **Step 1**: Scripts.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

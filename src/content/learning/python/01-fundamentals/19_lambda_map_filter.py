@@ -152,15 +152,14 @@ print("State 2 result:", should_retry(state2))  # retry
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Sorting Key Selectors: Passing a temporary lambda function to sort a list
-#    of dictionaries by nested keys.
+#    - **Step 1**: Of dictionaries by nested keys.
 #
 # 2. GUI Callbacks: Writing simple one-liner handler callbacks in desktop or
-#    web applications.
+#    - **Step 1**: Web applications.
 #
 # 3. Data Pipeline Transformers: Applying map/filter transformations to list
-#    collections.
+#    - **Step 1**: Collections.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

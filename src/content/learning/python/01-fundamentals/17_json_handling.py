@@ -27,7 +27,7 @@
 # TYPE MAPPING (Python → JSON):
 #   dict       →  object  { }
 #   list/tuple →  array   [ ]
-#   str        →  string  "..."
+#   str        →  string  ".."
 #   int/float  →  number
 #   True/False →  true/false
 #   None       →  null
@@ -150,15 +150,14 @@ print("FastAPI response (as JSON string):", json.dumps(response, indent=2))
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Rest API Requests: Converting dict payloads to JSON strings to send as
-#    API payloads.
+#    - **Step 1**: API payloads.
 #
 # 2. App Configuration files: Reading local config.json files to extract
-#    application settings.
+#    - **Step 1**: Application settings.
 #
 # 3. Caching Objects: Serializing data lists into JSON strings to store in
-#    Redis caching key-values.
+#    - **Step 1**: Redis caching key-values.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

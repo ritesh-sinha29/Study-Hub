@@ -24,7 +24,7 @@
 # the INSTANCE's `__dict__`, then the CLASS's `__dict__`, then parent classes
 # in Method Resolution Order (MRO). This is how inheritance works at runtime.
 #
-# **KEY INSIGHT:** `super().__init__(...)` explicitly calls the PARENT class's
+# **KEY INSIGHT:** `super().__init__(..)` explicitly calls the PARENT class's
 # __init__ using the MRO. In multiple inheritance, MRO (C3 linearization)
 # determines which parent's method gets called first.
 
@@ -177,15 +177,14 @@ print("New user data:", new_user.to_dict())
 # ==========================================
 # REAL-LIFE USE CASES
 # ==========================================
-#
 # 1. Domain Modeling: Representing real-life entities like User, Product, or
-#    Order with attributes and behaviors.
+#    - **Step 1**: Order with attributes and behaviors.
 #
 # 2. Database Connection Pooler: Encapsulating stateful logic for connecting
-#    to and querying databases.
+#    - **Step 1**: To and querying databases.
 #
 # 3. Plugin Architecture: Defining abstract base classes that custom user
-#    modules must subclass.
+#    - **Step 1**: Modules must subclass.
 
 # ==========================================
 # MNC INTERVIEW QUESTIONS & ANSWERS
