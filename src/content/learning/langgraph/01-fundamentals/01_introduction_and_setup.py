@@ -50,11 +50,11 @@
 # applies those changes to the shared state using a REDUCER.
 #
 # DEFAULT REDUCER (overwrite):
-#   If a node returns {"name": "Ritesh"}, the state["name"] is replaced by "Ritesh".
+#   If a node returns `{"name": "Ritesh"}`, the `state["name"]` is replaced by `"Ritesh"`.
 #
 # CUSTOM REDUCER (add_messages — append instead of overwrite):
-#   messages: Annotated[list, add_messages]
-#   If a node returns {"messages": [new_msg]}, it's APPENDED to the list,
+#   `messages: Annotated[list, add_messages]`
+#   If a node returns `{"messages": [new_msg]}`, it's APPENDED to the list,
 #   not replacing the entire list. This is critical for chat history.
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -181,18 +181,17 @@ if __name__ == "__main__":
 # ========================================================================================
 # REAL-WORLD USE CASES
 # ========================================================================================
-#
 # 1. ORDER PROCESSING WORKFLOW:
-#    State holds: order_id, payment_status, inventory_reserved, shipping_triggered
-#    Node 1: verify_payment (checks Stripe API)
-#    Node 2: reserve_inventory (checks warehouse DB)
-#    Node 3: trigger_shipping (calls logistics API)
-#    Conditional edges route to failure nodes if any step encounters an error.
+#    - **State holds**: order_id, payment_status, inventory_reserved, shipping_triggered
+#    - **Node 1**: verify_payment (checks Stripe API)
+#    - **Node 2**: reserve_inventory (checks warehouse DB)
+#    - **Node 3**: trigger_shipping (calls logistics API)
+#    - **Edges**: Conditional edges route to failure nodes if any step encounters an error.
 #
 # 2. EMAIL TRIAGE SYSTEM:
-#    Node 1: classify_email (spam / billing / general)
-#    Conditional edges: spam → archive node, billing → support_agent node
-#    The graph automates routing without any if-else code in the main application.
+#    - **Node 1**: classify_email (spam / billing / general)
+#    - **Conditional edges**: spam → archive node, billing → support_agent node
+#    - **Benefit**: The graph automates routing without any if-else code in the main application.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

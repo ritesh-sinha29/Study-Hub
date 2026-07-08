@@ -15,21 +15,21 @@
 #  │   User Input                                                        │
 #  │       │                                                             │
 #  │       ▼                                                             │
-#  │   ┌─────────┐   THOUGHT: "I need to call calculate_square(9)"      │
-#  │   │  Agent   │──────────────────────────────────────────────────► │
-#  │   │  (LLM)   │                                                      │
-#  │   └─────────┘ ◄──────────────────────────────────────────────────  │
+#  │   ┌─────────┐   THOUGHT: "I need to call calculate_square(9)"       │
+#  │   │  Agent  │─────────────────────────────────────────────────────► │
+#  │   │  (LLM)  │                                                       │
+#  │   └─────────┘◄───────────────────────────────────────────────────── │
 #  │       │        OBSERVATION: tool returned "81"                      │
 #  │       │                                                             │
 #  │       │ if tool_calls exist:                                        │
 #  │       ▼                                                             │
-#  │   ┌─────────┐   ACTION: execute calculate_square(9) → "81"         │
-#  │   │  Tools   │                                                      │
-#  │   └─────────┘                                                      │
+#  │   ┌─────────┐   ACTION: execute calculate_square(9) → "81"          │
+#  │   │  Tools  │                                                       │
+#  │   └─────────┘                                                       │
 #  │       │                                                             │
 #  │       │ loop back to Agent with ToolMessage                         │
 #  │       ▼                                                             │
-#  │   if no tool_calls → FINAL ANSWER: "The square of 9 is 81."        │
+#  │   if no tool_calls → FINAL ANSWER: "The square of 9 is 81."         │
 #  └─────────────────────────────────────────────────────────────────────┘
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

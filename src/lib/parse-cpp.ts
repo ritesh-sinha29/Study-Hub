@@ -64,6 +64,77 @@ function isCodeLine(text: string): boolean {
          t.startsWith('return ');
 }
 
+function replaceOutsideBackticks(text: string, regex: RegExp, replacement: string): string {
+  const parts = text.split('`');
+  for (let i = 0; i < parts.length; i += 2) {
+    parts[i] = parts[i].replace(regex, replacement);
+  }
+  return parts.join('`');
+}
+
+function formatInlineCode(text: string): string {
+  let formatted = text;
+  formatted = replaceOutsideBackticks(formatted, /\{"[^"]+"\s*:\s*[^}]*\}/g, '`$&`');
+  formatted = replaceOutsideBackticks(formatted, /\{'[^']+'\s*:\s*[^}]*\}/g, '`$&`');
+  formatted = replaceOutsideBackticks(formatted, /\b(Annotated|List|Dict|Tuple|Set|Union|Optional)\[[^\]]+\]/g, '`$&`');
+  formatted = replaceOutsideBackticks(formatted, /\b([a-zA-Z0-9_]+\["[^"]+"\])/g, '`$&`');
+  formatted = replaceOutsideBackticks(formatted, /\b([a-zA-Z0-9_]+\('[^']+'\))/g, '`$&`');
+  formatted = replaceOutsideBackticks(formatted, /\b([a-zA-Z0-9_]+\("[^"]+"\))/g, '`$&`');
+  formatted = replaceOutsideBackticks(formatted, /\b([a-zA-Z0-9]+_[a-zA-Z0-9_]*(?:\.[a-zA-Z0-9]+)?)\b/g, '`$1`');
+  return formatted;
+}
+
+function processTextLines(lines: string[]): string {
+  if (lines.length <= 1) {
+    return lines.map(line => formatInlineCode(line)).join('\n').trim();
+  }
+
+  const hasListOrStructure = lines.some((line, index) => {
+    const trimmed = line.trim();
+    if (!trimmed) return false;
+    if (/^[-*+]\s+/.test(trimmed) || /^\d+\.\s+/.test(trimmed)) return true;
+    if (/^(Node|Step|Task|Stage|State holds|Conditional edges|Benefit|Routing|Input|Output|DEFAULT REDUCER|CUSTOM REDUCER|METHOD [A-Z]|User asks|User says|Agent calls|Reads result|Code|Edges|Condition|Result)\s*\d*:\s*/i.test(trimmed)) return true;
+    if (index > 0) {
+      const firstLineIndent = lines[0].match(/^(\s*)/)?.[1].length || 0;
+      const currentLineIndent = line.match(/^(\s*)/)?.[1].length || 0;
+      if (currentLineIndent > firstLineIndent + 1) return true;
+    }
+    return false;
+  });
+
+  if (!hasListOrStructure) {
+    return lines.map(line => formatInlineCode(line)).join('\n').trim();
+  }
+
+  return lines.map((line, idx) => {
+    const trimmed = line.trim();
+    if (!trimmed) return '';
+
+    let processedLine = line;
+    const labelMatch = line.match(/^(\s*)(Node\s*\d+|Step\s*\d+|State holds|Conditional edges|Benefit|Routing|Input|Output|DEFAULT REDUCER|CUSTOM REDUCER|METHOD\s+[A-Z]|User asks\s*\d*|User says\s*\d*|Agent calls\s*\d*|Reads result\s*\d*|Code|Edges|Condition|Result\s*\d*)(\s*\([^)]*\))?(:\s*.*)/i);
+    
+    if (labelMatch) {
+      const indent = labelMatch[1] || '   ';
+      const label = labelMatch[2];
+      const parens = labelMatch[3] || '';
+      const rest = labelMatch[4];
+      processedLine = `${indent}- **${label}${parens}**${formatInlineCode(rest)}`;
+    } else {
+      const bulletMatch = line.match(/^(\s*[-*+]\s+|\s*\d+\.\s+)(.*)/);
+      if (bulletMatch) {
+        processedLine = bulletMatch[1] + formatInlineCode(bulletMatch[2]);
+      } else {
+        processedLine = formatInlineCode(line);
+      }
+    }
+
+    if (idx < lines.length - 1 && !/^(\s*[-*+]\s+|\s*\d+\.\s+)/.test(line)) {
+      return processedLine + '  ';
+    }
+    return processedLine;
+  }).join('\n');
+}
+
 export function parseCppToMarkdown(rawContent: string, pageTitle: string): string {
   let content = rawContent.replace(/\r\n/g, '\n');
 
@@ -270,7 +341,7 @@ export function parseCppToMarkdown(rawContent: string, pageTitle: string): strin
       }
       md += `${'#'.repeat(block.level || 2)} ${block.text}\n\n`;
     } else if (block.type === 'text' && block.lines) {
-      const text = block.lines.join('\n').trim();
+      const text = processTextLines(block.lines);
       if (text) {
         md += `${text}\n\n`;
       }
