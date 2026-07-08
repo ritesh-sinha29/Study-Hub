@@ -7,8 +7,15 @@ import { searchLocalCourses } from '@/lib/knowledge-base';
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
 
-const openai = createOpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
+// OpenAI configuration (commented out for future switch back)
+// const openai = createOpenAI({
+//   apiKey: process.env.OPENAI_API_KEY || '',
+// });
+
+// Alibaba Cloud Qwen Configuration (OpenAI Compatible)
+const qwen = createOpenAI({
+  baseURL: process.env.QWEN_BASE_URL || 'https://dashscope.aliyuncs.com/compatible-mode/v1',
+  apiKey: process.env.QWEN_API_KEY || '',
 });
 
 // sliding window: 15 requests / minute
@@ -170,7 +177,11 @@ export async function POST(req: Request) {
     const formattedMessages = formatMessages(messages.slice(-4));
 
     const result = streamText({
-      model: openai('gpt-4o-mini'),
+      // OpenAI model (commented out for future switch back)
+      // model: openai('gpt-4o-mini'),
+      // Alibaba Cloud Qwen model
+      model: qwen(process.env.QWEN_MODEL || 'qwen-turbo'),
+
       system: "You are the Study-Hub AI assistant. You help users learn programming, software engineering, and computer science concepts across courses like Python, C++, Data Structures & Algorithms, FastAPI, LangChain, LangGraph, and more. Be helpful, concise, and use markdown for code. Default to short answers; give detailed explanations only when asked. Use the 'searchLocalCourses' tool for course-related questions, and the 'searchWeb' tool for general topics.",
       messages: formattedMessages,
       tools: {
