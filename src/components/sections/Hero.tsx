@@ -13,11 +13,6 @@ export function Hero() {
       </div>
 
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-        {/* Badge */}
-        <Badge variant="secondary" className="mb-6 gap-1.5 px-3 py-1 text-xs">
-          <Sparkles className="size-3" />
-          <span>Now in Public Beta</span>
-        </Badge>
 
         {/* Headline */}
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
