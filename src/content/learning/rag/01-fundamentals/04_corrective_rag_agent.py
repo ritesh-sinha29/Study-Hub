@@ -225,10 +225,17 @@ if __name__ == "__main__":
 # =====================================================================
 # REAL-LIFE USE CASES
 # =====================================================================
-# 1. ENTERPRISE CUSTOMER CHATBOTS: When answering product queries, checks internal manuals (vector DB).
-#    If the query asks about a brand-new release, the grader triggers web search to pull fresh specs.
-# 2. MEDICAL ADVISORY CO-PILOTS: Evaluates medical references. If database queries return old or irrelevant
-#    medical papers, routes the search out to PubMed/Web APIs to query the latest guidelines.
+# 1. ENTERPRISE CUSTOMER CHATBOTS:
+#    - **Input**: User queries chatbot about newly released product specifications.
+#    - **Step 1**: Grader runs document_grading on references retrieved from vector_db.
+#    - **Step 2**: If grade is low, triggers google_search to pull real-time specifications.
+#    - **Result**: Synthesizes up-to-date answers containing correct specs.
+#
+# 2. MEDICAL ADVISORY CO-PILOTS:
+#    - **Input**: Clinician requests treatment guidelines for a novel virus variant.
+#    - **Step 1**: Queries local database and grading agent evaluates relevance.
+#    - **Step 2**: If database papers are outdated, routes to pubmed_api for fresh literature.
+#    - **Result**: Delivers verified and graded medical advice to the clinician.
 
 # =====================================================================
 # MNC INTERVIEW PREPARATION

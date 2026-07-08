@@ -176,13 +176,16 @@ if __name__ == "__main__":
 # REAL-LIFE USE CASES
 # =====================================================================
 # 1. CYBERSECURITY THREAT INTELLIGENCE:
-#    - Nodes: IP Addresses, Servers, User Accounts, File Hashes.
-#    - Graph Traversals: If Server-A downloads File-X, and File-X has a hash linked to malware,
-#      Graph RAG finds the malicious link instantly: `(Server)-[:DOWNLOADED]->(File)-[:HAS_HASH]->(Malware)`.
+#    - **Input**: Security logs linking IP addresses, servers, and file hashes.
+#    - **Step 1**: Neo4j maps relationships: `(Server)-[:DOWNLOADED]->(File)`.
+#    - **Step 2**: Cypher query traverses path to identify files linked to malware.
+#    - **Result**: Instantly flags high_risk servers compromised by threat propagation.
 #
 # 2. MEDICAL RECOMMENDATION ENGINES:
-#    - Storing symptoms, diseases, medications, and clinical side effects. Allows query traversal:
-#      `(Symptom) -[:INDICATES]-> (Disease) <-[:TREATS]- (Medication)`.
+#    - **Input**: Patient symptoms, diseases, medications, and clinical side_effects.
+#    - **Step 1**: Graph maps: `(Symptom)-[:INDICATES]->(Disease)<-[:TREATS]-(Medication)`.
+#    - **Step 2**: Traverses connections to match patients to medication_recommendations.
+#    - **Result**: Suggests medications while avoiding dangerous drug_interactions.
 
 # =====================================================================
 # MNC INTERVIEW PREPARATION

@@ -183,19 +183,19 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. CUSTOMER HELPDESK SYSTEM:
-#    A support chat stores [SystemMessage, HumanMessage, AIMessage] per conversation.
-#    On each new customer message, the full history is sent to the model, giving it
-#    full context about the customer's issue, what was already tried, etc.
+#    - **Input**: Support chat conversation session.
+#    - **Step 1**: Stores messages list containing SystemMessage, HumanMessage, and AIMessage.
+#    - **Step 2**: Sends the full message history on each user turn.
+#    - **Result**: Ensures the model retains full context of what has been tried.
 #
-# 2. ROLE-BASED ACCESS CONTROL VIA SystemMessage:
-#    "You are an internal HR assistant. Never reveal any employee's salary to other
-#     employees. If asked, politely decline and offer to contact HR leadership."
-#    The SystemMessage is the enforcement layer against prompt injection attacks.
+# 2. ROLE-BASED ACCESS CONTROL:
+#    - **Input**: SystemMessage instructing: "You are an internal HR assistant. Never reveal employee salaries."
+#    - **Result**: Serves as the primary security layer to block prompt injection attempts.
 #
 # 3. MULTI-TOOL PARALLEL EXECUTION:
-#    The model calls get_stock_price("AAPL") AND get_stock_price("GOOGL") simultaneously.
-#    Two ToolMessages are returned (one per tool_call_id). The model reads both and
-#    generates: "AAPL is at $182 and GOOGL is at $140. AAPL is performing better."
+#    - **Step 1**: Model calls get_stock_price("AAPL") and get_stock_price("GOOGL") simultaneously.
+#    - **Step 2**: Returns two ToolMessages containing the individual results.
+#    - **Result**: Model reads both responses and synthesizes a comparative answer.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

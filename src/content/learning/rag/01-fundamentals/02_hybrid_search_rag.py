@@ -165,15 +165,16 @@ if __name__ == "__main__":
 # REAL-LIFE USE CASES
 # =====================================================================
 # 1. SEARCHING PRODUCT MANUALS:
-#    - User queries: "How to fix error code E-102".
-#    - Vector Search: Retrieves general maintenance and debugging pages.
-#    - BM25 Search: Finds the exact manual page mentioning the ID "E-102".
-#    - RRF Fusion: Places the exact page mentioning "E-102" at Rank 1.
+#    - **User says**: "How to fix error code E-102"
+#    - **Step 1**: Vector Search retrieves general maintenance and debugging pages.
+#    - **Step 2**: BM25 keyword search locates manual page containing exact ID E-102.
+#    - **Result**: Reciprocal Rank Fusion (rrf_fusion) ranks the exact fix page at Rank 1.
 #
 # 2. LEGAL / COMPLIANCE QUERYING:
-#    - User queries: "anti-bribery act compliance parameters".
-#    - Vector Search matches conceptual synonyms (compliance standards, ethics policy).
-#    - BM25 matches the exact legislative act title. Hybrid retrieval merges them.
+#    - **User says**: "anti-bribery act compliance parameters"
+#    - **Step 1**: Vector Search matches synonyms like compliance_standards or ethics_policy.
+#    - **Step 2**: BM25 keyword search matches the exact legislative act title.
+#    - **Result**: Hybrid retrieval fuses vector and keyword hits for optimal precision.
 
 # =====================================================================
 # MNC INTERVIEW PREPARATION

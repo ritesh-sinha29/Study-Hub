@@ -157,16 +157,20 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. COST-AWARE ROUTING:
-#    A startup routes simple classification queries to a cheap model (Groq Llama-3)
-#    and complex reasoning to GPT-4o, reducing monthly API bills by 80%.
+#    - **Step 1**: Routes simple classification queries to cheap model (Groq Llama-3).
+#    - **Step 2**: Routes complex reasoning queries to gpt_4o.
+#    - **Result**: Reduces monthly API bills by 80% for the startup.
 #
 # 2. COMPLIANCE-BASED MODEL SWITCHING:
-#    A healthcare app must keep certain patient data within the EU. It uses
-#    Mistral's EU-hosted endpoints for sensitive data and OpenAI for generic queries.
+#    - **Input**: Healthcare app needs to keep patient data within EU boundaries.
+#    - **Step 1**: Routes sensitive queries to Mistral EU-hosted endpoints.
+#    - **Step 2**: Routes generic queries to standard OpenAI endpoints.
+#    - **Result**: Enforces strict data compliance rules.
 #
 # 3. BATCH TRANSLATION OVERNIGHT JOBS:
-#    If OpenAI rate limits hit at 3 AM, the fallback automatically switches to
-#    Gemini to complete a 50,000-document batch translation without waking engineers.
+#    - **Step 1**: Processes 50,000-document batch translation overnight.
+#    - **Step 2**: Automatically catches OpenAI rate limit exceptions at 3 AM.
+#    - **Result**: Falls back to Gemini to complete the job without waking engineers.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

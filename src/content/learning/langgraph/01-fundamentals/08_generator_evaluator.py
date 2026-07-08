@@ -213,16 +213,15 @@ if __name__ == "__main__":
 # REAL-WORLD USE CASES
 # ========================================================================================
 #
-# 1. AI CODE GENERATOR WITH COMPILER FEEDBACK:
-#    Generator writes Python code. Evaluator runs `exec()` in a sandboxed environment.
-#    If a SyntaxError or NameError occurs, the error message is written as feedback.
-#    Generator receives the traceback and rewrites the code. Loops until code runs cleanly.
+# 1. AI CODE GENERATOR:
+#    - **Step 1**: Generator node writes Python function code.
+#    - **Step 2**: Evaluator runs code in sandboxed exec environment.
+#    - **Result**: Loops back with traceback feedback on errors until execution succeeds.
 #
 # 2. SEO META DESCRIPTION GENERATOR:
-#    Generator creates a page meta description.
-#    Evaluator checks: len(description) must be between 150-160 characters exactly.
-#    If outside range, feedback says "Too long by 8 chars, trim" and loops back.
-#    Cheap, fast, 100% deterministic — no LLM needed for the evaluator.
+#    - **Step 1**: Generator creates page meta description.
+#    - **Step 2**: Evaluator validates description length is between 150-160 characters.
+#    - **Result**: Triggers rewrite feedback if invalid, else publishes output.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

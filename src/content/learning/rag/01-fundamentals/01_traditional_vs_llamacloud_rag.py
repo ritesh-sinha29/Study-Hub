@@ -201,13 +201,14 @@ if __name__ == "__main__":
 # REAL-LIFE USE CASES & COMPARISONS
 # =====================================================================
 # 1. SEARCHING FINANCIAL STATEMENTS:
-#    - Traditional: Merges column data across cells (e.g. Year 2025 and 2026 values merge).
-#      The retriever fetches mismatched numbers, causing the agent to output false revenues.
-#    - Advanced: Keeps tables structured as Markdown matrices. The agent reads columns correctly.
+#    - **Step 1**: Traditional parser scrambles columns, yielding mismatched values.
+#    - **Step 2**: Advanced LlamaCloud parser preserves tables as markdown_matrices.
+#    - **Result**: RAG agent retrieves clean tabular data and outputs accurate figures.
 #
 # 2. LEGAL CONTRACT REVIEW:
-#    - Traditional: Splits liability paragraphs right in the middle of clauses, hiding key terms.
-#    - Advanced: Keeps sentences and clauses in cohesive chunks, improving document matching scores.
+#    - **Step 1**: Traditional parser splits paragraph midpoint, causing chunk_fragmentation.
+#    - **Step 2**: Advanced SentenceSplitter parses text in cohesive semantic blocks.
+#    - **Result**: Retriever returns complete clauses, improving document match scores.
 
 # =====================================================================
 # MNC INTERVIEW PREPARATION

@@ -228,19 +228,19 @@ if __name__ == "__main__":
 # REAL-WORLD USE CASES
 # ========================================================================================
 #
-# 1. COMPLIANCE AUDIT LOGGING (Finance/Healthcare):
-#    Every prompt sent to OpenAI is logged to a SIEM (Security Information & Event
-#    Management) system. If any log contains PII patterns (SSN, credit card), an
-#    alert fires before the data leaves the organization.
+# 1. COMPLIANCE AUDIT LOGGING:
+#    - **Input**: Prompt sent to the model API.
+#    - **Step 1**: Logs every outgoing payload to the SIEM security system.
+#    - **Result**: Triggers alerts if private PII patterns (SSN, credit card) are found.
 #
 # 2. REAL-TIME COST DASHBOARDS:
-#    Token usage from `on_llm_end` is written to a time-series database (InfluxDB,
-#    Prometheus). A Grafana dashboard shows LLM spend per user, per feature, per hour.
-#    Engineering teams set budget alerts at $X/day thresholds.
+#    - **Step 1**: Captures token usage metrics on_llm_end.
+#    - **Step 2**: Writes metrics to InfluxDB or Prometheus.
+#    - **Result**: Powers Grafana dashboard displaying live cost metrics.
 #
 # 3. LATENCY ALERTING FOR SLAs:
-#    A customer-facing chatbot has a p99 latency SLA of < 3 seconds. If `on_llm_end`
-#    records a latency > 2.5s, it triggers a PagerDuty alert to on-call engineers.
+#    - **Step 1**: Measures request latencies using on_llm_end.
+#    - **Result**: Fires PagerDuty alert if chatbot response latency exceeds 2.5s.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

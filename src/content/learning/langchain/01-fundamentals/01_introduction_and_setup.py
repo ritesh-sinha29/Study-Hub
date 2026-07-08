@@ -239,19 +239,22 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. BUSINESS PROCESS AUTOMATION:
-#    An email inbox agent receives a support ticket. The agent thinks: "This is
-#    a billing dispute." It calls a DB tool, fetches invoice records, and drafts
-#    a professional email reply — all without human intervention.
+#    - **Input**: Support ticket received by email inbox agent.
+#    - **Step 1**: Agent analyzes ticket and classifies it as a billing dispute.
+#    - **Step 2**: Agent calls database tool to fetch invoice records.
+#    - **Result**: Drafts and sends a professional email reply without human intervention.
 #
 # 2. RESEARCH CO-PILOT:
-#    A PDF research assistant splits documents into chunks, embeds them into a
-#    vector store, and lets the user ask questions. The agent uses semantic search
-#    to retrieve the most relevant paragraphs and synthesizes an answer.
+#    - **Input**: User asks questions about a PDF document.
+#    - **Step 1**: Research assistant splits documents into chunks and embeds them.
+#    - **Step 2**: Stores embeddings in vector store and performs semantic search to retrieve relevant paragraphs.
+#    - **Result**: Synthesizes and returns a grounded answer to the user.
 #
 # 3. LIVE STOCK PORTFOLIO ADVISOR:
-#    User asks: "Should I sell my Apple shares today?"
-#    The agent: calls a market data tool → calls a news sentiment tool → calls a
-#    portfolio history tool → synthesizes a reasoned recommendation.
+#    - **User asks**: "Should I sell my Apple shares today?"
+#    - **Step 1**: Agent calls a market data tool to check current prices.
+#    - **Step 2**: Agent calls a news sentiment tool and a portfolio history tool.
+#    - **Result**: Synthesizes a reasoned recommendation for the user.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

@@ -176,16 +176,16 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. TECHNICAL DOCUMENTATION GENERATOR:
-#    Step 1: Extract API method signatures from codebase
-#    Step 2: Write plain-English descriptions for each method
-#    Step 3: Add code examples (using the description as context)
-#    Step 4: Format as MDX with proper markdown headings
+#    - **Step 1**: Node extracts API signatures from codebase.
+#    - **Step 2**: Node generates descriptions for each signature.
+#    - **Step 3**: Node adds code examples using descriptions as context.
+#    - **Result**: Formats final output as markdown documentation.
 #
 # 2. MULTI-LANGUAGE REPORT PIPELINE:
-#    Step 1: LLM summarizes quarterly data in English
-#    Step 2: LLM translates to French, German, Spanish
-#    Step 3: LLM adapts tone for each regional market
-#    Step 4: PDF renderer exports each regional version
+#    - **Step 1**: LLM summarizes quarterly data in English.
+#    - **Step 2**: LLM translates summary to French, German, and Spanish.
+#    - **Step 3**: LLM adapts tone for each local target market.
+#    - **Result**: Generates localized reports for all regions.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

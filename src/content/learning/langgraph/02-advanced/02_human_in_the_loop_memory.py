@@ -113,13 +113,14 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. B2B SALES CRM COPILOT:
-#    Sales agent chats with client. Agent extracts follow-up tasks ("Email proposal
-#    by Friday"). Before creating calendar alerts, the agent prompts the salesperson 
-#    for approval.
+#    - **Step 1**: Extracts follow-up tasks from client meeting chat transcripts.
+#    - **Step 2**: Prompts salesperson for approval before creating alert.
+#    - **Result**: Creates and schedules crm_calendar reminder.
 #
-# 2. MEDICAL RECORDING:
-#    Transcribing doctor-patient dialog. Extracted symptoms and prescriptions
-#    are paused at a checkpoint for clinician review before final database insertion.
+# 2. CLINICAL TRANSCRIPTION:
+#    - **Step 1**: Transcribes doctor-patient consultation dialog.
+#    - **Step 2**: Pauses at checkpoint for clinician verification.
+#    - **Result**: Saves validated symptoms to medical database.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

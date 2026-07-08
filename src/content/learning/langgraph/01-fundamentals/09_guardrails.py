@@ -151,14 +151,14 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. ENTERPRISE KNOWLEDGE AGENTS:
-#    Blocks users from inquiring about peer salaries or confidential merger data 
-#    (Input Guardrail), and verifies outputs do not contain private PII records 
-#    (Output Guardrail).
+#    - **Step 1**: Input guardrail blocks questions about peer salaries.
+#    - **Step 2**: Output guardrail validates response contains no private PII.
+#    - **Result**: Enforces strict corporate safety boundaries.
 #
 # 2. HEALTHCARE ADVICE ASSISTANT:
-#    If the user describes emergency symptoms (e.g. heart attack), the input 
-#    guardrail routes them immediately to a node advising them to call emergency 
-#    services, bypassing LLM wait times entirely.
+#    - **Concept**: Bypassing model latency for critical safety.
+#    - **Step 1**: If the user describes emergency symptoms (e.g. heart attack), the input guardrail instantly detects it.
+#    - **Result**: Routes the conversation directly to a warning node advising the user to call emergency services, bypassing LLM processing wait times entirely.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

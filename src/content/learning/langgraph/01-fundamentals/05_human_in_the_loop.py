@@ -216,20 +216,20 @@ if __name__ == "__main__":
 # REAL-WORLD USE CASES
 # ========================================================================================
 #
-# 1. FINANCIAL TRANSACTION AGENT (Wire Transfer Approval):
-#    Agent plans a wire transfer. interrupt_before=["execute_transfer"] pauses execution.
-#    The compliance officer gets an email with: amount, recipient, reason, AI confidence.
-#    Officer clicks "Approve" in the internal portal → graph.invoke(None, ...) fires.
+# 1. FINANCIAL TRANSACTION AGENT:
+#    - **Step 1**: Agent plans a wire transfer and hits interrupt_before execute_transfer.
+#    - **Step 2**: Compliance officer reviews transfer details.
+#    - **Result**: Resume trigger graph.invoke(None) finalizes execution on approval.
 #
-# 2. CONTENT MODERATION BEFORE PUBLISH:
-#    AI generates an article. interrupt_before=["publish_node"] pauses.
-#    Human editor reviews the draft in the CMS UI. They can edit the draft
-#    using graph.update_state(...) before approving publication.
+# 2. CONTENT MODERATION:
+#    - **Step 1**: AI drafts article and hits interrupt_before publish_node.
+#    - **Step 2**: Editor updates wording via graph.update_state().
+#    - **Result**: Resumes execution to publish approved content.
 #
-# 3. AUTOMATED CLOUD INFRASTRUCTURE CHANGES:
-#    AI agent plans a Terraform deployment (scale-down prod cluster by 50%).
-#    interrupt_before=["apply_terraform"] shows the human the plan.
-#    DevOps engineer reviews, approves, graph executes `terraform apply`.
+# 3. CLOUD INFRASTRUCTURE CHANGES:
+#    - **Step 1**: AI plans Terraform changes and hits interrupt_before apply_terraform.
+#    - **Step 2**: DevOps reviews and approves changes.
+#    - **Result**: Resumes to run terraform apply.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

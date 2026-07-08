@@ -244,20 +244,18 @@ if __name__ == "__main__":
 # REAL-WORLD USE CASES
 # ========================================================================================
 #
-# 1. PII REDACTION BEFORE CLOUD LLM CALLS:
-#    Company policy forbids sending customer PII to external APIs. A RunnableLambda
-#    PII redactor runs first, masking emails/phone/SSNs before the data leaves
-#    the corporate network. Compliance is enforced at the pipeline level.
+# 1. PII REDACTION:
+#    - **Step 1**: Runs a RunnableLambda function on user input.
+#    - **Result**: Masks emails, phones, and SSNs before sending data to cloud APIs.
 #
 # 2. POST-PROCESSING FOR DATABASE INSERTION:
-#    After the model generates a structured summary, a RunnableLambda serializes
-#    it to a database record format and calls `db.insert()`. The chain itself
-#    handles storage as part of the pipeline — no separate code needed.
+#    - **Step 1**: LLM generates structured JSON summary.
+#    - **Step 2**: Runs RunnableLambda to serialize and format data.
+#    - **Result**: Executes db.insert() directly in the chain pipeline.
 #
 # 3. TOKEN COUNT GUARDRAILS:
-#    A RunnableLambda in preprocessing checks if the user's input exceeds the
-#    model's context window (e.g., 128K tokens). If it does, it truncates or
-#    summarizes the input before passing it to the main chain.
+#    - **Step 1**: Preprocesses query using custom RunnableLambda function.
+#    - **Result**: Truncates input if it exceeds the model context window.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

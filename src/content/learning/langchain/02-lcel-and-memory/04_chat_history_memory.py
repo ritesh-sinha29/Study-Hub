@@ -222,21 +222,17 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. WHATSAPP / TELEGRAM CHATBOTS:
-#    The user's phone number is used as the session_id. When a message arrives,
-#    the bot loads that user's history from Redis, runs the chain, and saves the
-#    updated conversation. Each customer's chat is completely isolated.
+#    - **Input**: User phone number serves as session_id.
+#    - **Step 1**: Loads history from Redis and executes the chain.
+#    - **Result**: Saves updated conversation thread and returns reply.
 #
-# 2. ENTERPRISE INTERNAL ASSISTANT (HR/IT helpdesk):
-#    Employee login username = session_id. The assistant remembers:
-#    - What issues were raised in previous sessions
-#    - What was resolved vs still open
-#    - The employee's department and permissions level
+# 2. ENTERPRISE INTERNAL ASSISTANT:
+#    - **Input**: Username acts as session_id.
+#    - **Result**: Remembers past tickets, resolution status, and permission level.
 #
 # 3. EDUCATIONAL TUTORING PLATFORM:
-#    Student session_id tracks their learning progress. The AI tutor remembers:
-#    - What topics were already covered
-#    - Where the student showed confusion
-#    - The difficulty level to apply for next questions
+#    - **Input**: Student session ID tracks progress.
+#    - **Result**: Remembers covered topics, student confusion, and adjusts difficulty level.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

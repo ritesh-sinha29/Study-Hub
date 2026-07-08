@@ -173,19 +173,17 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. CUSTOMER SUPPORT PORTAL:
-#    thread_id = customer's ticket number. The agent remembers every interaction
-#    across multiple days. If the customer calls back, the agent knows their full
-#    history without asking them to repeat themselves.
+#    - **Input**: Customer references a support ticket thread ID.
+#    - **Result**: Graph checkpointer loads and resumes the session state.
 #
 # 2. LONG-RUNNING DOCUMENT ANALYSIS:
-#    A large PDF analysis graph runs for 30 minutes, processing hundreds of pages.
-#    Each page extraction is checkpointed. If the server crashes at page 150, the
-#    graph resumes at page 151 on restart — zero rework.
+#    - **Step 1**: Processing massive PDF document page-by-page.
+#    - **Step 2**: Saves checkpointer state after every page node completes.
+#    - **Result**: Resumes on page 151 if server crashes on page 150.
 #
 # 3. AUDIT TRAIL (Compliance):
-#    Every checkpoint is a timestamped record of exactly what state the agent was in
-#    at every step. For financial or medical agents, this provides a complete audit
-#    trail for regulatory compliance (who said what, when, what decision was made).
+#    - **Step 1**: Checkpointer records a timestamped history of all state changes.
+#    - **Result**: Provides complete audit logs for regulatory compliance.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

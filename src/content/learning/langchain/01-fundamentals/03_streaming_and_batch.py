@@ -150,17 +150,19 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. CHATBOT UIs (React/Next.js):
-#    Frontend calls backend with streaming enabled. Each token from `.stream()` is
-#    sent as a Server-Sent Event (SSE) to the browser. The UI appends each token
-#    to the chat bubble in real time — mimicking ChatGPT's typing effect.
+#    - **Input**: Frontend calls backend with streaming enabled.
+#    - **Step 1**: Yields tokens in real-time from `.stream()` using server-sent events.
+#    - **Result**: Frontend appends each token to the chat bubble instantly for a typing effect.
 #
 # 2. OVERNIGHT CONTENT CLASSIFICATION:
-#    Processing 10,000 customer reviews for sentiment analysis. Batching 50 reviews
-#    per call reduces processing from 5 hours (sequential) to ~6 minutes (concurrent).
+#    - **Input**: Batch of 10,000 customer reviews for sentiment analysis.
+#    - **Step 1**: Processes batches of 50 reviews concurrently using `.batch()`.
+#    - **Result**: Reduces execution time from 5 hours (sequential) to 6 minutes (concurrent).
 #
 # 3. PARALLEL REPORT GENERATION:
-#    A sales dashboard generates summaries for 20 regions simultaneously. Each
-#    region's data is its own batch input, all processed in one `.batch()` call.
+#    - **Input**: Sales dashboard generating summaries for 20 regions.
+#    - **Step 1**: Packages each region's data as a separate batch input.
+#    - **Result**: Runs a single `.batch()` call to process all regions simultaneously.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

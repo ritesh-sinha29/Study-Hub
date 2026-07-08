@@ -117,12 +117,13 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. ENTERPRISE EMAIL AUTOPILOT:
-#    Connecting Gmail/Outlook MCP. The agent reads calendar slots, drafts email
-#    replies to meeting requests, and sends them out upon user approval.
+#    - **Step 1**: Connects Outlook MCP to read calendar slots.
+#    - **Step 2**: Drafts replies to meeting requests.
+#    - **Result**: Dispatches emails upon user approval.
 #
 # 2. FILE MANAGEMENT CO-PILOT:
-#    Bound to Google Drive/Notion MCP. The agent searches pages, summarizes documents,
-#    and updates spreadsheets directly.
+#    - **Step 1**: Connects Notion/Drive MCP tools.
+#    - **Result**: Searches pages, summarizes documents, and updates databases.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

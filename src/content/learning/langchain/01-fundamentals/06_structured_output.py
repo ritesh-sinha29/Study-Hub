@@ -215,19 +215,20 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. CUSTOMER REGISTRATION BOT:
-#    A WhatsApp chatbot asks users for signup info. Instead of parsing free text,
-#    `.with_structured_output(UserRegistration)` extracts name, email, DOB and
-#    immediately inserts the Pydantic object into the PostgreSQL users table.
+#    - **Input**: Unstructured free text from a WhatsApp signup message.
+#    - **Step 1**: Runs text through `.with_structured_output(UserRegistration)`.
+#    - **Result**: Extracts name, email, and DOB into a validated Pydantic object for DB insertion.
 #
 # 2. DOCUMENT INTELLIGENCE PIPELINE:
-#    Processing 10,000 insurance claim letters. Each letter is passed through a
-#    structured model that extracts: claimant_name, incident_date, damage_amount,
-#    policy_number. The output is directly inserted into a claims database.
+#    - **Input**: 10,000 scanned insurance claim letters.
+#    - **Step 1**: Passes each letter to a structured model.
+#    - **Step 2**: Extracts claimant_name, incident_date, damage_amount, and policy_number.
+#    - **Result**: Writes validated claims directly into the SQL database.
 #
 # 3. E-COMMERCE PRODUCT CATALOGING:
-#    Sellers submit unstructured product descriptions. A structured model extracts:
-#    product_name, brand, category, price, dimensions. Validated by Pydantic before
-#    publishing to the catalog API.
+#    - **Input**: Free-text product descriptions submitted by sellers.
+#    - **Step 1**: Extracts product_name, brand, category, price, and dimensions.
+#    - **Result**: Validates with Pydantic before publishing to catalog API.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

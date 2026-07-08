@@ -221,18 +221,19 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. LIVE INVENTORY CHECK:
-#    Customer asks: "Is the iPhone 15 Pro Max in stock in size 256GB?"
-#    Agent calls: `check_inventory(product="iPhone 15 Pro Max", storage="256GB")`
-#    Returns: "In stock: 47 units available."
+#    - **User asks**: "Is the iPhone 15 Pro Max in stock in size 256GB?"
+#    - **Agent calls**: check_inventory(product="iPhone 15 Pro Max", storage="256GB")
+#    - **Result**: Returns stock level of 47 units back to user.
 #
 # 2. CRM TICKET CREATION:
-#    Support agent hears: "Please raise a P1 ticket for the payment gateway outage."
-#    Agent calls: `create_ticket(severity="P1", description="Payment gateway outage")`
-#    Creates the Jira/ServiceNow ticket and returns the ticket ID.
+#    - **User says**: "Please raise a P1 ticket for the payment gateway outage."
+#    - **Agent calls**: create_ticket(severity="P1", description="Payment gateway outage")
+#    - **Result**: Creates ticket in Jira/ServiceNow and returns the ticket ID.
 #
 # 3. SMART HOME CONTROL:
-#    User says: "Turn off all the lights in the bedroom."
-#    Agent calls: `control_device(room="bedroom", device_type="lights", action="off")`
+#    - **User says**: "Turn off all the lights in the bedroom."
+#    - **Agent calls**: control_device(room="bedroom", device_type="lights", action="off")
+#    - **Result**: Dispatches control signals and returns completion status.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

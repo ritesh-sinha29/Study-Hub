@@ -261,23 +261,18 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. MULTI-CHANNEL CONTENT PUBLISHER:
-#    A blog post goes through 3 parallel branches:
-#    - Branch A: Writes a Twitter/X thread (280 chars per tweet)
-#    - Branch B: Writes a LinkedIn post (professional tone)
-#    - Branch C: Writes an email newsletter excerpt
-#    All three complete in the time of one single API call.
+#    - **Step 1**: Passes blog post draft through RunnableParallel.
+#    - **Step 2**: Branch A writes twitter_thread, Branch B LinkedIn post, Branch C newsletter.
+#    - **Result**: Executes all branches simultaneously in a single API call.
 #
 # 2. DOCUMENT COMPLIANCE SCANNER:
-#    A legal document is simultaneously analyzed for:
-#    - GDPR compliance issues
-#    - PII (personally identifiable information) presence
-#    - Readability score
-#    All run in parallel, results merged into a compliance report.
+#    - **Step 1**: Passes legal document through parallel evaluation branches.
+#    - **Step 2**: Evaluates GDPR compliance, PII presence, and text readability.
+#    - **Result**: Merges findings into a single compliance report.
 #
-# 3. RAG PIPELINE CONTEXT INJECTION (RunnablePassthrough.assign):
-#    The standard LangChain RAG chain uses Passthrough.assign:
-#      chain = RunnablePassthrough.assign(context=retriever) | prompt | llm | parser
-#    The user's question flows through, context is added, then the prompt is built.
+# 3. RAG PIPELINE CONTEXT INJECTION:
+#    - **Step 1**: Invokes RunnablePassthrough.assign(context=retriever).
+#    - **Result**: Automatically retrieves documents and formats the prompt payload.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

@@ -250,14 +250,14 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. DATABASE COPILOT:
-#    User asks: "Show me sales for Q3 in Mumbai."
-#    Agent calls: execute_sql_query(query="SELECT * FROM sales WHERE region='Mumbai' AND quarter='Q3'")
-#    Reads result, then formats it as a natural language summary.
+#    - **User asks**: "Show me sales for Q3 in Mumbai."
+#    - **Agent calls**: execute_sql_query(query="SELECT * from sales...")
+#    - **Result**: Reads query output and formats it as a natural language summary.
 #
 # 2. DEVOPS AUTOMATION AGENT:
-#    User says: "Check if the prod server is healthy."
-#    Agent calls: check_server_health(server="prod"), then log_event(msg="health checked")
-#    Parallel tool calls execute simultaneously. Agent synthesizes the final status report.
+#    - **User says**: "Check if the prod server is healthy."
+#    - **Agent calls**: check_server_health(server="prod") and log_event(msg="checked")
+#    - **Result**: Runs parallel tool calls and synthesizes status report.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

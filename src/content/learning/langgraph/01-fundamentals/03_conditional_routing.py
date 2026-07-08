@@ -220,22 +220,19 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. SUPPORT TICKET ROUTING:
-#    The classifier node calls an LLM to classify the ticket as:
-#    "billing" | "technical" | "account" | "general"
-#    Each category routes to a specialized agent with domain-specific tools.
-#    Billing agent has access to Stripe API; Technical agent has access to Jira.
+#    - **Node 1**: Classifier node calls model to tag ticket category.
+#    - **Routing**: Routes ticket to billing_agent, technical_agent, or account_agent.
+#    - **Result**: Selects specialized agent with Stripe API or Jira access.
 #
 # 2. FRAUD DETECTION PIPELINE:
-#    A risk scorer node outputs: "high_risk" | "medium_risk" | "low_risk"
-#    High-risk transactions → security_block_node (transaction frozen immediately)
-#    Medium-risk → human_review_node (goes to a queue for analyst review)
-#    Low-risk → approve_node (transaction cleared automatically)
+#    - **Node 1**: Risk scorer node outputs high_risk, medium_risk, or low_risk.
+#    - **Routing**: High-risk routes to block node; medium-risk routes to human review.
+#    - **Result**: Blocks fraudulent operations while clearing low-risk transactions.
 #
 # 3. HEALTHCARE TRIAGE BOT:
-#    If user describes chest pain / difficulty breathing:
-#      → emergency_alert_node (bypass LLM, immediately call emergency services)
-#    If general wellness question:
-#      → information_agent_node (standard LLM answer)
+#    - **Input**: User describes severe symptoms.
+#    - **Routing**: Routes severe cases to emergency alert node, bypassing the LLM.
+#    - **Result**: Dispatches immediate advice to call emergency services.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

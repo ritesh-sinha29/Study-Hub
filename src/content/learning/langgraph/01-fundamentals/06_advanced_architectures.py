@@ -218,21 +218,23 @@ if __name__ == "__main__":
 # ========================================================================================
 #
 # 1. AI PULL REQUEST REVIEWER:
-#    Orchestrator: Breaks the PR into: code_quality, test_coverage, security, documentation.
-#    Worker A: Code quality agent (uses pylint/flake8 tool)
-#    Worker B: Test coverage agent (runs pytest --cov)
-#    Worker C: Security scanner (SAST tool)
-#    Worker D: Docs checker (checks for missing docstrings)
-#    Synthesizer: Merges all reports into a GitHub PR comment.
+#    - **Orchestrator**: Breaks the pull request review into specific sub-tasks: code quality, test coverage, security, and documentation.
+#    - **Workers**: Individual agents analyze the code in parallel:
+#      - Worker A checks code quality using pylint/flake8.
+#      - Worker B runs tests and measures coverage (pytest --cov).
+#      - Worker C scans for security flaws using SAST tools.
+#      - Worker D verifies if any required docstrings are missing.
+#    - **Synthesizer**: Collects all reports and merges them into a single GitHub PR review comment.
 #
 # 2. TRAVEL ITINERARY BUILDER:
-#    User: "Plan a 5-day trip to Japan."
-#    Orchestrator subtasks: flights, hotels, tourist spots, local food, transportation
-#    Each worker calls a different API. Synthesizer builds the final travel plan PDF.
+#    - **Input**: User requests "Plan a 5-day trip to Japan."
+#    - **Orchestrator**: Creates sub-tasks for flights, hotels, tourist spots, local food, and transportation.
+#    - **Workers**: Concurrently call different APIs to retrieve options for each sub-task.
+#    - **Synthesizer**: Compiles all retrieved options and builds the final travel plan PDF.
 #
 # 3. DAILY MARKET INTELLIGENCE REPORT:
-#    Orchestrator assigns: news_scraper, stock_analyzer, competitor_tracker
-#    Workers run in parallel. Synthesizer compiles an executive summary email sent at 8am.
+#    - **Routing**: Orchestrator delegates tasks to scrapers and analysis workers.
+#    - **Result**: Workers run in parallel and compile daily report at 8 AM.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS

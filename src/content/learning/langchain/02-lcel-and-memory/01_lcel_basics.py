@@ -209,19 +209,18 @@ if __name__ == "__main__":
 # REAL-WORLD USE CASES
 # ========================================================================================
 #
-# 1. CUSTOMER TICKET CATEGORIZATION PIPELINE:
-#    Input: {"ticket_text": "My order hasn't arrived after 2 weeks."}
-#    Chain: classify_prompt | model | StrOutputParser()
-#    Output: "shipping_delay"  → auto-routes to fulfilment team
+# 1. CUSTOMER TICKET CATEGORIZATION:
+#    - **Input**: ticket_text containing customer complaint.
+#    - **Step 1**: Executes prompt | model | StrOutputParser() chain.
+#    - **Result**: Returns category like shipping_delay to route ticket.
 #
 # 2. MULTI-LANGUAGE DOCUMENT TRANSLATOR:
-#    Chain: translate_prompt | model | parser
-#    Batch: chain.batch([{"text": doc, "lang": "French"} for doc in documents])
-#    → Processes 100 documents concurrently in seconds
+#    - **Step 1**: Builds prompt | model | parser translation chain.
+#    - **Result**: Invokes chain.batch() to translate 100 documents concurrently.
 #
 # 3. CODE REVIEW ASSISTANT:
-#    chain = review_prompt | gpt4o | StrOutputParser()
-#    Streams the code review feedback token-by-token to a developer's IDE plugin.
+#    - **Step 1**: Builds review_prompt | gpt4o | StrOutputParser() chain.
+#    - **Result**: Calls `.stream()` to stream review feedback directly to IDE plugin.
 #
 # ========================================================================================
 # MNC INTERVIEW QUESTIONS & ANSWERS
