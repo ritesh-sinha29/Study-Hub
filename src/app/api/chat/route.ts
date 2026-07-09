@@ -180,7 +180,7 @@ export async function POST(req: Request) {
       // OpenAI model (commented out for future switch back)
       // model: openai('gpt-4o-mini'),
       // Alibaba Cloud Qwen model
-      model: qwen(process.env.QWEN_MODEL || 'qwen-turbo'),
+      model: qwen.chat(process.env.QWEN_MODEL || 'qwen-turbo'),
 
       system: "You are the Study-Hub AI assistant. You help users learn programming, software engineering, and computer science concepts across courses like Python, C++, Data Structures & Algorithms, FastAPI, LangChain, LangGraph, and more. Be helpful, concise, and use markdown for code. Default to short answers; give detailed explanations only when asked. Use the 'searchLocalCourses' tool for course-related questions, and the 'searchWeb' tool for general topics.",
       messages: formattedMessages,
