@@ -85,31 +85,31 @@
 # It replaces pip, pip-tools, pyenv, virtualenv, and poetry in a single binary.
 #
 # **WHY UV OVER PIP ?**
-#   - **10-100x faster** dependency resolution using a parallel resolver engine.
+#   - `10-100x faster` dependency resolution using a parallel resolver engine.
 #   - Built-in virtual environment management (no need for `venv` separately).
-#   - Deterministic lock files (uv.lock) like npm's package-lock.json.
+#   - Deterministic lock files (`uv.lock`) like npm's package-lock.json.
 #
 # **SETUP COMMANDS**:
 #
 # 1. Initialize a new project:
-#    **uv init**
+#    `uv init`
 #
 # 2. Create the virtual environment and install all dependencies:
-#    **uv sync**
+#    `uv sync`
 #
 # 3. Add a new package:
-#    **uv add langchain langchain-openai python-dotenv**
+#    `uv add langchain langchain-openai python-dotenv`
 #
 # 4. Run a Python script inside the virtual environment:
-#    **uv run python src/main.py**
+#    `uv run python src/main.py`
 #
 # 5. Add a development-only dependency (e.g. pytest):
-#    **uv add --dev pytest**
+#    `uv add --dev pytest`
 #
 # For this Study-Hub workspace, we use Poetry instead of UV, but the concepts
 # are identical. To add packages here:
-#    **poetry add langchain langchain-openai python-dotenv**
-#    **poetry run python <script_path>**
+#    `poetry add langchain langchain-openai python-dotenv`
+#    `poetry run python <script_path>`
 #
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # SECTION 5 — ENVIRONMENT VARIABLES & .env FILE
