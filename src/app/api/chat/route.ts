@@ -3,6 +3,7 @@ import { streamText, tool, isStepCount } from 'ai';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { searchLocalCourses } from '@/lib/knowledge-base';
+import { isAuthenticated } from '@/lib/auth-server';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -128,6 +129,14 @@ export async function POST(req: Request) {
     return new NextResponse(
       JSON.stringify({ error: 'Too many requests. Please try again in a minute.' }),
       { status: 429, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // Ensure user is signed in to use the AI chatbot
+  if (!(await isAuthenticated())) {
+    return new NextResponse(
+      JSON.stringify({ error: 'Sign in required to chat with the AI assistant.' }),
+      { status: 401, headers: { 'Content-Type': 'application/json' } }
     );
   }
 

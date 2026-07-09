@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { authClient } from "@/lib/auth-client";
 import {
   Dialog,
   DialogContent,
@@ -83,6 +84,9 @@ interface HelpSupportDialogProps {
 }
 
 export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDialogProps) {
+  const { data: sessionData, isPending: isSessionPending } = authClient.useSession();
+  const isAuthenticated = !!sessionData;
+
   const [internalOpen, setInternalOpen] = useState(false);
   const isOpen = open !== undefined ? open : internalOpen;
   const setIsOpen = onOpenChange !== undefined ? onOpenChange : setInternalOpen;
@@ -273,245 +277,298 @@ export function HelpSupportDialog({ trigger, open, onOpenChange }: HelpSupportDi
         </DialogHeader>
 
         <div className="w-full -mt-1.5 flex-1 flex flex-col min-h-0 focus:outline-none justify-between">
-          <div
-            ref={scrollContainerRef}
-            className="flex-1 overflow-y-auto pr-1 mb-3 space-y-3 min-h-0 select-none scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
-          >
-            {messages.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-center p-4 space-y-4 select-none">
-                <AIAssistantIcon className="h-9 w-9" />
-                <div className="space-y-1">
-                  <h4 className="text-base font-medium text-foreground">Study-Hub AI Assistant</h4>
-                </div>
-                <div className="flex flex-col gap-2 w-full max-w-[400px] pt-1">
-                  {[
-                    { label: "Ask anything about Study-Hub", query: "Help me get started and explain what I can do here." },
-                    { label: "Find course materials", query: "Where can I find the Python fundamentals course?" },
-                    { label: "Ask technical questions", query: "Can you explain what immutable means in Python?" },
-                    { label: "Know more features", query: "Tell me more about the platform's features." }
-                  ].map((item, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setInput(item.query)}
-                      className="flex items-center justify-between px-4 py-2.5 bg-muted/30 hover:bg-muted/60 border border-border/80 rounded-xl text-xs text-muted-foreground transition-all duration-200 cursor-pointer group hover:border-border"
-                    >
-                      <span className="font-medium text-foreground/80 group-hover:text-foreground transition-colors">{item.label}</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground/80 transition-colors" />
-                    </button>
-                  ))}
-                </div>
+          {isSessionPending ? (
+            <div className="flex flex-col items-center justify-center h-full text-center py-8">
+              <Loader2 className="w-6 h-6 animate-spin text-primary" />
+              <p className="mt-2 text-xs text-muted-foreground">Checking authentication...</p>
+            </div>
+          ) : !isAuthenticated ? (
+            <div className="flex flex-col items-center justify-center h-full text-center p-6 space-y-4 select-none">
+              <AIAssistantIcon className="h-10 w-10 text-primary animate-pulse" />
+              <div className="space-y-1">
+                <h4 className="text-sm font-semibold text-foreground">Sign In Required</h4>
+                <p className="text-xs text-muted-foreground max-w-[280px]">
+                  Please sign in with Google to chat with the Study-Hub AI assistant.
+                </p>
               </div>
-            ) : (
-              <div className="space-y-3 text-left animate-in fade-in-50 duration-200">
-                {messages.map((msg, idx) => {
-                  if (msg.role === "tool") {
-                    const isApproved = msg.content?.[0]?.result && !msg.content[0].result.includes("denied");
-                    return (
-                      <div key={idx} className="flex justify-start pl-7 text-[10px] text-muted-foreground items-center gap-1.5 py-1">
-                        <AIAssistantIcon className="size-3.5 opacity-70 animate-pulse text-indigo-500" />
-                        <span>
-                          {isApproved 
-                            ? `Searched the web for: "${msg.content[0].toolName}"` 
-                            : "Web search cancelled"}
-                        </span>
-                      </div>
-                    );
+              <Button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await authClient.signIn.social({
+                      provider: "google",
+                      callbackURL: window.location.href,
+                    });
+                  } catch (err) {
+                    console.error("Sign in failed:", err);
                   }
+                }}
+                className="flex items-center gap-2 px-4 py-2 text-xs bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl cursor-pointer"
+              >
+                <svg className="w-4 h-4 mr-1" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                  />
+                  <path
+                    fill="currentColor"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  />
+                </svg>
+                Sign In with Google
+              </Button>
+            </div>
+          ) : (
+            <>
+              <div
+                ref={scrollContainerRef}
+                className="flex-1 overflow-y-auto pr-1 mb-3 space-y-3 min-h-0 select-none scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent"
+              >
+                {messages.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-full text-center p-4 space-y-4 select-none">
+                    <AIAssistantIcon className="h-9 w-9" />
+                    <div className="space-y-1">
+                      <h4 className="text-base font-medium text-foreground">Study-Hub AI Assistant</h4>
+                    </div>
+                    <div className="flex flex-col gap-2 w-full max-w-[400px] pt-1">
+                      {[
+                        { label: "Ask anything about Study-Hub", query: "Help me get started and explain what I can do here." },
+                        { label: "Find course materials", query: "Where can I find the Python fundamentals course?" },
+                        { label: "Ask technical questions", query: "Can you explain what immutable means in Python?" },
+                        { label: "Know more features", query: "Tell me more about the platform's features." }
+                      ].map((item, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setInput(item.query)}
+                          className="flex items-center justify-between px-4 py-2.5 bg-muted/30 hover:bg-muted/60 border border-border/80 rounded-xl text-xs text-muted-foreground transition-all duration-200 cursor-pointer group hover:border-border"
+                        >
+                          <span className="font-medium text-foreground/80 group-hover:text-foreground transition-colors">{item.label}</span>
+                          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground/80 transition-colors" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-3 text-left animate-in fade-in-50 duration-200">
+                    {messages.map((msg, idx) => {
+                      if (msg.role === "tool") {
+                        const isApproved = msg.content?.[0]?.result && !msg.content[0].result.includes("denied");
+                        return (
+                          <div key={idx} className="flex justify-start pl-7 text-[10px] text-muted-foreground items-center gap-1.5 py-1">
+                            <AIAssistantIcon className="size-3.5 opacity-70 animate-pulse text-indigo-500" />
+                            <span>
+                              {isApproved 
+                                ? `Searched the web for: "${msg.content[0].toolName}"` 
+                                : "Web search cancelled"}
+                            </span>
+                          </div>
+                        );
+                      }
 
-                  const isUser = msg.role === "user";
-                  return (
-                    <div
-                      key={idx}
-                      className={cn(
-                        "flex w-full gap-2",
-                        isUser ? "justify-end" : "justify-start"
-                      )}
-                    >
-                      {!isUser && (
-                        <AIAssistantIcon className="h-5 w-5 shrink-0 mt-0.5 text-primary" />
-                      )}
-                      <div className="flex flex-col items-start">
+                      const isUser = msg.role === "user";
+                      return (
                         <div
+                          key={idx}
                           className={cn(
-                            "max-w-full rounded-2xl p-2 text-[11px] leading-relaxed break-words",
-                            isUser
-                              ? "bg-primary text-primary-foreground rounded-tr-none shadow-md"
-                              : "bg-muted/40 border border-border/80 text-foreground rounded-tl-none"
+                            "flex w-full gap-2",
+                            isUser ? "justify-end" : "justify-start"
                           )}
                         >
-                          {msg.content ? (
-                            <ReactMarkdown
-                              remarkPlugins={[remarkGfm]}
-                              components={{
-                                p: ({ children }) => <p className="mb-1.5 last:mb-0 leading-relaxed">{children}</p>,
-                                ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                                ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
-                                li: ({ children }) => <li className="leading-relaxed">{children}</li>,
-                                strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
-                                a: ({ href, children }) => (
-                                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                    {children}
-                                  </a>
-                                ),
-                                code: ({ className, children, ...props }: any) => {
-                                  const isInline = !className;
-                                  return isInline ? (
-                                    <code className="bg-muted px-1 py-0.5 rounded text-[10px] font-mono text-foreground">{children}</code>
-                                  ) : (
-                                    <pre className="bg-muted p-2 rounded-lg my-1.5 overflow-x-auto text-[10px] font-mono border border-border text-muted-foreground">
-                                      <code {...props}>{children}</code>
-                                    </pre>
+                          {!isUser && (
+                            <AIAssistantIcon className="h-5 w-5 shrink-0 mt-0.5 text-primary" />
+                          )}
+                          <div className="flex flex-col items-start">
+                            <div
+                              className={cn(
+                                "max-w-full rounded-2xl p-2 text-[11px] leading-relaxed break-words",
+                                isUser
+                                  ? "bg-primary text-primary-foreground rounded-tr-none shadow-md"
+                                  : "bg-muted/40 border border-border/80 text-foreground rounded-tl-none"
+                              )}
+                            >
+                              {msg.content ? (
+                                <ReactMarkdown
+                                  remarkPlugins={[remarkGfm]}
+                                  components={{
+                                    p: ({ children }) => <p className="mb-1.5 last:mb-0 leading-relaxed">{children}</p>,
+                                    ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
+                                    ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
+                                    li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+                                    strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+                                    a: ({ href, children }) => (
+                                      <a href={href} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                        {children}
+                                      </a>
+                                    ),
+                                    code: ({ className, children, ...props }: any) => {
+                                      const isInline = !className;
+                                      return isInline ? (
+                                        <code className="bg-muted px-1 py-0.5 rounded text-[10px] font-mono text-foreground">{children}</code>
+                                      ) : (
+                                        <pre className="bg-muted p-2 rounded-lg my-1.5 overflow-x-auto text-[10px] font-mono border border-border text-muted-foreground">
+                                          <code {...props}>{children}</code>
+                                        </pre>
+                                      );
+                                    }
+                                  }}
+                                >
+                                  {msg.content}
+                                </ReactMarkdown>
+                              ) : isLoading && msg.role !== "user" && !msg.content ? (
+                                <span className="flex items-center gap-1.5 font-medium text-shimmer">
+                                  Assistant is thinking...
+                                </span>
+                              ) : null}
+                            </div>
+
+                            {/* Tool calls outside the bubble */}
+                            {msg.toolCalls?.map((tc: any) => {
+                              const queryText = tc.args?.query || tc.input?.query || "";
+                              
+                              if (tc.name === "searchLocalCourses") {
+                                const isCompleted = msg.toolResults?.some((tr: any) => tr.id === tc.id);
+                                return (
+                                  <div key={tc.id} className="mt-2 p-2 rounded-xl border border-border bg-muted/20 text-[10px] flex items-center gap-2">
+                                    {isCompleted ? (
+                                      <>
+                                        <Check className="size-3.5 text-green-500 shrink-0" />
+                                        <span className="text-muted-foreground">Searched local course materials: "{queryText}"</span>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <Loader2 className="size-3.5 animate-spin text-primary shrink-0" />
+                                        <span className="text-foreground font-medium">Searching local course materials: "{queryText}"...</span>
+                                      </>
+                                    )}
+                                  </div>
+                                );
+                              }
+
+                              if (tc.name === "searchWeb") {
+                                const decision = toolDecisions[tc.id];
+                                if (!decision) {
+                                  return (
+                                    <div key={tc.id} className="mt-2 p-2 rounded-xl border border-indigo-150 dark:border-indigo-900/60 bg-indigo-50/40 dark:bg-indigo-950/20 text-[10px] space-y-2">
+                                      <div className="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-400 font-semibold">
+                                        <AIAssistantIcon className="size-3.5" />
+                                        <span>Web Search: "{queryText}"</span>
+                                      </div>
+                                      <p className="text-muted-foreground leading-normal">
+                                        I need to search the web to retrieve this information.
+                                      </p>
+                                      <div className="flex gap-1.5 pt-0.5">
+                                        <Button
+                                          size="sm"
+                                          type="button"
+                                          onClick={() => handleToolApproval(idx, tc, true)}
+                                          className="h-6 px-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-[9.5px] cursor-pointer"
+                                        >
+                                          Approve Search
+                                        </Button>
+                                        <Button
+                                          size="sm"
+                                          type="button"
+                                          variant="outline"
+                                          onClick={() => handleToolApproval(idx, tc, false)}
+                                          className="h-6 px-2.5 text-[9.5px] rounded-md border-indigo-200 hover:bg-indigo-50/50 dark:border-indigo-900 cursor-pointer text-foreground"
+                                        >
+                                          Deny
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  );
+                                } else {
+                                  return (
+                                    <div key={tc.id} className="mt-2 text-[9.5px] text-muted-foreground italic flex items-center gap-1">
+                                      <span>
+                                        {decision === "approved" 
+                                          ? `✓ Web search approved ("${queryText}")`
+                                          : `✗ Web search denied`
+                                        }
+                                      </span>
+                                    </div>
                                   );
                                 }
-                              }}
-                            >
-                              {msg.content}
-                            </ReactMarkdown>
-                          ) : isLoading && msg.role !== "user" && !msg.content ? (
-                            <span className="flex items-center gap-1.5 font-medium text-shimmer">
-                              Assistant is thinking...
-                            </span>
-                          ) : null}
+                              }
+                              return null;
+                            })}
+
+                            {/* Copy button outside bubble, below content */}
+                            {!isUser && msg.content && (
+                              <CopyButton text={msg.content} />
+                            )}
+                          </div>
+                          {isUser && (
+                            <Avatar className="h-6 w-6 border border-border shrink-0 mt-0.5">
+                              <AvatarFallback className="text-[9px] font-semibold bg-muted text-muted-foreground flex items-center justify-center">
+                                <User className="h-3 w-3 text-muted-foreground" />
+                              </AvatarFallback>
+                            </Avatar>
+                          )}
                         </div>
-
-                        {/* Tool calls outside the bubble */}
-                        {msg.toolCalls?.map((tc: any) => {
-                          const queryText = tc.args?.query || tc.input?.query || "";
-                          
-                          if (tc.name === "searchLocalCourses") {
-                            const isCompleted = msg.toolResults?.some((tr: any) => tr.id === tc.id);
-                            return (
-                              <div key={tc.id} className="mt-2 p-2 rounded-xl border border-border bg-muted/20 text-[10px] flex items-center gap-2">
-                                {isCompleted ? (
-                                  <>
-                                    <Check className="size-3.5 text-green-500 shrink-0" />
-                                    <span className="text-muted-foreground">Searched local course materials: "{queryText}"</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <Loader2 className="size-3.5 animate-spin text-primary shrink-0" />
-                                    <span className="text-foreground font-medium">Searching local course materials: "{queryText}"...</span>
-                                  </>
-                                )}
-                              </div>
-                            );
-                          }
-
-                          if (tc.name === "searchWeb") {
-                            const decision = toolDecisions[tc.id];
-                            if (!decision) {
-                              return (
-                                <div key={tc.id} className="mt-2 p-2 rounded-xl border border-indigo-150 dark:border-indigo-900/60 bg-indigo-50/40 dark:bg-indigo-950/20 text-[10px] space-y-2">
-                                  <div className="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-400 font-semibold">
-                                    <AIAssistantIcon className="size-3.5" />
-                                    <span>Web Search: "{queryText}"</span>
-                                  </div>
-                                  <p className="text-muted-foreground leading-normal">
-                                    I need to search the web to retrieve this information.
-                                  </p>
-                                  <div className="flex gap-1.5 pt-0.5">
-                                    <Button
-                                      size="sm"
-                                      type="button"
-                                      onClick={() => handleToolApproval(idx, tc, true)}
-                                      className="h-6 px-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-[9.5px] cursor-pointer"
-                                    >
-                                      Approve Search
-                                    </Button>
-                                    <Button
-                                      size="sm"
-                                      type="button"
-                                      variant="outline"
-                                      onClick={() => handleToolApproval(idx, tc, false)}
-                                      className="h-6 px-2.5 text-[9.5px] rounded-md border-indigo-200 hover:bg-indigo-50/50 dark:border-indigo-900 cursor-pointer text-foreground"
-                                    >
-                                      Deny
-                                    </Button>
-                                  </div>
-                                </div>
-                              );
-                            } else {
-                              return (
-                                <div key={tc.id} className="mt-2 text-[9.5px] text-muted-foreground italic flex items-center gap-1">
-                                  <span>
-                                    {decision === "approved" 
-                                      ? `✓ Web search approved ("${queryText}")`
-                                      : `✗ Web search denied`
-                                    }
-                                  </span>
-                                </div>
-                              );
-                            }
-                          }
-                          return null;
-                        })}
-
-                        {/* Copy button outside bubble, below content */}
-                        {!isUser && msg.content && (
-                          <CopyButton text={msg.content} />
-                        )}
-                      </div>
-                      {isUser && (
-                        <Avatar className="h-6 w-6 border border-border shrink-0 mt-0.5">
-                          <AvatarFallback className="text-[9px] font-semibold bg-muted text-muted-foreground flex items-center justify-center">
-                            <User className="h-3 w-3 text-muted-foreground" />
-                          </AvatarFallback>
-                        </Avatar>
-                      )}
-                    </div>
-                  );
-                })}
+                      );
+                    })}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="relative flex items-center gap-1.5 bg-background border border-border rounded-md p-1 focus-within:border-primary/50"
-          >
-            {messages.length > 0 && (
-              <Button
-                type="button"
-                onClick={clear}
-                variant="ghost"
-                size="icon"
-                className="h-7 w-7 text-muted-foreground hover:text-foreground hover:bg-muted/40 rounded-md shrink-0 flex items-center justify-center cursor-pointer transition-colors"
-                title="Clear chat history"
+              <form
+                onSubmit={handleSubmit}
+                className="relative flex items-center gap-1.5 bg-background border border-border rounded-md p-1 focus-within:border-primary/50"
               >
-                <Trash2 className="h-3.5 w-3.5" />
-              </Button>
-            )}
-            <Input
-              type="text"
-              placeholder="Ask assistant anything..."
-              value={input}
-              onChange={handleInputChange}
-              disabled={isLoading}
-              className="bg-transparent! border-none! text-foreground placeholder:text-muted-foreground h-8 text-xs focus-visible:ring-0! flex-1 outline-none pr-2"
-            />
-            {isLoading ? (
-              <Button
-                type="button"
-                onClick={() => {}}
-                size="icon"
-                className="h-7 w-7 bg-destructive/10 hover:bg-destructive/20 text-destructive border border-destructive/20 rounded-md shrink-0 flex items-center justify-center cursor-pointer transition-colors"
-                title="Stop generating"
-              >
-                <Square className="h-3 w-3 fill-destructive" />
-              </Button>
-            ) : (
-              <Button
-                type="submit"
-                size="icon"
-                disabled={!input.trim()}
-                className="h-7 w-7 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md shrink-0 flex items-center justify-center cursor-pointer disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed transition-colors"
-                title="Send message"
-              >
-                <Send className="h-3.5 w-3.5" />
-              </Button>
-            )}
-          </form>
+                {messages.length > 0 && (
+                  <Button
+                    type="button"
+                    onClick={clear}
+                    variant="ghost"
+                    size="icon"
+                    className="h-7 w-7 text-muted-foreground hover:text-foreground hover:bg-muted/40 rounded-md shrink-0 flex items-center justify-center cursor-pointer transition-colors"
+                    title="Clear chat history"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+                <Input
+                  type="text"
+                  placeholder="Ask assistant anything..."
+                  value={input}
+                  onChange={handleInputChange}
+                  disabled={isLoading}
+                  className="bg-transparent! border-none! text-foreground placeholder:text-muted-foreground h-8 text-xs focus-visible:ring-0! flex-1 outline-none pr-2"
+                />
+                {isLoading ? (
+                  <Button
+                    type="button"
+                    onClick={() => {}}
+                    size="icon"
+                    className="h-7 w-7 bg-destructive/10 hover:bg-destructive/20 text-destructive border border-destructive/20 rounded-md shrink-0 flex items-center justify-center cursor-pointer transition-colors"
+                    title="Stop generating"
+                  >
+                    <Square className="h-3 w-3 fill-destructive" />
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    size="icon"
+                    disabled={!input.trim()}
+                    className="h-7 w-7 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md shrink-0 flex items-center justify-center cursor-pointer disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed transition-colors"
+                    title="Send message"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                  </Button>
+                )}
+              </form>
+            </>
+          )}
         </div>
       </DialogContent>
     </Dialog>
