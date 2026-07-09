@@ -222,6 +222,7 @@ function processTextLines(lines: string[]): string {
     const trimmed = line.trim();
     if (!trimmed) return false;
     if (/^[-*+]\s+/.test(trimmed) || /^\d+\.\s+/.test(trimmed)) return true;
+    if (/^[A-Za-z0-9_-]+\s*=\s*/.test(trimmed)) return true;
     if (/^(Node|Step|Task|Stage|State holds|Conditional edges|Benefit|Routing|Input|Output|DEFAULT REDUCER|CUSTOM REDUCER|METHOD [A-Z]|User asks|User says|Agent calls|Reads result|Code|Edges|Condition|Result)\s*\d*:\s*/i.test(trimmed)) return true;
     if (index > 0) {
       const firstLineIndent = lines[0].match(/^(\s*)/)?.[1].length || 0;
